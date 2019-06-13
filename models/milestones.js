@@ -32,6 +32,13 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.BOOLEAN,
             allowNull: false,
             defaultValue: false
+        },
+        notes: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            validate: {
+                len: [2, 300]
+            }
         }
 
     });
@@ -49,5 +56,6 @@ module.exports = function (sequelize, DataTypes) {
         })
     }
 
+    return Milestone;
 
 }
