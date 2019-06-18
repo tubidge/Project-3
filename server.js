@@ -13,6 +13,7 @@ app.use(express.static("public"))
 require('./routes/userRoutes')(app);
 require('./routes/goalRoutes')(app);
 require('./routes/milestoneRoutes')(app);
+require('./routes/buddyRoutes')(app);
 
 var syncOptions = {
     force: false

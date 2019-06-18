@@ -1,5 +1,6 @@
-var user = require('../controller/userQueries');
-
+const user = require('../controller/userQueries');
+const buddy = require('../controller/buddyQueries');
+const helper = require('../utils/helperFunctions')
 
 module.exports = app => {
 
@@ -33,6 +34,7 @@ module.exports = app => {
 
     app.get('/user/:id', (req, res) => {
         user.findUser(req.params.id).then(data => {
+
             res.json(data)
         }).catch(err => {
             res.send(err)
