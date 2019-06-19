@@ -15,7 +15,6 @@ module.exports = {
                 email: email,
                 password: password
             }).then(resp => {
-
                 console.log(resp)
                 resolve(resp)
             }).catch(err => {
@@ -155,8 +154,6 @@ module.exports = {
 
                                         user.buddies[3].buddy.users = resp[0].dataValues.Users;
                                         user.buddies[3].buddy.buddyGoals = resp[0].dataValues.BuddyGoals;
-
-
                                     }).catch(err => {
                                         console.log(err)
                                     })
@@ -170,10 +167,8 @@ module.exports = {
                                 } else {
                                     await buddyQuery.getBuddyGoalFive(buddy.buddy.id).then(resp => {
 
-
                                         user.buddies[4].buddy.users = resp[0].dataValues.Users;
                                         user.buddies[4].buddy.buddyGoals = resp[0].dataValues.BuddyGoals;
-
 
                                     }).catch(err => {
                                         console.log(err)
