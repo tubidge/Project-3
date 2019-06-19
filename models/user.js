@@ -88,33 +88,8 @@ module.exports = (sequelize, DataTypes) => {
         User.hasMany(model.Milestones, {
             onDelete: 'cascade'
         });
-        User.hasMany(model.BuddyGoal, {
+        User.hasMany(model.Buddy, {
             onDelete: 'cascade'
-        });
-        User.belongsTo(model.BuddyOne, {
-            foreignKey: {
-                allowNull: true
-            }
-        });
-        User.belongsTo(model.BuddyTwo, {
-            foreignKey: {
-                allowNull: true
-            }
-        });
-        User.belongsTo(model.BuddyThree, {
-            foreignKey: {
-                allowNull: true
-            }
-        });
-        User.belongsTo(model.BuddyFour, {
-            foreignKey: {
-                allowNull: true
-            }
-        });
-        User.belongsTo(model.BuddyFive, {
-            foreignKey: {
-                allowNull: true
-            }
         })
     }
 

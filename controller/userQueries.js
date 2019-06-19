@@ -1,6 +1,6 @@
 const db = require('../models');
-const buddyQuery = require('../controller/buddyQueries');
 const helper = require('../utils/helperFunctions');
+const moment = require('moment');
 
 module.exports = {
 
@@ -20,7 +20,6 @@ module.exports = {
             }).catch(err => {
                 reject(err)
             })
-
 
         })
     },
@@ -48,143 +47,138 @@ module.exports = {
                 where: {
                     id: id
                 },
-                include: [db.Goals, db.Milestones]
+                include: [db.Goals, db.Milestones, db.Buddy]
             }).then(resp => {
 
                 console.log('query')
-                console.log(resp[0].dataValues.firstName)
+                console.log(resp[0].dataValues.Milestones)
                 const data = resp[0].dataValues;
                 const user = {
                     firstName: data.firstName,
                     lastName: data.lastName,
                     username: data.username,
                     email: data.email,
-                    buddies: [{
-                        buddy: {
-                            buddyNum: 'buddyOne',
-                            id: data.BuddyOneId
-                        }
-                    }, {
-                        buddy: {
-                            buddyNum: 'buddyTwo',
-                            id: data.BuddyTwoId
-                        }
-                    }, {
-                        buddy: {
-                            buddyNum: 'buddyThree',
-                            id: data.BuddyThreeId
-                        }
-                    }, {
-                        buddy: {
-                            buddyNum: 'buddyFour',
-                            id: data.BuddyFourId
-                        }
-                    }, {
-                        buddy: {
-                            buddyNum: 'buddyFive',
-                            id: data.BuddyFiveId
-                        }
-                    }],
-                    goals: data.Goals,
-                    milestones: data.Milestones
+                    buddies: [],
+                    activeGoals: {
+                        completed: [],
+                        incomplete: []
+                    },
+                    activeMilestones: {
+                        completed: [],
+                        incomplete: []
+                    },
+                    pastGoals: {
+                        completed: [],
+                        incomplete: []
+                    },
+                    pastMilestones: {
+                        completed: [],
+                        incomplete: []
+                    }
                 }
 
-
-                const getBuddies = () => {
-                    helper.asyncForEach(user.buddies, async buddy => {
-                        switch (buddy.buddy.buddyNum) {
-                            case 'buddyOne':
-                                if (buddy.buddy.id === null) {
-                                    user.buddies[0].buddy.users = null;
-                                    user.buddies[0].buddy.buddyGoals = null;
-                                    return false;
-                                } else {
-                                    await buddyQuery.getBuddyOneGoal(buddy.buddy.id).then(resp => {
-
-
-                                        user.buddies[0].buddy.users = resp[0].dataValues.Users;
-                                        user.buddies[0].buddy.buddyGoals = resp[0].dataValues.BuddyGoals;
-
-                                    }).catch(err => {
-                                        console.log(err)
-                                    })
-                                }
-
-                                break;
-                            case 'buddyTwo':
-                                if (buddy.buddy.id === null) {
-                                    user.buddies[1].buddy.users = null;
-                                    user.buddies[1].buddy.buddyGoals = null;
-                                    return false
-                                } else {
-                                    await buddyQuery.getBuddyTwoGoal(buddy.buddy.id).then(resp => {
-
-                                        user.buddies[1].buddy.users = resp[0].dataValues.Users;
-                                        user.buddies[1].buddy.buddyGoals = resp[0].dataValues.BuddyGoals;
-
-                                    }).catch(err => {
-                                        console.log(err)
-                                    })
-                                }
-                                break;
-                            case 'buddyThree':
-                                if (buddy.buddy.id === null) {
-                                    user.buddies[2].buddy.users = null;
-                                    user.buddies[2].buddy.buddyGoals = null;
-                                    return false
-                                } else {
-                                    await buddyQuery.getBuddyGoalThree(buddy.buddy.id).then(resp => {
-
-                                        user.buddies[2].buddy.users = resp[0].dataValues.Users;
-                                        user.buddies[2].buddy.buddyGoals = resp[0].dataValues.BuddyGoals;
-
-                                        console.log(user.buddies)
-                                    }).catch(err => {
-                                        console.log(err)
-                                    })
-                                }
-                                break;
-                            case 'buddyFour':
-                                if (buddy.buddy.id === null) {
-                                    user.buddies[3].buddy.users = null;
-                                    user.buddies[3].buddy.buddyGoals = null;
-                                    return false
-                                } else {
-                                    await buddyQuery.getBuddyGoalFour(buddy.buddy.id).then(resp => {
-
-                                        user.buddies[3].buddy.users = resp[0].dataValues.Users;
-                                        user.buddies[3].buddy.buddyGoals = resp[0].dataValues.BuddyGoals;
-                                    }).catch(err => {
-                                        console.log(err)
-                                    })
-                                }
-                                break;
-                            case 'buddyFive':
-                                if (buddy.buddy.id === null) {
-                                    user.buddies[4].buddy.users = null;
-                                    user.buddies[4].buddy.buddyGoals = null;
-                                    return false;
-                                } else {
-                                    await buddyQuery.getBuddyGoalFive(buddy.buddy.id).then(resp => {
-
-                                        user.buddies[4].buddy.users = resp[0].dataValues.Users;
-                                        user.buddies[4].buddy.buddyGoals = resp[0].dataValues.BuddyGoals;
-
-                                    }).catch(err => {
-                                        console.log(err)
-                                    })
-                                }
-                                break;
+                if (data.Buddies.length > 0) {
+                    data.Buddies.forEach(index => {
+                        if (index.dataValues.active) {
+                            const buddy = {};
+                            buddy.id = index.dataValues.id;
+                            buddy.duration = index.dataValues.duration;
+                            buddy.active = index.dataValues.active;
+                            buddy.buddyId = index.dataValues.buddyId;
+                            buddy.goalId = index.dataValues.GoalId;
+                            buddy.ownerId = index.dataValues.UserId;
+                            user.buddies.push(buddy)
+                        } else {
+                            return false
                         }
-
-                    }).then(() => {
-                        resolve(user)
                     })
                 }
 
+                if (data.Goals.length > 0) {
 
-                getBuddies()
+                    data.Goals.forEach(index => {
+                        let date = moment().format('YYYY-MM-DD');
 
+                        let goalDate = moment(index.dataValues.dueDate).add('1', 'day').format('YYYY-MM-DD');
+                        if (moment(goalDate).isAfter(date)) {
+
+                            const goal = {};
+                            goal.id = index.dataValues.id;
+                            goal.name = index.dataValues.name;
+                            goal.category = index.dataValues.category;
+                            goal.description = index.dataValues.description;
+                            goal.dueDate = moment(index.dataValues.dueDate).add('1', 'day').format('YYYY-MM-DD');
+                            goal.private = index.dataValues.private;
+                            goal.complete = index.dataValues.complete;
+                            goal.userId = index.dataValues.UserId;
+                            if (goal.complete) {
+                                user.activeGoals.completed.push(goal)
+                            } else {
+                                user.activeGoals.incomplete.push(goal)
+                            }
+                        } else {
+
+                            const goal = {};
+                            goal.id = index.dataValues.id;
+                            goal.name = index.dataValues.name;
+                            goal.category = index.dataValues.category;
+                            goal.description = index.dataValues.description;
+                            goal.dueDate = moment(index.dataValues.dueDate).add('1', 'day').format('YYYY-MM-DD');
+                            goal.private = index.dataValues.private;
+                            goal.complete = index.dataValues.complete;
+                            goal.userId = index.dataValues.UserId;
+                            if (goal.complete) {
+                                user.pastGoals.completed.push(goal)
+                            } else {
+                                user.pastGoals.incomplete.push(goal)
+                            }
+                        }
+                    })
+                }
+
+                if (data.Milestones.length > 0) {
+                    data.Milestones.forEach(index => {
+                        let date = moment().format('YYYY-MM-DD');
+                        let milestoneDate = moment(index.dataValues.dueDate).add('1', 'day').format('YYYY-MM-DD');
+
+                        if (moment(milestoneDate).isAfter(date)) {
+                            const milestone = {};
+                            milestone.id = index.dataValues.id;
+                            milestone.name = index.dataValues.name;
+                            milestone.frequency = index.dataValues.frequency;
+                            milestone.dueDate = moment(index.dataValues.dueDate).add('1', 'day').format('YYYY-MM-DD');
+                            milestone.completed = index.dataValues.completed;
+                            milestone.notes = index.dataValues.notes;
+                            milestone.goalId = index.dataValues.GoalId;
+                            milestone.userId = index.dataValues.UserId;
+
+                            if (milestone.completed) {
+                                user.activeMilestones.completed.push(milestone)
+                            } else {
+                                user.activeMilestones.incomplete.push(milestone)
+                            }
+                        } else {
+                            const milestone = {};
+                            milestone.id = index.dataValues.id;
+                            milestone.name = index.dataValues.name;
+                            milestone.frequency = index.dataValues.frequency;
+                            milestone.dueDate = moment(index.dataValues.dueDate).add('1', 'day').format('YYYY-MM-DD');
+                            milestone.completed = index.dataValues.completed;
+                            milestone.notes = index.dataValues.notes;
+                            milestone.goalId = index.dataValues.GoalId;
+                            milestone.userId = index.dataValues.UserId;
+
+                            if (milestone.completed) {
+                                user.pastMilestones.completed.push(milestone)
+                            } else {
+                                user.pastMilestones.incomplete.push(milestone)
+                            }
+                        }
+                    })
+
+                }
+
+                resolve(user)
             }).catch(err => {
                 reject(err)
             })

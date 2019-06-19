@@ -2,33 +2,31 @@ var db = require('../models');
 
 module.exports = {
 
-    getBuddyGoalOwner: id => {
+    getBuddyId: id => {
         return new Promise((resolve, reject) => {
-            db.BuddyGoal.findAll({
+            db.Buddy.findAll({
                 where: {
-                    id: id
-                },
-                include: [db.User]
+                    buddyId: id
+                }
             }).then(resp => {
+                console.log(resp)
 
                 resolve(resp)
-            }).then(err => {
+            }).catch(err => {
                 reject(err)
             })
-
 
         })
     },
 
-    getBuddyOneGoal: id => {
+    getById: id => {
         return new Promise((resolve, reject) => {
-            db.BuddyOne.findAll({
+            db.Buddy.findAll({
                 where: {
                     id: id
-                },
-                include: [db.User, db.BuddyGoal]
+                }
             }).then(resp => {
-
+                console.log(resp)
 
                 resolve(resp)
             }).catch(err => {
@@ -37,32 +35,14 @@ module.exports = {
         })
     },
 
-    getBuddyTwoGoal: id => {
+    getByOwner: id => {
         return new Promise((resolve, reject) => {
-            db.BuddyTwo.findAll({
+            db.Buddy.findAll({
                 where: {
-                    id: id
-                },
-                include: [db.User, db.BuddyGoal]
+                    UserId: id
+                }
             }).then(resp => {
-
-                resolve(resp)
-            }).catch(err => {
-
-                reject(err)
-            })
-        })
-    },
-
-    getBuddyGoalThree: id => {
-        return new Promise((resolve, reject) => {
-            db.BuddyThree.findAll({
-                where: {
-                    id: id
-                },
-                include: [db.User, db.BuddyGoal]
-            }).then(resp => {
-
+                console.log(resp)
 
                 resolve(resp)
             }).catch(err => {
@@ -71,15 +51,14 @@ module.exports = {
         })
     },
 
-    getBuddyGoalFour: id => {
+    getByGoal: id => {
         return new Promise((resolve, reject) => {
-            db.BuddyFour.findAll({
+            db.Buddy.findAll({
                 where: {
-                    id: id
-                },
-                include: [db.User, db.BuddyGoal]
+                    GoalId: id
+                }
             }).then(resp => {
-
+                console.log(resp)
 
                 resolve(resp)
             }).catch(err => {
@@ -88,15 +67,26 @@ module.exports = {
         })
     },
 
-    getBuddyGoalFive: id => {
+    addBuddyRelation: (newBuddy) => {
         return new Promise((resolve, reject) => {
-            db.BuddyFive.findAll({
+            db.Buddy.create(newBuddy).then(resp => {
+                console.log(resp)
+
+                resolve(resp);
+            }).catch(err => {
+                reject(err)
+            })
+        })
+    },
+
+    deleteBuddyRelation: id => {
+        return new Promise((resolve, reject) => {
+            db.Buddy.destroy({
                 where: {
                     id: id
-                },
-                include: [db.User, db.BuddyGoal]
+                }
             }).then(resp => {
-
+                console.log(resp)
 
                 resolve(resp)
             }).catch(err => {
@@ -104,7 +94,6 @@ module.exports = {
             })
         })
     }
-
 
 
 }
