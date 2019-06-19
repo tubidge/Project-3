@@ -20,22 +20,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                notEmpty: true,
-                isUnique: function (value, next) {
-                    User.find({
-                        where: {
-                            username: value
-                        }
-                    }).then(user => {
-                        if (user) {
-                            return next('Username already in use!')
-                        }
-                        next()
-                    }).catch(err => {
-                        next(err)
-                    })
-
-                }
+                notEmpty: true
             }
         },
 
@@ -45,20 +30,7 @@ module.exports = (sequelize, DataTypes) => {
             validate: {
                 notEmpty: true,
                 isEmail: true,
-                isUnique: function (value, next) {
-                    User.find({
-                        where: {
-                            email: value
-                        }
-                    }).then(user => {
-                        if (user) {
-                            return next('Email already in use!')
-                        }
-                        next()
-                    }).catch(err => {
-                        next(err)
-                    })
-                }
+
             }
         },
 
