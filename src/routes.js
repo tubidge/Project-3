@@ -3,6 +3,7 @@ import { Route, Router } from "react-router-dom";
 import App from "./App";
 import Home from "./Home";
 import Secret from "./Secret";
+import Profile from "./Profile";
 import Callback from "./Callback";
 import Auth from "./Auth/Auth";
 import history from "./history";
@@ -24,6 +25,12 @@ export const makeMainRoutes = () => {
         <Route
           path="/secret"
           render={props => <Secret auth={auth} {...props} />}
+        />
+        <Route
+          path="/profile"
+          render={props => (
+            <Profile auth={auth} {...props} newProp={"this is a prop"} />
+          )}
         />
         <Route
           path="/callback"

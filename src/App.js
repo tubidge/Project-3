@@ -67,6 +67,13 @@ class App extends Component {
             >
               Secret
             </Button>
+            <Button
+              bsStyle="success"
+              className="btn-margin"
+              onClick={this.goTo.bind(this, "profile")}
+            >
+              Profile
+            </Button>
           </Navbar.Header>
         </Navbar>
       </div>

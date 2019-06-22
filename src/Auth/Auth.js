@@ -1,5 +1,6 @@
 import history from "../history";
 import auth0 from "auth0-js";
+import jwtDecode from "jwt-decode";
 import { AUTH_CONFIG } from "./auth0-variables";
 
 export default class Auth {
@@ -12,7 +13,7 @@ export default class Auth {
     clientID: AUTH_CONFIG.clientID,
     redirectUri: AUTH_CONFIG.callbackUrl,
     responseType: "token id_token",
-    scope: "openid"
+    scope: "openid profile"
   });
 
   constructor() {
@@ -23,6 +24,7 @@ export default class Auth {
     this.getAccessToken = this.getAccessToken.bind(this);
     this.getIdToken = this.getIdToken.bind(this);
     this.renewSession = this.renewSession.bind(this);
+    this.getProfile = this.getProfile.bind(this);
   }
 
   login() {
@@ -58,6 +60,7 @@ export default class Auth {
     this.accessToken = authResult.accessToken;
     this.idToken = authResult.idToken;
     this.expiresAt = expiresAt;
+    this.getProfile(this.idToken);
 
     // navigate to the home route
     history.replace("/home");
@@ -75,6 +78,29 @@ export default class Auth {
         );
       }
     });
+  }
+
+  user = {
+    name: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    picture: ""
+  };
+
+  getProfile() {
+    if (this.idToken) {
+      let userInfoDecoded = jwtDecode(this.idToken);
+      this.user = {
+        name: userInfoDecoded.name,
+        firstName: userInfoDecoded.given_name,
+        lastName: userInfoDecoded.family_name,
+        email: `${userInfoDecoded.nickname}@gmail.com`,
+        picture: userInfoDecoded.picture
+      };
+      console.log(this.user);
+      return this.user;
+    } else return "No user found.";
   }
 
   logout() {

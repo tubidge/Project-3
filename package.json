@@ -8,11 +8,13 @@
     "dependencies": {
         "auth0-js": "^9.0.0",
         "bootstrap": "^3.3.7",
+        "history": "^4.9.0",
+        "jwt-decode": "^2.2.0",
         "react": "^16.8.6",
         "react-bootstrap": "^0.31.2",
         "react-dom": "^16.8.6",
         "react-router": "^5.0.0",
-        "react-router-dom": "^5.0.0"
+        "react-router-dom": "^5.0.1"
     },
     "scripts": {
         "start": "react-scripts start",
