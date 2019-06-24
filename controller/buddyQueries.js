@@ -18,6 +18,7 @@ module.exports = {
                         id: index.dataValues.id,
                         duration: index.dataValues.duration,
                         buddyId: index.dataValues.buddyId,
+                        active: index.dataValues.active,
                         goalId: index.dataValues.GoalId,
                         ownerId: index.dataValues.UserId
 
@@ -51,6 +52,7 @@ module.exports = {
                     duration: resp[0].dataValues.duration,
                     buddyId: resp[0].dataValues.buddyId,
                     goalId: resp[0].dataValues.GoalId,
+                    active: resp[0].dataValues.active,
                     ownerId: resp[0].dataValues.UserId
 
                 }
@@ -81,6 +83,7 @@ module.exports = {
                         id: index.dataValues.id,
                         duration: index.dataValues.duration,
                         buddyId: index.dataValues.buddyId,
+                        active: index.dataValues.active,
                         goalId: index.dataValues.GoalId,
                         ownerId: index.dataValues.UserId
 
@@ -112,6 +115,7 @@ module.exports = {
                         id: index.dataValues.id,
                         duration: index.dataValues.duration,
                         buddyId: index.dataValues.buddyId,
+                        active: index.dataValues.active,
                         goalId: index.dataValues.GoalId,
                         ownerId: index.dataValues.UserId
 
