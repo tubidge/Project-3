@@ -10,7 +10,6 @@ module.exports = {
                 },
                 include: [db.User]
             }).then(resp => {
-<<<<<<< HEAD
                 const results = [];
                 resp.forEach(index => {
 
@@ -23,8 +22,6 @@ module.exports = {
                         ownerId: index.dataValues.UserId
 
                     }
-=======
->>>>>>> c381db9057590cd6da0ab8f111498b2b8bf4aabc
 
                 resolve(resp)
             }).then(err => {
@@ -45,7 +42,6 @@ module.exports = {
             }).then(resp => {
 
 
-<<<<<<< HEAD
 
                 const buddy = {
                     id: resp[0].dataValues.id,
@@ -60,9 +56,6 @@ module.exports = {
 
 
                 resolve(buddy)
-=======
-                resolve(resp)
->>>>>>> c381db9057590cd6da0ab8f111498b2b8bf4aabc
             }).catch(err => {
                 reject(err)
             })
@@ -78,7 +71,6 @@ module.exports = {
                 include: [db.User, db.BuddyGoal]
             }).then(resp => {
 
-<<<<<<< HEAD
                 const results = [];
                 resp.forEach(index => {
 
@@ -96,9 +88,6 @@ module.exports = {
                 })
 
                 resolve(results)
-=======
-                resolve(resp)
->>>>>>> c381db9057590cd6da0ab8f111498b2b8bf4aabc
             }).catch(err => {
 
                 reject(err)
@@ -114,7 +103,6 @@ module.exports = {
                 },
                 include: [db.User, db.BuddyGoal]
             }).then(resp => {
-<<<<<<< HEAD
                 const results = [];
                 resp.forEach(index => {
 
@@ -127,8 +115,6 @@ module.exports = {
                         ownerId: index.dataValues.UserId
 
                     }
-=======
->>>>>>> c381db9057590cd6da0ab8f111498b2b8bf4aabc
 
 
                 resolve(resp)
