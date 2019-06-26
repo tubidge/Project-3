@@ -39,7 +39,7 @@ class App extends Component {
           )}
           {isAuthenticated() && (
             <li className="nav-link" style={{ cursor: "pointer" }}>
-              <span onClick={this.login.bind(this)}>Logout</span>
+              <span onClick={this.logout.bind(this)}>Logout</span>
             </li>
           )}
           <li
