@@ -14,7 +14,11 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-require("./routes/user")(app);
+require("./routes/userRoutes")(app);
+require("./routes/goalRoutes")(app);
+require("./routes/milestoneRoutes")(app);
+require("./routes/buddyRoutes")(app);
+require("./routes/messageRoutes")(app);
 
 const syncOptions = {
   force: false

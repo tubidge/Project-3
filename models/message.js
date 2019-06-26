@@ -1,40 +1,38 @@
 module.exports = (sequelize, DataTypes) => {
-  const Buddy = sequelize.define("Buddy", {
-    duration: {
+  const Message = sequelize.define("Message", {
+    message: {
       type: DataTypes.STRING,
       allowNull: false,
       validation: {
         notEmpty: true
       }
     },
-    active: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: true
-    },
-    buddyId: {
+    sentBy: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validation: {
+        notEmpty: true,
+        isNumeric: true,
+        not: ["[a-z]", "i"]
+      }
+    },
+    sentTo: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validation: {
+        notEmpty: true,
         isNumeric: true,
         not: ["[a-z]", "i"]
       }
     }
   });
-
-  Buddy.associate = model => {
-    Buddy.belongsTo(model.User, {
+  Message.associate = model => {
+    Message.belongsTo(model.Buddy, {
       foreignKey: {
         allowNull: false
       }
     });
-    Buddy.belongsTo(model.Goals, {
-      foreignKey: {
-        allowNull: false
-      }
-    });
-    Buddy.hasMany(model.Message, {});
   };
 
-  return Buddy;
+  return Message;
 };
