@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const userController = require("../../controller/userQueries");
+const userController = require("../controller/userQueries");
 // const buddy = require("../../controller/buddyQueries");
 // const helper = require("../../utils/helperFunctions");
 

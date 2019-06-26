@@ -1,4 +1,4 @@
-var milestone = require("../../controller/milestoneQueries");
+var milestone = require("../controller/milestoneQueries");
 
 module.exports = app => {
   app.post("/add/milestone", (req, res) => {

@@ -1,5 +1,4 @@
 const express = require("express");
-const routes = require("./routes");
 const app = express();
 const PORT = process.env.PORT || 3001;
 const db = require("./models");
@@ -193,9 +192,6 @@ app.get("/api/user/:id", (req, res) => {
       });
   });
 });
-
-// Add routes, both API and view
-app.use(routes);
 
 const syncOptions = {
   force: false

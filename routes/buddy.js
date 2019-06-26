@@ -1,4 +1,4 @@
-var buddy = require("../../controller/buddyQueries");
+var buddy = require("../controller/buddyQueries");
 
 module.exports = app => {
   app.get("/buddy/goals/:id", (req, res) => {
