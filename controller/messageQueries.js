@@ -111,12 +111,12 @@ module.exports = {
     });
   },
 
-  getUserMessages: (id, buddyId) => {
+  getUserMessages: (id, userTwo) => {
     return new Promise((resolve, reject) => {
       db.Message.findAll({
         where: {
           sentBy: id,
-          sentTo: buddyId
+          sentTo: userTwo
         }
       })
         .then(resp => {
@@ -126,7 +126,7 @@ module.exports = {
           };
           db.Message.findAll({
             where: {
-              sentBy: buddyId,
+              sentBy: userTwo,
               sentTo: id
             }
           }).then(resp => {
