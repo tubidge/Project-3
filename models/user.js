@@ -20,7 +20,22 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                notEmpty: true
+                notEmpty: true,
+                isUnique: function (value, next) {
+                    User.find({
+                        where: {
+                            username: value
+                        }
+                    }).then(user => {
+                        if (user) {
+                            return next('Username already in use!')
+                        }
+                        next()
+                    }).catch(err => {
+                        next(err)
+                    })
+
+                }
             }
         },
 
@@ -30,7 +45,20 @@ module.exports = (sequelize, DataTypes) => {
             validate: {
                 notEmpty: true,
                 isEmail: true,
-
+                isUnique: function (value, next) {
+                    User.find({
+                        where: {
+                            email: value
+                        }
+                    }).then(user => {
+                        if (user) {
+                            return next('Email already in use!')
+                        }
+                        next()
+                    }).catch(err => {
+                        next(err)
+                    })
+                }
             }
         },
 
@@ -60,8 +88,33 @@ module.exports = (sequelize, DataTypes) => {
         User.hasMany(model.Milestones, {
             onDelete: 'cascade'
         });
-        User.hasMany(model.Buddy, {
+        User.hasMany(model.BuddyGoal, {
             onDelete: 'cascade'
+        });
+        User.belongsTo(model.BuddyOne, {
+            foreignKey: {
+                allowNull: true
+            }
+        });
+        User.belongsTo(model.BuddyTwo, {
+            foreignKey: {
+                allowNull: true
+            }
+        });
+        User.belongsTo(model.BuddyThree, {
+            foreignKey: {
+                allowNull: true
+            }
+        });
+        User.belongsTo(model.BuddyFour, {
+            foreignKey: {
+                allowNull: true
+            }
+        });
+        User.belongsTo(model.BuddyFive, {
+            foreignKey: {
+                allowNull: true
+            }
         })
     }
 

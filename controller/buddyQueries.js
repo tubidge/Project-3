@@ -2,15 +2,15 @@ var db = require('../models');
 
 module.exports = {
 
-    // This id is the buddyId. This method will return all active buddy goal relationships that this id is associated with
-    getBuddyId: id => {
+    getBuddyGoalOwner: id => {
         return new Promise((resolve, reject) => {
-            db.Buddy.findAll({
+            db.BuddyGoal.findAll({
                 where: {
-                    buddyId: id,
-                    active: 1
-                }
+                    id: id
+                },
+                include: [db.User]
             }).then(resp => {
+<<<<<<< HEAD
                 const results = [];
                 resp.forEach(index => {
 
@@ -23,29 +23,29 @@ module.exports = {
                         ownerId: index.dataValues.UserId
 
                     }
+=======
+>>>>>>> c381db9057590cd6da0ab8f111498b2b8bf4aabc
 
-                    results.push(buddy)
-                })
-
-                resolve(results)
-            }).catch(err => {
+                resolve(resp)
+            }).then(err => {
                 reject(err)
             })
+
 
         })
     },
 
-    // This id is the row id. This method will return a single buddy relationship
-    getById: id => {
+    getBuddyOneGoal: id => {
         return new Promise((resolve, reject) => {
-            db.Buddy.findAll({
+            db.BuddyOne.findAll({
                 where: {
-                    id: id,
-                    active: 1
-                }
+                    id: id
+                },
+                include: [db.User, db.BuddyGoal]
             }).then(resp => {
 
 
+<<<<<<< HEAD
 
                 const buddy = {
                     id: resp[0].dataValues.id,
@@ -60,22 +60,25 @@ module.exports = {
 
 
                 resolve(buddy)
+=======
+                resolve(resp)
+>>>>>>> c381db9057590cd6da0ab8f111498b2b8bf4aabc
             }).catch(err => {
                 reject(err)
             })
         })
     },
 
-    // This id is the id of the Owner/UserId. This method will return all active buddy relationships that this user "owns"
-    getByOwner: id => {
+    getBuddyTwoGoal: id => {
         return new Promise((resolve, reject) => {
-            db.Buddy.findAll({
+            db.BuddyTwo.findAll({
                 where: {
-                    UserId: id,
-                    active: 1
-                }
+                    id: id
+                },
+                include: [db.User, db.BuddyGoal]
             }).then(resp => {
 
+<<<<<<< HEAD
                 const results = [];
                 resp.forEach(index => {
 
@@ -93,21 +96,25 @@ module.exports = {
                 })
 
                 resolve(results)
+=======
+                resolve(resp)
+>>>>>>> c381db9057590cd6da0ab8f111498b2b8bf4aabc
             }).catch(err => {
+
                 reject(err)
             })
         })
     },
 
-    // This id is the GoalId. This method will return all active buddy relationships that are linked to this goal
-    getByGoal: id => {
+    getBuddyGoalThree: id => {
         return new Promise((resolve, reject) => {
-            db.Buddy.findAll({
+            db.BuddyThree.findAll({
                 where: {
-                    GoalId: id,
-                    active: 1
-                }
+                    id: id
+                },
+                include: [db.User, db.BuddyGoal]
             }).then(resp => {
+<<<<<<< HEAD
                 const results = [];
                 resp.forEach(index => {
 
@@ -120,81 +127,51 @@ module.exports = {
                         ownerId: index.dataValues.UserId
 
                     }
+=======
+>>>>>>> c381db9057590cd6da0ab8f111498b2b8bf4aabc
 
-                    results.push(buddy)
-                })
 
-                resolve(results)
+                resolve(resp)
             }).catch(err => {
                 reject(err)
             })
         })
     },
 
-    // This method will add a new buddy relationship to the database. The newBuddy parameter is an object that will be constructed off
-    // the req.body that is passed from the frontend
-    addBuddyRelation: (newBuddy) => {
+    getBuddyGoalFour: id => {
         return new Promise((resolve, reject) => {
-            db.Buddy.create(newBuddy).then(resp => {
-                console.log(resp)
-                const results = {
-                    id: resp.dataValues.id,
-                    duration: resp.dataValues.duration,
-                    active: resp.dataValues.active,
-                    buddyId: resp.dataValues.buddyId,
-                    goalId: resp.dataValues.GoalId,
-                    ownerId: resp.dataValues.UserId
-                }
-                resolve(results);
-            }).catch(err => {
-                reject(err)
-            })
-        })
-    },
-
-    // This method will take the id of a buddy relationship and delete it from the database
-    deleteBuddyRelation: id => {
-        return new Promise((resolve, reject) => {
-            db.Buddy.destroy({
+            db.BuddyFour.findAll({
                 where: {
                     id: id
-                }
+                },
+                include: [db.User, db.BuddyGoal]
             }).then(resp => {
-                let results;
-                if (resp == 1) {
-                    results = 'Buddy relation deleted'
-                } else {
-                    results = 'Error in deleteing relation'
-                }
 
-                resolve(results)
+
+                resolve(resp)
             }).catch(err => {
                 reject(err)
             })
         })
     },
 
-    updateBuddyRelation: (id, colName, info) => {
+    getBuddyGoalFive: id => {
         return new Promise((resolve, reject) => {
-            db.Buddy.update({
-                [colName]: info
-            }, {
+            db.BuddyFive.findAll({
                 where: {
                     id: id
-                }
+                },
+                include: [db.User, db.BuddyGoal]
             }).then(resp => {
-                let results;
-                if (resp[0] == 1) {
-                    results = 'Info updated'
-                } else {
-                    results = 'Error updating info'
-                }
-                resolve(results)
+
+
+                resolve(resp)
             }).catch(err => {
                 reject(err)
             })
         })
     }
+
 
 
 }

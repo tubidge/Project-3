@@ -53,17 +53,13 @@ module.exports = function (sequelize, DataTypes) {
 
     Goal.associate = function (model) {
         Goal.belongsTo(model.User, {
-            foreignKey: {
-                allowNull: false
-            }
-        });
-        Goal.hasMany(model.Milestones, {
-            onDelete: 'cascade'
-        });
-        Goal.hasMany(model.Buddy, {
-            onDelete: 'cascade'
-        })
-
+                foreignKey: {
+                    allowNull: false
+                }
+            }),
+            Goal.hasMany(model.Milestones, {
+                onDelete: 'cascade'
+            })
     };
 
     return Goal;
