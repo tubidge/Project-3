@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+const axios = require("axios");
 
 class User extends Component {
   state = {
@@ -18,11 +19,11 @@ class User extends Component {
     this.setState({ email: this.props.auth.getProfile().email });
   };
 
-  // Retrieves the list of items from the Express app
   getUsers = () => {
-    fetch("/api/users")
-      .then(res => res.json())
-      .then(users => this.setState({ users }));
+    axios.get("/all/users").then(res => {
+      console.log(res.data);
+      this.setState({ users: res.data });
+    });
   };
 
   render() {

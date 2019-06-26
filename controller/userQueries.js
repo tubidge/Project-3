@@ -31,9 +31,7 @@ module.exports = {
         include: [db.Goals, db.Milestones]
       })
         .then(resp => {
-          console.log("this is the result");
           console.log(resp);
-          res.json(resp);
           resolve(resp);
         })
         .catch(err => {
