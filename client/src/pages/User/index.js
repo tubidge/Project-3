@@ -20,10 +20,15 @@ class User extends Component {
   };
 
   getUsers = () => {
-    axios.get("/all/users").then(res => {
-      console.log(res.data);
-      this.setState({ users: res.data });
-    });
+    axios
+      .get("/all/users")
+      .then(res => {
+        console.log(res.data);
+        this.setState({ users: res.data });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   render() {
