@@ -5,15 +5,15 @@ const moment = require("moment");
 
 module.exports = {
   // This method will create a new user
-  addUser: (firstName, lastName, username, email, password, profilePic) => {
+  // addUser: (firstName, lastName, username, email, password, profilePic) => {
+  addUser: (firstName, lastName, username, email) => {
     return new Promise((resolve, reject) => {
       db.User.create({
         firstName: firstName,
         lastName: lastName,
         username: username,
-        email: email,
-        password: password,
-        profilePic: profilePic
+        email: email
+        // profilePic: profilePic
       })
         .then(resp => {
           console.log(resp);
@@ -22,8 +22,8 @@ module.exports = {
             firstName: resp.dataValues.firstName,
             lastName: resp.dataValues.lastName,
             username: resp.dataValues.username,
-            email: resp.dataValues.email,
-            profilePic: resp.dataValues.profilePic
+            email: resp.dataValues.email
+            // profilePic: resp.dataValues.profilePic
           };
           resolve(results);
         })
@@ -47,8 +47,7 @@ module.exports = {
             firstName: resp[0].dataValues.firstName,
             lastName: resp[0].dataValues.lastName,
             username: resp[0].dataValues.username,
-            email: resp[0].dataValues.email,
-            profilePic: resp[0].dataValues.profilePic
+            email: resp[0].dataValues.email
           };
           resolve(results);
         })
@@ -71,8 +70,7 @@ module.exports = {
               firstName: index.dataValues.firstName,
               lastName: index.dataValues.lastName,
               username: index.dataValues.username,
-              email: index.dataValues.email,
-              profilePic: index.dataValues.profilePic
+              email: index.dataValues.email
             };
             users.push(user);
           });
@@ -139,15 +137,14 @@ module.exports = {
                         console.log("index");
                         console.log(index);
                         if (index.active) {
-                          const myBuddy = {};
-                          myBuddy.id = index.id;
-                          myBuddy.duration = index.duration;
-                          myBuddy.active = index.active;
-                          myBuddy.buddyId = index.buddyId;
-                          myBuddy.goalId = index.goalId;
-                          myBuddy.ownerId = index.ownerId;
-                          console.log(myBuddy);
-                          user.buddies.myBuddies.push(myBuddy);
+                          const buddy = {};
+                          buddy.id = index.id;
+                          buddy.duration = index.duration;
+                          buddy.active = index.active;
+                          buddy.buddyId = index.buddyId;
+                          buddy.goalId = index.GoalId;
+                          buddy.ownerId = index.UserId;
+                          user.buddies.myBuddies.push(buddy);
                         } else {
                           return false;
                         }
@@ -166,23 +163,18 @@ module.exports = {
           const assignBuddies = goalId => {
             helper
               .asyncForEach(goalId, async event => {
-                console.log(goalId);
-                console.log(event);
                 await buddy
                   .getByGoal(event)
                   .then(resp => {
-                    console.log("issue");
-                    console.log(resp);
-                    const myBuddy = {
+                    const buddy = {
                       id: resp[0].id,
                       duration: resp[0].duration,
                       active: resp[0].active,
                       buddyId: resp[0].buddyId,
-                      goalId: resp[0].goalId,
-                      ownerId: resp[0].ownerId
+                      goalId: resp[0].GoalId,
+                      ownerId: resp[0].UserId
                     };
-                    console.log(myBuddy);
-                    user.buddies.buddiesWith.push(myBuddy);
+                    user.buddies.buddiesWith.push(buddy);
                   })
                   .catch(err => {
                     console.log(err);
@@ -330,6 +322,31 @@ module.exports = {
           } else {
             results = "Error updating info";
           }
+          resolve(results);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  },
+
+  findUserByEmail: email => {
+    return new Promise((resolve, reject) => {
+      db.User.findAll({
+        where: {
+          email: email
+        }
+      })
+        .then(resp => {
+          console.log(resp);
+          const results = {
+            id: resp[0].dataValues.id,
+            firstName: resp[0].dataValues.firstName,
+            lastName: resp[0].dataValues.lastName,
+            username: resp[0].dataValues.username,
+            email: resp[0].dataValues.email,
+            created: resp[0].dataValues.createdAt
+          };
           resolve(results);
         })
         .catch(err => {

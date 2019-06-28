@@ -1,33 +1,12 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 
-class Home extends Component {
-  login() {
-    this.props.auth.login();
-  }
+import Jumbotron from "../../components/Jumbotron";
 
-  render() {
-    const { isAuthenticated } = this.props.auth;
-    return (
-      <div className="container">
-        <h1>Homepage!</h1>
-        {isAuthenticated() && <h4>You are logged in!</h4>}
-        {!isAuthenticated() && (
-          <h4>
-            You are not logged in! Please{" "}
-            <Link
-              to="#"
-              style={{ cursor: "pointer" }}
-              onClick={this.login.bind(this)}
-            >
-              Log In
-            </Link>{" "}
-            to continue.
-          </h4>
-        )}
-      </div>
-    );
-  }
-}
+const Home = () => (
+  <>
+    <Jumbotron />
+    <hr />
+  </>
+);
 
 export default Home;
