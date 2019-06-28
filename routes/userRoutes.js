@@ -4,23 +4,23 @@ const helper = require("../utils/helperFunctions");
 
 module.exports = app => {
   // This route will add a new user to the database
-  // app.post("/add/user", (req, res) => {
-  //   var firstName = req.body.firstName;
-  //   var lastName = req.body.lastName;
-  //   var username = req.body.username;
-  //   var email = req.body.email;
-  //   var password = req.body.password;
-  //   var profilePic = req.body.profilePic;
+  app.post("/add/user", (req, res) => {
+    var firstName = req.body.firstName;
+    var lastName = req.body.lastName;
+    var username = req.body.username;
+    var email = req.body.email;
+    var password = req.body.password;
+    var profilePic = req.body.profilePic;
 
-  //   user
-  //     .addUser(firstName, lastName, username, email, password, profilePic)
-  //     .then(data => {
-  //       res.send(data);
-  //     })
-  //     .catch(err => {
-  //       res.send(err);
-  //     });
-  // });
+    user
+      .addUser(firstName, lastName, username, email, password, profilePic)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
 
   // This route will return all users
   app.get("/all/users", (req, res) => {

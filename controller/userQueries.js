@@ -139,14 +139,15 @@ module.exports = {
                         console.log("index");
                         console.log(index);
                         if (index.active) {
-                          const buddy = {};
-                          buddy.id = index.id;
-                          buddy.duration = index.duration;
-                          buddy.active = index.active;
-                          buddy.buddyId = index.buddyId;
-                          buddy.goalId = index.GoalId;
-                          buddy.ownerId = index.UserId;
-                          user.buddies.myBuddies.push(buddy);
+                          const myBuddy = {};
+                          myBuddy.id = index.id;
+                          myBuddy.duration = index.duration;
+                          myBuddy.active = index.active;
+                          myBuddy.buddyId = index.buddyId;
+                          myBuddy.goalId = index.goalId;
+                          myBuddy.ownerId = index.ownerId;
+                          console.log(myBuddy);
+                          user.buddies.myBuddies.push(myBuddy);
                         } else {
                           return false;
                         }
@@ -165,18 +166,23 @@ module.exports = {
           const assignBuddies = goalId => {
             helper
               .asyncForEach(goalId, async event => {
+                console.log(goalId);
+                console.log(event);
                 await buddy
                   .getByGoal(event)
                   .then(resp => {
-                    const buddy = {
+                    console.log("issue");
+                    console.log(resp);
+                    const myBuddy = {
                       id: resp[0].id,
                       duration: resp[0].duration,
                       active: resp[0].active,
                       buddyId: resp[0].buddyId,
-                      goalId: resp[0].GoalId,
-                      ownerId: resp[0].UserId
+                      goalId: resp[0].goalId,
+                      ownerId: resp[0].ownerId
                     };
-                    user.buddies.buddiesWith.push(buddy);
+                    console.log(myBuddy);
+                    user.buddies.buddiesWith.push(myBuddy);
                   })
                   .catch(err => {
                     console.log(err);

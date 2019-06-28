@@ -40,9 +40,9 @@ class User extends Component {
         <div>
           <h1>List of All Users (from database)</h1>
           {/* Check to see if any items are found*/}
-          {users.length ? (
+          {/* {users.length ? (
             <div>
-              {/* {users.map(user => (
+              {users.map(user => (
                 <div key={user.id}>
                   <h5>{user.id}</h5>
                   <p>{user.firstName + user.lastName + " | " + user.email}</p>
@@ -55,11 +55,11 @@ class User extends Component {
                   ))}
                   <hr />
                 </div>
-              ))} */}
+              ))}
             </div>
           ) : (
             <h3>No Results to Display</h3>
-          )}
+          )} */}
         </div>
       </div>
     );
