@@ -5,12 +5,18 @@ const helper = require("../utils/helperFunctions");
 module.exports = app => {
   // This route will add a new user to the database
   app.post("/add/user", (req, res) => {
-    var firstName = req.body.firstName;
-    var lastName = req.body.lastName;
-    var username = req.body.username;
-    var email = req.body.email;
-    var password = req.body.password;
-    var profilePic = req.body.profilePic;
+    // var firstName = req.body.firstName;
+    // var lastName = req.body.lastName;
+    // var username = req.body.username;
+    // var email = req.body.email;
+    // var password = req.body.password;
+    // var profilePic = req.body.profilePic;
+    let firstName = "Hunter";
+    let lastName = "Davis";
+    let username = "hunterdavis730";
+    let email = "hunterdavis730@gmail.com";
+    let password = "enter123";
+    let profilePic = null;
 
     user
       .addUser(firstName, lastName, username, email, password, profilePic)
@@ -38,6 +44,17 @@ module.exports = app => {
   app.get("/user/:id", (req, res) => {
     user
       .findUser(req.params.id)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
+
+  app.get("/user/basic/:id", (req, res) => {
+    user
+      .getBasicUser(req.params.id)
       .then(data => {
         res.send(data);
       })

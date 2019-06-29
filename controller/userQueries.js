@@ -100,6 +100,7 @@ module.exports = {
           const data = resp[0].dataValues;
           const goalIds = [];
           const user = {
+            id: data.id,
             firstName: data.firstName,
             lastName: data.lastName,
             username: data.username,
@@ -189,7 +190,41 @@ module.exports = {
                   });
               })
               .then(() => {
-                resolve(user);
+                const buddyArr = [];
+                helper
+                  .asyncForEach(user.buddies.myBuddies, async event => {
+                    console.log(event);
+
+                    await db.User.findAll({
+                      where: {
+                        id: event.ownerId
+                      }
+                    }).then(resp => {
+                      console.log("async await");
+                      console.log(resp);
+                      buddyArr.push(resp[0].dataValues.email);
+                      console.log(buddyArr);
+                    });
+                  })
+                  .then(() => {
+                    helper
+                      .asyncForEach(user.buddies.buddiesWith, async event => {
+                        await db.User.findAll({
+                          where: {
+                            id: event.buddyId
+                          }
+                        }).then(resp => {
+                          if (!buddyArr.includes(resp[0].dataValues.email)) {
+                            buddyArr.push(resp[0].dataValues.email);
+                          }
+                          console.log(buddyArr);
+                          user.buddies.allBuddies = buddyArr;
+                        });
+                      })
+                      .then(() => {
+                        resolve(user);
+                      });
+                  });
               });
           };
 
