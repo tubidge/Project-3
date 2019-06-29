@@ -1,34 +1,64 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import Loading from "../../components/Loading";
+import Form from "../../components/Form";
+import FormStatic from "../../components/FormStatic";
+import { useAuth0 } from "../../react-auth0-spa";
+import "./style.css";
 
-class Profile extends Component {
-  login() {
-    this.props.auth.login();
+const axios = require("axios");
+
+const Profile = () => {
+  const { loading, user } = useAuth0();
+
+  const [newUser, setNew] = useState(true);
+  const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+    axios.get("/user/email/" + user.email).then(res => {
+      setUserData(res.data);
+      console.log(res.data.created);
+      if (res.data.created !== undefined) {
+        setNew(false);
+      }
+    });
+  }, []);
+
+  if (loading || !user) {
+    return <Loading />;
   }
 
-  render() {
-    const { isAuthenticated } = this.props.auth;
-    return (
-      <div className="container">
-        {isAuthenticated() && (
-          <div>
-            <h4>Hello {this.props.auth.user.firstName}!</h4>
-            <h4>Hello {this.props.newProp}!</h4>
-            <Link to={"../User"}>Click Here</Link>
-          </div>
-        )}
-        {!isAuthenticated() && (
-          <h4>
-            You are not logged in, so you don't have access! Please{" "}
-            <Link to="#" onClick={this.login.bind(this)}>
-              Log In
-            </Link>
-            to continue.
-          </h4>
-        )}
+  return (
+    <div className="container mb-5">
+      <div className="row align-items-center profile-header">
+        <div className="col-md-2">
+          <img
+            src={user.picture}
+            alt="Profile"
+            className="rounded-circle img-fluid profile-picture"
+          />
+        </div>
+        <div className="col-md-4">
+          <p className="lead text-muted">{user.email}</p>
+        </div>
+        <div className="col-lg-6 md-12 sm-12">
+          {!newUser ? (
+            <FormStatic
+              username={userData.username}
+              firstName={userData.firstName}
+              lastName={userData.lastName}
+              email={user.email}
+            />
+          ) : (
+            <Form
+              fistName={user.given_name}
+              lastName={user.family_name}
+              email={user.email}
+            />
+          )}
+        </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default Profile;

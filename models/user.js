@@ -31,23 +31,23 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true,
         isEmail: true
       }
-    },
-
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true
-      }
-    },
-
-    profilePic: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      validate: {
-        isUrl: true
-      }
     }
+
+    // password: {
+    //   type: DataTypes.STRING,
+    //   allowNull: false,
+    //   validate: {
+    //     notEmpty: true
+    //   }
+    // },
+
+    // profilePic: {
+    //   type: DataTypes.STRING,
+    //   allowNull: true,
+    //   validate: {
+    //     isUrl: true
+    //   }
+    // }
   });
 
   User.associate = function(model) {
