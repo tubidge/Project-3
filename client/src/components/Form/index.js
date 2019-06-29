@@ -13,12 +13,6 @@ const Form = props => {
   const email = props.email;
   const [disabled, setDisabled] = useState(false);
 
-  const handleCancel = () => {
-    setUsername("");
-    setFirstName("");
-    setLastName("");
-  };
-
   const handleSumbit = e => {
     e.preventDefault();
 
@@ -54,6 +48,7 @@ const Form = props => {
 
   return (
     <>
+      <h1>Complete Your Profile</h1>
       <form onSubmit={handleSumbit}>
         <fieldset disabled={disabled}>
           <div className="form-group">
@@ -101,13 +96,7 @@ const Form = props => {
             />
           </div>
         </fieldset>
-        <input
-          type="reset"
-          className="btn btn-secondary m-1"
-          value="Cancel"
-          onClick={handleCancel}
-        />
-        <button className="btn btn-primary m-1">Save Changes</button>
+        <button className="btn btn-secondary m-1">Save Changes</button>
       </form>
     </>
   );

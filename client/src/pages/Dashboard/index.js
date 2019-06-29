@@ -5,7 +5,7 @@ import { useAuth0 } from "../../react-auth0-spa";
 const moment = require("moment");
 const axios = require("axios");
 
-const Dashboard = () => {
+const Dashboard = props => {
   const { loading, user } = useAuth0();
   const [username, setUsername] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -18,6 +18,7 @@ const Dashboard = () => {
       setFirstName(res.data.firstName);
       setLastName(res.data.lastName);
       setCreated(moment(res.data.created).format("llll"));
+      console.log(res.data);
     });
   }, []);
 
@@ -27,15 +28,16 @@ const Dashboard = () => {
 
   return (
     <div className="container">
-      <div>{`Account Creation Date: ${created}`}</div>
-      <div>{moment(`"${created}"`, "llll").fromNow()}</div>
-      <h1>{`Current User (from auth0): ${user.email}`}</h1>
+      <h3>{`Current User (from auth0): ${user.email}`}</h3>
+      <div>{`Account created on ${created}`}</div>
+      <em>({moment(`"${created}"`, "llll").fromNow()})</em>
       <div>
         {/* Check to see if any items are found*/}
         {user !== "" ? (
           <div>
-            <h4>{username}</h4>
-            <p>{`${firstName} ${lastName} | ${user.email}`}</p>
+            <h4>Username: {username}</h4>
+            <h4>Full Name: {`${firstName} ${lastName}`}</h4>
+            <h4>Email: {user.email}</h4>
             <hr />
           </div>
         ) : (

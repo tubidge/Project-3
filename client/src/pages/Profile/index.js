@@ -3,6 +3,7 @@ import Loading from "../../components/Loading";
 import Form from "../../components/Form";
 import FormStatic from "../../components/FormStatic";
 import { useAuth0 } from "../../react-auth0-spa";
+import "./style.css";
 
 const axios = require("axios");
 
@@ -39,26 +40,26 @@ const Profile = () => {
             className="rounded-circle img-fluid profile-picture"
           />
         </div>
-        <div className="col-md-6">
-          <h2>Complete Your Profile</h2>
+        <div className="col-md-4">
           <p className="lead text-muted">{user.email}</p>
         </div>
+        <div className="col-lg-6 md-12 sm-12">
+          {!newUser ? (
+            <FormStatic
+              username={username_db}
+              firstName={firstName_db}
+              lastName={lastName_db}
+              email={user.email}
+            />
+          ) : (
+            <Form
+              fistName={user.given_name}
+              lastName={user.family_name}
+              email={user.email}
+            />
+          )}
+        </div>
       </div>
-
-      {newUser ? (
-        <Form
-          fistName={user.given_name}
-          lastName={user.family_name}
-          email={user.email}
-        />
-      ) : (
-        <FormStatic
-          username={username_db}
-          firstName={firstName_db}
-          lastName={lastName_db}
-          email={user.email}
-        />
-      )}
     </div>
   );
 };

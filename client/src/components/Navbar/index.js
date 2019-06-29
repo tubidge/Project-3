@@ -6,6 +6,7 @@ import {
   Container,
   Navbar,
   NavbarToggler,
+  NavbarBrand,
   Nav,
   NavItem,
   NavLink,
@@ -32,39 +33,26 @@ const NavBar = () => {
     });
 
   return (
-    <div className="nav-container">
+    <>
       <Navbar color="light" light expand="md">
         <Container>
+          {!isAuthenticated && <NavbarBrand href="/">GoalDone</NavbarBrand>}
+          {isAuthenticated && (
+            <NavbarBrand href="/dashboard">GoalDone</NavbarBrand>
+          )}
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
             <Nav className="mr-auto" navbar>
-              {!isAuthenticated ? (
-                <>
-                  <NavItem>
-                    <NavLink
-                      tag={RouterNavLink}
-                      to="/"
-                      exact
-                      activeClassName="router-link-exact-active"
-                    >
-                      Home
-                    </NavLink>
-                  </NavItem>
-                </>
-              ) : null
-              // <>
-              //   <NavItem>
-              //     <NavLink
-              //       tag={RouterNavLink}
-              //       to="/dashboard"
-              //       exact
-              //       activeClassName="router-link-exact-active"
-              //     >
-              //       Dashboard
-              //     </NavLink>
-              //   </NavItem>
-              // </>
-              }
+              <NavItem>
+                <NavLink
+                  tag={RouterNavLink}
+                  to="/buddies"
+                  exact
+                  activeClassName="router-link-exact-active"
+                >
+                  Buddies
+                </NavLink>
+              </NavItem>
             </Nav>
             <Nav className="d-none d-md-block" navbar>
               {!isAuthenticated && (
@@ -100,7 +88,7 @@ const NavBar = () => {
                       className="dropdown-profile"
                       activeClassName="router-link-exact-active"
                     >
-                      <span className="icon icon-profile" /> Profile
+                      Profile
                     </DropdownItem>
                     <DropdownItem
                       tag={RouterNavLink}
@@ -108,13 +96,13 @@ const NavBar = () => {
                       className="dropdown-profile"
                       activeClassName="router-link-exact-active"
                     >
-                      <span className="icon icon-profile" /> Dashboard
+                      Dashboard
                     </DropdownItem>
                     <DropdownItem
                       id="qsLogoutBtn"
                       onClick={() => logoutWithRedirect()}
                     >
-                      <span className="icon icon-power" /> Log out
+                      Log out
                     </DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
@@ -141,13 +129,13 @@ const NavBar = () => {
                     <img
                       src={user.picture}
                       alt="Profile"
-                      className="nav-user-profile d-inline-block"
+                      className="nav-user-profile"
                     />
                     <h6 className="d-inline-block">{user.name}</h6>
                   </span>
                 </NavItem>
                 <NavItem>
-                  <span className="icon icon-profile" />
+                  <i className="fas fa-user" />
                   <RouterNavLink
                     to="/profile"
                     activeClassName="router-link-exact-active"
@@ -170,7 +158,7 @@ const NavBar = () => {
           </Collapse>
         </Container>
       </Navbar>
-    </div>
+    </>
   );
 };
 

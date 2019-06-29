@@ -34,6 +34,7 @@ const FormStatic = props => {
 
   return (
     <>
+      <h1>Edit Your Profile</h1>
       <form>
         <fieldset disabled={disabled}>
           <div className="form-group">

@@ -1,8 +1,7 @@
 import React from "react";
-import { NavLink as RouterNavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Jumbotron from "../../components/Jumbotron";
 
-import { NavLink } from "reactstrap";
 import { useAuth0 } from "../../react-auth0-spa";
 import Dashboard from "../Dashboard";
 
@@ -14,15 +13,15 @@ const Home = () => {
       {!isAuthenticated && (
         <>
           <Jumbotron />
-          <NavLink
-            tag={RouterNavLink}
-            to="/profile"
-            exact
-            activeClassName="router-link-exact-active"
-          >
-            Sign Up
-          </NavLink>
-          <hr />
+          <div className="container text-center">
+            <div className="row">
+              <div className="col-sm-12 mb-3">
+                <Link to="/profile" className="btn btn-primary">
+                  Sign Up
+                </Link>
+              </div>
+            </div>
+          </div>
         </>
       )}
       {isAuthenticated && <Dashboard />}
