@@ -38,26 +38,33 @@ const NavBar = () => {
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
             <Nav className="mr-auto" navbar>
-              <NavItem>
-                <NavLink
-                  tag={RouterNavLink}
-                  to="/"
-                  exact
-                  activeClassName="router-link-exact-active"
-                >
-                  Home
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  tag={RouterNavLink}
-                  to="/dashboard"
-                  exact
-                  activeClassName="router-link-exact-active"
-                >
-                  Dashboard
-                </NavLink>
-              </NavItem>
+              {!isAuthenticated ? (
+                <>
+                  <NavItem>
+                    <NavLink
+                      tag={RouterNavLink}
+                      to="/"
+                      exact
+                      activeClassName="router-link-exact-active"
+                    >
+                      Home
+                    </NavLink>
+                  </NavItem>
+                </>
+              ) : null
+              // <>
+              //   <NavItem>
+              //     <NavLink
+              //       tag={RouterNavLink}
+              //       to="/dashboard"
+              //       exact
+              //       activeClassName="router-link-exact-active"
+              //     >
+              //       Dashboard
+              //     </NavLink>
+              //   </NavItem>
+              // </>
+              }
             </Nav>
             <Nav className="d-none d-md-block" navbar>
               {!isAuthenticated && (
@@ -94,6 +101,14 @@ const NavBar = () => {
                       activeClassName="router-link-exact-active"
                     >
                       <span className="icon icon-profile" /> Profile
+                    </DropdownItem>
+                    <DropdownItem
+                      tag={RouterNavLink}
+                      to="/dashboard"
+                      className="dropdown-profile"
+                      activeClassName="router-link-exact-active"
+                    >
+                      <span className="icon icon-profile" /> Dashboard
                     </DropdownItem>
                     <DropdownItem
                       id="qsLogoutBtn"
@@ -138,15 +153,6 @@ const NavBar = () => {
                     activeClassName="router-link-exact-active"
                   >
                     Profile
-                  </RouterNavLink>
-                </NavItem>
-                <NavItem>
-                  <span className="icon icon-profile" />
-                  <RouterNavLink
-                    to="/dashboard"
-                    activeClassName="router-link-exact-active"
-                  >
-                    Dashboard
                   </RouterNavLink>
                 </NavItem>
                 <NavItem>

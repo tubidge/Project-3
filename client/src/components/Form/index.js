@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { withRouter } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import "./style.css";
@@ -11,10 +12,6 @@ const Form = props => {
   const [lastName, setLastName] = useState("");
   const email = props.email;
   const [disabled, setDisabled] = useState(false);
-
-  const editProfile = () => {
-    setDisabled(false);
-  };
 
   const handleCancel = () => {
     setUsername("");
@@ -41,8 +38,8 @@ const Form = props => {
               })
               .then(result => {
                 if (result) {
-                  console.log(result);
                   setDisabled(true);
+                  props.history.push("/dashboard");
                 }
               });
           }
@@ -112,11 +109,8 @@ const Form = props => {
         />
         <button className="btn btn-primary m-1">Save Changes</button>
       </form>
-      <button className="btn btn-secondary m-1" onClick={editProfile}>
-        Edit
-      </button>
     </>
   );
 };
 
-export default Form;
+export default withRouter(Form);

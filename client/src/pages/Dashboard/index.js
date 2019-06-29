@@ -1,30 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Loading from "../../components/Loading";
 import { useAuth0 } from "../../react-auth0-spa";
+
 const moment = require("moment");
 const axios = require("axios");
 
-const User = () => {
+const Dashboard = () => {
   const { loading, user } = useAuth0();
   const [username, setUsername] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [created, setCreated] = useState("");
 
-  if (loading || !user) {
-    return <Loading />;
-  }
-
-  const getUserByEmail = email => {
-    axios.get("/user/email/" + email).then(res => {
+  useEffect(() => {
+    axios.get("/user/email/" + user.email).then(res => {
       setUsername(res.data.username);
       setFirstName(res.data.firstName);
       setLastName(res.data.lastName);
       setCreated(moment(res.data.created).format("llll"));
     });
-  };
+  }, []);
 
-  getUserByEmail(user.email);
+  if (loading || !user) {
+    return <Loading />;
+  }
 
   return (
     <div className="container">
@@ -47,4 +46,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default Dashboard;
