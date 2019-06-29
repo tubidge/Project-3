@@ -228,22 +228,248 @@ module.exports = {
               });
           };
 
-          // if (data.Buddies.length > 0) {
-          // data.Buddies.forEach(index => {
-          //     if (index.dataValues.active) {
-          //         const buddy = {};
-          //         buddy.id = index.dataValues.id;
-          //         buddy.duration = index.dataValues.duration;
-          //         buddy.active = index.dataValues.active;
-          //         buddy.buddyId = index.dataValues.buddyId;
-          //         buddy.goalId = index.dataValues.GoalId;
-          //         buddy.ownerId = index.dataValues.UserId;
-          //         user.buddies.push(buddy)
-          //     } else {
-          //         return false
-          //     }
-          // })
-          // }
+          if (data.Goals.length > 0) {
+            data.Goals.forEach(index => {
+              goalIds.push(index.dataValues.id);
+              let date = moment().format("YYYY-MM-DD");
+              let goalDate = moment(index.dataValues.dueDate)
+                .add("1", "day")
+                .format("YYYY-MM-DD");
+              if (moment(goalDate).isAfter(date)) {
+                const goal = {};
+                goal.id = index.dataValues.id;
+                goal.name = index.dataValues.name;
+                goal.category = index.dataValues.category;
+                goal.description = index.dataValues.description;
+                goal.dueDate = moment(index.dataValues.dueDate)
+                  .add("1", "day")
+                  .format("YYYY-MM-DD");
+                goal.private = index.dataValues.private;
+                goal.complete = index.dataValues.complete;
+                goal.userId = index.dataValues.UserId;
+                if (goal.complete) {
+                  user.activeGoals.completed.push(goal);
+                } else {
+                  user.activeGoals.incomplete.push(goal);
+                }
+              } else {
+                const goal = {};
+                goal.id = index.dataValues.id;
+                goal.name = index.dataValues.name;
+                goal.category = index.dataValues.category;
+                goal.description = index.dataValues.description;
+                goal.dueDate = moment(index.dataValues.dueDate)
+                  .add("1", "day")
+                  .format("YYYY-MM-DD");
+                goal.private = index.dataValues.private;
+                goal.complete = index.dataValues.complete;
+                goal.userId = index.dataValues.UserId;
+                if (goal.complete) {
+                  user.pastGoals.completed.push(goal);
+                } else {
+                  user.pastGoals.incomplete.push(goal);
+                }
+              }
+            });
+          }
+
+          if (data.Milestones.length > 0) {
+            data.Milestones.forEach(index => {
+              let date = moment().format("YYYY-MM-DD");
+              let milestoneDate = moment(index.dataValues.dueDate)
+                .add("1", "day")
+                .format("YYYY-MM-DD");
+
+              if (moment(milestoneDate).isAfter(date)) {
+                const milestone = {};
+                milestone.id = index.dataValues.id;
+                milestone.name = index.dataValues.name;
+                milestone.frequency = index.dataValues.frequency;
+                milestone.dueDate = moment(index.dataValues.dueDate)
+                  .add("1", "day")
+                  .format("YYYY-MM-DD");
+                milestone.completed = index.dataValues.completed;
+                milestone.notes = index.dataValues.notes;
+                milestone.goalId = index.dataValues.GoalId;
+                milestone.userId = index.dataValues.UserId;
+
+                if (milestone.completed) {
+                  user.activeMilestones.completed.push(milestone);
+                } else {
+                  user.activeMilestones.incomplete.push(milestone);
+                }
+              } else {
+                const milestone = {};
+                milestone.id = index.dataValues.id;
+                milestone.name = index.dataValues.name;
+                milestone.frequency = index.dataValues.frequency;
+                milestone.dueDate = moment(index.dataValues.dueDate)
+                  .add("1", "day")
+                  .format("YYYY-MM-DD");
+                milestone.completed = index.dataValues.completed;
+                milestone.notes = index.dataValues.notes;
+                milestone.goalId = index.dataValues.GoalId;
+                milestone.userId = index.dataValues.UserId;
+
+                if (milestone.completed) {
+                  user.pastMilestones.completed.push(milestone);
+                } else {
+                  user.pastMilestones.incomplete.push(milestone);
+                }
+              }
+            });
+          }
+
+          getBuddies(id);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  },
+
+  findUserByEmail: email => {
+    return new Promise((resolve, reject) => {
+      db.User.findAll({
+        where: {
+          email: email
+        },
+        include: [db.Goals, db.Milestones, db.Buddy]
+      })
+        .then(resp => {
+          console.log("query");
+          console.log(resp[0].dataValues.Milestones);
+          const id = resp[0].dataValues.id;
+          const data = resp[0].dataValues;
+          const goalIds = [];
+          const user = {
+            id: data.id,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            username: data.username,
+            email: data.email,
+            buddies: {
+              myBuddies: [],
+              buddiesWith: []
+            },
+            activeGoals: {
+              completed: [],
+              incomplete: []
+            },
+            activeMilestones: {
+              completed: [],
+              incomplete: []
+            },
+            pastGoals: {
+              completed: [],
+              incomplete: []
+            },
+            pastMilestones: {
+              completed: [],
+              incomplete: []
+            }
+          };
+
+          const getBuddies = id => {
+            helper
+              .asyncForEach(id, async event => {
+                await buddy
+                  .getBuddyId(id)
+                  .then(resp => {
+                    console.log(resp);
+                    console.log("resp");
+                    if (resp.length > 0) {
+                      resp.forEach(index => {
+                        console.log("index");
+                        console.log(index);
+                        if (index.active) {
+                          const myBuddy = {};
+                          myBuddy.id = index.id;
+                          myBuddy.duration = index.duration;
+                          myBuddy.active = index.active;
+                          myBuddy.buddyId = index.buddyId;
+                          myBuddy.goalId = index.goalId;
+                          myBuddy.ownerId = index.ownerId;
+                          console.log(myBuddy);
+                          user.buddies.myBuddies.push(myBuddy);
+                        } else {
+                          return false;
+                        }
+                      });
+                    }
+                  })
+                  .catch(err => {
+                    console.log(err);
+                  });
+              })
+              .then(() => {
+                assignBuddies(goalIds);
+              });
+          };
+
+          const assignBuddies = goalId => {
+            helper
+              .asyncForEach(goalId, async event => {
+                console.log(goalId);
+                console.log(event);
+                await buddy
+                  .getByGoal(event)
+                  .then(resp => {
+                    console.log("issue");
+                    console.log(resp);
+                    const myBuddy = {
+                      id: resp[0].id,
+                      duration: resp[0].duration,
+                      active: resp[0].active,
+                      buddyId: resp[0].buddyId,
+                      goalId: resp[0].goalId,
+                      ownerId: resp[0].ownerId
+                    };
+                    console.log(myBuddy);
+                    user.buddies.buddiesWith.push(myBuddy);
+                  })
+                  .catch(err => {
+                    console.log(err);
+                  });
+              })
+              .then(() => {
+                const buddyArr = [];
+                helper
+                  .asyncForEach(user.buddies.myBuddies, async event => {
+                    console.log(event);
+
+                    await db.User.findAll({
+                      where: {
+                        id: event.ownerId
+                      }
+                    }).then(resp => {
+                      console.log("async await");
+                      console.log(resp);
+                      buddyArr.push(resp[0].dataValues.email);
+                      console.log(buddyArr);
+                    });
+                  })
+                  .then(() => {
+                    helper
+                      .asyncForEach(user.buddies.buddiesWith, async event => {
+                        await db.User.findAll({
+                          where: {
+                            id: event.buddyId
+                          }
+                        }).then(resp => {
+                          if (!buddyArr.includes(resp[0].dataValues.email)) {
+                            buddyArr.push(resp[0].dataValues.email);
+                          }
+                          console.log(buddyArr);
+                          user.buddies.allBuddies = buddyArr;
+                        });
+                      })
+                      .then(() => {
+                        resolve(user);
+                      });
+                  });
+              });
+          };
 
           if (data.Goals.length > 0) {
             data.Goals.forEach(index => {

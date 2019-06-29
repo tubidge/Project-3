@@ -158,7 +158,8 @@ class User extends Component {
           {this.state.userInfo.lastName}
         </h1>
         <div>
-          {this.state.userInfo.buddies.allBuddies.forEach(index => {
+          {this.state.userInfo.buddies.allBuddies.map(index => {
+            console.log(index);
             return (
               <Div
                 sb={this.state.sb}

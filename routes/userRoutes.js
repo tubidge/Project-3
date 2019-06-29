@@ -5,18 +5,12 @@ const helper = require("../utils/helperFunctions");
 module.exports = app => {
   // This route will add a new user to the database
   app.post("/add/user", (req, res) => {
-    // var firstName = req.body.firstName;
-    // var lastName = req.body.lastName;
-    // var username = req.body.username;
-    // var email = req.body.email;
-    // var password = req.body.password;
-    // var profilePic = req.body.profilePic;
-    let firstName = "Hunter";
-    let lastName = "Davis";
-    let username = "hunterdavis730";
-    let email = "hunterdavis730@gmail.com";
-    let password = "enter123";
-    let profilePic = null;
+    var firstName = req.body.firstName;
+    var lastName = req.body.lastName;
+    var username = req.body.username;
+    var email = req.body.email;
+    var password = req.body.password;
+    var profilePic = req.body.profilePic;
 
     user
       .addUser(firstName, lastName, username, email, password, profilePic)
@@ -32,6 +26,18 @@ module.exports = app => {
   app.get("/all/users", (req, res) => {
     user
       .getAllUsers()
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
+
+  // This route will return a single user with their goals, milestones, and goal buddies
+  app.get("/user/email/:email", (req, res) => {
+    user
+      .findUserByEmail(req.params.email)
       .then(data => {
         res.send(data);
       })
