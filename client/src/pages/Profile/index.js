@@ -9,16 +9,13 @@ const axios = require("axios");
 
 const Profile = () => {
   const { loading, user } = useAuth0();
-  const [username_db, setUsername_db] = useState("");
-  const [firstName_db, setFirstName_db] = useState("");
-  const [lastName_db, setLastName_db] = useState("");
+
   const [newUser, setNew] = useState(true);
+  const [userData, setUserData] = useState({});
 
   useEffect(() => {
     axios.get("/user/email/" + user.email).then(res => {
-      setUsername_db(res.data.username);
-      setFirstName_db(res.data.firstName);
-      setLastName_db(res.data.lastName);
+      setUserData(res.data);
       console.log(res.data.created);
       if (res.data.created !== undefined) {
         setNew(false);
@@ -46,9 +43,9 @@ const Profile = () => {
         <div className="col-lg-6 md-12 sm-12">
           {!newUser ? (
             <FormStatic
-              username={username_db}
-              firstName={firstName_db}
-              lastName={lastName_db}
+              username={userData.username}
+              firstName={userData.firstName}
+              lastName={userData.lastName}
               email={user.email}
             />
           ) : (
