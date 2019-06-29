@@ -12,6 +12,15 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: true
     },
+    chatChannel: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: undefined,
+      validation: {
+        notEmpty: true
+      }
+    },
+
     buddyId: {
       type: DataTypes.INTEGER,
       allowNull: false,

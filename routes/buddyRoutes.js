@@ -72,8 +72,10 @@ module.exports = app => {
   // I'm picturing this will mostly be used for setting the active status to false, but we could
   // potentially allow for user's to extend the time of the relationship
   app.put("/buddy/:id", (req, res) => {
-    let colName = req.body.colName;
-    let info = req.body.info;
+    // let colName = req.body.colName;
+    // let info = req.body.info;
+    let colName = "chatChannel";
+    let info = null;
 
     buddy
       .updateBuddyRelation(req.params.id, colName, info)

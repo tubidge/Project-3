@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import * as SendBird from "sendbird";
-import Div from "../../components/Div";
 import API from "../../utils/API";
+import Sendbird from "../../utils/SendBird";
 const axios = require("axios");
 
 class User extends Component {
@@ -38,7 +37,7 @@ class User extends Component {
         }
       }
     },
-    sb: undefined
+    Messenger: null
   };
 
   // Fetch the list on first mount
@@ -96,9 +95,9 @@ class User extends Component {
     API.getUser(id).then(resp => {
       console.log(resp.data);
       let data = resp.data;
-      const sb = new SendBird({
-        appId: "967DB9F9-E8D2-4E23-B15F-23D57E860769"
-      });
+      this.state.Messenger = new Sendbird(data.email, data.buddies.allBuddies);
+      this.state.Messenger.configUser();
+      this.state.Messenger.createChannels();
       this.setState({
         userInfo: {
           firstName: data.firstName,
@@ -131,26 +130,12 @@ class User extends Component {
               incomplete: data.pastMilestones.incomplete
             }
           }
-        },
-        sb: sb
+        }
       });
     });
   };
 
   render() {
-    if (this.state.sb === undefined) {
-      return false;
-    } else {
-      console.log("working");
-      this.state.sb.connect(this.state.userInfo.email, (user, error) => {
-        console.log(this.state.userInfo.email);
-        console.log(user);
-        if (error) {
-          return error;
-        }
-      });
-    }
-
     return (
       <div className="container">
         <h1>
@@ -158,16 +143,6 @@ class User extends Component {
           {this.state.userInfo.lastName}
         </h1>
         <div>
-          {this.state.userInfo.buddies.allBuddies.map(index => {
-            console.log(index);
-            return (
-              <Div
-                sb={this.state.sb}
-                buddy={index}
-                user={this.state.userInfo.email}
-              />
-            );
-          })}
           <h1>List of All Users (from database)</h1>
           {/* Check to see if any items are found*/}
           {/* {users.length ? (

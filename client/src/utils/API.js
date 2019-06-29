@@ -13,6 +13,10 @@ export default {
     return axios.get("/user/" + id);
   },
 
+  getUserByEmail: email => {
+    return axios.get("/user/email/" + email);
+  },
+
   // This method will add a user to the database
   addUser: data => {
     return axios.post("/add/user", {
