@@ -43,17 +43,3 @@ db.Buddy.bulkCreate([
     GoalId: 15
   }
 ]);
-
-// db.Buddy.bulkCreate([{
-//         duration: '1 week',
-//         buddyId: 4,
-//         UserId: 1,
-//         GoalId: 6
-//     },
-//     {
-//         duration: '1 week',
-//         buddyId: 1,
-//         UserId: 4,
-//         GoalId: 5
-//     }
-// ])

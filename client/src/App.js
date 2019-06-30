@@ -24,8 +24,6 @@ const App = () => {
     return <Loading />;
   }
 
-  console.log(user);
-
   return (
     <Router>
       <>
@@ -35,7 +33,11 @@ const App = () => {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/buddies" exact component={Buddies} />
-            <Route path="/user" component={User} />
+            {/* <Route path="/user" component={User} /> */}
+            <Route
+              path="/user"
+              render={props => <User {...props} user={user.email} />}
+            />
             <PrivateRoute path="/dashboard" component={Dashboard} />
             <PrivateRoute path="/profile" component={Profile} />
           </Switch>
