@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import API from "../../utils/API";
 import Sendbird from "../../utils/SendBird";
+import OpenChat from "../../components/OpenChat";
 const axios = require("axios");
 
 class User extends Component {
@@ -37,12 +38,13 @@ class User extends Component {
         }
       }
     },
-    Messenger: null
+    Messenger: null,
+    channelsConfigured: false
   };
 
   // Fetch the list on first mount
   componentDidMount() {
-    this.getUserInfo(1);
+    this.getUserInfo(4);
 
     // const params = new sb.UserMessageParams();
 
@@ -91,13 +93,21 @@ class User extends Component {
     this.setState({ email: this.props.auth.getProfile().email });
   };
 
+  configChannels = async () => {
+    await this.state.Messenger.createChannels();
+    console.log(this.state.Messenger.channels);
+    this.setState({
+      channelsConfigured: true
+    });
+  };
+
   getUserInfo = id => {
     API.getUser(id).then(resp => {
       console.log(resp.data);
       let data = resp.data;
       this.state.Messenger = new Sendbird(data.email, data.buddies.allBuddies);
       this.state.Messenger.configUser();
-      this.state.Messenger.createChannels();
+
       this.setState({
         userInfo: {
           firstName: data.firstName,
@@ -132,6 +142,8 @@ class User extends Component {
           }
         }
       });
+      this.configChannels();
+      console.log(this.state.Messenger.channels);
     });
   };
 
@@ -142,6 +154,15 @@ class User extends Component {
           Current User: {this.state.userInfo.firstName}{" "}
           {this.state.userInfo.lastName}
         </h1>
+
+        {this.state.channelsConfigured ? (
+          <OpenChat
+            isConfigured={this.state.channelsConfigured}
+            channels={this.state.Messenger.channels}
+            getConnection={this.state.Messenger.getChannel}
+          />
+        ) : null}
+
         <div>
           <h1>List of All Users (from database)</h1>
           {/* Check to see if any items are found*/}

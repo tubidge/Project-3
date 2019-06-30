@@ -209,6 +209,7 @@ module.exports = {
                       console.log("async await");
                       console.log(resp);
                       const buddyData = {
+                        id: event.id,
                         email: resp[0].dataValues.email,
                         channel: event.channel
                       };
@@ -231,6 +232,7 @@ module.exports = {
                               !buddyArr[i].email === resp[0].dataValues.email
                             ) {
                               const buddyData = {
+                                id: event.id,
                                 email: resp[0].dataValues.email,
                                 channel: resp[0].dataValues.chatChannel
                               };
@@ -467,6 +469,7 @@ module.exports = {
                       console.log("async await");
                       console.log(resp);
                       const buddyData = {
+                        id: event.id,
                         email: resp[0].dataValues.email,
                         channel: event.channel
                       };
@@ -478,17 +481,22 @@ module.exports = {
                   .then(() => {
                     helper
                       .asyncForEach(user.buddies.buddiesWith, async event => {
+                        console.log("and this");
+                        console.log(event);
                         await db.User.findAll({
                           where: {
                             id: event.buddyId
                           }
                         }).then(resp => {
+                          console.log("find this");
+                          console.log(resp);
                           for (var i = 0; i < buddyArr.length; i++) {
                             console.log(buddyArr[i].email);
                             if (
                               !buddyArr[i].email === resp[0].dataValues.email
                             ) {
                               const buddyData = {
+                                id: event.id,
                                 email: resp[0].dataValues.email,
                                 channel: resp[0].dataValues.chatChannel
                               };
