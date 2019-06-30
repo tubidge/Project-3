@@ -5,7 +5,7 @@ import { useAuth0 } from "../../react-auth0-spa";
 const moment = require("moment");
 const axios = require("axios");
 
-const Dashboard = props => {
+const Dashboard = () => {
   const { loading, user } = useAuth0();
   const [username, setUsername] = useState("");
   const [firstName, setFirstName] = useState("");

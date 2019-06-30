@@ -4,8 +4,9 @@ import Form from "../../components/Form";
 import FormStatic from "../../components/FormStatic";
 import { useAuth0 } from "../../react-auth0-spa";
 import "./style.css";
+import API from "../../utils/API";
 
-const axios = require("axios");
+const moment = require("moment");
 
 const Profile = () => {
   const { loading, user } = useAuth0();
@@ -14,9 +15,11 @@ const Profile = () => {
   const [userData, setUserData] = useState({});
 
   useEffect(() => {
-    axios.get("/user/email/" + user.email).then(res => {
+    API.getUserByEmail(user.email).then(res => {
       setUserData(res.data);
-      console.log(res.data.created);
+      console.log(
+        `Account Created: ${moment(res.data.created).format("llll")}`
+      );
       if (res.data.created !== undefined) {
         setNew(false);
       }

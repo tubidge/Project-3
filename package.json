@@ -28,6 +28,7 @@
     "express": "^4.16.3",
     "express-fileupload": "^1.1.5",
     "if-env": "^1.0.4",
+    "materialize-css": "^1.0.0-rc.2",
     "mongoose": "^5.3.16",
     "multer": "^1.4.1",
     "mysql2": "^1.6.5",
