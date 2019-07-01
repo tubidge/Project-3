@@ -35,11 +35,9 @@ function Sendbird(user, buddies) {
         this.channels.push(this.buddies[i].channel);
       }
     }
+
     const allBuddies = this.buddies;
-    const messageParams = this.messageParams;
-    messageParams.message = "Hey Dude what's up?";
-    messageParams.data = "Data";
-    messageParams.pushNotificationDeliveryOption = "default";
+
     helper.asyncForEach(buddies, async index => {
       console.log(index);
       userIds = [this.user];
@@ -84,13 +82,36 @@ function Sendbird(user, buddies) {
     });
   };
 
+  this.sendMessage = function() {
+    const messageParams = this.messageParams;
+    messageParams.message = "Hey Dude what's up?";
+    messageParams.data = "Data";
+    messageParams.mentionedUserIds = messageParams.pushNotificationDeliveryOption =
+      "default";
+    console.log(this.currentConnection);
+    messageParams.mentionedUserIds = [this.currentConnection.members[1].userId];
+    this.currentConnection.sendUserMessage(messageParams, function(
+      message,
+      error
+    ) {
+      if (error) throw error;
+      console.log(message);
+    });
+  };
+
   this.getChannel = function(channelUrl) {
     this.sb.GroupChannel.getChannel(channelUrl, function(connection, error) {
+      const prevMessages = connection.createPreviousMessageListQuery();
+      prevMessages.limit = 100;
+      prevMessages.reverse = true;
+
       if (error) throw error;
       console.log(connection);
-      connection.sendUserMessage(messageParams, function(message, error) {
-        if (error) throw error;
-        console.log(message);
+      Sendbird.currentConnection = connection;
+
+      prevMessages.load(function(messages, err) {
+        if (err) throw err;
+        console.log(messages);
       });
     });
   };

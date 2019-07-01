@@ -44,7 +44,7 @@ class User extends Component {
 
   // Fetch the list on first mount
   componentDidMount() {
-    this.getUserInfo(4);
+    this.getUserInfo(1);
 
     // const params = new sb.UserMessageParams();
 
@@ -96,6 +96,12 @@ class User extends Component {
   configChannels = async () => {
     await this.state.Messenger.createChannels();
     console.log(this.state.Messenger.channels);
+    // this.state.Messenger.channels.forEach(index => {
+    //   this.state.Messenger.getChannel(index, data => {
+    //     console.log("running");
+    //     this.state.Messenger.sendMessage(data);
+    //   });
+    // });
     this.setState({
       channelsConfigured: true
     });
@@ -155,14 +161,6 @@ class User extends Component {
           {this.state.userInfo.lastName}
         </h1>
 
-        {this.state.channelsConfigured ? (
-          <OpenChat
-            isConfigured={this.state.channelsConfigured}
-            channels={this.state.Messenger.channels}
-            getConnection={this.state.Messenger.getChannel}
-          />
-        ) : null}
-
         <div>
           <h1>List of All Users (from database)</h1>
           {/* Check to see if any items are found*/}
@@ -186,6 +184,15 @@ class User extends Component {
           ) : (
             <h3>No Results to Display</h3>
           )} */}
+        </div>
+        <div>
+          {this.state.channelsConfigured ? (
+            <OpenChat
+              isConfigured={this.state.channelsConfigured}
+              channels={this.state.Messenger.channels}
+              Messenger={this.state.Messenger}
+            />
+          ) : null}
         </div>
       </div>
     );

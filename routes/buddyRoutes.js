@@ -76,9 +76,8 @@ module.exports = app => {
     let info = req.body.data.info;
     console.log(req.params.id);
     console.log(req.body);
-
-    // let colName = "chatChannel";
-    // let info = null;
+    console.log(colName);
+    console.log(info);
     buddy
       .updateBuddyRelation(req.params.id, colName, info)
       .then(data => {
