@@ -34,3 +34,7 @@
   left: 0;
   right: 0;
 }
+
+hr {
+  border: 2px solid #ffc107;
+}

@@ -68,7 +68,7 @@ const MaterializeNavbar = () => {
                   <Link to="/buddies">Buddies</Link>
                 </li>
                 <li>
-                  <Link to="/user">User</Link>
+                  <Link to="/dashboard">Dashboard</Link>
                 </li>
                 <li>
                   <a
