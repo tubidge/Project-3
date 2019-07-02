@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import API from "../../utils/API";
 import Sendbird from "../../utils/SendBird";
 import OpenChat from "../../components/OpenChat";
+import ChatBox from "../../components/ChatBox";
 const axios = require("axios");
 
 class User extends Component {
@@ -39,7 +40,9 @@ class User extends Component {
       }
     },
     Messenger: null,
-    channelsConfigured: false
+    channelsConfigured: false,
+    currentChannel: null,
+    messageBody: ""
   };
 
   // Fetch the list on first mount
@@ -104,6 +107,50 @@ class User extends Component {
     // });
     this.setState({
       channelsConfigured: true
+    });
+  };
+
+  openChannel = channel => {
+    this.state.Messenger.getChannel(channel, data => {
+      this.setState({
+        currentChannel: data
+      });
+    });
+  };
+
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
+
+  submitNewMessage = event => {
+    event.preventDefault();
+    console.log("working");
+    this.state.Messenger.sendMessage(
+      this.state.messageBody,
+      this.state.currentChannel.connection.members[1].userId,
+      this.state.currentChannel.connection,
+      data => {
+        console.log("running");
+        let channel = this.state.currentChannel.messages;
+        channel.push(data);
+        this.setState({
+          messageBody: "",
+          currentChannel: {
+            connection: this.state.currentChannel.connection,
+            messages: channel
+          }
+        });
+      }
+    );
+  };
+
+  exitUserMessage = event => {
+    event.preventDefault();
+    this.setState({
+      currentChannel: null
     });
   };
 
@@ -190,7 +237,19 @@ class User extends Component {
             <OpenChat
               isConfigured={this.state.channelsConfigured}
               channels={this.state.Messenger.channels}
-              Messenger={this.state.Messenger}
+              openChannel={this.openChannel}
+            />
+          ) : null}
+        </div>
+        <div>
+          {this.state.currentChannel ? (
+            <ChatBox
+              exit={this.exitUserMessage}
+              handleInput={this.handleInputChange}
+              submitNewMessage={this.submitNewMessage}
+              name={this.state.currentChannel.connection.members[1].userId}
+              messages={this.state.currentChannel.messages}
+              userId={this.state.userInfo.email}
             />
           ) : null}
         </div>

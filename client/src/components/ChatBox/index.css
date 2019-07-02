@@ -1,0 +1,18 @@
+.card {
+  width: 35rem;
+  height: 40rem;
+}
+
+.scroll-box {
+  overflow-y: scroll;
+  height: 15rem;
+  padding: 0;
+}
+
+.fa-paper-plane:hover {
+  transform: scale(1.1);
+}
+
+.fa-paper-plane {
+  font-size: 1.5rem;
+}

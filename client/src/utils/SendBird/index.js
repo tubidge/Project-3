@@ -29,10 +29,15 @@ function Sendbird(user, buddies) {
     let userIds = [];
     let buddies = [];
     for (var i = 0; i < this.buddies.length; i++) {
+      console.log(this.buddies[i]);
       if (this.buddies[i].channel === null) {
         buddies.push(this.buddies[i].email);
       } else {
-        this.channels.push(this.buddies[i].channel);
+        let buddy = {
+          connection: this.buddies[i].channel,
+          user: this.buddies[i].email
+        };
+        this.channels.push(buddy);
       }
     }
 
@@ -82,36 +87,39 @@ function Sendbird(user, buddies) {
     });
   };
 
-  this.sendMessage = function() {
+  this.sendMessage = function(message, userId, connection, cb) {
     const messageParams = this.messageParams;
-    messageParams.message = "Hey Dude what's up?";
+    messageParams.message = message;
     messageParams.data = "Data";
     messageParams.mentionedUserIds = messageParams.pushNotificationDeliveryOption =
       "default";
-    console.log(this.currentConnection);
-    messageParams.mentionedUserIds = [this.currentConnection.members[1].userId];
-    this.currentConnection.sendUserMessage(messageParams, function(
-      message,
-      error
-    ) {
+    console.log(connection);
+    messageParams.mentionedUserIds = [userId];
+    connection.sendUserMessage(messageParams, function(message, error) {
       if (error) throw error;
       console.log(message);
+      cb(message);
     });
   };
 
-  this.getChannel = function(channelUrl) {
+  this.getChannel = function(channelUrl, cb) {
     this.sb.GroupChannel.getChannel(channelUrl, function(connection, error) {
       const prevMessages = connection.createPreviousMessageListQuery();
       prevMessages.limit = 100;
-      prevMessages.reverse = true;
+      prevMessages.reverse = false;
 
       if (error) throw error;
       console.log(connection);
       Sendbird.currentConnection = connection;
-
+      const channel = {
+        connection: connection
+      };
       prevMessages.load(function(messages, err) {
         if (err) throw err;
         console.log(messages);
+        channel.messages = messages;
+
+        cb(channel);
       });
     });
   };
