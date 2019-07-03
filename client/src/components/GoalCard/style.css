@@ -1,0 +1,4 @@
+.collapsible-body {
+  max-height: 150px;
+  overflow: scroll;
+}
