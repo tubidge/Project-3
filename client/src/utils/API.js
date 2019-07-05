@@ -27,6 +27,7 @@ export default {
   // This method will edit info for a user selected by id
   // The data object needs to have colName, and info
   editUser: (id, data) => {
+    console.log(data);
     return axios.put("/user/" + id, {
       data
     });

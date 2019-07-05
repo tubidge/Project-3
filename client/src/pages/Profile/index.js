@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react";
 import Loading from "../../components/Loading";
 import Form from "../../components/Form";
 import FormStatic from "../../components/FormStatic";
+import API from "../../utils/API";
 import { useAuth0 } from "../../react-auth0-spa";
 import "./style.css";
-import API from "../../utils/API";
 
 const moment = require("moment");
 
 const Profile = () => {
   const { loading, user } = useAuth0();
-
+  const [isLoading, setIsLoading] = useState(true);
   const [newUser, setNew] = useState(true);
   const [userData, setUserData] = useState({});
 
@@ -23,6 +23,7 @@ const Profile = () => {
       if (res.data.created !== undefined) {
         setNew(false);
       }
+      setIsLoading(false);
     });
   }, []);
 
@@ -35,9 +36,9 @@ const Profile = () => {
       <div className="row align-items-center profile-header">
         <div className="col-md-2">
           <img
-            src={user.picture}
+            src={userData.image ? userData.image : user.picture}
             alt="Profile"
-            className="rounded-circle img-fluid profile-picture"
+            className="circle img-fluid profilePicture"
           />
         </div>
         <div className="col-md-4">
@@ -46,6 +47,7 @@ const Profile = () => {
         <div className="col-lg-6 md-12 sm-12">
           {!newUser ? (
             <FormStatic
+              userID={userData.id}
               username={userData.username}
               firstName={userData.firstName}
               lastName={userData.lastName}

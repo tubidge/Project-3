@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import API from "../../utils/API";
 import "./style.css";
+import FileUpload from "../FileUpload";
 
 const FormStatic = props => {
   const [username_db, setUsername_db] = useState(props.username);
   const [firstName_db, setFirstName_db] = useState(props.firstName);
   const [lastName_db, setLastName_db] = useState(props.lastName);
-  const [disabled, setDisabled] = useState(true);
-  const [edit, setEdit] = useState("Edit");
+  // const [disabled, setDisabled] = useState(true);
+  // const [edit, setEdit] = useState("Save");
 
   useEffect(() => {
     setUsername_db(props.username);
@@ -21,22 +23,46 @@ const FormStatic = props => {
     setLastName_db(props.lastName);
   }, [props.lastName]);
 
-  const toggleEdit = e => {
-    e.preventDefault();
-    if (disabled) {
-      setDisabled(false);
-      setEdit("Save Changes");
-    } else {
-      setDisabled(true);
-      setEdit("Edit");
-    }
+  const editUser = () => {
+    let editUsername = {
+      colName: "username",
+      info: username_db
+    };
+    API.editUser(props.userID, editUsername).then(res => console.log(res));
+
+    let editFirstName = {
+      colName: "firstName",
+      info: firstName_db
+    };
+    API.editUser(props.userID, editFirstName).then(res => console.log(res));
+
+    let editLastName = {
+      colName: "lastName",
+      info: lastName_db
+    };
+    API.editUser(props.userID, editLastName).then(res => console.log(res));
   };
+
+  // const toggleEdit = e => {
+  //   e.preventDefault();
+  //   if (disabled) {
+  //   setDisabled(false);
+  //   setEdit("Save Changes");
+  //   } else {
+  //     setDisabled(true);
+  //     setEdit("Edit");
+  //   }
+  // };
 
   return (
     <>
       <h1>Edit Your Profile</h1>
+
       <form>
-        <fieldset disabled={disabled}>
+        <FileUpload userID={props.userID} />
+        {/* <fieldset disabled={disabled}> */}
+        <img src={props.image} />
+        <fieldset>
           <div className="form-group">
             <input
               className="form-control"
@@ -82,8 +108,8 @@ const FormStatic = props => {
             />
           </div>
         </fieldset>
-        <button className="btn btn-secondary m-1" onClick={toggleEdit}>
-          {edit}
+        <button className="btn btn-secondary m-1" onClick={editUser}>
+          Save Changes
         </button>
       </form>
     </>

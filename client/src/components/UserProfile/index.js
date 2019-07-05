@@ -7,7 +7,7 @@ const UserProfile = props => {
         <div className="row center-align">
           <div className="profileImageContainer">
             <img
-              className="circle responsive-img z-depth-3"
+              className="circle responsive-img z-depth-3 profilePicture"
               alt="Profile"
               src={props.userPicture}
             />

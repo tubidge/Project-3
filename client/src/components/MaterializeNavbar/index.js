@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import API from "../../utils/API";
 import M from "materialize-css";
 import { useAuth0 } from "../../react-auth0-spa";
 
 const MaterializeNavbar = () => {
   const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
+  const [userInfo, setUserInfo] = useState({});
 
   const logoutWithRedirect = () =>
     logout({
@@ -13,9 +14,11 @@ const MaterializeNavbar = () => {
     });
 
   useEffect(() => {
-    // Update the document title using the browser API
     M.AutoInit();
-  });
+    API.getUserByEmail(user.email).then(resp => {
+      setUserInfo(resp.data);
+    });
+  }, []);
 
   return (
     <>
@@ -79,7 +82,7 @@ const MaterializeNavbar = () => {
                     <img
                       style={{ width: 50 }}
                       className="circle"
-                      src={user.picture}
+                      src={userInfo.image ? userInfo.image : user.picture}
                       alt="Profile"
                     />
                     <i className="material-icons right">arrow_drop_down</i>

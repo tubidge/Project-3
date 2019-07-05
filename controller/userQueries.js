@@ -48,7 +48,7 @@ module.exports = {
             lastName: resp[0].dataValues.lastName,
             username: resp[0].dataValues.username,
             email: resp[0].dataValues.email,
-            profilePic: resp[0].dataValues.profilePic
+            image: resp[0].dataValues.image
           };
           resolve(results);
         })
@@ -72,7 +72,7 @@ module.exports = {
               lastName: index.dataValues.lastName,
               username: index.dataValues.username,
               email: index.dataValues.email,
-              profilePic: index.dataValues.profilePic
+              image: index.dataValues.image
             };
             users.push(user);
           });
@@ -105,6 +105,7 @@ module.exports = {
             lastName: data.lastName,
             username: data.username,
             email: data.email,
+            image: data.image,
             buddies: {
               myBuddies: [],
               buddiesWith: []
@@ -348,6 +349,7 @@ module.exports = {
             lastName: data.lastName,
             username: data.username,
             email: data.email,
+            image: data.image,
             created: data.createdAt,
             buddies: {
               myBuddies: [],

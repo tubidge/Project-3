@@ -1,4 +1,4 @@
-.collapsible-body {
-  max-height: 150px;
+.card {
+  max-height: 200px;
   overflow: scroll;
 }

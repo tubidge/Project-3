@@ -72,11 +72,8 @@ module.exports = app => {
   // This route will update info on a user. The colName will dictate which column they are updating
   // the info is the data that will replace the current data in that column
   app.put("/user/:id", (req, res) => {
-    // let colName = req.body.colName;
-    // let info = req.body.info;
-    let colName = "email";
-    let info = "coleworld1@me.com";
-
+    let colName = req.body.data.colName;
+    let info = req.body.data.info;
     user
       .updateUser(req.params.id, colName, info)
       .then(data => {

@@ -1,32 +1,19 @@
 import React, { useState, useEffect } from "react";
-import M, { Modal } from "materialize-css";
+import Modal from "../Modal";
+import API from "../../utils/API";
+
 import "./style.css";
 
-const axios = require("axios");
-
 const GoalCard = props => {
-  const [name, setName] = useState("");
-  const [dueDate, setDueDate] = useState("");
-  const UserId = props.UserId;
+  const [deletedGoal, setDeletedGoal] = useState("");
 
-  useEffect(() => {
-    M.AutoInit();
-  }, []);
+  useEffect(() => {}, []);
 
-  const handelSubmit = () => {
-    const category = props.category;
-    axios
-      .post("/add/goal", {
-        name,
-        category,
-        dueDate,
-        UserId
-      })
-      .then(res => {
-        console.log(res.data);
-        setName("");
-        setDueDate("");
-      });
+  const deleteGoal = id => {
+    API.deleteGoal(id).then(res => {
+      setDeletedGoal(res.data);
+      console.log(deletedGoal);
+    });
   };
 
   const renderGoalsForCategories = category => {
@@ -36,7 +23,18 @@ const GoalCard = props => {
     return result.map(goal => (
       <li key={goal.id}>
         <div className="card-panel teal">
-          <span className="white-text">{goal.name}</span>
+          <span data-target={goal.id} className="white-text modal-trigger">
+            {goal.name}
+          </span>
+          <Modal
+            className="btn red modal-trigger"
+            btnName="X"
+            header="Delete"
+            text="Are you sure you want to delete this goal?"
+            dataTarget={"deleteGoal"}
+            action="Yes, I'm sure"
+            goalId={goal.id}
+          />
         </div>
       </li>
     ));
@@ -45,61 +43,21 @@ const GoalCard = props => {
   return (
     <>
       <div className="col l4 s12">
-        <ul className="collapsible">
-          <li>
-            <div className="collapsible-header">
-              <i className="material-icons">filter_drama</i>
-              {props.category}
-            </div>
-            <div className="collapsible-body">
-              <ul>{renderGoalsForCategories(props.category)}</ul>
-              <a className="btn modal-trigger" data-target={props.category}>
-                Add Goal
-              </a>
-              <div
-                ref={Modal => {
-                  Modal = Modal;
-                }}
-                id={props.category}
-                className="modal"
-              >
-                <div className="modal-content">
-                  <form onSubmit={handelSubmit}>
-                    <h5>Add a Goal</h5>
-                    <div className="input-field">
-                      <input
-                        required
-                        type="text"
-                        className="validate"
-                        value={name}
-                        onChange={e => setName(e.target.value)}
-                      />
-                      <label htmlFor="name">Name</label>
-                    </div>
-                    <div className="input-field">
-                      <input
-                        required
-                        type="text"
-                        className="validate"
-                        value={dueDate}
-                        onChange={e => setDueDate(e.target.value)}
-                      />
-                      <label htmlFor="dueDate">Due Date</label>
-                    </div>
-                    <input className="btn" type="submit" value="Submit" />
-                    <input
-                      className="btn modal-close"
-                      type="submit"
-                      name="submit"
-                      value="Cancel"
-                      formNoValidate
-                    />
-                  </form>
-                </div>
-              </div>
-            </div>
-          </li>
-        </ul>
+        <div className="card">
+          <div className="card-content">
+            <div className="card-title">{props.category}</div>
+            <Modal
+              className="btn modal-trigger green"
+              btnName="Add Goal"
+              header="Add a New Goal"
+              text="Complete this form"
+              dataTarget={"newGoalFromCard"}
+              action="Add"
+              userID={props.userID}
+            />
+            <ul>{renderGoalsForCategories(props.category)}</ul>
+          </div>
+        </div>
       </div>
     </>
   );

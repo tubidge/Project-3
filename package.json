@@ -36,10 +36,14 @@
     "react-bootstrap": "^1.0.0-beta.9",
     "react-confirm-alert": "^2.4.1",
     "react-dom": "^16.8.6",
+    "react-dropzone": "^10.1.5",
     "react-popper": "^1.3.3",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
+    "react-select": "^3.0.4",
+    "reactjs-popup": "^1.4.1",
     "reactstrap": "^8.0.0",
-    "sequelize": "^5.8.12"
+    "sequelize": "^5.8.12",
+    "superagent": "^5.1.0"
   }
 }

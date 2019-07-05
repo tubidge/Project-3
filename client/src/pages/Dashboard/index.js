@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "../../react-auth0-spa";
-
 import API from "../../utils/API";
-
 import Loading from "../../components/Loading";
 import UserProfile from "../../components/UserProfile";
 import BuddyList from "../../components/BuddyList";
 import GoalCard from "../../components/GoalCard";
+import Modal from "../../components/Modal";
 
-import M from "materialize-css";
 import "./style.css";
 
 const Dashboard = () => {
   const { loading, user } = useAuth0();
-
+  const [isLoading, setIsLoading] = useState(true);
   const [userInfo, setUserInfo] = useState({});
   const [, setGoalInfo] = useState({});
   const [incompleteGoals, setIncompleteGoals] = useState([]);
@@ -22,7 +20,6 @@ const Dashboard = () => {
   const [buddies, setAllBuddies] = useState([]);
 
   useEffect(() => {
-    M.AutoInit();
     API.getUserByEmail(user.email).then(resp => {
       console.log(resp.data);
       let userData = resp.data;
@@ -41,9 +38,10 @@ const Dashboard = () => {
               []
             )
         );
-        if (userData.buddies.allBuddies) {
+        if (userInfo.username) {
           setAllBuddies(userData.buddies.allBuddies);
         }
+        setIsLoading(false);
       });
     });
   }, []);
@@ -68,8 +66,6 @@ const Dashboard = () => {
             <br />
             <Link to="#">Due Date: {goal.dueDate}</Link>
             <br />
-            <button className="btn">Edit Goal</button>
-            <button className="btn">Delete Goal</button>
             <div>
               <div className="card-title">Milestones</div>
               {goal.milestones.incomplete.map(milestone => (
@@ -77,7 +73,6 @@ const Dashboard = () => {
                   <p>Name: {milestone.name}</p>
                   <p>Frequency: {milestone.frequency}</p>
                   <p>Due Date: {milestone.dueDate}</p>
-                  <hr />
                 </div>
               ))}
             </div>
@@ -88,7 +83,7 @@ const Dashboard = () => {
     ));
   };
 
-  if (loading || !userInfo) {
+  if (loading || !userInfo || isLoading) {
     return <Loading />;
   }
 
@@ -97,7 +92,7 @@ const Dashboard = () => {
       <div className="row mt20">
         <div className="col l3 s12">
           <UserProfile
-            userPicture={user.picture}
+            userPicture={userInfo.image ? userInfo.image : user.picture}
             username={userInfo.username}
             email={userInfo.email}
             incompleteGoals={incompleteGoals}
@@ -108,11 +103,22 @@ const Dashboard = () => {
 
         <div className="col l8 s12">
           <div className="row">
+            <Modal
+              className="btn modal-trigger green"
+              btnName="Add a Goal"
+              header="Add a new goal"
+              text="Complete this form"
+              dataTarget={"newGoal"}
+              action="Add"
+              userID={userInfo.id}
+            />
+          </div>
+          <div className="row">
             {categories.map(category => (
               <GoalCard
                 key={makeid(5)}
                 category={category}
-                UserId={userInfo.id}
+                userID={userInfo.id}
                 incompleteGoals={incompleteGoals}
               />
             ))}
@@ -121,8 +127,6 @@ const Dashboard = () => {
             <h5 className="center-align">Calendar</h5>
           </div>
         </div>
-
-        <hr />
         <div className="col s12">
           <div className="row">
             <h5>Current Incomplete Goals</h5>
