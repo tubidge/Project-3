@@ -10,7 +10,7 @@ const moment = require("moment");
 
 const Profile = () => {
   const { loading, user } = useAuth0();
-  const [isLoading, setIsLoading] = useState(true);
+  const [, setIsLoading] = useState(true);
   const [newUser, setNew] = useState(true);
   const [userData, setUserData] = useState({});
 

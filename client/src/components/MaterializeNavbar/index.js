@@ -15,9 +15,11 @@ const MaterializeNavbar = () => {
 
   useEffect(() => {
     M.AutoInit();
-    API.getUserByEmail(user.email).then(resp => {
-      setUserInfo(resp.data);
-    });
+    if (user) {
+      API.getUserByEmail(user.email).then(resp => {
+        setUserInfo(resp.data);
+      });
+    }
   }, []);
 
   return (

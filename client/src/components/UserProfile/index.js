@@ -28,7 +28,7 @@ const UserProfile = props => {
           <div className="col s6">
             <span className="mb10">Buddies</span>
             <br />
-            <span>{props.buddies.length}</span>
+            <span>{props.buddies ? props.buddies.length : "0"}</span>
           </div>
         </div>
         <hr />

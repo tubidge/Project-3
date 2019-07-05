@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Modal from "../Modal";
-import API from "../../utils/API";
-
 import "./style.css";
 
 const GoalCard = props => {
-  const [deletedGoal, setDeletedGoal] = useState("");
-
-  useEffect(() => {}, []);
-
-  const deleteGoal = id => {
-    API.deleteGoal(id).then(res => {
-      setDeletedGoal(res.data);
-      console.log(deletedGoal);
-    });
+  const makeid = l => {
+    let text = "";
+    let char_list =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    for (let i = 0; i < l; i++) {
+      text += char_list.charAt(Math.floor(Math.random() * char_list.length));
+    }
+    return text;
   };
 
   const renderGoalsForCategories = category => {
@@ -31,9 +28,21 @@ const GoalCard = props => {
             btnName="X"
             header="Delete"
             text="Are you sure you want to delete this goal?"
-            dataTarget={"deleteGoal"}
+            dataTarget={`deleteGoal_${goal.id}`}
             action="Yes, I'm sure"
             goalId={goal.id}
+          />
+          <Modal
+            className="btn black modal-trigger"
+            btnName="Edit"
+            header="Edit"
+            text="Edit Goal"
+            dataTarget={`editGoal_${goal.id}`}
+            action="Save Changes"
+            goalId={goal.id}
+            goalName={goal.name}
+            goalCategory={goal.category}
+            goalDueDate={goal.dueDate}
           />
         </div>
       </li>
@@ -43,7 +52,7 @@ const GoalCard = props => {
   return (
     <>
       <div className="col l4 s12">
-        <div className="card">
+        <div className="card goalCard">
           <div className="card-content">
             <div className="card-title">{props.category}</div>
             <Modal
@@ -51,7 +60,7 @@ const GoalCard = props => {
               btnName="Add Goal"
               header="Add a New Goal"
               text="Complete this form"
-              dataTarget={"newGoalFromCard"}
+              dataTarget={`newGoalFromCard_${makeid(5)}`}
               action="Add"
               userID={props.userID}
             />

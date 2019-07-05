@@ -23,7 +23,8 @@ const FormStatic = props => {
     setLastName_db(props.lastName);
   }, [props.lastName]);
 
-  const editUser = () => {
+  const editUser = e => {
+    e.preventDefault();
     let editUsername = {
       colName: "username",
       info: username_db
@@ -43,24 +44,12 @@ const FormStatic = props => {
     API.editUser(props.userID, editLastName).then(res => console.log(res));
   };
 
-  // const toggleEdit = e => {
-  //   e.preventDefault();
-  //   if (disabled) {
-  //   setDisabled(false);
-  //   setEdit("Save Changes");
-  //   } else {
-  //     setDisabled(true);
-  //     setEdit("Edit");
-  //   }
-  // };
-
   return (
     <>
       <h1>Edit Your Profile</h1>
 
       <form>
         <FileUpload userID={props.userID} />
-        {/* <fieldset disabled={disabled}> */}
         <img src={props.image} />
         <fieldset>
           <div className="form-group">

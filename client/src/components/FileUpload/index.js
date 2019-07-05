@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Dropzone from "react-dropzone";
 import request from "superagent";
 import API from "../../utils/API";
@@ -13,16 +13,6 @@ export default class FileUpload extends React.Component {
     uploadedFile: null,
     uploadedFileCloudinaryUrl: ""
   };
-
-  // changePic() {
-  //   let editProfilePic = {
-  //     colName: "profilePic",
-  //     info: this.state.uploadedFileCloudinaryUrl
-  //   };
-  //   API.editUser(this.props.userID, editProfilePic).then(res =>
-  //     console.log(res)
-  //   );
-  // }
 
   onImageDrop(files) {
     this.setState({
@@ -74,8 +64,7 @@ export default class FileUpload extends React.Component {
                   <input {...getInputProps()} />
                   {
                     <div className="fileDropDiv">
-                      Try dropping some files here, or click to select files to
-                      upload.
+                      Drag your photo here, or click to select files to upload.
                     </div>
                   }
                 </div>
@@ -89,8 +78,9 @@ export default class FileUpload extends React.Component {
             <div>
               <p>{this.state.uploadedFile.name}</p>
               <img
-                className="circle img-fluid"
+                className="circle img-fluid profilePicture"
                 src={this.state.uploadedFileCloudinaryUrl}
+                alt="Profile"
               />
             </div>
           )}

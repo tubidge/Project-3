@@ -10,7 +10,6 @@ const Modal = props => {
   const [category, setCategory] = useState("");
   const [name, setName] = useState("");
   const [dueDate, setDueDate] = useState("");
-
   const [selectedOption, setSelectedOption] = useState("Choose category");
   const categories = [
     { label: "Fitness", value: 1 },
@@ -20,12 +19,41 @@ const Modal = props => {
     { label: "Travel", value: 5 }
   ];
 
+  useEffect(() => {
+    if (props.header === "Edit") {
+      setCategory(props.goalCategory);
+      setName(props.goalName);
+      setDueDate(props.goalDueDate);
+    }
+    setDataTarget(props.dataTarget);
+    M.AutoInit();
+    let modals = document.querySelectorAll(".modal");
+    let options = {
+      dismissible: true,
+      inDuration: 200,
+      outDuration: 400
+    };
+    M.Modal.init(modals, options);
+  }, []);
+
+  const handleSubmit = e => {
+    switch (props.header) {
+      case "Delete":
+        return deleteGoal(e);
+      case "Edit":
+        return editGoal(e);
+      default:
+        return addGoal(e);
+    }
+  };
+
   const handleChange = selectedOption => {
     setSelectedOption(selectedOption);
     setCategory(selectedOption.label);
   };
 
-  const addGoal = () => {
+  const addGoal = e => {
+    e.preventDefault();
     const UserId = props.userID;
     axios
       .post("/add/goal", {
@@ -42,24 +70,33 @@ const Modal = props => {
       });
   };
 
+  const editGoal = e => {
+    e.preventDefault();
+    let editCategory = {
+      colName: "category",
+      info: category
+    };
+    API.editGoal(props.goalId, editCategory).then(res => console.log(res));
+
+    let editName = {
+      colName: "name",
+      info: name
+    };
+    API.editGoal(props.goalId, editName).then(res => console.log(res));
+
+    let editDueDate = {
+      colName: "dueDate",
+      info: dueDate
+    };
+    API.editGoal(props.goalId, editDueDate).then(res => console.log(res));
+  };
+
   const deleteGoal = e => {
+    e.preventDefault();
     API.deleteGoal(props.goalId).then(res => {
       console.log(res.data);
     });
   };
-
-  useEffect(() => {
-    setDataTarget(props.dataTarget);
-
-    M.AutoInit();
-    let modals = document.querySelectorAll(".modal");
-    let options = {
-      dismissible: true,
-      inDuration: 200,
-      outDuration: 400
-    };
-    M.Modal.init(modals, options);
-  }, []);
 
   return (
     <>
@@ -71,12 +108,12 @@ const Modal = props => {
         <div className="modal-content">
           <h4>{props.header}</h4>
           <p>{props.text}</p>
-
-          <form onSubmit={props.header === "Delete" ? deleteGoal : addGoal}>
+          <form onSubmit={handleSubmit}>
             {props.header !== "Delete" && (
               <>
                 <div className="input-field col s12">
                   <Select
+                    placeholder={props.header === "Edit" ? category : null}
                     value={selectedOption}
                     options={categories}
                     onChange={handleChange}
@@ -89,7 +126,9 @@ const Modal = props => {
                     value={name}
                     onChange={e => setName(e.target.value)}
                   />
-                  <label htmlFor="name">Name</label>
+                  {props.header !== "Edit" && (
+                    <label htmlFor="name">Name</label>
+                  )}
                 </div>
                 <div className="input-field col s12">
                   <input
@@ -98,12 +137,14 @@ const Modal = props => {
                     value={dueDate}
                     onChange={e => setDueDate(e.target.value)}
                   />
-                  <label htmlFor="dueDate">Due Date</label>
+                  {props.header !== "Edit" && (
+                    <label htmlFor="dueDate">Due Date</label>
+                  )}
                 </div>
               </>
             )}
             <input
-              className={props.className}
+              className="btn modal-close"
               type="submit"
               value={props.action}
             />

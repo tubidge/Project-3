@@ -17,7 +17,7 @@ const Dashboard = () => {
   const [, setGoalInfo] = useState({});
   const [incompleteGoals, setIncompleteGoals] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [buddies, setAllBuddies] = useState([]);
+  const [allBuddies, setAllBuddies] = useState([]);
 
   useEffect(() => {
     API.getUserByEmail(user.email).then(resp => {
@@ -38,7 +38,7 @@ const Dashboard = () => {
               []
             )
         );
-        if (userInfo.username) {
+        if (userInfo.buddies) {
           setAllBuddies(userData.buddies.allBuddies);
         }
         setIsLoading(false);
@@ -96,9 +96,9 @@ const Dashboard = () => {
             username={userInfo.username}
             email={userInfo.email}
             incompleteGoals={incompleteGoals}
-            buddies={buddies}
+            buddies={allBuddies}
           />
-          <BuddyList buddies={buddies} makeid={makeid} />
+          <BuddyList buddies={allBuddies} makeid={makeid} />
         </div>
 
         <div className="col l8 s12">
@@ -127,12 +127,12 @@ const Dashboard = () => {
             <h5 className="center-align">Calendar</h5>
           </div>
         </div>
-        <div className="col s12">
+        {/* <div className="col s12">
           <div className="row">
             <h5>Current Incomplete Goals</h5>
             {renderGoals()}
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );
