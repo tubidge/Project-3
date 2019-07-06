@@ -42,6 +42,7 @@ const FormStatic = props => {
       info: lastName_db
     };
     API.editUser(props.userID, editLastName).then(res => console.log(res));
+    props.getUserProfile();
   };
 
   return (
@@ -49,7 +50,10 @@ const FormStatic = props => {
       <h1>Edit Your Profile</h1>
 
       <form>
-        <FileUpload userID={props.userID} />
+        <FileUpload
+          userID={props.userID}
+          getUserProfile={props.getUserProfile}
+        />
         <img src={props.image} />
         <fieldset>
           <div className="form-group">

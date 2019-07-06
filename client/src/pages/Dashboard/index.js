@@ -17,38 +17,11 @@ const Dashboard = () => {
   const [, setGoalInfo] = useState({});
   const [incompleteGoals, setIncompleteGoals] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [allBuddies, setAllBuddies] = useState([]);
+  const [allBuddies, setAllBuddies] = useState();
 
   useEffect(() => {
     getAllData();
   }, []);
-
-  // useEffect(() => {
-  //   API.getUserByEmail(user.email).then(resp => {
-  //     console.log(resp.data);
-  //     let userData = resp.data;
-  //     API.getAllGoals(userData.id).then(res => {
-  //       console.log(res.data);
-  //       let goalData = res.data;
-  //       setGoalInfo(goalData);
-  //       setUserInfo(userData);
-  //       setIncompleteGoals(goalData.currentGoals.incomplete);
-  //       setCategories(
-  //         goalData.currentGoals.incomplete
-  //           .map(goal => goal.category)
-  //           .reduce(
-  //             (unique, item) =>
-  //               unique.includes(item) ? unique : [...unique, item],
-  //             []
-  //           )
-  //       );
-  //       if (userInfo.buddies) {
-  //         setAllBuddies(userData.buddies.allBuddies);
-  //       }
-  //       setIsLoading(false);
-  //     });
-  //   });
-  // }, []);
 
   const getAllData = () => {
     API.getUserByEmail(user.email).then(resp => {
@@ -59,6 +32,9 @@ const Dashboard = () => {
         let goalData = res.data;
         setGoalInfo(goalData);
         setUserInfo(userData);
+        if (userData.buddies) {
+          setAllBuddies(userData.buddies.allBuddies);
+        }
         setIncompleteGoals(goalData.currentGoals.incomplete);
         setCategories(
           goalData.currentGoals.incomplete
@@ -69,9 +45,6 @@ const Dashboard = () => {
               []
             )
         );
-        if (userInfo.buddies) {
-          setAllBuddies(userData.buddies.allBuddies);
-        }
         setIsLoading(false);
       });
     });
@@ -136,10 +109,10 @@ const Dashboard = () => {
           <div className="row">
             <Modal
               className="btn modal-trigger green"
-              btnName="Add a Goal"
+              btnName="Add goal for new category..."
               header="Add a new goal"
               text="Complete this form"
-              dataTarget={"newGoal"}
+              dataTarget={`newGoal_${makeid(5)}`}
               action="Add"
               userID={userInfo.id}
               getAllData={getAllData}
