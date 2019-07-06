@@ -3,6 +3,13 @@ import Modal from "../Modal";
 import "./style.css";
 
 const GoalCard = props => {
+  const [goals, setGoals] = useState([]);
+
+  useEffect(() => {
+    setGoals(props.incompleteGoals);
+    console.log(goals);
+  });
+
   const makeid = l => {
     let text = "";
     let char_list =
@@ -23,6 +30,7 @@ const GoalCard = props => {
           <span data-target={goal.id} className="white-text modal-trigger">
             {goal.name}
           </span>
+          <br />
           <Modal
             className="btn red modal-trigger"
             btnName="X"
@@ -31,6 +39,7 @@ const GoalCard = props => {
             dataTarget={`deleteGoal_${goal.id}`}
             action="Yes, I'm sure"
             goalId={goal.id}
+            getAllData={props.getAllData}
           />
           <Modal
             className="btn black modal-trigger"
@@ -43,6 +52,7 @@ const GoalCard = props => {
             goalName={goal.name}
             goalCategory={goal.category}
             goalDueDate={goal.dueDate}
+            getAllData={props.getAllData}
           />
         </div>
       </li>

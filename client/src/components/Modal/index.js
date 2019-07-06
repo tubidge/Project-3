@@ -68,6 +68,7 @@ const Modal = props => {
         setDueDate("");
         setCategory("");
       });
+    props.getAllData();
   };
 
   const editGoal = e => {
@@ -89,12 +90,14 @@ const Modal = props => {
       info: dueDate
     };
     API.editGoal(props.goalId, editDueDate).then(res => console.log(res));
+    props.getAllData();
   };
 
   const deleteGoal = e => {
     e.preventDefault();
     API.deleteGoal(props.goalId).then(res => {
       console.log(res.data);
+      props.getAllData();
     });
   };
 

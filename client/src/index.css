@@ -14,6 +14,6 @@ code {
 }
 
 .profilePicture {
-  height: 200px;
-  overflow: hidden;
+  margin-top: 20px;
+  height: 250px !important;
 }

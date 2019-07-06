@@ -20,6 +20,37 @@ const Dashboard = () => {
   const [allBuddies, setAllBuddies] = useState([]);
 
   useEffect(() => {
+    getAllData();
+  }, []);
+
+  // useEffect(() => {
+  //   API.getUserByEmail(user.email).then(resp => {
+  //     console.log(resp.data);
+  //     let userData = resp.data;
+  //     API.getAllGoals(userData.id).then(res => {
+  //       console.log(res.data);
+  //       let goalData = res.data;
+  //       setGoalInfo(goalData);
+  //       setUserInfo(userData);
+  //       setIncompleteGoals(goalData.currentGoals.incomplete);
+  //       setCategories(
+  //         goalData.currentGoals.incomplete
+  //           .map(goal => goal.category)
+  //           .reduce(
+  //             (unique, item) =>
+  //               unique.includes(item) ? unique : [...unique, item],
+  //             []
+  //           )
+  //       );
+  //       if (userInfo.buddies) {
+  //         setAllBuddies(userData.buddies.allBuddies);
+  //       }
+  //       setIsLoading(false);
+  //     });
+  //   });
+  // }, []);
+
+  const getAllData = () => {
     API.getUserByEmail(user.email).then(resp => {
       console.log(resp.data);
       let userData = resp.data;
@@ -44,7 +75,7 @@ const Dashboard = () => {
         setIsLoading(false);
       });
     });
-  }, []);
+  };
 
   const makeid = l => {
     let text = "";
@@ -111,6 +142,7 @@ const Dashboard = () => {
               dataTarget={"newGoal"}
               action="Add"
               userID={userInfo.id}
+              getAllData={getAllData}
             />
           </div>
           <div className="row">
@@ -120,6 +152,7 @@ const Dashboard = () => {
                 category={category}
                 userID={userInfo.id}
                 incompleteGoals={incompleteGoals}
+                getAllData={getAllData}
               />
             ))}
           </div>
