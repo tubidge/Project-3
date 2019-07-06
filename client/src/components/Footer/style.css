@@ -1,0 +1,13 @@
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%
+}
+
+.repo-link {
+    float: left
+}
+
+.contact-link {
+    float: right
+}
