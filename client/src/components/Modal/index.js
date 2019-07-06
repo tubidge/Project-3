@@ -52,6 +52,12 @@ const Modal = props => {
     setCategory(selectedOption.label);
   };
 
+  const handleCancel = () => {
+    setName("");
+    setDueDate("");
+    setSelectedOption("");
+  };
+
   const addGoal = e => {
     e.preventDefault();
     const UserId = props.userID;
@@ -116,7 +122,7 @@ const Modal = props => {
               <>
                 <div className="input-field col s12">
                   <Select
-                    placeholder={props.header === "Edit" ? category : null}
+                    placeholder={props.header === "Edit" ? category : ""}
                     value={selectedOption}
                     options={categories}
                     onChange={handleChange}
@@ -152,7 +158,9 @@ const Modal = props => {
               value={props.action}
             />
           </form>
-          <button className="btn modal-close">Cancel</button>
+          <button onClick={handleCancel} className="btn modal-close">
+            Cancel
+          </button>
         </div>
       </div>
     </>

@@ -13,8 +13,24 @@ const Profile = () => {
   const [, setIsLoading] = useState(true);
   const [newUser, setNew] = useState(true);
   const [userData, setUserData] = useState({});
-
   useEffect(() => {
+    getUserProfile();
+  }, []);
+
+  // useEffect(() => {
+  //   API.getUserByEmail(user.email).then(res => {
+  //     setUserData(res.data);
+  //     console.log(
+  //       `Account Created: ${moment(res.data.created).format("llll")}`
+  //     );
+  //     if (res.data.created !== undefined) {
+  //       setNew(false);
+  //     }
+  //     setIsLoading(false);
+  //   });
+  // }, []);
+
+  const getUserProfile = () => {
     API.getUserByEmail(user.email).then(res => {
       setUserData(res.data);
       console.log(
@@ -25,7 +41,7 @@ const Profile = () => {
       }
       setIsLoading(false);
     });
-  }, []);
+  };
 
   if (loading || !user) {
     return <Loading />;
@@ -52,12 +68,14 @@ const Profile = () => {
               firstName={userData.firstName}
               lastName={userData.lastName}
               email={user.email}
+              getUserProfile={getUserProfile}
             />
           ) : (
             <Form
               fistName={user.given_name}
               lastName={user.family_name}
               email={user.email}
+              getUserProfile={getUserProfile}
             />
           )}
         </div>

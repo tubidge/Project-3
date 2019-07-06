@@ -68,11 +68,12 @@ const GoalCard = props => {
             <Modal
               className="btn modal-trigger green"
               btnName="Add Goal"
-              header="Add a New Goal"
+              header="Add a new goal"
               text="Complete this form"
               dataTarget={`newGoalFromCard_${makeid(5)}`}
               action="Add"
               userID={props.userID}
+              getAllData={props.getAllData}
             />
             <ul>{renderGoalsForCategories(props.category)}</ul>
           </div>
