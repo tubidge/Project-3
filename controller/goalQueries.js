@@ -148,7 +148,7 @@ module.exports = {
               index.dataValues.Milestones.forEach(index => {
                 const milestone = {};
                 milestone.id = index.dataValues.id;
-                milestone.name = index.dataValues.id;
+                milestone.name = index.dataValues.name;
                 milestone.frequency = index.dataValues.frequency;
                 milestone.dueDate = moment(index.dataValues.dueDate)
                   .add("1", "day")

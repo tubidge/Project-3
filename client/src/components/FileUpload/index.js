@@ -1,81 +1,91 @@
-import React, { Fragment, useState } from "react";
-import Message from "../Message";
-import axios from "axios";
+import React from "react";
+import Dropzone from "react-dropzone";
+import request from "superagent";
+import API from "../../utils/API";
 
-const profilePicStyle = {
-  width: "50%"
-};
+import "./style.css";
 
-const FileUpload = () => {
-  const [file, setFile] = useState("");
-  const [filename, setFilename] = useState("Choose picture");
-  const [uploadedFile, setUploadedFile] = useState({});
-  const [message, setMessage] = useState("");
+const CLOUDINARY_UPLOAD_PRESET = "mrptyjwx";
+const CLOUDINARY_UPLOAD_URL = "https://api.cloudinary.com/v1_1/goalden/upload";
 
-  const onChange = e => {
-    setFile(e.target.files[0]);
-    setFilename(e.target.files[0].name);
+export default class FileUpload extends React.Component {
+  state = {
+    uploadedFile: null,
+    uploadedFileCloudinaryUrl: ""
   };
 
-  const onSubmit = async e => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("file", file);
+  onImageDrop(files) {
+    this.setState({
+      uploadedFile: files[0]
+    });
 
-    try {
-      const res = await axios.post("/upload", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data"
-        }
-      });
-      console.log(formData);
+    this.handleImageUpload(files[0]);
+  }
 
-      const { fileName, filePath } = res.data;
+  handleImageUpload(file) {
+    let upload = request
+      .post(CLOUDINARY_UPLOAD_URL)
+      .field("upload_preset", CLOUDINARY_UPLOAD_PRESET)
+      .field("file", file);
 
-      setUploadedFile({ fileName, filePath });
-
-      setMessage("Picture uploaded");
-    } catch (err) {
-      if (err.response.status === 500) {
-        setMessage("There was a problem with the server");
-      } else {
-        setMessage(err.response.data.msg);
+    upload.end((err, response) => {
+      if (err) {
+        console.error(err);
       }
-    }
-  };
 
-  return (
-    <Fragment>
-      <div className="text-center">
-        <h3>{uploadedFile.fileName}</h3>
-        <img
-          style={profilePicStyle}
-          src={uploadedFile.filePath}
-          className="img-fluid img-circle"
-          alt={uploadedFile.filename}
-        />
-      </div>
-      <form onSubmit={onSubmit}>
-        <div className="custom-file mt-3">
-          <input
-            type="file"
-            className="custom-file-input"
-            id="customFile"
-            onChange={onChange}
-          />
-          <label className="custom-file-label" htmlFor="customFile">
-            {filename}
-          </label>
+      if (response.body.secure_url !== "") {
+        this.setState({
+          uploadedFileCloudinaryUrl: response.body.secure_url
+        });
+        let editProfilePic = {
+          colName: "image",
+          info: this.state.uploadedFileCloudinaryUrl
+        };
+        API.editUser(this.props.userID, editProfilePic).then(res => {
+          console.log(res);
+          console.log(editProfilePic);
+        });
+      }
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <div className="FileUpload">
+          <Dropzone
+            onDrop={this.onImageDrop.bind(this)}
+            accept="image/*"
+            multiple={false}
+          >
+            {({ getRootProps, getInputProps }) => {
+              return (
+                <div {...getRootProps()}>
+                  <input {...getInputProps()} />
+                  {
+                    <div className="fileDropDiv">
+                      Drag your photo here, or click to select files to upload.
+                    </div>
+                  }
+                </div>
+              );
+            }}
+          </Dropzone>
         </div>
-        {message ? <Message msg={message} /> : null}
-        <input
-          type="submit"
-          value="Upload"
-          className="btn btn-primary btn-block"
-        />
-      </form>
-    </Fragment>
-  );
-};
 
-export default FileUpload;
+        <div>
+          {this.state.uploadedFileCloudinaryUrl === "" ? null : (
+            <div>
+              <p>{this.state.uploadedFile.name}</p>
+              <img
+                className="circle img-fluid profilePicture"
+                src={this.state.uploadedFileCloudinaryUrl}
+                alt="Profile"
+              />
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+}

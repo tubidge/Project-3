@@ -12,3 +12,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.profilePicture {
+  margin-top: 20px;
+  height: 250px !important;
+}

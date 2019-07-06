@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Jumbotron from "../../components/Jumbotron";
 
 import { useAuth0 } from "../../react-auth0-spa";
 import Dashboard from "../Dashboard";
@@ -12,15 +11,14 @@ const Home = () => {
     <>
       {!isAuthenticated && (
         <>
-          <Jumbotron />
-          <div className="container text-center">
-            <div className="row">
-              <div className="col-sm-12 mb-3">
-                <Link to="/profile" className="btn btn-primary">
-                  Sign Up
-                </Link>
-              </div>
-            </div>
+          <div className="container">
+            <h1>Home Page</h1>
+            <Link to="/profile" className="btn waves-effect waves-light">
+              Sign Up
+            </Link>
+            <Link to="/dashboard" className="btn waves-effect waves-light">
+              Login
+            </Link>
           </div>
         </>
       )}
