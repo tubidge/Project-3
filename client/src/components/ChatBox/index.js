@@ -26,7 +26,7 @@ function ChatBox(props) {
   return (
     <div className="card mt-5">
       <div className="card-header d-flex justify-content-between text-white shadow-lg bg-success rounded">
-        <h4 className="ml-4">{props.name}</h4>
+        <h4 className="ml-4">Username</h4>
         <div>
           <i onClick={props.exit} className="fas fa-times text-white" />
         </div>

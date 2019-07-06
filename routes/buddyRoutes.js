@@ -2,16 +2,16 @@ var buddy = require("../controller/buddyQueries");
 
 module.exports = app => {
   // This route will get all the buddy relationships based on the user id that "owns" the relationship
-  app.get("/buddy/owner/:id", (req, res) => {
-    buddy
-      .getByOwner(req.params.id)
-      .then(data => {
-        res.send(data);
-      })
-      .catch(err => {
-        res.send(err);
-      });
-  });
+  // app.get("/buddy/owner/:id", (req, res) => {
+  //   buddy
+  //     .getByOwner(req.params.id)
+  //     .then(data => {
+  //       res.send(data);
+  //     })
+  //     .catch(err => {
+  //       res.send(err);
+  //     });
+  // });
 
   // This route will get all buddy relationships associated with a goal's id
   app.get("/buddy/goal/:id", (req, res) => {
@@ -26,9 +26,9 @@ module.exports = app => {
   });
 
   // This route will get all buddy relationships that a user is associated on.
-  app.get("/buddy/buddy/:id", (req, res) => {
+  app.get("/buddy/all/:id", (req, res) => {
     buddy
-      .getBuddyId(req.params.id)
+      .getAllBuddiesId(req.params.id)
       .then(data => {
         res.send(data);
       })

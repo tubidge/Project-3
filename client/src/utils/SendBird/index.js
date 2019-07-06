@@ -67,6 +67,7 @@ function Sendbird(user, buddies) {
     const allBuddies = this.buddies;
 
     helper.asyncForEach(buddies, async index => {
+      userIds = [];
       console.log(index);
       userIds = [this.user];
       userIds.push(index);
@@ -86,6 +87,7 @@ function Sendbird(user, buddies) {
           });
 
           let groupChannel = channel.url;
+
           const data = {
             colName: "chatChannel",
             info: groupChannel
@@ -119,15 +121,18 @@ function Sendbird(user, buddies) {
       "default";
     console.log(connection);
     messageParams.mentionedUserIds = [userId];
+    const Handler = this.ChannelHandler;
     connection.sendUserMessage(messageParams, function(message, error) {
       if (error) throw error;
       console.log(message);
+      Handler.onMessageReceived(connection, message);
       cb(message);
     });
   };
 
   this.getChannel = function(channelUrl, cb) {
     const Handler = this.ChannelHandler;
+    console.log(Handler);
     this.sb.GroupChannel.getChannel(channelUrl, function(connection, error) {
       const prevMessages = connection.createPreviousMessageListQuery();
       prevMessages.limit = 100;
@@ -139,7 +144,7 @@ function Sendbird(user, buddies) {
       Sendbird.currentConnection = connection;
 
       Handler.onReadReceiptUpdated(connection);
-      Handler.onMessageReceived(connection);
+
       Handler.onMentionReceived(connection);
       Handler.onTypingStatusUpdated(connection);
       Handler.onUserEntered(connection);

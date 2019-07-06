@@ -47,13 +47,8 @@ class User extends Component {
 
   // Fetch the list on first mount
   componentDidMount() {
-    this.getUserInfo(1);
-    if (this.state.currentChannel === null) {
-      return false;
-    } else {
-      console.log("working");
-      this.scrollToBottom();
-    }
+    this.getUserInfo(this.props.auth.getProfile().name);
+
     // const params = new sb.UserMessageParams();
 
     // params.message = "Hey dude";
@@ -113,12 +108,7 @@ class User extends Component {
   configChannels = async () => {
     await this.state.Messenger.createChannels();
     console.log(this.state.Messenger.channels);
-    // this.state.Messenger.channels.forEach(index => {
-    //   this.state.Messenger.getChannel(index, data => {
-    //     console.log("running");
-    //     this.state.Messenger.sendMessage(data);
-    //   });
-    // });
+
     this.setState({
       channelsConfigured: true
     });
@@ -139,12 +129,6 @@ class User extends Component {
       [name]: value
     });
   };
-
-  // scrollToBottom = () => {
-  //   let element = document.getElementById("messageContent");
-  //   console.log(element);
-  //   element.scrollIntoView(false);
-  // };
 
   submitNewMessage = event => {
     event.preventDefault();
@@ -180,8 +164,8 @@ class User extends Component {
     });
   };
 
-  getUserInfo = id => {
-    API.getUser(id).then(resp => {
+  getUserInfo = email => {
+    API.getUserByEmail(email).then(resp => {
       console.log(resp.data);
       let data = resp.data;
       this.state.Messenger = new Sendbird(data.email, data.buddies.allBuddies);
@@ -273,7 +257,6 @@ class User extends Component {
               exit={this.exitUserMessage}
               handleInput={this.handleInputChange}
               submitNewMessage={this.submitNewMessage}
-              name={this.state.currentChannel.connection.members[1].userId}
               messages={this.state.currentChannel.messages}
               userId={this.state.userInfo.email}
             />

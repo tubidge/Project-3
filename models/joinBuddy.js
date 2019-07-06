@@ -28,6 +28,15 @@ module.exports = (sequelize, DataTypes) => {
         isNumeric: true,
         not: ["[a-z]", "i"]
       }
+    },
+
+    buddyGoal: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validation: {
+        isNumeric: true,
+        not: ["[a-z]", "i"]
+      }
     }
   });
 
