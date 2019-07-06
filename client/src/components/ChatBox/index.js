@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./index.css";
 import ChatMessage from "../ChatMessage";
 // This chatbox should render a card that takes in props for the current channel and sends those props to a hook that then populates the card
 // and allows for new messages to be sent
 function ChatBox(props) {
   console.log(props.messages);
+
+  useEffect(() => {
+    document.getElementById("testing").scrollIntoView(true);
+
+    console.log("messages changes");
+  }, [props.messages.length]);
+
+  useEffect(() => {
+    document
+      .getElementById("messageField")
+      .addEventListener("keydown", function(event) {
+        if (event.keyCode == 13 && !event.shiftKey) {
+          event.preventDefault();
+          document.getElementById("sendMessage").click();
+        }
+      });
+  }, []);
 
   return (
     <div className="card mt-5">
@@ -14,7 +31,7 @@ function ChatBox(props) {
           <i onClick={props.exit} className="fas fa-times text-white" />
         </div>
       </div>
-      <div className="card-body scroll-box mx-3">
+      <div className="card-body scroll-box mx-3 messageContent">
         {props.messages.map(index => {
           return (
             <ChatMessage
@@ -25,6 +42,7 @@ function ChatBox(props) {
             />
           );
         })}
+        <div id="testing" style={{ float: "right" }} />
       </div>
       <div className="card-footer text-muted py-0 shadow-lg bg-success rounded">
         <form className="py-0">
@@ -38,6 +56,7 @@ function ChatBox(props) {
               onChange={props.handleInput}
             />
             <i
+              id="sendMessage"
               onClick={props.submitNewMessage}
               className="far fa-paper-plane text-white ml-4 mt-3"
             />{" "}

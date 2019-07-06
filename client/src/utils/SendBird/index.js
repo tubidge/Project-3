@@ -8,11 +8,25 @@ const sb = new SendBird({
 
 const messageParams = new sb.UserMessageParams();
 
+const ChannelHandler = new sb.ChannelHandler();
+
+ChannelHandler.onMessageReceived = function(channel, message) {
+  console.log(channel, message);
+};
+ChannelHandler.onMentionReceived = function(channel, message) {};
+
+ChannelHandler.onTypingStatusUpdated = function(groupChannel) {
+  console.log(groupChannel);
+};
+ChannelHandler.onUserEntered = function(openChannel, user) {};
+ChannelHandler.onUserExited = function(openChannel, user) {};
+
 function Sendbird(user, buddies) {
   this.user = user;
   this.buddies = buddies;
   this.sb = sb;
   this.messageParams = messageParams;
+  this.ChannelHandler = ChannelHandler;
   this.channels = [];
   this.currentConnection = null;
 
@@ -22,6 +36,15 @@ function Sendbird(user, buddies) {
         return error;
       }
       console.log(user);
+    });
+  };
+
+  this.configHandler = function() {
+    console.log(this.channels);
+    console.log("function running");
+    this.channels.forEach(index => {
+      console.log(index);
+      this.sb.addChannelHandler(index.connection, this.ChannelHandler);
     });
   };
 
@@ -85,6 +108,7 @@ function Sendbird(user, buddies) {
         }
       );
     });
+    this.configHandler();
   };
 
   this.sendMessage = function(message, userId, connection, cb) {
@@ -103,6 +127,7 @@ function Sendbird(user, buddies) {
   };
 
   this.getChannel = function(channelUrl, cb) {
+    const Handler = this.ChannelHandler;
     this.sb.GroupChannel.getChannel(channelUrl, function(connection, error) {
       const prevMessages = connection.createPreviousMessageListQuery();
       prevMessages.limit = 100;
@@ -110,7 +135,16 @@ function Sendbird(user, buddies) {
 
       if (error) throw error;
       console.log(connection);
+
       Sendbird.currentConnection = connection;
+
+      Handler.onReadReceiptUpdated(connection);
+      Handler.onMessageReceived(connection);
+      Handler.onMentionReceived(connection);
+      Handler.onTypingStatusUpdated(connection);
+      Handler.onUserEntered(connection);
+      Handler.onUserExited(connection);
+
       const channel = {
         connection: connection
       };

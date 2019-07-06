@@ -48,7 +48,12 @@ class User extends Component {
   // Fetch the list on first mount
   componentDidMount() {
     this.getUserInfo(1);
-
+    if (this.state.currentChannel === null) {
+      return false;
+    } else {
+      console.log("working");
+      this.scrollToBottom();
+    }
     // const params = new sb.UserMessageParams();
 
     // params.message = "Hey dude";
@@ -92,6 +97,15 @@ class User extends Component {
     // );
   }
 
+  // componentDidUpdate() {
+  //   if (this.state.currentChannel === null) {
+  //     return false;
+  //   } else {
+  //     console.log("working");
+  //     this.scrollToBottom();
+  //   }
+  // }
+
   getCurrentUser = () => {
     this.setState({ email: this.props.auth.getProfile().email });
   };
@@ -119,32 +133,44 @@ class User extends Component {
   };
 
   handleInputChange = event => {
+    event.preventDefault();
     const { name, value } = event.target;
     this.setState({
       [name]: value
     });
   };
 
+  // scrollToBottom = () => {
+  //   let element = document.getElementById("messageContent");
+  //   console.log(element);
+  //   element.scrollIntoView(false);
+  // };
+
   submitNewMessage = event => {
     event.preventDefault();
     console.log("working");
-    this.state.Messenger.sendMessage(
-      this.state.messageBody,
-      this.state.currentChannel.connection.members[1].userId,
-      this.state.currentChannel.connection,
-      data => {
-        console.log("running");
-        let channel = this.state.currentChannel.messages;
-        channel.push(data);
-        this.setState({
-          messageBody: "",
-          currentChannel: {
-            connection: this.state.currentChannel.connection,
-            messages: channel
-          }
-        });
-      }
-    );
+    if (this.state.messageBody === "" || this.state.messageBody === " ") {
+      return false;
+    } else {
+      this.state.Messenger.sendMessage(
+        this.state.messageBody,
+        this.state.currentChannel.connection.members[1].userId,
+        this.state.currentChannel.connection,
+        data => {
+          document.getElementById("messageField").value = "";
+          console.log("running");
+          let channel = this.state.currentChannel.messages;
+          channel.push(data);
+          this.setState({
+            messageBody: "",
+            currentChannel: {
+              connection: this.state.currentChannel.connection,
+              messages: channel
+            }
+          });
+        }
+      );
+    }
   };
 
   exitUserMessage = event => {
