@@ -8,6 +8,7 @@ import MaterializeNavbar from "./components/MaterializeNavbar";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
+import ProfileView from "./pages/ProfileView";
 import Buddies from "./pages/Buddies";
 import { useAuth0 } from "./react-auth0-spa";
 
@@ -28,6 +29,7 @@ const App = () => {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/buddies" exact component={Buddies} />
+          <Route path="/profileNew" exact component={ProfileView} />
           <PrivateRoute path="/dashboard" component={Dashboard} />
           <PrivateRoute path="/profile" component={Profile} />
         </Switch>

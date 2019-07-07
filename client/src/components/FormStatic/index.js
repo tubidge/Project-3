@@ -47,60 +47,80 @@ const FormStatic = props => {
 
   return (
     <>
-      <h1>Edit Your Profile</h1>
-
       <form>
-        <FileUpload
-          userID={props.userID}
-          getUserProfile={props.getUserProfile}
-        />
-        <img src={props.image} />
-        <fieldset>
-          <div className="form-group">
-            <input
-              className="form-control"
-              value={username_db}
-              onChange={e => setUsername_db(e.target.value)}
-              placeholder="username"
-              type="text"
-              name="username"
-              required
-            />
+        <div className="row">
+          <div className="col s5">
+            <div className="row">
+              <div className="form-group">
+                <b>Username</b>
+                <input
+                  className="form-control"
+                  value={username_db}
+                  onChange={e => setUsername_db(e.target.value)}
+                  placeholder="username"
+                  type="text"
+                  name="username"
+                  required
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div className="form-group">
+                <b>Email</b>
+                <input
+                  disabled
+                  readOnly
+                  className="form-control"
+                  value={props.email}
+                  placeholder="Email address"
+                  type="email"
+                  name="email"
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div className="form-group">
+                <FileUpload
+                  userID={props.userID}
+                  getUserProfile={props.getUserProfile}
+                />
+                {props.image && <img src={props.image} alt="Profile" />}
+              </div>
+            </div>
           </div>
-          <div className="form-group">
-            <input
-              className="form-control"
-              value={firstName_db}
-              onChange={e => setFirstName_db(e.target.value)}
-              placeholder="First name"
-              type="text"
-              name="firstName_db"
-              required
-            />
+          <div className="col s5 offset-s1">
+            <div className="row">
+              <div className="form-group">
+                <b>First Name</b>
+                <input
+                  className="form-control"
+                  value={firstName_db}
+                  onChange={e => setFirstName_db(e.target.value)}
+                  placeholder="First name"
+                  type="text"
+                  name="firstName_db"
+                  required
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div className="form-group">
+                <b>Last Name</b>
+                <input
+                  className="form-control"
+                  value={lastName_db}
+                  onChange={e => setLastName_db(e.target.value)}
+                  placeholder="Last name"
+                  type="text"
+                  name="lastName"
+                  required
+                />
+              </div>
+            </div>
           </div>
-          <div className="form-group">
-            <input
-              className="form-control"
-              value={lastName_db}
-              onChange={e => setLastName_db(e.target.value)}
-              placeholder="Last name"
-              type="text"
-              name="lastName"
-              required
-            />
-          </div>
-          <div className="form-group">
-            <input
-              disabled
-              readOnly
-              className="form-control"
-              value={props.email}
-              placeholder="Email address"
-              type="email"
-              name="email"
-            />
-          </div>
-        </fieldset>
+        </div>
+
+        <br />
         <button className="btn btn-secondary m-1" onClick={editUser}>
           Save Changes
         </button>
