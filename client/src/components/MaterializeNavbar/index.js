@@ -6,7 +6,7 @@ import { useAuth0 } from "../../react-auth0-spa";
 
 const MaterializeNavbar = () => {
   const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
-  const [userInfo, setUserInfo] = useState({});
+  const [, setUserInfo] = useState({});
 
   const logoutWithRedirect = () =>
     logout({
@@ -59,7 +59,7 @@ const MaterializeNavbar = () => {
           <nav>
             <div className="nav-wrapper">
               <Link to="/dashboard" className="brand-logo">
-                GoalDone
+                GoalDen
               </Link>
               <Link
                 to="#"
@@ -81,12 +81,12 @@ const MaterializeNavbar = () => {
                     href="#!"
                     data-target="dropdown1"
                   >
-                    <img
+                    {/* <img
                       style={{ width: 50 }}
                       className="circle"
                       src={userInfo.image ? userInfo.image : user.picture}
                       alt="Profile"
-                    />
+                    /> */}
                     <i className="material-icons right">arrow_drop_down</i>
                   </a>
                 </li>

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import M from "materialize-css";
+
 import API from "../../utils/API";
-import "./style.css";
 import FileUpload from "../FileUpload";
+import "./style.css";
 
 const FormStatic = props => {
   const [username_db, setUsername_db] = useState(props.username);
@@ -43,6 +45,8 @@ const FormStatic = props => {
     };
     API.editUser(props.userID, editLastName).then(res => console.log(res));
     props.getUserProfile();
+
+    M.toast({ html: "Profile updated!" });
   };
 
   return (
@@ -80,6 +84,7 @@ const FormStatic = props => {
             </div>
             <div className="row">
               <div className="form-group">
+                <b>Update Profile Picture</b>
                 <FileUpload
                   userID={props.userID}
                   getUserProfile={props.getUserProfile}
@@ -117,11 +122,63 @@ const FormStatic = props => {
                 />
               </div>
             </div>
+            <div className="row center-align">
+              <b>Notifications</b>
+              <hr />
+              <div className="form-group">
+                <div className="col s6">
+                  <div className="row">
+                    <span>New Goal Match</span>
+                    <div className="switch">
+                      <label>
+                        Off
+                        <input type="checkbox" />
+                        <span className="lever" />
+                        On
+                      </label>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <span>Buddy Requests</span>
+                    <div className="switch">
+                      <label>
+                        Off
+                        <input type="checkbox" />
+                        <span className="lever" />
+                        On
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div className="col s6">
+                  <div className="row">
+                    <span>Goal Progress</span>
+                    <div className="switch">
+                      <label>
+                        Off
+                        <input type="checkbox" />
+                        <span className="lever" />
+                        On
+                      </label>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <span>Buddy Goal Progress</span>
+                    <div className="switch">
+                      <label>
+                        Off
+                        <input type="checkbox" />
+                        <span className="lever" />
+                        On
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-
-        <br />
-        <button className="btn btn-secondary m-1" onClick={editUser}>
+        <button className="btn left" onClick={editUser}>
           Save Changes
         </button>
       </form>

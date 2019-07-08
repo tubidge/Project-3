@@ -51,7 +51,7 @@ export default class FileUpload extends React.Component {
 
   render() {
     return (
-      <div>
+      <>
         <div className="FileUpload">
           <Dropzone
             onDrop={this.onImageDrop.bind(this)}
@@ -64,7 +64,9 @@ export default class FileUpload extends React.Component {
                   <input {...getInputProps()} />
                   {
                     <div className="fileDropDiv">
-                      Drag your photo here, or click to select files to upload.
+                      <i className="material-icons">file_download</i>
+                      <br />
+                      <b>Choose a file</b> or drag it here.
                     </div>
                   }
                 </div>
@@ -85,7 +87,7 @@ export default class FileUpload extends React.Component {
             </div>
           )}
         </div>
-      </div>
+      </>
     );
   }
 }

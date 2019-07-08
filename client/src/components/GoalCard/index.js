@@ -26,23 +26,12 @@ const GoalCard = props => {
     );
     return result.map(goal => (
       <li key={goal.id}>
-        <div className="card-panel teal">
-          <span data-target={goal.id} className="white-text modal-trigger">
-            {goal.name}
-          </span>
-          <br />
+        <div className="card-panel grey lighten-4 dark-text">
+          <span className="truncate">{goal.name}</span>
+          <hr />
           <Modal
-            className="btn red modal-trigger"
-            btnName="X"
-            header="Delete"
-            text="Are you sure you want to delete this goal?"
-            dataTarget={`deleteGoal_${goal.id}`}
-            action="Yes, I'm sure"
-            goalId={goal.id}
-            getAllData={props.getAllData}
-          />
-          <Modal
-            className="btn black modal-trigger"
+            style={{ marginRight: "20px" }}
+            className="modal-trigger"
             btnName="Edit"
             header="Edit"
             text="Edit Goal"
@@ -52,6 +41,16 @@ const GoalCard = props => {
             goalName={goal.name}
             goalCategory={goal.category}
             goalDueDate={goal.dueDate}
+            getAllData={props.getAllData}
+          />
+          <Modal
+            className="modal-trigger"
+            btnName="Delete"
+            header="Delete"
+            text="Are you sure you want to delete this goal?"
+            dataTarget={`deleteGoal_${goal.id}`}
+            action="Yes, I'm sure"
+            goalId={goal.id}
             getAllData={props.getAllData}
           />
         </div>
@@ -64,17 +63,25 @@ const GoalCard = props => {
       <div className="col l4 s12">
         <div className="card goalCard">
           <div className="card-content">
-            <div className="card-title">{props.category}</div>
-            <Modal
-              className="btn modal-trigger green"
-              btnName="Add Goal"
-              header="Add a new goal"
-              text="Complete this form"
-              dataTarget={`newGoalFromCard_${makeid(5)}`}
-              action="Add"
-              userID={props.userID}
-              getAllData={props.getAllData}
-            />
+            <div className="card-title">
+              <span>{props.category}</span>
+              <Modal
+                style={{
+                  marginLeft: "7px",
+                  color: "#ff8f00",
+                  fontSize: "35px"
+                }}
+                className="material-icons modal-trigger right"
+                btnName={"add_circle"}
+                header="Add a new goal"
+                text="Complete this form"
+                dataTarget={`newGoalFromCard_${makeid(5)}`}
+                action="Add"
+                userID={props.userID}
+                getAllData={props.getAllData}
+              />
+            </div>
+
             <ul>{renderGoalsForCategories(props.category)}</ul>
           </div>
         </div>

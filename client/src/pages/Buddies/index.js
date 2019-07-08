@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import {Autocomplete} from "react-materialize"
 import { useAuth0 } from "../../react-auth0-spa";
 import API from "../../utils/API";
 import Loading from "../../components/Loading";
@@ -8,8 +9,16 @@ import "./style.css";
 const Buddies = () => {
   const { loading, user } = useAuth0();
   const [isLoading, setIsLoading] = useState(true);
-
   const [users, setUsers] = useState([]);
+
+  const data = {
+    data: 
+    {
+      "Gus Fring": null,
+      "Saul Goodman": null,
+      "Tuco Salamanca": 'https://placehold.it/250x250'
+    }
+  }
 
   useEffect(() => {
     API.getAllUsers().then(res => {
@@ -26,17 +35,11 @@ const Buddies = () => {
   return (
     <div className="container">
       <h1 className="text-center">Search for Buddies</h1>
+      <Autocomplete options={data} placeholder="username" />
       <div className="row">
         <div className="col-sm-6 mx-auto">
-          <div className="input-group mb-3">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="username"
-              aria-label="username"
-              aria-describedby="basic-addon2"
-            />
-            <div className="input-group-append">
+              <div className="input-field mb-3">
+                        <div className="input-group-append">
               <button className="btn btn-outline-secondary" type="button">
                 Search
               </button>
