@@ -114,6 +114,27 @@ class User extends Component {
     });
   };
 
+  sortMessages = () => {
+    let sortedMessages = [];
+    let keys = [];
+    this.state.currentChannel.messages.forEach(index => {
+      if (!keys.includes(index.messageId)) {
+        keys.push(index.messageId);
+        sortedMessages.push(index);
+      } else {
+        return false;
+      }
+    });
+
+    this.setState({
+      messageBody: "",
+      currentChannel: {
+        connection: this.state.currentChannel.connection,
+        messages: sortedMessages
+      }
+    });
+  };
+
   openChannel = channel => {
     this.state.Messenger.getChannel(channel, data => {
       this.setState({
@@ -125,9 +146,14 @@ class User extends Component {
   handleInputChange = event => {
     event.preventDefault();
     const { name, value } = event.target;
+    this.state.currentChannel.connection.isTyping(true);
+    this.state.Messenger.ChannelHandler.onTypingStatusUpdated(
+      this.state.currentChannel.connection
+    );
     this.setState({
       [name]: value
     });
+    console.log(this.state.currentChannel);
   };
 
   submitNewMessage = event => {
@@ -143,18 +169,19 @@ class User extends Component {
         data => {
           document.getElementById("messageField").value = "";
           console.log("running");
+          console.log(data);
           let channel = this.state.currentChannel.messages;
+          console.log(channel);
           channel.push(data);
-          this.setState({
-            messageBody: "",
-            currentChannel: {
-              connection: this.state.currentChannel.connection,
-              messages: channel
-            }
-          });
+          this.sortMessages();
         }
       );
     }
+  };
+
+  loadChannels = () => {
+    this.state.Messenger.configChannels();
+    this.setState();
   };
 
   exitUserMessage = event => {
@@ -206,6 +233,7 @@ class User extends Component {
         }
       });
       this.configChannels();
+      this.loadChannels();
       console.log(this.state.Messenger.channels);
     });
   };

@@ -35,6 +35,7 @@ function ChatBox(props) {
         {props.messages.map(index => {
           return (
             <ChatMessage
+              all={props.messages}
               key={index.messageId}
               userId={props.userId}
               sender={index._sender.userId}

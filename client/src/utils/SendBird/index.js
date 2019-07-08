@@ -10,17 +10,6 @@ const messageParams = new sb.UserMessageParams();
 
 const ChannelHandler = new sb.ChannelHandler();
 
-ChannelHandler.onMessageReceived = function(channel, message) {
-  console.log(channel, message);
-};
-ChannelHandler.onMentionReceived = function(channel, message) {};
-
-ChannelHandler.onTypingStatusUpdated = function(groupChannel) {
-  console.log(groupChannel);
-};
-ChannelHandler.onUserEntered = function(openChannel, user) {};
-ChannelHandler.onUserExited = function(openChannel, user) {};
-
 function Sendbird(user, buddies) {
   this.user = user;
   this.buddies = buddies;
@@ -40,11 +29,26 @@ function Sendbird(user, buddies) {
   };
 
   this.configHandler = function() {
-    console.log(this.channels);
-    console.log("function running");
+    this.channels.forEach(index => {
+      this.ChannelHandler.onTypingStatusUpdated = function(channel) {
+        console.log(channel);
+      };
+      this.ChannelHandler.onMessageReceived = function(channel) {
+        console.log(channel);
+      };
+
+      this.sb.addChannelHandler(index.connection, this.ChannelHandler);
+    });
+  };
+
+  this.configChannels = function() {
+    console.log("configuring channels");
     this.channels.forEach(index => {
       console.log(index);
-      this.sb.addChannelHandler(index.connection, this.ChannelHandler);
+      this.sb.GroupChannel.getChannel(index.connection, data => {
+        this.ChannelHandler.onMessageReceived(index.connection);
+        return data.refresh(true);
+      });
     });
   };
 
@@ -122,17 +126,28 @@ function Sendbird(user, buddies) {
     console.log(connection);
     messageParams.mentionedUserIds = [userId];
     const Handler = this.ChannelHandler;
+    Handler.onMessageReceived = function(url, message) {
+      cb(message);
+    };
     connection.sendUserMessage(messageParams, function(message, error) {
       if (error) throw error;
       console.log(message);
-      Handler.onMessageReceived(connection, message);
-      cb(message);
+      console.log(Handler);
+      Handler.onMessageReceived(connection.url, message);
+
+      // cb(message);
     });
   };
 
   this.getChannel = function(channelUrl, cb) {
     const Handler = this.ChannelHandler;
     console.log(Handler);
+
+    Handler.onTypingStatusUpdated = function(connection) {
+      console.log("typing working");
+      console.log(connection);
+    };
+
     this.sb.GroupChannel.getChannel(channelUrl, function(connection, error) {
       const prevMessages = connection.createPreviousMessageListQuery();
       prevMessages.limit = 100;
@@ -143,13 +158,7 @@ function Sendbird(user, buddies) {
 
       Sendbird.currentConnection = connection;
 
-      Handler.onReadReceiptUpdated(connection);
-
-      Handler.onMentionReceived(connection);
-      Handler.onTypingStatusUpdated(connection);
-      Handler.onUserEntered(connection);
-      Handler.onUserExited(connection);
-
+      console.log(Handler);
       const channel = {
         connection: connection
       };
@@ -157,7 +166,7 @@ function Sendbird(user, buddies) {
         if (err) throw err;
         console.log(messages);
         channel.messages = messages;
-
+        Handler.onTypingStatusUpdated(connection.url);
         cb(channel);
       });
     });

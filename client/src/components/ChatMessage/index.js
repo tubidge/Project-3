@@ -2,6 +2,8 @@ import React from "react";
 import "./index.css";
 
 function ChatMessage(props) {
+  // console.log(props.all);
+
   if (props.message === "") {
     return false;
   } else {
