@@ -1,0 +1,29 @@
+body {
+  background: url("../../people.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+#purpose {
+  background-color: white;
+  margin-bottom: 50px;
+  font-size: 20px;
+}
+
+#team {
+  background-color: white;
+  margin-bottom: 50px;
+  font-size: 20px;
+}
+
+#contact {
+  background-color: white;
+  margin-bottom: 50px;
+  font-size: 20px;
+}
+
+.card-image {
+  /* height: 100px; */
+  border-radius: 50%;
+  overflow: hidden;
+}

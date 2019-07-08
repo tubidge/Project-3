@@ -1,0 +1,56 @@
+body {
+  background-color: white;
+}
+
+/* #purpose {
+  background-image: url("./people.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  margin-bottom: 50px;
+  font-size: 20px;
+} */
+
+#team {
+  background-color: white;
+  margin-bottom: 50px;
+  font-size: 20px;
+}
+
+#contact {
+  background-color: white;
+  margin-bottom: 50px;
+  font-size: 20px;
+}
+
+.card-image {
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+hr {
+  border: 0.5px solid !important;
+}
+
+.signUp {
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 5px;
+}
+.login {
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-left: 5px;
+}
+.people {
+  max-width: 100%;
+  max-height: auto;
+}
+
+.parallax-container {
+  min-height: 700px;
+}
+
+.text {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 26px;
+}
