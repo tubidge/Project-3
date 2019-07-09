@@ -125,6 +125,7 @@ class User extends Component {
         return false;
       }
     });
+    console.log(this.state.currentChannel.connection);
 
     this.setState({
       messageBody: "",
@@ -173,7 +174,8 @@ class User extends Component {
           let channel = this.state.currentChannel.messages;
           console.log(channel);
           channel.push(data);
-          this.sortMessages();
+          // this.sortMessages();
+          this.openChannel(this.state.currentChannel.connection.url);
         }
       );
     }
@@ -195,46 +197,50 @@ class User extends Component {
     API.getUserByEmail(email).then(resp => {
       console.log(resp.data);
       let data = resp.data;
-      this.state.Messenger = new Sendbird(data.email, data.buddies.allBuddies);
-      this.state.Messenger.configUser();
 
-      this.setState({
-        userInfo: {
-          firstName: data.firstName,
-          lastName: data.lastName,
-          username: data.username,
-          email: data.email,
-          id: data.id,
-          buddies: {
-            buddiesWith: data.buddies.buddiesWith,
-            myBuddies: data.buddies.myBuddies,
-            allBuddies: data.buddies.allBuddies
-          },
-          goals: {
-            activeGoals: {
-              completed: data.activeGoals.completed,
-              incomplete: data.activeGoals.incomplete
+      if (data.buddies) {
+        this.state.Messenger = new Sendbird(
+          data.email,
+          data.buddies.allBuddies
+        );
+        this.state.Messenger.configUser();
+        this.setState({
+          userInfo: {
+            firstName: data.firstName,
+            lastName: data.lastName,
+            username: data.username,
+            email: data.email,
+            id: data.id,
+            buddies: {
+              myBuddies: data.buddies.myBuddies,
+              allBuddies: data.buddies.allBuddies
             },
-            pastGoals: {
-              completed: data.pastGoals.completed,
-              incomplete: data.pastGoals.incomplete
-            }
-          },
-          milestones: {
-            activeMilestones: {
-              completed: data.activeMilestones.completed,
-              incomplete: data.activeMilestones.incomplete
+            goals: {
+              activeGoals: {
+                completed: data.activeGoals.completed,
+                incomplete: data.activeGoals.incomplete
+              },
+              pastGoals: {
+                completed: data.pastGoals.completed,
+                incomplete: data.pastGoals.incomplete
+              }
             },
-            pastMilestones: {
-              completed: data.pastMilestones.completed,
-              incomplete: data.pastMilestones.incomplete
+            milestones: {
+              activeMilestones: {
+                completed: data.activeMilestones.completed,
+                incomplete: data.activeMilestones.incomplete
+              },
+              pastMilestones: {
+                completed: data.pastMilestones.completed,
+                incomplete: data.pastMilestones.incomplete
+              }
             }
           }
-        }
-      });
-      this.configChannels();
-      this.loadChannels();
-      console.log(this.state.Messenger.channels);
+        });
+        this.configChannels();
+        this.loadChannels();
+        console.log(this.state.Messenger.channels);
+      }
     });
   };
 

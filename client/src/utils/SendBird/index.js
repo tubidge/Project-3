@@ -46,7 +46,6 @@ function Sendbird(user, buddies) {
     this.channels.forEach(index => {
       console.log(index);
       this.sb.GroupChannel.getChannel(index.connection, data => {
-        this.ChannelHandler.onMessageReceived(index.connection);
         return data.refresh(true);
       });
     });
@@ -134,8 +133,6 @@ function Sendbird(user, buddies) {
       console.log(message);
       console.log(Handler);
       Handler.onMessageReceived(connection.url, message);
-
-      // cb(message);
     });
   };
 
@@ -149,13 +146,12 @@ function Sendbird(user, buddies) {
     };
 
     this.sb.GroupChannel.getChannel(channelUrl, function(connection, error) {
+      console.log(connection);
+
+      if (error) throw error;
       const prevMessages = connection.createPreviousMessageListQuery();
       prevMessages.limit = 100;
       prevMessages.reverse = false;
-
-      if (error) throw error;
-      console.log(connection);
-
       Sendbird.currentConnection = connection;
 
       console.log(Handler);
@@ -167,6 +163,7 @@ function Sendbird(user, buddies) {
         console.log(messages);
         channel.messages = messages;
         Handler.onTypingStatusUpdated(connection.url);
+
         cb(channel);
       });
     });
