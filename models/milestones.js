@@ -27,6 +27,22 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
 
+    startDate: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      validate: {
+        isDate: true
+      }
+    },
+
+    endDate: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      validate: {
+        isDate: true
+      }
+    },
+
     completed: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
