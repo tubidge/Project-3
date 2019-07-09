@@ -75,7 +75,7 @@ module.exports = app => {
     // let colName = req.body.colName;
     // let info = req.body.info;
     let colName = "email";
-    let info = "coleworld1@me.com";
+    let info = "arianfoster1@me.com";
 
     user
       .updateUser(req.params.id, colName, info)
