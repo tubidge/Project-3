@@ -109,6 +109,9 @@ class User extends Component {
   configChannels = async () => {
     await this.state.Messenger.createChannels(data => {
       console.log(data);
+      if (this.state.currentChannel) {
+        this.openChannel(this.state.currentChannel.connection.url);
+      }
     });
     console.log(this.state.Messenger.channels);
     let channels = this.state.Messenger.channels;
@@ -141,6 +144,14 @@ class User extends Component {
   };
 
   openChannel = channel => {
+    // this.state.channels.forEach(index => {
+    //   if (index.connection === channel) {
+    //     this.setState({
+    //       currentChannel: index.fullConnection
+    //     });
+    //   }
+    // });
+
     this.state.Messenger.getChannel(channel, data => {
       this.setState({
         currentChannel: data
@@ -177,6 +188,7 @@ class User extends Component {
           console.log(data);
           let channel = this.state.currentChannel.messages;
           console.log(channel);
+
           this.openChannel(this.state.currentChannel.connection.url);
         }
       );

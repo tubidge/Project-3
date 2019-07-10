@@ -34,8 +34,8 @@ function Sendbird(user, buddies) {
         console.log(channel);
       };
       this.ChannelHandler.onMessageReceived = function(channel, message) {
-        console.log("uhm herro");
         console.log(channel);
+        console.log(message);
         cb(message);
       };
 
@@ -48,6 +48,7 @@ function Sendbird(user, buddies) {
     this.channels.forEach(index => {
       console.log(index);
       this.sb.GroupChannel.getChannel(index.connection, data => {
+        this.ChannelHandler.onMessageReceived(index.connection);
         return data.refresh(true);
       });
     });
@@ -127,15 +128,16 @@ function Sendbird(user, buddies) {
     console.log(connection);
     messageParams.mentionedUserIds = [userId];
     const Handler = this.ChannelHandler;
-    // Handler.onMessageReceived = function(url, message) {
-    //   console.log("new test, message received");
-    // };
+    Handler.onMessageReceived = function(url, message) {
+      cb(message);
+    };
     connection.sendUserMessage(messageParams, function(message, error) {
       if (error) throw error;
       console.log(message);
       console.log(Handler);
       Handler.onMessageReceived(connection.url, message);
-      cb(message);
+
+      // cb(message);
     });
   };
 
@@ -149,12 +151,13 @@ function Sendbird(user, buddies) {
     };
 
     this.sb.GroupChannel.getChannel(channelUrl, function(connection, error) {
-      console.log(connection);
+      const prevMessages = connection.createPreviousMessageListQuery();
+      prevMessages.limit = 200;
+      prevMessages.reverse = false;
 
       if (error) throw error;
-      const prevMessages = connection.createPreviousMessageListQuery();
-      prevMessages.limit = 100;
-      prevMessages.reverse = false;
+      console.log(connection);
+
       Sendbird.currentConnection = connection;
 
       console.log(Handler);
@@ -166,7 +169,6 @@ function Sendbird(user, buddies) {
         console.log(messages);
         channel.messages = messages;
         Handler.onTypingStatusUpdated(connection.url);
-
         cb(channel);
       });
     });
