@@ -8,6 +8,7 @@ import image2 from "./pics/stairway-1149473_960_720.jpg";
 import josh from "./pics/Josh.jpg";
 import alex from "./pics/Alex.jpg";
 import hunter from "./pics/Hunter.jpg";
+import phil from "./pics/Labor Day Pic.jpg";
 import "./style.css";
 
 const Home = () => {
@@ -122,7 +123,7 @@ const Home = () => {
                   <div className="col s3 m3">
                     <div className="card">
                       <div className="card-image">
-                        <img src={image} />
+                        <img src={phil} />
                       </div>
                       <div className="card-stacked">
                         <div className="card-content">
@@ -168,30 +169,35 @@ const Home = () => {
                   <div className="col m12">
                     <h3 className="center-align">Contact</h3>
                     <div className="row">
-                      <form className="col m8 offset-m2 s12">
+                      <form
+                        method="POST"
+                        action="https://formspree.io/goal.denapp@gmail.com"
+                      >
                         <div className="row">
                           <div className="input-field col s12">
-                            <input id="name" type="text" placeholder="Name">
-                              {/* <label for="name">Name</label> */}
-                            </input>
+                            <input
+                              name="name"
+                              id="name"
+                              type="text"
+                              placeholder="Name"
+                            />
                           </div>
                           <div className="input-field col s12">
                             <input
                               id="email"
+                              name="email"
                               type="email"
                               className="form-input"
                               placeholder="Email"
-                            >
-                              {/* <label for="email">Email</label> */}
-                            </input>
+                            />
                           </div>
                           <div className="input-field col s12">
                             <textarea
+                              name="message"
                               id="message"
                               className="materialize-textarea"
                               placeholder="Message"
                             />
-                            {/* <label for="message">Message</label> */}
                           </div>
                         </div>
                         <div className="row">
@@ -199,7 +205,7 @@ const Home = () => {
                             <p className="right-align">
                               <button
                                 className="waves-effect amber accent-3 btn"
-                                type="button"
+                                type="submit"
                                 name="action"
                               >
                                 Send Message
