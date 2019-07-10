@@ -7,6 +7,7 @@ import UserProfile from "../../components/UserProfile";
 import BuddyList from "../../components/BuddyList";
 import GoalCard from "../../components/GoalCard";
 import Modal from "../../components/Modal";
+import Cal from "../../components/Calendar";
 
 import "./style.css";
 
@@ -158,6 +159,24 @@ const Dashboard = () => {
           </div>
           <div className="row">
             <h5 className="center-align">Calendar</h5>
+            <div className="col s3" />
+            <hr className="col s6" />
+            <div className="col s3" />
+          </div>
+          <div className="row">
+            <div className="col s2" />
+            <div className="col s9 center-align">
+              <Cal />
+            </div>
+          </div>
+          <br />
+          <div className="row">
+            <div>
+              <h5 className="center align">Goals</h5>
+              <div className="col s3" />
+              <hr className="col s6" />
+              <div className="col s3" />
+            </div>
           </div>
         </div>
         {/* <div className="col s12">

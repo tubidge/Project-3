@@ -2,21 +2,20 @@ body {
   background-color: white;
 }
 
-/* #purpose {
-  background-image: url("./people.jpg");
-  background-repeat: no-repeat;
-  background-size: 100%;
-  margin-bottom: 50px;
-  font-size: 20px;
-} */
+#purpose {
+  background-color: rgb(235, 240, 243);
+}
 
 #team {
+  font-family: "Anton", sans-serif;
+
   background-color: white;
   margin-bottom: 50px;
   font-size: 20px;
 }
 
 #contact {
+  font-family: "Anton", sans-serif;
   background-color: white;
   margin-bottom: 50px;
   font-size: 20px;
@@ -34,16 +33,17 @@ hr {
 .signUp {
   margin-top: 10px;
   margin-left: 10px;
-  margin-right: 5px;
+  margin-right: 10px;
 }
 .login {
   margin-top: 10px;
-  margin-right: 10px;
-  margin-left: 5px;
+  margin-right: 30px;
+  margin-left: 10px;
 }
 .people {
   max-width: 100%;
   max-height: auto;
+  filter: brightness(0.7);
 }
 
 .parallax-container {
@@ -51,6 +51,36 @@ hr {
 }
 
 .text {
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  font-size: 26px;
+  font-size: 20px;
+  color: black;
+}
+
+.text2 {
+  font-family: "Anton", sans-serif;
+  font-size: 25px;
+  color: White;
+}
+
+#title {
+  font-family: "Anton", sans-serif;
+  font-size: 90px;
+  color: white;
+}
+
+.summary {
+  font-family: "Anton", sans-serif;
+  color: white;
+  font-size: 22px;
+}
+
+.bridge {
+  filter: brightness(0.8);
+}
+
+#quote {
+  margin-bottom: 250px;
+}
+
+#purposeTitle {
+  font-family: "Anton", sans-serif;
 }

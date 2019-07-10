@@ -18,61 +18,82 @@ const Home = () => {
       {!isAuthenticated && (
         <>
           <div id="index-banner" className="parallax-container">
-            <div class="section no-pad-bot">
-              <div class="container">
-                <Link
-                  to="/profile"
-                  className="login waves-effect teal lighten-3 btn right"
-                >
-                  Sign Up
-                </Link>
-                <Link
-                  to="/dashboard"
-                  className=" signUp waves-effect teal lighten-3 btn right"
-                >
-                  Login
-                </Link>
+            <div className="section">
+              <Link
+                to="/profile"
+                className="login waves-effect amber accent-3 btn right"
+              >
+                Sign Up
+              </Link>
+              <Link
+                to="/dashboard"
+                className=" signUp waves-effect amber accent-3 btn right"
+              >
+                Login
+              </Link>
+              <br />
+              <br />
+              <div className="container">
+                <div className="row" />
                 <br />
                 <br />
-                <div class="container">
-                  <h1 className="center">GoalDen</h1>
-                  <hr />
+                <br />
+                <div className="row">
+                  <div className="col s4" />
+                  <div className="col s4">
+                    <hr className="hr amber-text text-accent-3" />
+                  </div>
+                  <div className="col s4" />
                 </div>
-
-                <h2 className="mb-5 font-weight-bold">Our Purpose</h2>
-                <div className="row d-flex justify-content-center mb-4 purpose">
-                  <div className="col-md-6">
-                    <p className="text">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                      Quasi voluptate hic provident nulla repellat facere esse
-                      molestiae ipsa labore porro minima quam quaerat rem, natus
-                      repudiandae debitis est sit pariatur.
-                    </p>
-                    <p className="text">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                      Quasi voluptate hic provident nulla repellat facere esse
-                      molestiae ipsa labore porro minima quam quaerat rem, natus
-                      repudiandae debitis est sit pariatur. Lorem ipsum dolor
-                      sit amet, consectetur adipisicing elit. Quasi voluptate
-                      hic provident nulla repellat facere esse molestiae ipsa
-                      labore porro minima quam quaerat rem, natus repudiandae
-                      debitis est sit pariatur.
-                    </p>
+                <div className="row">
+                  <div className="center" id="title">
+                    GoalDen
+                  </div>
+                  <div className="center summary">
+                    A new app that helps hold you accountable to achieve your
+                    goals.
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="parallax">
-              <img class="people" src={image} />
+            <div className="parallax">
+              <img className="people" src={image} />
+              <div className="shade" />
             </div>
           </div>
-          <br />
 
-          <div class="container">
-            <div class="section" id="team">
+          <div className="section" id="purpose">
+            <div className="container">
+              <h3 className="mb-5 font-weight-bold" id="purposeTitle">
+                Our Purpose
+              </h3>
+              <div className="row d-flex justify-content-center mb-4 purpose">
+                <div className="col-md-6">
+                  <p className="text">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Quasi voluptate hic provident nulla repellat facere esse
+                    molestiae ipsa labore porro minima quam quaerat rem, natus
+                    repudiandae debitis est sit pariatur.
+                  </p>
+                  <p className="text">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Quasi voluptate hic provident nulla repellat facere esse
+                    molestiae ipsa labore porro minima quam quaerat rem, natus
+                    repudiandae debitis est sit pariatur. Lorem ipsum dolor sit
+                    amet, consectetur adipisicing elit. Quasi voluptate hic
+                    provident nulla repellat facere esse molestiae ipsa labore
+                    porro minima quam quaerat rem, natus repudiandae debitis est
+                    sit pariatur.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="container">
+            <div className="section" id="team">
               <div className="col-md-2 mb-5">
-                <h2 className="mb-5 font-weight-bold">Our Team</h2>
+                <h3 className="mb-5 font-weight-bold">Our Team</h3>
                 <div className="row">
                   <div className="col s3 m3">
                     <div className="card">
@@ -127,27 +148,25 @@ const Home = () => {
             </div>
           </div>
           <br />
-          <div class="parallax-container valign-wrapper">
-            <div class="section no-pad-bot">
-              <div class="container">
-                <div class="row center">
-                  <h3 class="header col m12 light text-center white-text">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  </h3>
+          <div className="parallax-container valign-wrapper">
+            <div className="row" id="quote">
+              <div className="col m12 bold text-center white-text">
+                <div className="text2">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                 </div>
               </div>
             </div>
-            <div class="parallax">
-              <img src={image2} />
+            <div className="parallax">
+              <img className="bridge" src={image2} />
             </div>
           </div>
           <br />
-          <div class="container">
+          <div className="container">
             <section id="contact">
               <div className="col-md-4 mb-1">
                 <div className="row">
                   <div className="col m12">
-                    <h2 className="center-align">Contact</h2>
+                    <h3 className="center-align">Contact</h3>
                     <div className="row">
                       <form className="col m8 offset-m2 s12">
                         <div className="row">
@@ -179,7 +198,7 @@ const Home = () => {
                           <div className="col m12">
                             <p className="right-align">
                               <button
-                                className="waves-effect teal lighten-3 btn"
+                                className="waves-effect amber accent-3 btn"
                                 type="button"
                                 name="action"
                               >

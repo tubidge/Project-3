@@ -3,7 +3,7 @@ import "./style.css";
 
 function Footer() {
   return (
-    <footer className="teal-text text-lighten-3 center page-footer">
+    <footer className="amber-text text-accent-3 center page-footer">
       © Copyright GoalDen
     </footer>
   );
