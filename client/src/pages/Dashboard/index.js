@@ -7,6 +7,7 @@ import UserProfile from "../../components/UserProfile";
 import BuddyList from "../../components/BuddyList";
 import GoalCard from "../../components/GoalCard";
 import Modal from "../../components/Modal";
+import Cal from "../../components/Calendar";
 
 import "./style.css";
 
@@ -108,7 +109,7 @@ const Dashboard = () => {
         </div>
 
         <div className="col l9 s12">
-          <div className="row center-align" style={{ marginTop: "15px" }}>
+          <div className="row" style={{ marginTop: "15px" }}>
             <Modal
               className="btn modal-trigger green"
               btnName="Add goal for new category..."
@@ -132,7 +133,9 @@ const Dashboard = () => {
             ))}
           </div>
           <div className="row">
-            <h5 className="center-align">Calendar</h5>
+            <div className="col s12 center-align">
+              <Cal />
+            </div>
           </div>
         </div>
         {/* <div className="col s12">
