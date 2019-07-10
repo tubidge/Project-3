@@ -33,7 +33,7 @@ function MilestoneForm(props) {
           <label htmlFor="milestoneDueDate">Due Date</label>
           <input
             name="dueDate"
-            type="text"
+            type="date"
             className="form-control"
             id="milestoneDueDate"
             placeholder=""
@@ -92,7 +92,7 @@ function MilestoneForm(props) {
           <label htmlFor="milestoneStart">Start Date</label>
           <input
             name="startDate"
-            type="text"
+            type="date"
             className="form-control"
             id="milestoneStart"
             placeholder=""
@@ -103,7 +103,7 @@ function MilestoneForm(props) {
           <label htmlFor="milestoneEnd">End Date</label>
           <input
             name="endDate"
-            type="text"
+            type="date"
             className="form-control"
             id="milestoneEnd"
             placeholder=""

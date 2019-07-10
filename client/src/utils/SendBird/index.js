@@ -28,13 +28,15 @@ function Sendbird(user, buddies) {
     });
   };
 
-  this.configHandler = function() {
+  this.configHandler = function(cb) {
     this.channels.forEach(index => {
       this.ChannelHandler.onTypingStatusUpdated = function(channel) {
         console.log(channel);
       };
-      this.ChannelHandler.onMessageReceived = function(channel) {
+      this.ChannelHandler.onMessageReceived = function(channel, message) {
+        console.log("uhm herro");
         console.log(channel);
+        cb(message);
       };
 
       this.sb.addChannelHandler(index.connection, this.ChannelHandler);
@@ -51,7 +53,7 @@ function Sendbird(user, buddies) {
     });
   };
 
-  this.createChannels = function() {
+  this.createChannels = function(cb) {
     let userIds = [];
     let buddies = [];
     for (var i = 0; i < this.buddies.length; i++) {
@@ -113,7 +115,7 @@ function Sendbird(user, buddies) {
         }
       );
     });
-    this.configHandler();
+    this.configHandler(cb);
   };
 
   this.sendMessage = function(message, userId, connection, cb) {
@@ -125,14 +127,15 @@ function Sendbird(user, buddies) {
     console.log(connection);
     messageParams.mentionedUserIds = [userId];
     const Handler = this.ChannelHandler;
-    Handler.onMessageReceived = function(url, message) {
-      cb(message);
-    };
+    // Handler.onMessageReceived = function(url, message) {
+    //   console.log("new test, message received");
+    // };
     connection.sendUserMessage(messageParams, function(message, error) {
       if (error) throw error;
       console.log(message);
       console.log(Handler);
       Handler.onMessageReceived(connection.url, message);
+      cb(message);
     });
   };
 

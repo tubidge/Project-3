@@ -41,6 +41,7 @@ class User extends Component {
     },
     Messenger: null,
     channelsConfigured: false,
+    channels: [],
     currentChannel: null,
     messageBody: ""
   };
@@ -106,11 +107,14 @@ class User extends Component {
   };
 
   configChannels = async () => {
-    await this.state.Messenger.createChannels();
+    await this.state.Messenger.createChannels(data => {
+      console.log(data);
+    });
     console.log(this.state.Messenger.channels);
-
+    let channels = this.state.Messenger.channels;
     this.setState({
-      channelsConfigured: true
+      channelsConfigured: true,
+      channels: channels
     });
   };
 
@@ -173,8 +177,6 @@ class User extends Component {
           console.log(data);
           let channel = this.state.currentChannel.messages;
           console.log(channel);
-          channel.push(data);
-          // this.sortMessages();
           this.openChannel(this.state.currentChannel.connection.url);
         }
       );
@@ -183,7 +185,9 @@ class User extends Component {
 
   loadChannels = () => {
     this.state.Messenger.configChannels();
-    this.setState();
+    if (this.state.currentChannel) {
+      this.openChannel(this.state.currentChannel.connection.url);
+    }
   };
 
   exitUserMessage = event => {
