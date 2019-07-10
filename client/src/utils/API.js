@@ -8,9 +8,17 @@ export default {
     return axios.get("/all/users");
   },
 
+  getAllUsername: () => {
+    return axios.get("/all/username");
+  },
+
   // This method will return a single user
   getUser: id => {
     return axios.get("/user/" + id);
+  },
+
+  getUserByEmail: email => {
+    return axios.get("/user/email/" + email);
   },
 
   // This method will add a user to the database
@@ -23,6 +31,7 @@ export default {
   // This method will edit info for a user selected by id
   // The data object needs to have colName, and info
   editUser: (id, data) => {
+    console.log(data);
     return axios.put("/user/" + id, {
       data
     });

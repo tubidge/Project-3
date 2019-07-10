@@ -1,0 +1,16 @@
+.FileUpload {
+  margin-top: 15px;
+}
+
+.fileDropDiv {
+  width: 100%;
+  border: 1px dashed gray;
+  padding: 25px 10px 30px 10px;
+  text-align: center;
+  color: gray;
+  border-radius: 10px;
+}
+
+.fileDropDiv > i {
+  font-size: 50px;
+}

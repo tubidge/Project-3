@@ -9,11 +9,18 @@
     "bootstrap": "^3.3.7",
     "history": "^4.9.0",
     "jwt-decode": "^2.2.0",
+    "materialize-css": "^1.0.0",
     "react": "^16.6.3",
     "react-bootstrap": "^0.31.2",
+    "react-confirm-alert": "^2.4.1",
     "react-dom": "^16.6.3",
+    "react-dropzone": "^10.1.5",
+    "react-materialize": "^3.3.1",
+    "react-modal": "^3.8.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "^2.1.1"
+    "react-scripts": "^2.1.1",
+    "samples-bootstrap-theme": "github:auth0-quickstarts/samples-bootstrap-theme",
+    "superagent": "^5.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

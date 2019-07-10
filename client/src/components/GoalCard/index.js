@@ -1,0 +1,93 @@
+import React, { useState, useEffect } from "react";
+import Modal from "../Modal";
+import "./style.css";
+
+const GoalCard = props => {
+  const [goals, setGoals] = useState([]);
+
+  useEffect(() => {
+    setGoals(props.incompleteGoals);
+    console.log(goals);
+  });
+
+  const makeid = l => {
+    let text = "";
+    let char_list =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    for (let i = 0; i < l; i++) {
+      text += char_list.charAt(Math.floor(Math.random() * char_list.length));
+    }
+    return text;
+  };
+
+  const renderGoalsForCategories = category => {
+    const result = props.incompleteGoals.filter(
+      goal => goal.category === category
+    );
+    return result.map(goal => (
+      <li key={goal.id}>
+        <div className="card-panel grey lighten-4 dark-text">
+          <span className="truncate">{goal.name}</span>
+          <hr />
+          <Modal
+            style={{ marginRight: "20px" }}
+            className="modal-trigger"
+            btnName="Edit"
+            header="Edit"
+            text="Edit Goal"
+            dataTarget={`editGoal_${goal.id}`}
+            action="Save Changes"
+            goalId={goal.id}
+            goalName={goal.name}
+            goalCategory={goal.category}
+            goalDueDate={goal.dueDate}
+            getAllData={props.getAllData}
+          />
+          <Modal
+            className="modal-trigger"
+            btnName="Delete"
+            header="Delete"
+            text="Are you sure you want to delete this goal?"
+            dataTarget={`deleteGoal_${goal.id}`}
+            action="Yes, I'm sure"
+            goalId={goal.id}
+            getAllData={props.getAllData}
+          />
+        </div>
+      </li>
+    ));
+  };
+
+  return (
+    <>
+      <div className="col l4 s12">
+        <div className="card goalCard">
+          <div className="card-content">
+            <div className="card-title">
+              <span>{props.category}</span>
+              <Modal
+                style={{
+                  marginLeft: "7px",
+                  color: "#ff8f00",
+                  fontSize: "35px"
+                }}
+                className="material-icons modal-trigger right"
+                btnName={"add_circle"}
+                header="Add a new goal"
+                text="Complete this form"
+                dataTarget={`newGoalFromCard_${makeid(5)}`}
+                action="Add"
+                userID={props.userID}
+                getAllData={props.getAllData}
+              />
+            </div>
+
+            <ul>{renderGoalsForCategories(props.category)}</ul>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default GoalCard;

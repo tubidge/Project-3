@@ -33,15 +33,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
 
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true
-      }
-    },
-
-    profilePic: {
+    image: {
       type: DataTypes.STRING,
       allowNull: true,
       validate: {

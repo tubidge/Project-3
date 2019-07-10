@@ -34,6 +34,29 @@ module.exports = app => {
       });
   });
 
+  app.get("/all/username", (req, res) => {
+    user
+      .getAllUsername()
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
+
+  // This route will return a single user with their goals, milestones, and goal buddies
+  app.get("/user/email/:email", (req, res) => {
+    user
+      .findUserByEmail(req.params.email)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
+
   // This route will return a single user with their goals, milestones, and goal buddies
   app.get("/user/:id", (req, res) => {
     user
@@ -46,14 +69,22 @@ module.exports = app => {
       });
   });
 
+  app.get("/user/basic/:id", (req, res) => {
+    user
+      .getBasicUser(req.params.id)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
+
   // This route will update info on a user. The colName will dictate which column they are updating
   // the info is the data that will replace the current data in that column
   app.put("/user/:id", (req, res) => {
-    // let colName = req.body.colName;
-    // let info = req.body.info;
-    let colName = "email";
-    let info = "coleworld1@me.com";
-
+    let colName = req.body.data.colName;
+    let info = req.body.data.info;
     user
       .updateUser(req.params.id, colName, info)
       .then(data => {
