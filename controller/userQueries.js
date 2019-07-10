@@ -84,6 +84,29 @@ module.exports = {
     });
   },
 
+  getAllUsername: () => {
+    return new Promise((resolve, reject) => {
+      db.User.findAll({})
+        .then(resp => {
+          console.log(resp.length);
+          const data = [{}];
+          resp.forEach(index => {
+            const user = {
+              id: index.dataValues.id,
+              username: index.dataValues.username,
+              email: index.dataValues.email,
+              image: index.dataValues.image
+            };
+            data.push(user);
+          });
+          resolve(data);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  },
+
   // This method will return a single user with their goals, milestones, and any current buddies and all
   // relevant buddy data
   findUser: id => {

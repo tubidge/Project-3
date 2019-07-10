@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Select from "react-select";
 import M from "materialize-css";
 import API from "../../utils/API";
@@ -109,9 +110,14 @@ const Modal = props => {
 
   return (
     <>
-      <button className={props.className} data-target={dataTarget}>
+      <Link
+        to="#"
+        className={props.className}
+        data-target={dataTarget}
+        style={props.style}
+      >
         {props.btnName}
-      </button>
+      </Link>
 
       <div id={dataTarget} className="modal">
         <div className="modal-content">

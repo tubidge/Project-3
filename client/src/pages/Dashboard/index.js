@@ -93,8 +93,10 @@ const Dashboard = () => {
 
   return (
     <>
+      <div className="profileSummaryBg" />
+      <div className="hero-image" />
       <div className="row mt20">
-        <div className="col l3 s12">
+        <div className="col l3 s12" style={{ marginTop: "-130px" }}>
           <UserProfile
             userPicture={userInfo.image ? userInfo.image : user.picture}
             username={userInfo.username}
@@ -105,8 +107,8 @@ const Dashboard = () => {
           <BuddyList buddies={allBuddies} makeid={makeid} />
         </div>
 
-        <div className="col l8 s12">
-          <div className="row">
+        <div className="col l9 s12">
+          <div className="row center-align" style={{ marginTop: "15px" }}>
             <Modal
               className="btn modal-trigger green"
               btnName="Add goal for new category..."
