@@ -1,0 +1,86 @@
+body {
+  background-color: white;
+}
+
+#purpose {
+  background-color: rgb(235, 240, 243);
+}
+
+#team {
+  font-family: "Anton", sans-serif;
+
+  background-color: white;
+  margin-bottom: 50px;
+  font-size: 20px;
+}
+
+#contact {
+  font-family: "Anton", sans-serif;
+  background-color: white;
+  margin-bottom: 50px;
+  font-size: 20px;
+}
+
+.card-image {
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+hr {
+  border: 0.5px solid !important;
+}
+
+.signUp {
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.login {
+  margin-top: 10px;
+  margin-right: 30px;
+  margin-left: 10px;
+}
+.people {
+  max-width: 100%;
+  max-height: auto;
+  filter: brightness(0.7);
+}
+
+.parallax-container {
+  min-height: 700px;
+}
+
+.text {
+  font-size: 20px;
+  color: black;
+}
+
+.text2 {
+  font-family: "Anton", sans-serif;
+  font-size: 25px;
+  color: White;
+}
+
+#title {
+  font-family: "Anton", sans-serif;
+  font-size: 90px;
+  color: white;
+}
+
+.summary {
+  font-family: "Anton", sans-serif;
+  color: white;
+  font-size: 22px;
+}
+
+.bridge {
+  filter: brightness(0.8);
+}
+
+#quote {
+  margin-bottom: 250px;
+}
+
+#purposeTitle {
+  font-family: "Anton", sans-serif;
+}
