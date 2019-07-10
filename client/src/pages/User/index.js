@@ -144,14 +144,6 @@ class User extends Component {
   };
 
   openChannel = channel => {
-    // this.state.channels.forEach(index => {
-    //   if (index.connection === channel) {
-    //     this.setState({
-    //       currentChannel: index.fullConnection
-    //     });
-    //   }
-    // });
-
     this.state.Messenger.getChannel(channel, data => {
       this.setState({
         currentChannel: data
@@ -255,7 +247,6 @@ class User extends Component {
         });
         this.configChannels();
         this.loadChannels();
-        console.log(this.state.Messenger.channels);
       }
     });
   };
@@ -270,27 +261,6 @@ class User extends Component {
 
         <div>
           <h1>List of All Users (from database)</h1>
-          {/* Check to see if any items are found*/}
-          {/* {users.length ? (
-            <div>
-              {users.map(user => (
-                <div key={user.id}>
-                  <h5>{user.id}</h5>
-                  <p>{user.firstName + user.lastName + " | " + user.email}</p>
-                  {user.Goals.map(goal => (
-                    <div key={goal.id}>
-                      <h4>{goal.category}</h4>
-                      <h5>{goal.name}</h5>
-                      <br />
-                    </div>
-                  ))}
-                  <hr />
-                </div>
-              ))}
-            </div>
-          ) : (
-            <h3>No Results to Display</h3>
-          )} */}
         </div>
         <div>
           {this.state.channelsConfigured ? (
