@@ -4,12 +4,14 @@ import { Autocomplete } from "react-materialize";
 import { useAuth0 } from "../../react-auth0-spa";
 import API from "../../utils/API";
 import Loading from "../../components/Loading";
+import FindingBuddy from "../../components/FindingBuddy";
 import Fuse from "fuse.js";
 import "./style.css";
 
 const Buddies = () => {
   const { loading, user } = useAuth0();
   const [isLoading, setIsLoading] = useState(true);
+  const [findingBuddy, setFindingBuddy] = useState(false);
   const [users, setUsers] = useState([]);
   const [goals, setGoals] = useState([]);
   const [buddyGoals, setBuddyGoals] = useState([]);
@@ -84,6 +86,11 @@ const Buddies = () => {
   };
 
   const findBuddy = () => {
+    setFindingBuddy(true);
+    setTimeout(() => {
+      setFindingBuddy(false);
+    }, 5000);
+
     let result;
     let fuse = new Fuse(buddyGoals, options); // buddyGoals is an array
     const goalMatches = goals.map(goal => {
@@ -131,6 +138,10 @@ const Buddies = () => {
 
   if (loading || !users || isLoading) {
     return <Loading />;
+  }
+
+  if (findingBuddy) {
+    return <FindingBuddy />;
   }
 
   return (
