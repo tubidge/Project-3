@@ -3,11 +3,10 @@ import Modal from "../Modal";
 import "./style.css";
 
 const GoalCard = props => {
-  const [goals, setGoals] = useState([]);
+  const [, setGoals] = useState([]);
 
   useEffect(() => {
     setGoals(props.incompleteGoals);
-    console.log(goals);
   });
 
   const makeid = l => {
@@ -68,7 +67,7 @@ const GoalCard = props => {
               <Modal
                 style={{
                   marginLeft: "7px",
-                  color: "#ff8f00",
+                  color: "#ffc400",
                   fontSize: "35px"
                 }}
                 className="material-icons modal-trigger right"
@@ -81,7 +80,6 @@ const GoalCard = props => {
                 getAllData={props.getAllData}
               />
             </div>
-
             <ul>{renderGoalsForCategories(props.category)}</ul>
           </div>
         </div>

@@ -18,7 +18,7 @@ const Buddies = () => {
   // for fuse.js
   const options = {
     shouldSort: true,
-    threshold: 0.3, // lower value will result in a more exact match
+    threshold: 0.5, // lower value will result in a more exact match
     includeScore: true,
     location: 0,
     distance: 100,

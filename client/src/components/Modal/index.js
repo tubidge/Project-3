@@ -147,7 +147,7 @@ const Modal = props => {
                 </div>
                 <div className="input-field col s12">
                   <input
-                    type="text"
+                    type="date"
                     className="validate"
                     value={dueDate}
                     onChange={e => setDueDate(e.target.value)}

@@ -216,8 +216,8 @@ const Home = () => {
           </div>
         </>
       )}
-      <Footer />
       {isAuthenticated && <Dashboard />}
+      <Footer />
     </>
   );
 };
