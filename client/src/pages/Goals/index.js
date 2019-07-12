@@ -52,14 +52,26 @@ const Goals = props => {
     });
   };
 
-  const makeid = l => {
-    let text = "";
-    let char_list =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    for (let i = 0; i < l; i++) {
-      text += char_list.charAt(Math.floor(Math.random() * char_list.length));
-    }
-    return text;
+  const renderGoalsForCategory = category => {
+    const result = incompleteGoals.filter(goal => goal.category === category);
+    return result.map(goal => (
+      <a key={goal.id} href={`#${goal.id}"`}>
+        <li className="goal-tab center-align">{goal.name}</li>
+      </a>
+    ));
+  };
+
+  const renderGoalDetail = id => {
+    console.log(incompleteGoals);
+    const result = incompleteGoals.filter(goal => goal.id === id);
+    return result.map(goal => (
+      <GoalDetail
+        milestone="Test Milestone for Education"
+        name={goal.name}
+        due={goal.dueDate}
+        desc={goal.description}
+      />
+    ));
   };
 
   return (
@@ -67,118 +79,58 @@ const Goals = props => {
       <div className="row">
         <div className="col s12">
           <ul className="tabs">
-            {categories.map(category => (
-              <>
-                <li key={makeid(5)} className="tab col s3">
-                  <Link to="#test1">{category}</Link>
-                </li>
-              </>
-            ))}
-            <li className="tab col s3">
-              <a href="#test1">Category 1</a>
+            <li className="tab col s2 offset-s2">
+              <a href="#Fitness">Fitness</a>
             </li>
-            <li className="tab col s3">
-              <a href="#test2">Category 2</a>
+            <li className="tab col s2">
+              <a href="#Wellness">Wellness</a>
             </li>
-            <li className="tab col s3">
-              <a href="#test3">Category 3</a>
+            <li className="tab col s2">
+              <a href="#Financial">Financial</a>
             </li>
-            <li className="tab col s3">
-              <a href="#test4">Category 4</a>
+            <li className="tab col s2">
+              <a href="#Education">Education</a>
+            </li>
+            <li className="tab col s2">
+              <a href="#Travel">Travel</a>
             </li>
           </ul>
         </div>
 
-        <div id="test1">
+        <div id="Fitness">
           <div className="col s2">
-            <ul className="goal-tabs">
-              <a href="#goal1-1">
-                <li className="goal-tab center-align">Goal 1</li>
-              </a>
-              <a href="#goal1-2">
-                <li className="goal-tab center-align">Goal 2</li>
-              </a>
-              <a href="#goal1-3">
-                <li className="goal-tab center-align">Goal 3</li>
-              </a>
-            </ul>
-          </div>
-
-          <div className="col s10 goal-detail">
-            <GoalDetail
-              name="Example Goal"
-              due="01/01/2019"
-              desc="Here is a description of your goal"
-            >
-              <MilestoneColumn>
-                {incompleteGoals.map(goal =>
-                  goal.milestones.incomplete.map(milestone => (
-                    <Milestone
-                      id={milestone.id}
-                      key={milestone.id}
-                      name={milestone.name}
-                      frequency={milestone.frequency}
-                      due={milestone.dueDate}
-                    />
-                  ))
-                )}
-              </MilestoneColumn>
-              <BuddyColumn>
-                {incompleteGoals.map(goal =>
-                  goal.buddy.current.map(buddy => <Buddy name={buddy} />)
-                )}
-              </BuddyColumn>
-            </GoalDetail>
+            <ul className="goal-tabs">{renderGoalsForCategory("Fitness")}</ul>
           </div>
         </div>
 
-        <div id="test2">
+        <div id="Wellness">
           <div className="col s2">
-            <ul className="goal-tabs">
-              <a href="#goal1-1">
-                <li className="goal-tab center-align">Goal 1</li>
-              </a>
-              <a href="#goal1-2">
-                <li className="goal-tab center-align">Goal 2</li>
-              </a>
-              <a href="#goal1-3">
-                <li className="goal-tab center-align">Goal 3</li>
-              </a>
-            </ul>
+            <ul className="goal-tabs">{renderGoalsForCategory("Wellness")}</ul>
           </div>
 
           <div className="col s10 goal-detail">{props.children}</div>
         </div>
 
-        <div id="test3">
+        <div id="Financial">
           <div className="col s2">
             <ul className="goal-tabs">
-              <a href="#goal1-1">
-                <li className="goal-tab center-align">Goal 1</li>
-              </a>
-              <a href="#goal1-2">
-                <li className="goal-tab center-align">Goal 2</li>
-              </a>
-              <a href="#goal1-3">
-                <li className="goal-tab center-align">Goal 3</li>
-              </a>
+              <ul className="goal-tabs">
+                {renderGoalsForCategory("Financial")}
+              </ul>
             </ul>
           </div>
         </div>
 
-        <div id="test4">
+        <div id="Education">
           <div className="col s2">
-            <ul className="goal-tabs">
-              <a href="#goal1-1">
-                <li className="goal-tab center-align">Goal 1</li>
-              </a>
-              <a href="#goal1-2">
-                <li className="goal-tab center-align">Goal 2</li>
-              </a>
-              <a href="#goal1-3">
-                <li className="goal-tab center-align">Goal 3</li>
-              </a>
-            </ul>
+            <ul className="goal-tabs">{renderGoalsForCategory("Education")}</ul>
+          </div>
+          <div className="col s10 goal-detail">{renderGoalDetail(59)}</div>
+        </div>
+
+        <div id="Travel">
+          <div className="col s2">
+            <ul className="goal-tabs">{renderGoalsForCategory("Travel")}</ul>
           </div>
         </div>
       </div>

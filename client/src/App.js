@@ -11,7 +11,6 @@ import Profile from "./pages/Profile";
 import Buddies from "./pages/Buddies";
 import Goals from "./pages/Goals";
 import { useAuth0 } from "./react-auth0-spa";
-
 import "materialize-css/dist/css/materialize.min.css";
 import "./App.css";
 
