@@ -2,6 +2,8 @@ const db = require("../models");
 const moment = require("moment");
 const momentRange = require("moment-range");
 const range = momentRange.extendMoment(moment);
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 const helper = require("../utils/helperFunctions");
 
 const Milestone = {
@@ -178,22 +180,59 @@ const Milestone = {
   },
 
   getDateRange: (startDate, endDate, user) => {
-    let start = startDate.concat(" 00:00:00");
-    let end = endDate.concat(" 00:00:00");
-    console.log(start);
-    console.log(end);
+    // let start = startDate.concat(" 00:00:00");
+    // let end = endDate.concat(" 00:00:00");
+    // console.log(start);
+    // console.log(end);
     return new Promise((resolve, reject) => {
       db.Milestones.findAll({
         where: {
-          startDate: start,
-          endDate: end,
+          startDate: startDate,
+          endDate: endDate,
           UserId: user
         }
       })
         .then(resp => {
-          console.log(resp);
+          console.log(resp[0].dataValues);
 
-          resolve(resp);
+          const results = [];
+
+          resp.forEach(index => {
+            const milestone = {
+              id: index.dataValues.id,
+              name: index.dataValues.name,
+              frequency: index.dataValues.frequency,
+              dueDate: index.dataValues.dueDate,
+              startDate: index.dataValues.startDate,
+              endDate: index.dataValues.endDate,
+              notes: index.dataValues.notes
+            };
+            results.push(milestone);
+          });
+
+          db.Milestones.findAll({
+            where: {
+              [Op.or]: [{ dueDate: startDate }, { dueDate: endDate }],
+              UserId: user
+            }
+          }).then(resp => {
+            console.log(resp);
+
+            resp.forEach(index => {
+              const milestone = {
+                id: index.dataValues.id,
+                name: index.dataValues.name,
+                frequency: index.dataValues.frequency,
+                dueDate: index.dataValues.dueDate,
+                startDate: index.dataValues.startDate,
+                endDate: index.dataValues.endDate,
+                notes: index.dataValues.notes
+              };
+              results.push(milestone);
+            });
+
+            resolve(results);
+          });
         })
         .catch(err => {
           reject(err);
