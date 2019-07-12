@@ -1,0 +1,45 @@
+.modal-goal-name {
+  display: inline-block;
+
+  margin-right: 8rem;
+}
+
+.modal-goal-dueDate {
+  display: inline-block;
+  margin-left: 4rem;
+}
+
+.modal-milestone-frequency {
+  display: inline-block;
+  margin-right: 1rem !important;
+}
+
+.modal-milestone-dueDate {
+  display: inline-block;
+  margin-left: 2rem !important;
+}
+
+.checkbox-column {
+  margin-top: 5rem;
+}
+
+.modal-milestone-status {
+  display: inline-block;
+  margin-left: 2rem !important;
+}
+
+.modal-milestone-status span {
+  font-style: italic;
+  font-weight: 700;
+}
+
+.modal-milestone-complete {
+  display: inline-block;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  margin-left: 12rem;
+}
+
+.milestone-save-btn {
+  margin-left: 1rem;
+}

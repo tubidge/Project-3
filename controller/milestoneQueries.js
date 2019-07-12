@@ -126,9 +126,9 @@ const Milestone = {
             milestone.id = index.dataValues.id;
             milestone.name = index.dataValues.name;
             milestone.frequency = index.dataValues.frequency;
-            milestone.dueDate = moment(index.dataValues.dueDate)
-              .add("1", "day")
-              .format("YYYY-MM-DD");
+            milestone.dueDate = index.dataValues.dueDate;
+            milestone.startDate = index.dataValues.startDate;
+            milestone.endDate = index.dataValues.endDate;
             milestone.completed = index.dataValues.completed;
             milestone.notes = index.dataValues.notes;
             milestone.goalId = index.dataValues.GoalId;
@@ -163,9 +163,10 @@ const Milestone = {
             id: resp[0].dataValues.id,
             name: resp[0].dataValues.name,
             frequency: resp[0].dataValues.frequency,
-            dueDate: moment(resp[0].dataValues.dueDate)
-              .add("1", "day")
-              .format("YYYY-MM-DD"),
+            dueDate: resp[0].dataValues.dueDate,
+            startDate: resp[0].dataValues.startDate,
+            endDate: resp[0].dataValues.endDate,
+
             completed: resp[0].dataValues.completed,
             notes: resp[0].dataValues.notes,
             goalId: resp[0].dataValues.GoalId,
