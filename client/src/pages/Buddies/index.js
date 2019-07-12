@@ -147,10 +147,7 @@ const Buddies = () => {
   return (
     <div className="container">
       {/* Use this section to match goals */}
-      <button className="btn" onClick={findBuddy}>
-        Find Buddy
-      </button>
-      <div className="row">
+      {/* <div className="row">
         <div className="col s6">
           <h5>All User's Goals</h5>
           {buddyGoals.map(goal => (
@@ -167,8 +164,7 @@ const Buddies = () => {
             </li>
           ))}
         </div>
-      </div>
-      <hr />
+      </div> */}
       {/* End of matching section */}
 
       <h1 className="text-center">Search for Buddies</h1>
@@ -177,8 +173,15 @@ const Buddies = () => {
         <div className="col-sm-6 mx-auto">
           <div className="input-field mb-3">
             <div className="input-group-append">
-              <button className="btn btn-outline-secondary" type="button">
+              <button
+                style={{ marginRight: "10px" }}
+                className="btn grey darken-3"
+                type="button"
+              >
                 Search
+              </button>
+              <button className="btn amber darken-1" onClick={findBuddy}>
+                Find a Buddy
               </button>
             </div>
           </div>

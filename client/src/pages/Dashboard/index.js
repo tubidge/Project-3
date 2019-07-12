@@ -10,6 +10,7 @@ import BuddyList from "../../components/BuddyList";
 import GoalCard from "../../components/GoalCard";
 import Modal from "../../components/Modal";
 import Cal from "../../components/Calendar";
+import ProfileBanner from "./profileBanner.jpg";
 
 import "./style.css";
 
