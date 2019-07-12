@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Modal from "../Modal";
 import "./style.css";
 
 const GoalCard = props => {
-  const [goals, setGoals] = useState([]);
+  const [, setGoals] = useState([]);
 
   useEffect(() => {
     setGoals(props.incompleteGoals);
-    console.log(goals);
   });
 
   const makeid = l => {
@@ -27,7 +27,9 @@ const GoalCard = props => {
     return result.map(goal => (
       <li key={goal.id}>
         <div className="card-panel grey lighten-4 dark-text">
-          <span className="truncate">{goal.name}</span>
+          <Link to="/goals" className="truncate">
+            {goal.name}
+          </Link>
           <hr />
           <Modal
             style={{ marginRight: "20px" }}
@@ -68,7 +70,7 @@ const GoalCard = props => {
               <Modal
                 style={{
                   marginLeft: "7px",
-                  color: "#ff8f00",
+                  color: "#ffc400",
                   fontSize: "35px"
                 }}
                 className="material-icons modal-trigger right"
@@ -81,7 +83,6 @@ const GoalCard = props => {
                 getAllData={props.getAllData}
               />
             </div>
-
             <ul>{renderGoalsForCategories(props.category)}</ul>
           </div>
         </div>
