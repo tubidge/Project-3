@@ -19,10 +19,26 @@ module.exports = function(sequelize, DataTypes) {
     },
 
     dueDate: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull: false,
       validate: {
         notEmpty: true,
+        isDate: true
+      }
+    },
+
+    startDate: {
+      type: DataTypes.DATEONLY,
+      allowNull: true,
+      validate: {
+        isDate: true
+      }
+    },
+
+    endDate: {
+      type: DataTypes.DATEONLY,
+      allowNull: true,
+      validate: {
         isDate: true
       }
     },
