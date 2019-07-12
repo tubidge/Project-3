@@ -4,7 +4,7 @@ import API from "../../utils/API";
 import M from "materialize-css";
 import { useAuth0 } from "../../react-auth0-spa";
 
-const MaterializeNavbar = () => {
+const Navbar = () => {
   const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
   const [, setUserInfo] = useState({});
 
@@ -56,7 +56,7 @@ const MaterializeNavbar = () => {
           </ul>
           {/* Dropdown menu end */}
 
-          <nav>
+          <nav className="grey darken-4">
             <div className="nav-wrapper">
               <Link to="/dashboard" className="brand-logo">
                 GoalDen
@@ -73,7 +73,7 @@ const MaterializeNavbar = () => {
                   <Link to="/buddies">Buddies</Link>
                 </li>
                 <li>
-                  <Link to="/dashboard">Dashboard</Link>
+                  <Link to="/goals">Goals</Link>
                 </li>
                 <li>
                   <a
@@ -134,4 +134,4 @@ const MaterializeNavbar = () => {
   );
 };
 
-export default MaterializeNavbar;
+export default Navbar;

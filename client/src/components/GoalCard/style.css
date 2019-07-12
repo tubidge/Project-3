@@ -2,3 +2,8 @@
   max-height: 200px;
   overflow: auto;
 }
+
+.card-panel > .truncate:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}

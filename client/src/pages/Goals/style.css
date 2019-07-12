@@ -1,0 +1,85 @@
+.container {
+  padding: 80px 0 0 0;
+}
+
+.tabs .tab a {
+  color: black;
+}
+
+.tabs .tab a:hover {
+  color: #0288d1;
+}
+
+.tabs .tab a:focus.active {
+  color: #0288d1;
+  background-color: #ddf0ff;
+  border-top-left-radius: 2ch;
+  border-top-right-radius: 2ch;
+}
+
+.tabs .tab a:hover,
+.tabs .tab a.active {
+  background-color: transparent;
+  color: #0288d1;
+}
+
+.tabs .tab:hover {
+  background-color: #ddf0ff;
+  border-top-left-radius: 2ch;
+  border-top-right-radius: 2ch;
+}
+
+.tabs .indicator {
+  background-color: #0288d1;
+}
+
+.goal-tabs {
+  margin: 50px 0 0 0;
+}
+
+.goal-tab {
+  padding: 10px;
+  margin-bottom: 25px;
+}
+
+.goal-tab:hover {
+  background-color: #ddf0ff;
+  border-radius: 1ch;
+}
+
+.goal-detail {
+  margin: 10px 0 0 0;
+}
+
+.goal-detail-row {
+  margin: 0 !important;
+}
+
+.tabs {
+  background-color: rgb(246, 246, 246);
+}
+
+.card-title {
+  font-weight: 600 !important;
+}
+
+.card {
+  border-radius: 2ch;
+}
+
+.goal-detail-sublist > li {
+  padding: 3px;
+}
+
+.goal-subtitle {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.col-border {
+  border-right: 1px rgb(177, 174, 174) solid;
+}
+
+.light-blue.accent-4:hover {
+  background-color: #00b0ff !important;
+}

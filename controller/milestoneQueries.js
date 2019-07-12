@@ -1,9 +1,98 @@
 const db = require("../models");
 const moment = require("moment");
+const momentRange = require("moment-range");
+const range = momentRange.extendMoment(moment);
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
+const helper = require("../utils/helperFunctions");
 
-module.exports = {
+const Milestone = {
   // This method will create a new milestone in the database. The milestone parameter is an object that will be
   // constructed based off data from the req.body object and req.params.id
+
+  populateMilestones: (milestone, days) => {
+    return new Promise((resolve, reject) => {
+      helper
+        .asyncForEach(days, async event => {
+          milestone.dueDate = event;
+          console.log(milestone);
+          await Milestone.addMilestone(milestone);
+        })
+        .then(() => {
+          resolve("Milestones Created");
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  },
+
+  configureMilestones: milestone => {
+    return new Promise((resolve, reject) => {
+      let dates = range.range(
+        range(milestone.startDate),
+        range(milestone.endDate)
+      );
+
+      if (milestone.frequency === "Never") {
+        Milestone.addMilestone(milestone).then(data => {
+          resolve(data);
+        });
+      } else {
+        switch (milestone.frequency) {
+          case "Daily":
+            let results = Array.from(dates.by("day"));
+            let arr = [];
+            results.forEach(index => {
+              arr.push(moment(index._d).format("YYYY-MM-DD"));
+            });
+
+            console.log(arr);
+            Milestone.populateMilestones(milestone, arr)
+              .then(data => {
+                resolve(data);
+              })
+              .catch(err => {
+                reject(err);
+              });
+            break;
+          case "Weekly":
+            let result = Array.from(dates.by("week"));
+            let weekArr = [];
+            result.forEach(index => {
+              weekArr.push(moment(index._d).format("YYYY-MM-DD"));
+            });
+
+            console.log(weekArr);
+            Milestone.populateMilestones(milestone, weekArr)
+              .then(data => {
+                resolve(data);
+              })
+              .catch(err => {
+                reject(err);
+              });
+            break;
+          case "Monthly":
+            let res = Array.from(dates.by("month"));
+            let monthArr = [];
+            res.forEach(index => {
+              monthArr.push(moment(index._d).format("YYYY-MM-DD"));
+            });
+
+            console.log(monthArr);
+            Milestone.populateMilestones(milestone, monthArr)
+              .then(data => {
+                resolve(data);
+              })
+              .catch(err => {
+                reject(err);
+              });
+            break;
+        }
+      }
+    });
+  },
+
   addMilestone: milestone => {
     return new Promise((resolve, reject) => {
       db.Milestones.create(milestone)
@@ -90,6 +179,63 @@ module.exports = {
     });
   },
 
+  getDateRange: (startDate, endDate, user) => {
+    // let start = startDate.concat(" 00:00:00");
+    // let end = endDate.concat(" 00:00:00");
+    // console.log(start);
+    // console.log(end);
+    return new Promise((resolve, reject) => {
+      db.Milestones.findAll({
+        where: {
+          startDate: startDate,
+          endDate: endDate,
+          UserId: user
+        }
+      })
+        .then(resp => {
+          const results = [];
+
+          resp.forEach(index => {
+            const milestone = {
+              id: index.dataValues.id,
+              name: index.dataValues.name,
+              frequency: index.dataValues.frequency,
+              dueDate: index.dataValues.dueDate,
+              startDate: index.dataValues.startDate,
+              endDate: index.dataValues.endDate,
+              notes: index.dataValues.notes
+            };
+            results.push(milestone);
+          });
+
+          db.Milestones.findAll({
+            where: {
+              [Op.or]: [{ dueDate: startDate }, { dueDate: endDate }],
+              UserId: user
+            }
+          }).then(resp => {
+            resp.forEach(index => {
+              const milestone = {
+                id: index.dataValues.id,
+                name: index.dataValues.name,
+                frequency: index.dataValues.frequency,
+                dueDate: index.dataValues.dueDate,
+                startDate: index.dataValues.startDate,
+                endDate: index.dataValues.endDate,
+                notes: index.dataValues.notes
+              };
+              results.push(milestone);
+            });
+
+            resolve(results);
+          });
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  },
+
   // This method will allow a user to update a particular column's data based on the
   // milestone id that they pass in
   updateMilestone: (id, colName, info) => {
@@ -144,3 +290,5 @@ module.exports = {
     });
   }
 };
+
+module.exports = Milestone;

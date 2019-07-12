@@ -80,6 +80,17 @@ module.exports = app => {
       });
   });
 
+  app.get("/user/goal/:id", (req, res) => {
+    user
+      .getUserByGoal(req.params.id)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
+
   // This route will update info on a user. The colName will dictate which column they are updating
   // the info is the data that will replace the current data in that column
   app.put("/user/:id", (req, res) => {
