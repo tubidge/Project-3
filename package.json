@@ -22,6 +22,7 @@
   "dependencies": {
     "auth0-js": "^9.10.4",
     "axios": "^0.18.1",
+    "create-react-app": "^3.0.1",
     "express": "^4.16.3",
     "if-env": "^1.0.4",
     "moment-range": "^4.0.2",

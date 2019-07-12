@@ -41,6 +41,17 @@ module.exports = app => {
       });
   });
 
+  app.get("/milestone/range/:start/:end", (req, res) => {
+    milestone
+      .getDateRange(req.params.start, req.params.end, 1)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
+
   // This route will return a single milestone queried off of id
   app.get("/milestone/:id", (req, res) => {
     milestone

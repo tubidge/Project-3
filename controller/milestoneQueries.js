@@ -177,6 +177,30 @@ const Milestone = {
     });
   },
 
+  getDateRange: (startDate, endDate, user) => {
+    let start = startDate.concat(" 00:00:00");
+    let end = endDate.concat(" 00:00:00");
+    console.log(start);
+    console.log(end);
+    return new Promise((resolve, reject) => {
+      db.Milestones.findAll({
+        where: {
+          startDate: start,
+          endDate: end,
+          UserId: user
+        }
+      })
+        .then(resp => {
+          console.log(resp);
+
+          resolve(resp);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  },
+
   // This method will allow a user to update a particular column's data based on the
   // milestone id that they pass in
   updateMilestone: (id, colName, info) => {

@@ -3,7 +3,7 @@ import { Route, Router } from "react-router-dom";
 import App from "./App";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
-import User from "./pages/User";
+// import User from "./pages/User";
 import Callback from "./pages/Callback";
 import Auth from "./components/Auth";
 import history from "./history";
@@ -28,12 +28,12 @@ export const makeMainRoutes = () => {
             <Profile auth={auth} {...props} newProp={"this is a prop"} />
           )}
         />
-        <Route
+        {/* <Route
           path="/users"
           render={props => (
-            <User auth={auth} {...props} newProp={"this is a prop"} />
+            // <User auth={auth} {...props} newProp={"this is a prop"} />
           )}
-        />
+        /> */}
         <Route
           path="/callback"
           render={props => {
