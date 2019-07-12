@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "../../react-auth0-spa";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronRight, faItalic } from "@fortawesome/free-solid-svg-icons";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import API from "../../utils/API";
 import Loading from "../../components/Loading";
 import UserProfile from "../../components/UserProfile";
@@ -10,7 +10,6 @@ import BuddyList from "../../components/BuddyList";
 import GoalCard from "../../components/GoalCard";
 import Modal from "../../components/Modal";
 import Cal from "../../components/Calendar";
-import ProfileBanner from "./profileBanner.jpg";
 
 import "./style.css";
 

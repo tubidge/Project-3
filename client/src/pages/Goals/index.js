@@ -1,18 +1,79 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useAuth0 } from "../../react-auth0-spa";
+import GoalDetail from "../../components/GoalDetail";
+import MilestoneColumn from "../../components/MilestoneColumn";
+import Milestone from "../../components/Milestone";
+import Buddy from "../../components/Buddy";
+import BuddyColumn from "../../components/BuddyColumn";
 import M from "materialize-css";
 import "./style.css";
+import API from "../../utils/API";
 
-function GoalsView(props) {
-  // This code may be necessary for some Materialize animation/functionality
+const Goals = props => {
+  const { loading, user } = useAuth0();
+  const [isLoading, setIsLoading] = useState(true);
+  const [incompleteGoals, setIncompleteGoals] = useState([]);
+  const [userInfo, setUserInfo] = useState({});
+  const [, setGoalInfo] = useState({});
+  const [categories, setCategories] = useState([]);
+  const [allBuddies, setAllBuddies] = useState();
+
   useEffect(() => {
-    // Update the document title using the browser API
     M.AutoInit();
-  });
+    getAllData();
+  }, []);
+
+  const getAllData = () => {
+    API.getUserByEmail(user.email).then(resp => {
+      console.log(resp.data);
+      let userData = resp.data;
+      API.getAllGoals(userData.id).then(res => {
+        console.log(res.data);
+        let goalData = res.data;
+        setGoalInfo(goalData);
+        setUserInfo(userData);
+        if (userData.buddies) {
+          setAllBuddies(userData.buddies.allBuddies);
+        }
+        setIncompleteGoals(goalData.currentGoals.incomplete);
+        setCategories(
+          goalData.currentGoals.incomplete
+            .map(goal => goal.category)
+            .reduce(
+              (unique, item) =>
+                unique.includes(item) ? unique : [...unique, item],
+              []
+            )
+        );
+        setIsLoading(false);
+        console.log(incompleteGoals);
+      });
+    });
+  };
+
+  const makeid = l => {
+    let text = "";
+    let char_list =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    for (let i = 0; i < l; i++) {
+      text += char_list.charAt(Math.floor(Math.random() * char_list.length));
+    }
+    return text;
+  };
+
   return (
     <section className="container">
       <div className="row">
         <div className="col s12">
           <ul className="tabs">
+            {categories.map(category => (
+              <>
+                <li key={makeid(5)} className="tab col s3">
+                  <Link to="#test1">{category}</Link>
+                </li>
+              </>
+            ))}
             <li className="tab col s3">
               <a href="#test1">Category 1</a>
             </li>
@@ -43,7 +104,32 @@ function GoalsView(props) {
             </ul>
           </div>
 
-          <div className="col s10 goal-detail">{props.children}</div>
+          <div className="col s10 goal-detail">
+            <GoalDetail
+              name="Example Goal"
+              due="01/01/2019"
+              desc="Here is a description of your goal"
+            >
+              <MilestoneColumn>
+                {incompleteGoals.map(goal =>
+                  goal.milestones.incomplete.map(milestone => (
+                    <Milestone
+                      id={milestone.id}
+                      key={milestone.id}
+                      name={milestone.name}
+                      frequency={milestone.frequency}
+                      due={milestone.dueDate}
+                    />
+                  ))
+                )}
+              </MilestoneColumn>
+              <BuddyColumn>
+                {incompleteGoals.map(goal =>
+                  goal.buddy.current.map(buddy => <Buddy name={buddy} />)
+                )}
+              </BuddyColumn>
+            </GoalDetail>
+          </div>
         </div>
 
         <div id="test2">
@@ -96,48 +182,8 @@ function GoalsView(props) {
           </div>
         </div>
       </div>
-
-      {/* Materialize nested tabs not working, leaves sub tab content showing within each tab */}
-      {/* <div className="row">
-                <div className="col s12">
-                    <ul className="tabs">
-                        <li className="tab col s3"><a href="#test1">Category 1</a></li>
-                        <li className="tab col s3"><a href="#test2">Category 2</a></li>
-                        <li className="tab col s3"><a href="#test3">Category 3</a></li>
-                        <li className="tab col s3"><a href="#test4">Category 4</a></li>
-                    </ul>
-                </div>
-
-                <div className="row">
-                    <div id="test1" className="col s3">
-                        <ul className="tabs2">
-                            <li className="tab goal-tab center-align"><a href="#goal1-1">Goal 1</a></li>
-                            <li className="tab goal-tab center-align"><a href="#goal1-2">Goal 2</a></li>
-                            <li className="tab goal-tab center-align"><a href="#goal1-3">Goal 3</a></li>
-                        </ul>
-                    </div>
-                    <div id="goal1-1" className="col s9 goal-detail">Testing Goal 1</div>
-                    <div id="goal1-2" className="col s9 goal-detail">Testing Goal 2</div>
-                    <div id="goal1-3" className="col s9 goal-detail">Testing Goal 3</div>
-                </div>
-
-                <div className="row">
-                    <div id="test2" className="col s3">
-                        <ul className="tabs3">
-                            <li className="tab goal-tab center-align"><a href="#goal2-1">Goal 1</a></li>
-                            <li className="tab goal-tab center-align"><a href="#goal2-2">Goal 2</a></li>
-                            <li className="tab goal-tab center-align"><a href="#goal2-3">Goal 3</a></li>
-                        </ul>
-                    </div>
-                    <div id="goal2-1" className="col s9 goal-detail">Testing Goal 1</div>
-                    <div id="goal2-2" className="col s9 goal-detail">Testing Goal 2</div>
-                    <div id="goal2-3" className="col s9 goal-detail">Testing Goal 3</div>
-                </div>
-                <div id="test3" className="col s12">Test 3</div>
-                <div id="test4" className="col s12">Test 4</div>
-            </div> */}
     </section>
   );
-}
+};
 
-export default GoalsView;
+export default Goals;

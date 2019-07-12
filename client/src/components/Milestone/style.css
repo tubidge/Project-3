@@ -1,0 +1,18 @@
+p {
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+hr {
+  width: 70%;
+}
+
+p {
+  margin-bottom: 5px !important;
+}
+
+hr {
+  margin-top: 15px;
+}
