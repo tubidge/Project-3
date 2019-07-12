@@ -30,7 +30,6 @@ const GoalCard = props => {
           <Link to="/goals" className="truncate">
             {goal.name}
           </Link>
-          <hr />
           <Modal
             style={{ marginRight: "20px" }}
             className="modal-trigger"
