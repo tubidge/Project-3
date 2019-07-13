@@ -1,0 +1,43 @@
+.hero-image {
+  background: #5c5c5c;
+  height: 200px;
+}
+
+.nextArrow {
+  height: 200px;
+  line-height: 200px;
+  text-align: center;
+}
+.nextArrow > span {
+  padding-right: 30px;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+  scale: 1;
+  font-size: 60px;
+  color: #ffc400;
+  -moz-transition: all 0.3s ease-in-out 0s;
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  -ms-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.nextArrow > span:hover {
+  cursor: pointer;
+  color: #212121;
+  -moz-transition: all 0.3s ease-in-out 0s;
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  -ms-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+}
+
+@media only screen and (max-width: 600px) {
+  .nextArrow > span {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    margin-left: 245px;
+    margin-top: -100px;
+    font-size: 80px;
+    color: #ffc400;
+  }
+}
