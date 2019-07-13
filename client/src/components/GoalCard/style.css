@@ -1,5 +1,9 @@
 .goalCard {
   max-height: 200px;
+}
+
+.card-scrollable-content {
+  max-height: 150px;
   overflow: auto;
 }
 
@@ -8,6 +12,12 @@
   opacity: 0.7;
 }
 
-.modal-trigger {
-  padding-right: 5px;
+.goal-card-name {
+  text-align: left;
+}
+
+.goal-due-alert {
+  text-align: right;
+  color: red;
+  margin: 0;
 }
