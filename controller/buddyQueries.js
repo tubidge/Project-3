@@ -2,7 +2,7 @@ var db = require("../models");
 
 module.exports = {
   // This id is the buddyId. This method will return all active buddy goal relationships that this id is associated with
-  getBuddyId: id => {
+  getAllBuddiesId: id => {
     return new Promise((resolve, reject) => {
       db.Buddy.findAll({
         where: {
@@ -13,19 +13,47 @@ module.exports = {
         .then(resp => {
           const results = [];
           resp.forEach(index => {
-            const buddy = {
+            let buddy = {
               id: index.dataValues.id,
               duration: index.dataValues.duration,
               buddyId: index.dataValues.buddyId,
+              buddyGoal: index.dataValues.buddyGoal,
               active: index.dataValues.active,
+              chatChannel: index.dataValues.chatChannel,
               goalId: index.dataValues.GoalId,
               ownerId: index.dataValues.UserId
             };
 
             results.push(buddy);
+            console.log(results);
           });
+          console.log(results);
+          db.Buddy.findAll({
+            where: {
+              UserId: id,
+              active: 1
+            }
+          }).then(data => {
+            console.log(data);
+            console.log(results);
 
-          resolve(results);
+            data.forEach(index => {
+              let buddy = {
+                id: index.dataValues.id,
+                duration: index.dataValues.duration,
+                buddyId: index.dataValues.buddyId,
+                buddyGoal: index.dataValues.buddyGoal,
+                chatChannel: index.dataValues.chatChannel,
+                active: index.dataValues.active,
+                goalId: index.dataValues.GoalId,
+                ownerId: index.dataValues.UserId
+              };
+
+              results.push(buddy);
+              console.log(results);
+            });
+            resolve(results);
+          });
         })
         .catch(err => {
           reject(err);
@@ -47,7 +75,9 @@ module.exports = {
             id: resp[0].dataValues.id,
             duration: resp[0].dataValues.duration,
             buddyId: resp[0].dataValues.buddyId,
+            buddyGoal: resp[0].dataValues.buddyGoal,
             goalId: resp[0].dataValues.GoalId,
+            chatChannel: resp[0].chatChannel,
             active: resp[0].dataValues.active,
             ownerId: resp[0].dataValues.UserId
           };
@@ -61,36 +91,38 @@ module.exports = {
   },
 
   // This id is the id of the Owner/UserId. This method will return all active buddy relationships that this user "owns"
-  getByOwner: id => {
-    return new Promise((resolve, reject) => {
-      db.Buddy.findAll({
-        where: {
-          UserId: id,
-          active: 1
-        }
-      })
-        .then(resp => {
-          const results = [];
-          resp.forEach(index => {
-            const buddy = {
-              id: index.dataValues.id,
-              duration: index.dataValues.duration,
-              buddyId: index.dataValues.buddyId,
-              active: index.dataValues.active,
-              goalId: index.dataValues.GoalId,
-              ownerId: index.dataValues.UserId
-            };
+  // getByOwner: id => {
+  //   return new Promise((resolve, reject) => {
+  //     db.Buddy.findAll({
+  //       where: {
+  //         UserId: id,
+  //         active: 1
+  //       }
+  //     })
+  //       .then(resp => {
+  //         const results = [];
+  //         resp.forEach(index => {
+  //           const buddy = {
+  //             id: index.dataValues.id,
+  //             duration: index.dataValues.duration,
+  //             buddyId: index.dataValues.buddyId,
+  //             buddyGoal: index.dataValues.buddyGoal,
+  //             chatChannel: index.dataValues.chatChannel,
+  //             active: index.dataValues.active,
+  //             goalId: index.dataValues.GoalId,
+  //             ownerId: index.dataValues.UserId
+  //           };
 
-            results.push(buddy);
-          });
+  //           results.push(buddy);
+  //         });
 
-          resolve(results);
-        })
-        .catch(err => {
-          reject(err);
-        });
-    });
-  },
+  //         resolve(results);
+  //       })
+  //       .catch(err => {
+  //         reject(err);
+  //       });
+  //   });
+  // },
 
   // This id is the GoalId. This method will return all active buddy relationships that are linked to this goal
   getByGoal: id => {
@@ -108,15 +140,38 @@ module.exports = {
               id: index.dataValues.id,
               duration: index.dataValues.duration,
               buddyId: index.dataValues.buddyId,
+              buddyGoal: index.dataValues.buddyGoal,
               active: index.dataValues.active,
+              chatChannel: index.dataValues.chatChannel,
               goalId: index.dataValues.GoalId,
               ownerId: index.dataValues.UserId
             };
 
             results.push(buddy);
           });
+          db.Buddy.findAll({
+            where: {
+              buddyGoal: id,
+              active: 1
+            }
+          }).then(resp => {
+            console.log(resp);
+            resp.forEach(index => {
+              const buddy = {
+                id: index.dataValues.id,
+                duration: index.dataValues.duration,
+                buddyId: index.dataValues.buddyId,
+                buddyGoal: index.dataValues.buddyGoal,
+                active: index.dataValues.active,
+                chatChannel: index.dataValues.chatChannel,
+                goalId: index.dataValues.GoalId,
+                ownerId: index.dataValues.UserId
+              };
 
-          resolve(results);
+              results.push(buddy);
+            });
+            resolve(results);
+          });
         })
         .catch(err => {
           reject(err);
@@ -136,6 +191,8 @@ module.exports = {
             duration: resp.dataValues.duration,
             active: resp.dataValues.active,
             buddyId: resp.dataValues.buddyId,
+            buddyGoal: resp.dataValues.buddyGoal,
+            chatChannel: resp.dataValues.chatChannel,
             goalId: resp.dataValues.GoalId,
             ownerId: resp.dataValues.UserId
           };
