@@ -2,16 +2,16 @@ var buddy = require("../controller/buddyQueries");
 
 module.exports = app => {
   // This route will get all the buddy relationships based on the user id that "owns" the relationship
-  app.get("/buddy/owner/:id", (req, res) => {
-    buddy
-      .getByOwner(req.params.id)
-      .then(data => {
-        res.send(data);
-      })
-      .catch(err => {
-        res.send(err);
-      });
-  });
+  // app.get("/buddy/owner/:id", (req, res) => {
+  //   buddy
+  //     .getByOwner(req.params.id)
+  //     .then(data => {
+  //       res.send(data);
+  //     })
+  //     .catch(err => {
+  //       res.send(err);
+  //     });
+  // });
 
   // This route will get all buddy relationships associated with a goal's id
   app.get("/buddy/goal/:id", (req, res) => {
@@ -26,9 +26,9 @@ module.exports = app => {
   });
 
   // This route will get all buddy relationships that a user is associated on.
-  app.get("/buddy/buddy/:id", (req, res) => {
+  app.get("/buddy/all/:id", (req, res) => {
     buddy
-      .getBuddyId(req.params.id)
+      .getAllBuddiesId(req.params.id)
       .then(data => {
         res.send(data);
       })
@@ -51,12 +51,7 @@ module.exports = app => {
 
   // This route will add a new buddy relationship to the database. This relationship will be defaulted to active.
   app.post("/buddy/add", (req, res) => {
-    const newBuddy = {
-      duration: req.body.duration,
-      buddyId: req.body.buddyId,
-      GoalId: req.body.goalId,
-      UserId: req.body.userId
-    };
+    const newBuddy = req.body.data;
 
     buddy
       .addBuddyRelation(newBuddy)
@@ -72,9 +67,12 @@ module.exports = app => {
   // I'm picturing this will mostly be used for setting the active status to false, but we could
   // potentially allow for user's to extend the time of the relationship
   app.put("/buddy/:id", (req, res) => {
-    let colName = req.body.colName;
-    let info = req.body.info;
-
+    let colName = req.body.data.colName;
+    let info = req.body.data.info;
+    console.log(req.params.id);
+    console.log(req.body);
+    console.log(colName);
+    console.log(info);
     buddy
       .updateBuddyRelation(req.params.id, colName, info)
       .then(data => {

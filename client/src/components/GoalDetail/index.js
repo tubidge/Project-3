@@ -17,7 +17,7 @@ const GoalDetail = props => {
                 <p className="goal-subtitle">Milestones</p>
               </div>
               <ul className="goal-detail-sublist">
-                <li>Milestone 1</li>
+                <li>{props.milestone}</li>
                 <li>Milestone 2</li>
                 <li>Milestone 3</li>
                 <li>Milestone 4</li>

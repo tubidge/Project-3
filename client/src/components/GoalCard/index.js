@@ -49,8 +49,8 @@ const GoalCard = props => {
             getAllData={props.getAllData}
           />
           <Modal
-            className="modal-trigger"
-            btnName="Delete"
+            className="modal-trigger material-icons"
+            btnName="delete"
             header="Delete"
             text="Are you sure you want to delete this goal?"
             dataTarget={`deleteGoal_${goal.id}`}
