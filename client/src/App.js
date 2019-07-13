@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
 import Buddies from "./pages/Buddies";
+import BuddyProfile from "./pages/BuddyProfile";
 import Goals from "./pages/Goals";
 import { useAuth0 } from "./react-auth0-spa";
 
@@ -29,6 +30,7 @@ const App = () => {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/buddies" exact component={Buddies} />
+          <Route path="/buddyProfile" exact component={BuddyProfile} />
           <PrivateRoute path="/dashboard" component={Dashboard} />
           <PrivateRoute path="/profile" component={Profile} />
           <PrivateRoute path="/goals" component={Goals} />
