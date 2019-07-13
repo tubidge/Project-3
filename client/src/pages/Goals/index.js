@@ -62,7 +62,6 @@ const Goals = props => {
   };
 
   const renderGoalDetail = id => {
-    console.log(incompleteGoals);
     const result = incompleteGoals.filter(goal => goal.id === id);
     return result.map(goal => (
       <GoalDetail
@@ -107,17 +106,11 @@ const Goals = props => {
           <div className="col s2">
             <ul className="goal-tabs">{renderGoalsForCategory("Wellness")}</ul>
           </div>
-
-          <div className="col s10 goal-detail">{props.children}</div>
         </div>
 
         <div id="Financial">
           <div className="col s2">
-            <ul className="goal-tabs">
-              <ul className="goal-tabs">
-                {renderGoalsForCategory("Financial")}
-              </ul>
-            </ul>
+            <ul className="goal-tabs">{renderGoalsForCategory("Financial")}</ul>
           </div>
         </div>
 
@@ -125,7 +118,6 @@ const Goals = props => {
           <div className="col s2">
             <ul className="goal-tabs">{renderGoalsForCategory("Education")}</ul>
           </div>
-          <div className="col s10 goal-detail">{renderGoalDetail(59)}</div>
         </div>
 
         <div id="Travel">
