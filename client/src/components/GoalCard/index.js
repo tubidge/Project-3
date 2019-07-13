@@ -77,7 +77,7 @@ const GoalCard = props => {
               }}
               className="material-icons modal-trigger right"
               btnName={"add_circle"}
-              header="Add a new goal"
+              header="AddNew"
               text="Complete this form"
               dataTarget={`newGoalFromCard_${makeid(5)}`}
               action="Add"
