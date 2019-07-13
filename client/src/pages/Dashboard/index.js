@@ -11,6 +11,7 @@ import Cal from "../../components/Calendar";
 
 import "./style.css";
 
+// hooks are a way for us to use state in a function component
 const Dashboard = () => {
   const { loading, user } = useAuth0();
   const [isLoading, setIsLoading] = useState(true);
@@ -18,48 +19,27 @@ const Dashboard = () => {
   const [, setGoalInfo] = useState({});
   const [incompleteGoals, setIncompleteGoals] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [allBuddies, setAllBuddies] = useState([]);
+  const [allBuddies, setAllBuddies] = useState();
 
   useEffect(() => {
     getAllData();
   }, []);
-
-  // useEffect(() => {
-  //   API.getUserByEmail(user.email).then(resp => {
-  //     console.log(resp.data);
-  //     let userData = resp.data;
-  //     API.getAllGoals(userData.id).then(res => {
-  //       console.log(res.data);
-  //       let goalData = res.data;
-  //       setGoalInfo(goalData);
-  //       setUserInfo(userData);
-  //       setIncompleteGoals(goalData.currentGoals.incomplete);
-  //       setCategories(
-  //         goalData.currentGoals.incomplete
-  //           .map(goal => goal.category)
-  //           .reduce(
-  //             (unique, item) =>
-  //               unique.includes(item) ? unique : [...unique, item],
-  //             []
-  //           )
-  //       );
-  //       if (userInfo.buddies) {
-  //         setAllBuddies(userData.buddies.allBuddies);
-  //       }
-  //       setIsLoading(false);
-  //     });
-  //   });
-  // }, []);
 
   const getAllData = () => {
     API.getUserByEmail(user.email).then(resp => {
       console.log(resp.data);
       let userData = resp.data;
       API.getAllGoals(userData.id).then(res => {
-        console.log(res.data);
         let goalData = res.data;
+        const incompleteGoals = goalData.currentGoals.incomplete;
+        incompleteGoals.map(goal => {
+          console.log(JSON.stringify(goal));
+        });
         setGoalInfo(goalData);
         setUserInfo(userData);
+        if (userData.buddies) {
+          setAllBuddies(userData.buddies.allBuddies);
+        }
         setIncompleteGoals(goalData.currentGoals.incomplete);
         setCategories(
           goalData.currentGoals.incomplete
@@ -70,9 +50,6 @@ const Dashboard = () => {
               []
             )
         );
-        if (userInfo.buddies) {
-          setAllBuddies(userData.buddies.allBuddies);
-        }
         setIsLoading(false);
       });
     });
@@ -121,8 +98,10 @@ const Dashboard = () => {
 
   return (
     <>
+      <div className="profileSummaryBg" />
+      <div className="hero-image" />
       <div className="row mt20">
-        <div className="col l3 s12">
+        <div className="col l3 s12" style={{ marginTop: "-130px" }}>
           <UserProfile
             userPicture={userInfo.image ? userInfo.image : user.picture}
             username={userInfo.username}
@@ -133,14 +112,14 @@ const Dashboard = () => {
           <BuddyList buddies={allBuddies} makeid={makeid} />
         </div>
 
-        <div className="col l8 s12">
-          <div className="row">
+        <div className="col l9 s12">
+          <div className="row" style={{ marginTop: "15px" }}>
             <Modal
               className="btn modal-trigger green"
-              btnName="Add a Goal"
+              btnName="Add goal for new category..."
               header="Add a new goal"
               text="Complete this form"
-              dataTarget={"newGoal"}
+              dataTarget={`newGoal_${makeid(5)}`}
               action="Add"
               userID={userInfo.id}
               getAllData={getAllData}
@@ -158,36 +137,35 @@ const Dashboard = () => {
             ))}
           </div>
           <div className="row">
-            <h5 className="center-align">Calendar</h5>
-            <div className="col s3" />
-            <hr className="col s6" />
-            <div className="col s3" />
-          </div>
-          <div className="row">
-            <div className="col s2" />
-            <div className="col s9 center-align">
+            <div className="col s12 center-align">
               <Cal />
             </div>
           </div>
-          <br />
-          <div className="row">
-            <div>
-              <h5 className="center align">Goals</h5>
-              <div className="col s3" />
-              <hr className="col s6" />
-              <div className="col s3" />
-            </div>
-          </div>
         </div>
-        {/* <div className="col s12">
+        <div className="col s12">
           <div className="row">
             <h5>Current Incomplete Goals</h5>
             {renderGoals()}
           </div>
-        </div> */}
+        </div>
       </div>
     </>
   );
 };
+
+// conditional rendering - render one or the other
+// const date; // set date when date is selected on calendar
+// const goalsOnDate = function() {
+// maps over incomplete goals and returns object with all goals from that date
+// };
+// const allGoals = {};
+// const dateGoalsHMTL = <div>{goalsOnDate}</div>;
+// const allGoalsHMTL = <div>{allGoals}</div>;
+
+// const ternary = date ? dateGoalsHMTL : allGoalsHMTL;
+
+// {
+//   ternary;
+// }
 
 export default Dashboard;

@@ -8,6 +8,10 @@ export default {
     return axios.get("/all/users");
   },
 
+  getAllUsername: () => {
+    return axios.get("/all/username");
+  },
+
   // This method will return a single user
   getUser: id => {
     return axios.get("/user/" + id);

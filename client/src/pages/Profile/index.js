@@ -13,8 +13,11 @@ const Profile = () => {
   const [, setIsLoading] = useState(true);
   const [newUser, setNew] = useState(true);
   const [userData, setUserData] = useState({});
-
   useEffect(() => {
+    getUserProfile();
+  }, []);
+
+  const getUserProfile = () => {
     API.getUserByEmail(user.email).then(res => {
       setUserData(res.data);
       console.log(
@@ -25,26 +28,32 @@ const Profile = () => {
       }
       setIsLoading(false);
     });
-  }, []);
+  };
 
   if (loading || !user) {
     return <Loading />;
   }
 
   return (
-    <div className="container mb-5">
-      <div className="row align-items-center profile-header">
-        <div className="col-md-2">
-          <img
-            src={userData.image ? userData.image : user.picture}
-            alt="Profile"
-            className="circle img-fluid profilePicture"
-          />
+    <div className="container profileContainer">
+      <div className="row">
+        <div className="col s2">
+          <div className="row center-align">
+            <img
+              src={userData.image ? userData.image : user.picture}
+              alt="Profile"
+              className="circle img-fluid profilePic"
+            />
+          </div>
+          <div className="row">
+            <h5 className="profileName center-align">{userData.username}</h5>
+          </div>
         </div>
-        <div className="col-md-4">
-          <p className="lead text-muted">{user.email}</p>
-        </div>
-        <div className="col-lg-6 md-12 sm-12">
+
+        <div className="col s9 offset-s1">
+          <div className="row">
+            <h4>Profile</h4>
+          </div>
           {!newUser ? (
             <FormStatic
               userID={userData.id}
@@ -52,12 +61,14 @@ const Profile = () => {
               firstName={userData.firstName}
               lastName={userData.lastName}
               email={user.email}
+              getUserProfile={getUserProfile}
             />
           ) : (
             <Form
               fistName={user.given_name}
               lastName={user.family_name}
               email={user.email}
+              getUserProfile={getUserProfile}
             />
           )}
         </div>
