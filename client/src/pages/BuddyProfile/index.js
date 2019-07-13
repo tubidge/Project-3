@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "../../react-auth0-spa";
+
 import API from "../../utils/API";
 import Loading from "../../components/Loading";
 import UserProfile from "../../components/UserProfile";
