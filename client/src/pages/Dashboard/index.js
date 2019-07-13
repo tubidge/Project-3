@@ -122,18 +122,7 @@ const Dashboard = () => {
           />
           <BuddyList buddies={allBuddies} makeid={makeid} />
         </div>
-        <div style={{ marginTop: "20px", marginBottom: "20px" }}>
-          <Modal
-            className="btn-small modal-trigger green"
-            btnName="Add goal for new category..."
-            header="Add a new goal"
-            text="Complete this form"
-            dataTarget={`newGoal_${makeid(5)}`}
-            action="Add"
-            userID={userInfo.id}
-            getAllData={getAllData}
-          />
-        </div>
+        <div style={{ marginTop: "20px", marginBottom: "20px" }} />
         <div className="col l8 s12">{renderGoalCards()}</div>
         <div className="col s1 nextArrow">
           <span>
