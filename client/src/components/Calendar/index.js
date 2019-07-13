@@ -27,19 +27,63 @@ export default class Cal extends React.Component {
           id: index.id,
           title: index.name,
           date: index.dueDate,
+          category: index.category,
           className: "modal-trigger",
           dataTarget: "milestoneModal"
         };
-        results.push(event);
+        switch (event.category) {
+          case "Fitness":
+            event.backgroundColor = "#C65BC0";
+            results.push(event);
+            break;
+          case "Education":
+            event.backgroundColor = "#25629F";
+            results.push(event);
+            break;
+          case "Financial":
+            event.backgroundColor = "#4CA824";
+            results.push(event);
+            break;
+          case "Wellness":
+            event.backgroundColor = "#93BCE6";
+            results.push(event);
+            break;
+          case "Travel":
+            event.backgroundColor = "#808B96";
+            results.push(event);
+            break;
+        }
       });
       completeMilestones.forEach(index => {
         let event = {
           id: index.id,
           title: index.name + " X",
           date: index.dueDate,
+          category: index.category,
           className: "modal-trigger completed-milestone-cal"
         };
-        results.push(event);
+        switch (event.category) {
+          case "Fitness":
+            event.backgroundColor = "#C65BC0";
+            results.push(event);
+            break;
+          case "Education":
+            event.backgroundColor = "#25629F";
+            results.push(event);
+            break;
+          case "Financial":
+            event.backgroundColor = "#4CA824";
+            results.push(event);
+            break;
+          case "Wellness":
+            event.backgroundColor = "#93BCE6";
+            results.push(event);
+            break;
+          case "Travel":
+            event.backgroundColor = "#808B96";
+            results.push(event);
+            break;
+        }
       });
       console.log(results);
       this.setState({
