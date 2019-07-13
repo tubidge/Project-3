@@ -28,6 +28,7 @@ module.exports = {
         include: [db.Milestones, db.Buddy]
       })
         .then(resp => {
+          console.log("database response");
           console.log(resp);
           const goal = {
             id: resp[0].dataValues.id,
@@ -55,9 +56,8 @@ module.exports = {
             milestone.id = index.dataValues.id;
             milestone.name = index.dataValues.id;
             milestone.frequency = index.dataValues.frequency;
-            milestone.dueDate = moment(index.dataValues.dueDate)
-              .add("1", "day")
-              .format("YYYY-MM-DD");
+            milestone.dueDate = index.dataValues.dueDate;
+
             milestone.completed = index.dataValues.completed;
             milestone.notes = index.dataValues.notes;
             milestone.goalId = index.dataValues.GoalId;
@@ -85,6 +85,37 @@ module.exports = {
               goal.buddies.past.push(buddy);
             }
           });
+          console.log("right before resolve");
+          console.log(goal);
+          resolve(goal);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  },
+
+  getBasicGoal: id => {
+    return new Promise((resolve, reject) => {
+      db.Goals.findAll({
+        where: {
+          id: id
+        }
+      })
+        .then(resp => {
+          console.log(resp);
+          const goal = {
+            id: resp[0].dataValues.id,
+            name: resp[0].dataValues.name,
+            category: resp[0].dataValues.category,
+            dueDate: moment(resp[0].dataValues.dueDate)
+              .add("1", "day")
+              .format("YYYY-MM-DD"),
+            description: resp[0].dataValues.description,
+            private: resp[0].dataValues.private,
+            complete: resp[0].dataValues.complete,
+            userId: resp[0].dataValues.UserId
+          };
 
           resolve(goal);
         })

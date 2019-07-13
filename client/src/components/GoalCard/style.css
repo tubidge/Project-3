@@ -7,3 +7,7 @@
   cursor: pointer;
   opacity: 0.7;
 }
+
+.modal-trigger {
+  padding-right: 5px;
+}

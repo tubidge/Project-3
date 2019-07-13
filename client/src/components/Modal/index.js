@@ -39,10 +39,14 @@ const Modal = props => {
 
   const handleSubmit = e => {
     switch (props.header) {
+      case "AddNew":
+        return addGoal(e);
       case "Delete":
         return deleteGoal(e);
       case "Edit":
         return editGoal(e);
+      case "Complete":
+        return completeGoal(e);
       default:
         return addGoal(e);
     }
@@ -108,6 +112,16 @@ const Modal = props => {
     });
   };
 
+  const completeGoal = e => {
+    let editComplete = {
+      colName: "complete",
+      info: true
+    };
+    e.preventDefault();
+    API.editGoal(props.goalId, editComplete).then(res => console.log(res));
+    props.getAllData();
+  };
+
   return (
     <>
       <Link
@@ -124,7 +138,41 @@ const Modal = props => {
           <h4>{props.header}</h4>
           <p>{props.text}</p>
           <form onSubmit={handleSubmit}>
-            {props.header !== "Delete" && (
+            {props.header === "AddNew" && (
+              <>
+                <div className="input-field col s12">
+                  <Select
+                    placeholder={props.header === "Edit" ? category : ""}
+                    value={selectedOption}
+                    options={categories}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="input-field col s12">
+                  <input
+                    type="text"
+                    className="validate"
+                    value={name}
+                    onChange={e => setName(e.target.value)}
+                  />
+                  {props.header !== "Edit" && (
+                    <label htmlFor="name">Name</label>
+                  )}
+                </div>
+                <div className="input-field col s12">
+                  <input
+                    type="date"
+                    className="validate"
+                    value={dueDate}
+                    onChange={e => setDueDate(e.target.value)}
+                  />
+                  {props.header !== "Edit" && (
+                    <label htmlFor="dueDate">Due Date</label>
+                  )}
+                </div>
+              </>
+            )}
+            {props.header === "Edit" && (
               <>
                 <div className="input-field col s12">
                   <Select

@@ -6,8 +6,15 @@ module.exports = app => {
   // It can also include notes, and a completed boolean (we shouldn't ever send a completed boolean tho)
   app.post("/add/milestone", (req, res) => {
     console.log(req.body);
-    const userMilestone = req.body.data;
-
+    // const userMilestone = req.body.data;
+    // let userMilestone = {
+    //   name: "Assess BMI",
+    //   frequency: "Monthly",
+    //   startDate: "2019-07-12",
+    //   endDate: "2019-11-01",
+    //   UserId: 1,
+    //   GoalId: 1
+    // };
     milestone
       .configureMilestones(userMilestone)
       .then(data => {
@@ -59,8 +66,10 @@ module.exports = app => {
   // This route will update a milestone selected off of id.
   // It will update the info for the column name that is passed in
   app.put("/milestone/:id", (req, res) => {
-    let colName = req.body.colName;
-    let info = req.body.info;
+    let colName = req.body.data.colName;
+    let info = req.body.data.info;
+    console.log(req.body);
+
     milestone
       .updateMilestone(req.params.id, colName, info)
       .then(data => {

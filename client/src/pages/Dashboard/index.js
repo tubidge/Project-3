@@ -126,7 +126,7 @@ const Dashboard = () => {
           <Modal
             className="btn-small modal-trigger green"
             btnName="Add goal for new category..."
-            header="Add a new goal"
+            header="AddNew"
             text="Complete this form"
             dataTarget={`newGoal_${makeid(5)}`}
             action="Add"

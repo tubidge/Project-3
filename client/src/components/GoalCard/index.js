@@ -31,9 +31,8 @@ const GoalCard = props => {
             {goal.name}
           </Link>
           <Modal
-            style={{ marginRight: "20px" }}
-            className="modal-trigger"
-            btnName="Edit"
+            className="modal-trigger material-icons"
+            btnName="edit"
             header="Edit"
             text="Edit Goal"
             dataTarget={`editGoal_${goal.id}`}
@@ -45,12 +44,22 @@ const GoalCard = props => {
             getAllData={props.getAllData}
           />
           <Modal
-            className="modal-trigger"
-            btnName="Delete"
+            className="modal-trigger material-icons"
+            btnName="delete"
             header="Delete"
             text="Are you sure you want to delete this goal?"
             dataTarget={`deleteGoal_${goal.id}`}
             action="Yes, I'm sure"
+            goalId={goal.id}
+            getAllData={props.getAllData}
+          />
+          <Modal
+            className="modal-trigger material-icons"
+            btnName="check"
+            header="Complete"
+            text="Mark as complete?"
+            dataTarget={`markComplete_${goal.id}`}
+            action="Yes, I'm done!"
             goalId={goal.id}
             getAllData={props.getAllData}
           />
@@ -74,7 +83,7 @@ const GoalCard = props => {
                 }}
                 className="material-icons modal-trigger right"
                 btnName={"add_circle"}
-                header="Add a new goal"
+                header="AddNew"
                 text="Complete this form"
                 dataTarget={`newGoalFromCard_${makeid(5)}`}
                 action="Add"
