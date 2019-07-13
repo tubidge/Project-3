@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import "./style.scss";
+import "./style.css";
 import API from "../../utils/API";
 import MilestoneModal from "../MilestoneModal";
 import { Modal, Button } from "react-materialize";
@@ -57,7 +58,7 @@ export default class Cal extends React.Component {
       completeMilestones.forEach(index => {
         let event = {
           id: index.id,
-          title: index.name + " X",
+          title: index.name,
           date: index.dueDate,
           category: index.category,
           className: "modal-trigger completed-milestone-cal"

@@ -9,7 +9,7 @@ module.exports = app => {
     // const userMilestone = req.body.data;
     let userMilestone = {
       name: "Save Money",
-      frequency: "Daily",
+      frequency: "Weekly",
       startDate: "2019-07-12",
       endDate: "2019-11-01",
       UserId: 10,
