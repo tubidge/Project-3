@@ -31,9 +31,11 @@ const Dashboard = () => {
     }, []);
 
     const getAllData = () => {
+        // Update this API call to use buddy email instead of user email.
         API.getUserByEmail(user.email).then(resp => {
             console.log(resp.data);
             let userData = resp.data;
+            // Update this API call to use buddy id instead of user id.
             API.getAllGoals(userData.id).then(res => {
                 console.log(res.data);
                 let goalData = res.data;
