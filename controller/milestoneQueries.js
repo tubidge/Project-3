@@ -5,6 +5,7 @@ const range = momentRange.extendMoment(moment);
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 const helper = require("../utils/helperFunctions");
+const goal = require("../controller/goalQueries");
 
 const Milestone = {
   // This method will create a new milestone in the database. The milestone parameter is an object that will be
@@ -121,6 +122,7 @@ const Milestone = {
             completed: [],
             incomplete: []
           };
+
           resp.forEach(index => {
             const milestone = {};
             milestone.id = index.dataValues.id;
@@ -141,7 +143,40 @@ const Milestone = {
             }
           });
 
-          resolve(results);
+          helper
+            .asyncForEach(results.completed, async index => {
+              console.log("this is the response i am looking for");
+
+              console.log(index);
+              await goal
+                .getBasicGoal(index.goalId)
+                .then(resp => {
+                  console.log(resp);
+                  let category = resp.category;
+                  index.category = category;
+                })
+                .catch(err => {
+                  console.log(err);
+                });
+            })
+            .then(() => {
+              helper
+                .asyncForEach(results.incomplete, async index => {
+                  await goal
+                    .getBasicGoal(index.goalId)
+                    .then(resp => {
+                      console.log(resp);
+                      let category = resp.category;
+                      index.category = category;
+                    })
+                    .catch(err => {
+                      console.log(err);
+                    });
+                })
+                .then(() => {
+                  resolve(results);
+                });
+            });
         })
         .catch(err => {
           reject(err);

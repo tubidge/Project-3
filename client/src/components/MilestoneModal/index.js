@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import M from "materialize-css";
 import API from "../../utils/API";
 import "./style.css";
+import DatePicker from "../DatePicker";
+import TimePicker from "../TimePicker";
 
 function MilestoneModal(props) {
   const [goal, setGoal] = useState("");
@@ -35,6 +37,9 @@ function MilestoneModal(props) {
         setGoal(goal);
       });
     });
+  }, []);
+
+  useEffect(() => {
     M.AutoInit();
     let modals = document.querySelectorAll(".modal");
     let options = {
@@ -43,9 +48,6 @@ function MilestoneModal(props) {
       outDuration: 400
     };
     M.Modal.init(modals, options);
-  }, []);
-
-  useEffect(() => {
     var Modalelem = document.querySelector("#milestoneModal");
     var instance = M.Modal.init(Modalelem);
     instance.open();
@@ -141,19 +143,27 @@ function MilestoneModal(props) {
                   {milestone.completed ? (
                     ""
                   ) : (
-                    <div className="switch">
-                      <span className="modal-milestone-complete">
-                        mark as complete
-                      </span>
-                      <label className="complete-checkbox">
-                        <input
-                          onChange={handleInput}
-                          type="checkbox"
-                          name="completed"
-                        />
-                        <span className="lever" />
-                      </label>
-                    </div>
+                    <>
+                      <div>
+                        <h5>Set Reminder</h5>
+                        <DatePicker />
+                        <TimePicker />
+                      </div>
+
+                      <div className="switch">
+                        <span className="modal-milestone-complete">
+                          mark as complete
+                        </span>
+                        <label className="complete-checkbox">
+                          <input
+                            onChange={handleInput}
+                            type="checkbox"
+                            name="completed"
+                          />
+                          <span className="lever" />
+                        </label>
+                      </div>
+                    </>
                   )}
                 </div>
               </div>

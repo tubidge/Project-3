@@ -35,9 +35,9 @@ export default class Cal extends React.Component {
       completeMilestones.forEach(index => {
         let event = {
           id: index.id,
-          title: index.name,
+          title: index.name + " X",
           date: index.dueDate,
-          className: "modal-trigger"
+          className: "modal-trigger completed-milestone-cal"
         };
         results.push(event);
       });

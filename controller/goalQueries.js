@@ -108,7 +108,7 @@ module.exports = {
             id: resp[0].dataValues.id,
             name: resp[0].dataValues.name,
             category: resp[0].dataValues.category,
-            dueDate: moment(resp[0].dataValues)
+            dueDate: moment(resp[0].dataValues.dueDate)
               .add("1", "day")
               .format("YYYY-MM-DD"),
             description: resp[0].dataValues.description,
