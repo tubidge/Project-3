@@ -50,6 +50,10 @@ export default {
     return axios.get("/goal/" + id);
   },
 
+  getBasicGoal: id => {
+    return axios.get("/goal/basic/" + id);
+  },
+
   // This method will add a goal to the database
   // The data object being passed in needs to have name, category, dueDate, and UserId
   addGoal: data => {
@@ -87,7 +91,7 @@ export default {
   // This method will select a milestone to update based on id.
   // The data object needs to contain colName and info to update the object
   editMilestone: (id, data) => {
-    return axios.get("/milestone/" + id, {
+    return axios.put("/milestone/" + id, {
       data
     });
   },

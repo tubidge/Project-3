@@ -31,8 +31,23 @@ module.exports = app => {
 
   // This route will return a single goal based on the goal id
   app.get("/goal/:id", (req, res) => {
+    console.log("running");
+    console.log(req.params.id);
     goal
       .getGoal(req.params.id)
+      .then(data => {
+        console.log("goal response");
+        console.log(data);
+        res.send(data);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
+
+  app.get("/goal/basic/:id", (req, res) => {
+    goal
+      .getBasicGoal(req.params.id)
       .then(data => {
         res.send(data);
       })

@@ -5,6 +5,7 @@ const range = momentRange.extendMoment(moment);
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 const helper = require("../utils/helperFunctions");
+const goal = require("../controller/goalQueries");
 
 const Milestone = {
   // This method will create a new milestone in the database. The milestone parameter is an object that will be
@@ -121,14 +122,15 @@ const Milestone = {
             completed: [],
             incomplete: []
           };
+
           resp.forEach(index => {
             const milestone = {};
             milestone.id = index.dataValues.id;
             milestone.name = index.dataValues.name;
             milestone.frequency = index.dataValues.frequency;
-            milestone.dueDate = moment(index.dataValues.dueDate)
-              .add("1", "day")
-              .format("YYYY-MM-DD");
+            milestone.dueDate = index.dataValues.dueDate;
+            milestone.startDate = index.dataValues.startDate;
+            milestone.endDate = index.dataValues.endDate;
             milestone.completed = index.dataValues.completed;
             milestone.notes = index.dataValues.notes;
             milestone.goalId = index.dataValues.GoalId;
@@ -141,7 +143,40 @@ const Milestone = {
             }
           });
 
-          resolve(results);
+          helper
+            .asyncForEach(results.completed, async index => {
+              console.log("this is the response i am looking for");
+
+              console.log(index);
+              await goal
+                .getBasicGoal(index.goalId)
+                .then(resp => {
+                  console.log(resp);
+                  let category = resp.category;
+                  index.category = category;
+                })
+                .catch(err => {
+                  console.log(err);
+                });
+            })
+            .then(() => {
+              helper
+                .asyncForEach(results.incomplete, async index => {
+                  await goal
+                    .getBasicGoal(index.goalId)
+                    .then(resp => {
+                      console.log(resp);
+                      let category = resp.category;
+                      index.category = category;
+                    })
+                    .catch(err => {
+                      console.log(err);
+                    });
+                })
+                .then(() => {
+                  resolve(results);
+                });
+            });
         })
         .catch(err => {
           reject(err);
@@ -163,9 +198,10 @@ const Milestone = {
             id: resp[0].dataValues.id,
             name: resp[0].dataValues.name,
             frequency: resp[0].dataValues.frequency,
-            dueDate: moment(resp[0].dataValues.dueDate)
-              .add("1", "day")
-              .format("YYYY-MM-DD"),
+            dueDate: resp[0].dataValues.dueDate,
+            startDate: resp[0].dataValues.startDate,
+            endDate: resp[0].dataValues.endDate,
+
             completed: resp[0].dataValues.completed,
             notes: resp[0].dataValues.notes,
             goalId: resp[0].dataValues.GoalId,
