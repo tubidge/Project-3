@@ -7,14 +7,14 @@ module.exports = app => {
   app.post("/add/milestone", (req, res) => {
     console.log(req.body);
     // const userMilestone = req.body.data;
-    // let userMilestone = {
-    //   name: "Assess BMI",
-    //   frequency: "Monthly",
-    //   startDate: "2019-07-12",
-    //   endDate: "2019-11-01",
-    //   UserId: 1,
-    //   GoalId: 1
-    // };
+    let userMilestone = {
+      name: "Save Money",
+      frequency: "Daily",
+      startDate: "2019-07-12",
+      endDate: "2019-11-01",
+      UserId: 10,
+      GoalId: 18
+    };
     milestone
       .configureMilestones(userMilestone)
       .then(data => {

@@ -13,7 +13,6 @@ import Cal from "../../components/Calendar";
 
 import "./style.css";
 
-// hooks are a way for us to use state in a function component
 const Dashboard = () => {
   const { loading, user } = useAuth0();
   const [isLoading, setIsLoading] = useState(true);
@@ -21,15 +20,11 @@ const Dashboard = () => {
   const [, setGoalInfo] = useState({});
   const [incompleteGoals, setIncompleteGoals] = useState([]);
   const [categories, setCategories] = useState([]);
-<<<<<<< HEAD
-  const [allBuddies, setAllBuddies] = useState();
-=======
   const [active, setActive] = useState([]);
   const [allBuddies, setAllBuddies] = useState();
 
   let stopIndex;
   let activeCategories = [];
->>>>>>> 99650a92cc3e7cadc04d46e31e51c607fa447dc5
 
   useEffect(() => {
     getAllData();
@@ -40,11 +35,8 @@ const Dashboard = () => {
       console.log(resp.data);
       let userData = resp.data;
       API.getAllGoals(userData.id).then(res => {
+        console.log(res.data);
         let goalData = res.data;
-        const incompleteGoals = goalData.currentGoals.incomplete;
-        incompleteGoals.map(goal => {
-          console.log(JSON.stringify(goal));
-        });
         setGoalInfo(goalData);
         setUserInfo(userData);
         if (userData.buddies) {
@@ -119,11 +111,7 @@ const Dashboard = () => {
     <>
       <div className="profileSummaryBg" />
       <div className="hero-image" />
-<<<<<<< HEAD
-      <div className="row mt20">
-=======
       <div className="row">
->>>>>>> 99650a92cc3e7cadc04d46e31e51c607fa447dc5
         <div className="col l3 s12" style={{ marginTop: "-130px" }}>
           <UserProfile
             userPicture={userInfo.image ? userInfo.image : user.picture}
@@ -134,43 +122,6 @@ const Dashboard = () => {
           />
           <BuddyList buddies={allBuddies} makeid={makeid} />
         </div>
-<<<<<<< HEAD
-
-        <div className="col l9 s12">
-          <div className="row" style={{ marginTop: "15px" }}>
-            <Modal
-              className="btn modal-trigger green"
-              btnName="Add goal for new category..."
-              header="Add a new goal"
-              text="Complete this form"
-              dataTarget={`newGoal_${makeid(5)}`}
-              action="Add"
-              userID={userInfo.id}
-              getAllData={getAllData}
-            />
-          </div>
-          <div className="row">
-            {categories.map(category => (
-              <GoalCard
-                key={makeid(5)}
-                category={category}
-                userID={userInfo.id}
-                incompleteGoals={incompleteGoals}
-                getAllData={getAllData}
-              />
-            ))}
-          </div>
-          <div className="row">
-            <div className="col s12 center-align">
-              <Cal />
-            </div>
-          </div>
-        </div>
-        <div className="col s12">
-          <div className="row">
-            <h5>Current Incomplete Goals</h5>
-            {renderGoals()}
-=======
         <div style={{ marginTop: "20px", marginBottom: "20px" }}>
           <Modal
             className="btn-small modal-trigger green"
@@ -195,27 +146,11 @@ const Dashboard = () => {
         <div className="row">
           <div className="col l8 s12 center-align">
             <Cal />
->>>>>>> 99650a92cc3e7cadc04d46e31e51c607fa447dc5
           </div>
         </div>
       </div>
     </>
   );
 };
-
-// conditional rendering - render one or the other
-// const date; // set date when date is selected on calendar
-// const goalsOnDate = function() {
-// maps over incomplete goals and returns object with all goals from that date
-// };
-// const allGoals = {};
-// const dateGoalsHMTL = <div>{goalsOnDate}</div>;
-// const allGoalsHMTL = <div>{allGoals}</div>;
-
-// const ternary = date ? dateGoalsHMTL : allGoalsHMTL;
-
-// {
-//   ternary;
-// }
 
 export default Dashboard;

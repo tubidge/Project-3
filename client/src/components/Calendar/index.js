@@ -3,12 +3,6 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import "./style.scss";
 import API from "../../utils/API";
-<<<<<<< HEAD
-// import MilestoneModal from "../MilestoneModal";
-export default class Cal extends React.Component {
-  state = {
-    events: []
-=======
 import MilestoneModal from "../MilestoneModal";
 import { Modal, Button } from "react-materialize";
 
@@ -16,7 +10,6 @@ export default class Cal extends React.Component {
   state = {
     events: [],
     currentMilestoneId: null
->>>>>>> 99650a92cc3e7cadc04d46e31e51c607fa447dc5
   };
 
   componentDidMount() {
@@ -24,7 +17,7 @@ export default class Cal extends React.Component {
   }
 
   getMilestones() {
-    API.getAllMilestones(1).then(data => {
+    API.getAllMilestones(10).then(data => {
       console.log(data);
       let incompleteMilestones = data.data.incomplete;
       let completeMilestones = data.data.completed;
@@ -34,11 +27,6 @@ export default class Cal extends React.Component {
           id: index.id,
           title: index.name,
           date: index.dueDate,
-<<<<<<< HEAD
-          className: "modal-trigger"
-        };
-        results.push(event);
-=======
           category: index.category,
           className: "modal-trigger",
           dataTarget: "milestoneModal"
@@ -65,18 +53,10 @@ export default class Cal extends React.Component {
             results.push(event);
             break;
         }
->>>>>>> 99650a92cc3e7cadc04d46e31e51c607fa447dc5
       });
       completeMilestones.forEach(index => {
         let event = {
           id: index.id,
-<<<<<<< HEAD
-          title: index.name,
-          date: index.dueDate,
-          className: "modal-trigger"
-        };
-        results.push(event);
-=======
           title: index.name + " X",
           date: index.dueDate,
           category: index.category,
@@ -104,7 +84,6 @@ export default class Cal extends React.Component {
             results.push(event);
             break;
         }
->>>>>>> 99650a92cc3e7cadc04d46e31e51c607fa447dc5
       });
       console.log(results);
       this.setState({
@@ -113,12 +92,6 @@ export default class Cal extends React.Component {
     });
   }
 
-<<<<<<< HEAD
-  eventClick = function(info) {
-    info.jsEvent.preventDefault();
-    console.log(info.event);
-    // return <MilestoneModal id={info.event.id} />;
-=======
   eventClick = info => {
     info.jsEvent.preventDefault();
     console.log(info.event);
@@ -131,23 +104,12 @@ export default class Cal extends React.Component {
     this.setState({
       currentMilestoneId: null
     });
->>>>>>> 99650a92cc3e7cadc04d46e31e51c607fa447dc5
   };
 
   // need to create a modal popup trigger by clicking a milestone on the calendar.
 
   render() {
     return (
-<<<<<<< HEAD
-      <FullCalendar
-        dateClick={this.handleDateClick}
-        plugins={[dayGridPlugin]}
-        defaultView="dayGridMonth"
-        plugins={[dayGridPlugin]}
-        events={this.state.events}
-        eventClick={this.eventClick}
-      />
-=======
       <div>
         <>
           <FullCalendar
@@ -168,7 +130,6 @@ export default class Cal extends React.Component {
           ""
         )}
       </div>
->>>>>>> 99650a92cc3e7cadc04d46e31e51c607fa447dc5
     );
   }
 }

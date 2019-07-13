@@ -8,10 +8,6 @@ import image2 from "./pics/stairway-1149473_960_720.jpg";
 import josh from "./pics/Josh.jpg";
 import alex from "./pics/Alex.jpg";
 import hunter from "./pics/Hunter.jpg";
-<<<<<<< HEAD
-import phil from "./pics/Labor Day Pic.jpg";
-=======
->>>>>>> 99650a92cc3e7cadc04d46e31e51c607fa447dc5
 import "./style.css";
 
 const Home = () => {
@@ -126,11 +122,7 @@ const Home = () => {
                   <div className="col s3 m3">
                     <div className="card">
                       <div className="card-image">
-<<<<<<< HEAD
-                        <img src={phil} />
-=======
                         <img src={image} />
->>>>>>> 99650a92cc3e7cadc04d46e31e51c607fa447dc5
                       </div>
                       <div className="card-stacked">
                         <div className="card-content">
@@ -176,42 +168,16 @@ const Home = () => {
                   <div className="col m12">
                     <h3 className="center-align">Contact</h3>
                     <div className="row">
-<<<<<<< HEAD
-                      <form
-                        method="POST"
-                        action="https://formspree.io/goal.denapp@gmail.com"
-                      >
-                        <div className="row">
-                          <div className="input-field col s12">
-                            <input
-                              name="name"
-                              id="name"
-                              type="text"
-                              placeholder="Name"
-                            />
-=======
                       <form className="col m8 offset-m2 s12">
                         <div className="row">
                           <div className="input-field col s12">
                             <input id="name" type="text" placeholder="Name">
                               {/* <label for="name">Name</label> */}
                             </input>
->>>>>>> 99650a92cc3e7cadc04d46e31e51c607fa447dc5
                           </div>
                           <div className="input-field col s12">
                             <input
                               id="email"
-<<<<<<< HEAD
-                              name="email"
-                              type="email"
-                              className="form-input"
-                              placeholder="Email"
-                            />
-                          </div>
-                          <div className="input-field col s12">
-                            <textarea
-                              name="message"
-=======
                               type="email"
                               className="form-input"
                               placeholder="Email"
@@ -221,15 +187,11 @@ const Home = () => {
                           </div>
                           <div className="input-field col s12">
                             <textarea
->>>>>>> 99650a92cc3e7cadc04d46e31e51c607fa447dc5
                               id="message"
                               className="materialize-textarea"
                               placeholder="Message"
                             />
-<<<<<<< HEAD
-=======
                             {/* <label for="message">Message</label> */}
->>>>>>> 99650a92cc3e7cadc04d46e31e51c607fa447dc5
                           </div>
                         </div>
                         <div className="row">
@@ -237,11 +199,7 @@ const Home = () => {
                             <p className="right-align">
                               <button
                                 className="waves-effect amber accent-3 btn"
-<<<<<<< HEAD
-                                type="submit"
-=======
                                 type="button"
->>>>>>> 99650a92cc3e7cadc04d46e31e51c607fa447dc5
                                 name="action"
                               >
                                 Send Message
@@ -258,7 +216,6 @@ const Home = () => {
           </div>
         </>
       )}
-      <Footer />
       {isAuthenticated && <Dashboard />}
       <Footer />
     </>
