@@ -17,7 +17,6 @@ const UserProfile = props => {
             <br />
             {props.email}
           </div>
-          <span className="btn mt10 grey darken-4">Add Buddy</span>
         </div>
         <div className="row center-align">
           <div className="col s6">

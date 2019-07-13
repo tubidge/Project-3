@@ -1,8 +1,13 @@
 {
   "development": {
     "username": "root",
+<<<<<<< HEAD
     "password": "Comphealth1",
     "database": "goalapp_db",
+=======
+    "password": "Midwestpest1!",
+    "database": "project_3db",
+>>>>>>> 99650a92cc3e7cadc04d46e31e51c607fa447dc5
     "host": "127.0.0.1",
     "dialect": "mysql"
   },

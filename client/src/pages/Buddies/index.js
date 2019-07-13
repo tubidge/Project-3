@@ -4,12 +4,20 @@ import { Autocomplete } from "react-materialize";
 import { useAuth0 } from "../../react-auth0-spa";
 import API from "../../utils/API";
 import Loading from "../../components/Loading";
+<<<<<<< HEAD
+=======
+import FindingBuddy from "../../components/FindingBuddy";
+>>>>>>> 99650a92cc3e7cadc04d46e31e51c607fa447dc5
 import Fuse from "fuse.js";
 import "./style.css";
 
 const Buddies = () => {
   const { loading, user } = useAuth0();
   const [isLoading, setIsLoading] = useState(true);
+<<<<<<< HEAD
+=======
+  const [findingBuddy, setFindingBuddy] = useState(false);
+>>>>>>> 99650a92cc3e7cadc04d46e31e51c607fa447dc5
   const [users, setUsers] = useState([]);
   const [goals, setGoals] = useState([]);
   const [buddyGoals, setBuddyGoals] = useState([]);
@@ -18,7 +26,11 @@ const Buddies = () => {
   // for fuse.js
   const options = {
     shouldSort: true,
+<<<<<<< HEAD
     threshold: 0.3, // lower value will result in a more exact match
+=======
+    threshold: 0.5, // lower value will result in a more exact match
+>>>>>>> 99650a92cc3e7cadc04d46e31e51c607fa447dc5
     includeScore: true,
     location: 0,
     distance: 100,
@@ -84,6 +96,14 @@ const Buddies = () => {
   };
 
   const findBuddy = () => {
+<<<<<<< HEAD
+=======
+    setFindingBuddy(true);
+    setTimeout(() => {
+      setFindingBuddy(false);
+    }, 5000);
+
+>>>>>>> 99650a92cc3e7cadc04d46e31e51c607fa447dc5
     let result;
     let fuse = new Fuse(buddyGoals, options); // buddyGoals is an array
     const goalMatches = goals.map(goal => {
@@ -133,13 +153,21 @@ const Buddies = () => {
     return <Loading />;
   }
 
+  if (findingBuddy) {
+    return <FindingBuddy />;
+  }
+
   return (
     <div className="container">
       {/* Use this section to match goals */}
+<<<<<<< HEAD
       <button className="btn" onClick={findBuddy}>
         Find Buddy
       </button>
       <div className="row">
+=======
+      {/* <div className="row">
+>>>>>>> 99650a92cc3e7cadc04d46e31e51c607fa447dc5
         <div className="col s6">
           <h5>All User's Goals</h5>
           {buddyGoals.map(goal => (
@@ -156,8 +184,12 @@ const Buddies = () => {
             </li>
           ))}
         </div>
+<<<<<<< HEAD
       </div>
       <hr />
+=======
+      </div> */}
+>>>>>>> 99650a92cc3e7cadc04d46e31e51c607fa447dc5
       {/* End of matching section */}
 
       <h1 className="text-center">Search for Buddies</h1>
@@ -166,8 +198,15 @@ const Buddies = () => {
         <div className="col-sm-6 mx-auto">
           <div className="input-field mb-3">
             <div className="input-group-append">
-              <button className="btn btn-outline-secondary" type="button">
+              <button
+                style={{ marginRight: "10px" }}
+                className="btn grey darken-3"
+                type="button"
+              >
                 Search
+              </button>
+              <button className="btn amber darken-1" onClick={findBuddy}>
+                Find a Buddy
               </button>
             </div>
           </div>

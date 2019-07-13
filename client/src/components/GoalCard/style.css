@@ -1,4 +1,13 @@
 .goalCard {
   max-height: 200px;
-  overflow: scroll;
+  overflow: auto;
+}
+
+.card-panel > .truncate:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.modal-trigger {
+  padding-right: 5px;
 }

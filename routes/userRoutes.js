@@ -34,6 +34,17 @@ module.exports = app => {
       });
   });
 
+  app.get("/all/username", (req, res) => {
+    user
+      .getAllUsername()
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
+
   // This route will return a single user with their goals, milestones, and goal buddies
   app.get("/user/email/:email", (req, res) => {
     user
@@ -61,6 +72,17 @@ module.exports = app => {
   app.get("/user/basic/:id", (req, res) => {
     user
       .getBasicUser(req.params.id)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
+
+  app.get("/user/goal/:id", (req, res) => {
+    user
+      .getUserByGoal(req.params.id)
       .then(data => {
         res.send(data);
       })

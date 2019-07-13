@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "../../react-auth0-spa";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import API from "../../utils/API";
 import Loading from "../../components/Loading";
 import UserProfile from "../../components/UserProfile";
@@ -19,7 +21,15 @@ const Dashboard = () => {
   const [, setGoalInfo] = useState({});
   const [incompleteGoals, setIncompleteGoals] = useState([]);
   const [categories, setCategories] = useState([]);
+<<<<<<< HEAD
   const [allBuddies, setAllBuddies] = useState();
+=======
+  const [active, setActive] = useState([]);
+  const [allBuddies, setAllBuddies] = useState();
+
+  let stopIndex;
+  let activeCategories = [];
+>>>>>>> 99650a92cc3e7cadc04d46e31e51c607fa447dc5
 
   useEffect(() => {
     getAllData();
@@ -55,6 +65,42 @@ const Dashboard = () => {
     });
   };
 
+  const renderGoalCards = () => {
+    activeCategories = [];
+    stopIndex = categories.length;
+    if (categories.length > 3) {
+      stopIndex = 3;
+    }
+    for (let i = 0; i < stopIndex; i++) {
+      activeCategories.push(categories[i]);
+    }
+    return activeCategories.map(category => (
+      <GoalCard
+        key={makeid(5)}
+        category={category}
+        userID={userInfo.id}
+        incompleteGoals={incompleteGoals}
+        getAllData={getAllData}
+      />
+    ));
+  };
+
+  // Cycle through categories on arrow click
+  const cycleCategories = () => {
+    if (stopIndex === 3) {
+      activeCategories = [];
+      categories.push(categories.shift());
+      console.log(`All Categories: ${categories}`);
+      for (let i = 0; i < stopIndex; i++) {
+        activeCategories.push(categories[i]);
+      }
+    }
+    setActive(activeCategories);
+    console.log(`Active Categories: ${active}`);
+
+    renderGoalCards();
+  };
+
   const makeid = l => {
     let text = "";
     let char_list =
@@ -65,33 +111,6 @@ const Dashboard = () => {
     return text;
   };
 
-  const renderGoals = () => {
-    return incompleteGoals.map(goal => (
-      <div className="col s6" key={goal.id}>
-        <div className="card">
-          <div className="card-content">
-            <span className="card-title">{goal.name}</span>
-            <Link to="#">Category: {goal.category}</Link>
-            <br />
-            <Link to="#">Due Date: {goal.dueDate}</Link>
-            <br />
-            <div>
-              <div className="card-title">Milestones</div>
-              {goal.milestones.incomplete.map(milestone => (
-                <div key={milestone.id}>
-                  <p>Name: {milestone.name}</p>
-                  <p>Frequency: {milestone.frequency}</p>
-                  <p>Due Date: {milestone.dueDate}</p>
-                </div>
-              ))}
-            </div>
-            <div />
-          </div>
-        </div>
-      </div>
-    ));
-  };
-
   if (loading || !userInfo || isLoading) {
     return <Loading />;
   }
@@ -100,7 +119,11 @@ const Dashboard = () => {
     <>
       <div className="profileSummaryBg" />
       <div className="hero-image" />
+<<<<<<< HEAD
       <div className="row mt20">
+=======
+      <div className="row">
+>>>>>>> 99650a92cc3e7cadc04d46e31e51c607fa447dc5
         <div className="col l3 s12" style={{ marginTop: "-130px" }}>
           <UserProfile
             userPicture={userInfo.image ? userInfo.image : user.picture}
@@ -111,6 +134,7 @@ const Dashboard = () => {
           />
           <BuddyList buddies={allBuddies} makeid={makeid} />
         </div>
+<<<<<<< HEAD
 
         <div className="col l9 s12">
           <div className="row" style={{ marginTop: "15px" }}>
@@ -146,6 +170,32 @@ const Dashboard = () => {
           <div className="row">
             <h5>Current Incomplete Goals</h5>
             {renderGoals()}
+=======
+        <div style={{ marginTop: "20px", marginBottom: "20px" }}>
+          <Modal
+            className="btn-small modal-trigger green"
+            btnName="Add goal for new category..."
+            header="AddNew"
+            text="Complete this form"
+            dataTarget={`newGoal_${makeid(5)}`}
+            action="Add"
+            userID={userInfo.id}
+            getAllData={getAllData}
+          />
+        </div>
+        <div className="col l8 s12">{renderGoalCards()}</div>
+        <div className="col s1 nextArrow">
+          <span>
+            <FontAwesomeIcon
+              onClick={() => cycleCategories()}
+              icon={faChevronRight}
+            />
+          </span>
+        </div>
+        <div className="row">
+          <div className="col l8 s12 center-align">
+            <Cal />
+>>>>>>> 99650a92cc3e7cadc04d46e31e51c607fa447dc5
           </div>
         </div>
       </div>
