@@ -5,6 +5,7 @@ import { useAuth0 } from "../../react-auth0-spa";
 import API from "../../utils/API";
 import Loading from "../../components/Loading";
 import FindingBuddy from "../../components/FindingBuddy";
+import BuddyProfile from "../BuddyProfile";
 import Fuse from "fuse.js";
 import "./style.css";
 
@@ -16,6 +17,7 @@ const Buddies = () => {
   const [goals, setGoals] = useState([]);
   const [buddyGoals, setBuddyGoals] = useState([]);
   const [autocompleteData, setAutocompleteData] = useState([]);
+  const [buddyData, setBuddyData] = useState([]);
 
   // for fuse.js
   const options = {
@@ -85,6 +87,10 @@ const Buddies = () => {
     });
   };
 
+  const showBuddyProfile = id => {
+    window.location.assign("/buddy-profile/" + id);
+  };
+
   const findBuddy = () => {
     setFindingBuddy(true);
     setTimeout(() => {
@@ -145,72 +151,55 @@ const Buddies = () => {
   }
 
   return (
-    <div className="container">
-      {/* Use this section to match goals */}
-      {/* <div className="row">
-        <div className="col s6">
-          <h5>All User's Goals</h5>
-          {buddyGoals.map(goal => (
-            <li key={goal.id} id={goal.id}>
-              {goal.name}
-            </li>
-          ))}
-        </div>
-        <div className="col s6">
-          <h5>Current User's Goals</h5>
-          {goals.map(goal => (
-            <li key={goal.id} id={goal.id}>
-              {goal.name}
-            </li>
-          ))}
-        </div>
-      </div> */}
-      {/* End of matching section */}
-
-      <h1 className="text-center">Search for Buddies</h1>
-      <Autocomplete options={autocompleteData} placeholder="username" />
-      <div className="row">
-        <div className="col-sm-6 mx-auto">
-          <div className="input-field mb-3">
-            <div className="input-group-append">
-              <button
-                style={{ marginRight: "10px" }}
-                className="btn grey darken-3"
-                type="button"
-              >
-                Search
-              </button>
-              <button className="btn amber darken-1" onClick={findBuddy}>
-                Find a Buddy
-              </button>
+    <>
+      <div className="container">
+        <h1 className="text-center">Search for Buddies</h1>
+        <Autocomplete options={autocompleteData} placeholder="username" />
+        <div className="row">
+          <div className="col-sm-6 mx-auto">
+            <div className="input-field mb-3">
+              <div className="input-group-append">
+                <button
+                  style={{ marginRight: "10px" }}
+                  className="btn grey darken-3"
+                  type="button"
+                >
+                  Search
+                </button>
+                <button className="btn amber darken-1" onClick={findBuddy}>
+                  Find a Buddy
+                </button>
+              </div>
             </div>
           </div>
         </div>
+        <div>
+          {/* Check to see if any items are found*/}
+          {users.length ? (
+            <>
+              <ul className="collection">
+                {users.map(user => (
+                  <li key={user.id} className="collection-item avatar">
+                    <img
+                      src={user.image}
+                      alt={user.username}
+                      className="circle responsive-img"
+                    />
+                    <span className="title">{user.username}</span>
+                    <p>{`${user.firstName} ${user.lastName}`}</p>
+                    <button onClick={() => showBuddyProfile(user.id)}>
+                      View Profile
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </>
+          ) : (
+            <h3>No Results to Display</h3>
+          )}
+        </div>
       </div>
-      <div>
-        {/* Check to see if any items are found*/}
-        {users.length ? (
-          <>
-            <ul className="collection">
-              {users.map(user => (
-                <li key={user.id} className="collection-item avatar">
-                  <img
-                    src={user.image}
-                    alt={user.username}
-                    className="circle responsive-img"
-                  />
-                  <span className="title">{user.username}</span>
-                  <p>{`${user.firstName} ${user.lastName}`}</p>
-                  <Link to="#">View Profile</Link>
-                </li>
-              ))}
-            </ul>
-          </>
-        ) : (
-          <h3>No Results to Display</h3>
-        )}
-      </div>
-    </div>
+    </>
   );
 };
 

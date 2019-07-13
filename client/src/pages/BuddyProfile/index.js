@@ -1,157 +1,95 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "../../react-auth0-spa";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+
 import API from "../../utils/API";
 import Loading from "../../components/Loading";
 import UserProfile from "../../components/UserProfile";
-import BuddyList from "../../components/BuddyList";
-import GoalCard from "../../components/GoalCard";
-import Modal from "../../components/Modal";
-import Cal from "../../components/Calendar";
+import BuddyGoalCard from "../../components/BuddyGoalCard";
 
-import "./style.css";
+const BuddyProfile = props => {
+  const { loading, user } = useAuth0();
+  const [isLoading, setIsLoading] = useState(true);
+  const [, setGoalInfo] = useState({});
+  const [incompleteGoals, setIncompleteGoals] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [allBuddies, setAllBuddies] = useState();
+  const [buddyData, setBuddyData] = useState([]);
 
-const Dashboard = () => {
-    const { loading, user } = useAuth0();
-    const [isLoading, setIsLoading] = useState(true);
-    const [userInfo, setUserInfo] = useState({});
-    const [, setGoalInfo] = useState({});
-    const [incompleteGoals, setIncompleteGoals] = useState([]);
-    const [categories, setCategories] = useState([]);
-    const [active, setActive] = useState([]);
-    const [allBuddies, setAllBuddies] = useState();
+  useEffect(() => {
+    getBuddyData();
+  }, []);
 
-    let stopIndex;
-    let activeCategories = [];
+  const getBuddyData = () => {
+    let pathArray = window.location.pathname.split("/");
+    let id = pathArray[2];
+    API.getUser(id).then(res => {
+      setBuddyData(res.data);
+      API.getAllGoals(id).then(res => {
+        console.log(res.data);
+        let goalData = res.data;
+        setGoalInfo(goalData);
+        // if (buddyData.buddies) {
+        //   setAllBuddies(buddyData.buddies.allBuddies);
+        // }
+        setIncompleteGoals(goalData.currentGoals.incomplete);
+        setCategories(
+          goalData.currentGoals.incomplete
+            .map(goal => goal.category)
+            .reduce(
+              (unique, item) =>
+                unique.includes(item) ? unique : [...unique, item],
+              []
+            )
+        );
+        setIsLoading(false);
+      });
+    });
+  };
 
-    useEffect(() => {
-        getAllData();
-    }, []);
+  const addBuddy = e => {
+    e.preventDefault();
+    // let data = {
+    //   duration: "1 Week",
+    //   buddyId: 2,
+    //   buddyGoal: 96,
+    //   GoalId: 96,
+    //   UserId: 1
+    // };
+    // API.addBuddy(data).then(res => {
+    //   console.log(res.data);
+    // });
+  };
 
-    const getAllData = () => {
-        // Update this API call to use buddy email instead of user email.
-        API.getUserByEmail(user.email).then(resp => {
-            console.log(resp.data);
-            let userData = resp.data;
-            // Update this API call to use buddy id instead of user id.
-            API.getAllGoals(userData.id).then(res => {
-                console.log(res.data);
-                let goalData = res.data;
-                setGoalInfo(goalData);
-                setUserInfo(userData);
-                if (userData.buddies) {
-                    setAllBuddies(userData.buddies.allBuddies);
-                }
-                setIncompleteGoals(goalData.currentGoals.incomplete);
-                setCategories(
-                    goalData.currentGoals.incomplete
-                        .map(goal => goal.category)
-                        .reduce(
-                            (unique, item) =>
-                                unique.includes(item) ? unique : [...unique, item],
-                            []
-                        )
-                );
-                setIsLoading(false);
-            });
-        });
-    };
+  if (loading || !buddyData || isLoading) {
+    return <Loading />;
+  }
 
-    const renderGoalCards = () => {
-        activeCategories = [];
-        stopIndex = categories.length;
-        if (categories.length > 3) {
-            stopIndex = 3;
-        }
-        for (let i = 0; i < stopIndex; i++) {
-            activeCategories.push(categories[i]);
-        }
-        return activeCategories.map(category => (
-            <GoalCard
-                key={makeid(5)}
-                category={category}
-                userID={userInfo.id}
-                incompleteGoals={incompleteGoals}
-                getAllData={getAllData}
+  return (
+    <>
+      <div className="hero-image" />
+      <h1>{props.buddyFirstName}</h1>
+      <div className="row">
+        <div className="col l3 s12" style={{ marginTop: "-130px" }}>
+          <UserProfile
+            userPicture={buddyData.image ? buddyData.image : user.picture}
+            username={buddyData.username}
+            email={buddyData.email}
+            incompleteGoals={incompleteGoals}
+            buddies={allBuddies}
+          />
+        </div>
+        <div className="row">
+          <div className="col l8 s12 center-align">
+            <BuddyGoalCard
+              incompleteGoals={incompleteGoals}
+              addBuddy={addBuddy}
             />
-        ));
-    };
-
-    // Cycle through categories on arrow click
-    const cycleCategories = () => {
-        if (stopIndex === 3) {
-            activeCategories = [];
-            categories.push(categories.shift());
-            console.log(`All Categories: ${categories}`);
-            for (let i = 0; i < stopIndex; i++) {
-                activeCategories.push(categories[i]);
-            }
-        }
-        setActive(activeCategories);
-        console.log(`Active Categories: ${active}`);
-
-        renderGoalCards();
-    };
-
-    const makeid = l => {
-        let text = "";
-        let char_list =
-            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        for (let i = 0; i < l; i++) {
-            text += char_list.charAt(Math.floor(Math.random() * char_list.length));
-        }
-        return text;
-    };
-
-    if (loading || !userInfo || isLoading) {
-        return <Loading />;
-    }
-
-    return (
-        <>
-            <div className="profileSummaryBg" />
-            <div className="hero-image" />
-            <div className="row">
-                <div className="col l3 s12" style={{ marginTop: "-130px" }}>
-                    <UserProfile
-                        userPicture={userInfo.image ? userInfo.image : user.picture}
-                        username={userInfo.username}
-                        email={userInfo.email}
-                        incompleteGoals={incompleteGoals}
-                        buddies={allBuddies}
-                    />
-
-                </div>
-                <div style={{ marginTop: "20px", marginBottom: "20px" }}>
-                    {/* <Modal
-                        className="btn-small modal-trigger green"
-                        btnName="Add goal for new category..."
-                        header="Add a new goal"
-                        text="Complete this form"
-                        dataTarget={`newGoal_${makeid(5)}`}
-                        action="Add"
-                        userID={userInfo.id}
-                        getAllData={getAllData}
-                    /> */}
-                </div>
-                <div className="col l8 s12">{renderGoalCards()}</div>
-                <div className="col s1 nextArrow">
-                    <span>
-                        <FontAwesomeIcon
-                            onClick={() => cycleCategories()}
-                            icon={faChevronRight}
-                        />
-                    </span>
-                </div>
-                <div className="row">
-                    <div className="col l8 s12 center-align">
-                    </div>
-                </div>
-            </div>
-        </>
-    );
+          </div>
+        </div>
+      </div>
+    </>
+  );
 };
 
-export default Dashboard;
+export default BuddyProfile;

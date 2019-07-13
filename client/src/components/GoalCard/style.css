@@ -3,7 +3,7 @@
   overflow: auto;
 }
 
-.card-panel > .truncate:hover {
+.goalCard .card-panel > .truncate:hover {
   cursor: pointer;
   opacity: 0.7;
 }

@@ -73,6 +73,9 @@ const Navbar = () => {
                   <Link to="/buddies">Buddies</Link>
                 </li>
                 <li>
+                  <Link to="/buddy-profile">Buddy Profile</Link>
+                </li>
+                <li>
                   <Link to="/goals">Goals</Link>
                 </li>
                 <li>
