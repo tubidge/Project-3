@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Modal from "../Modal";
 import "./style.css";
+import moment from "moment";
 
 const GoalCard = props => {
   const [, setGoals] = useState([]);
@@ -21,46 +22,46 @@ const GoalCard = props => {
   };
 
   const renderGoalsForCategories = category => {
+    const due = moment()
+      .add(3, "days")
+      .format("YYYY-MM-DD");
+
     const result = props.incompleteGoals.filter(
       goal => goal.category === category
     );
-    return result.map(goal => (
-      <li key={goal.id}>
-        <div className="card-panel grey lighten-4 dark-text">
-          <div className="goal-due-alert">
-            <i className="material-icons">error</i>
-          </div>
-          <Link to="/goals" className="truncate goal-card-name">
-            {goal.name}
-          </Link>
-          <p>Due: {goal.dueDate}</p>
-          {/* <Modal
-            style={{ marginRight: "20px" }}
-            className="modal-trigger"
-            btnName="Edit"
-            header="Edit"
-            text="Edit Goal"
-            dataTarget={`editGoal_${goal.id}`}
-            action="Save Changes"
-            goalId={goal.id}
-            goalName={goal.name}
-            goalCategory={goal.category}
-            goalDueDate={goal.dueDate}
-            getAllData={props.getAllData}
-          />
-          <Modal
-            className="modal-trigger"
-            btnName="Delete"
-            header="Delete"
-            text="Are you sure you want to delete this goal?"
-            dataTarget={`deleteGoal_${goal.id}`}
-            action="Yes, I'm sure"
-            goalId={goal.id}
-            getAllData={props.getAllData}
-          /> */}
-        </div>
-      </li>
-    ));
+
+    return result.map(goal => {
+      console.log(goal.dueDate);
+      console.log(due);
+      if (moment(goal.dueDate).isAfter(due)) {
+        return (
+          <li key={goal.id}>
+            <div className="card-panel grey lighten-4 dark-text">
+              <Link to="/goals" className="truncate goal-card-name">
+                {goal.name}
+              </Link>
+              <p>Due: {goal.dueDate}</p>
+            </div>
+          </li>
+        );
+      } else {
+        return (
+          <li key={goal.id}>
+            <div className="card-panel grey lighten-4 dark-text">
+              <div className="goal-due-alert">
+                <i className="material-icons">error</i>
+              </div>
+              <Link to="/goals" className="truncate goal-card-name">
+                {goal.name}
+              </Link>
+              <p>
+                Due: <span className="alert-goal-dueDate">{goal.dueDate}</span>
+              </p>
+            </div>
+          </li>
+        );
+      }
+    });
   };
 
   return (
