@@ -81,7 +81,9 @@ const GoalCard = props => {
                   color: "#ffc400",
                   fontSize: "35px"
                 }}
-                className="material-icons modal-trigger right"
+                className="material-icons modal-trigger right tooltipped"
+                dataPosition="top"
+                dataTooltip="Add a goal to this category"
                 btnName={"add_circle"}
                 header="AddNew"
                 text="Complete this form"
