@@ -30,6 +30,17 @@ const Dashboard = () => {
     getAllData();
   }, []);
 
+  const getUnique = (arr, comp) => {
+    const unique = arr
+      .map(e => e[comp])
+      // store the keys of the unique objects
+      .map((e, i, final) => final.indexOf(e) === i && i)
+      // eliminate the dead keys & store unique objects
+      .filter(e => arr[e])
+      .map(e => arr[e]);
+    return unique;
+  };
+
   const getAllData = () => {
     API.getUserByEmail(user.email).then(resp => {
       console.log(resp.data);
@@ -118,7 +129,7 @@ const Dashboard = () => {
             username={userInfo.username}
             email={userInfo.email}
             incompleteGoals={incompleteGoals}
-            buddies={allBuddies}
+            buddies={getUnique(allBuddies, "username")}
           />
           <BuddyList buddies={allBuddies} makeid={makeid} />
         </div>

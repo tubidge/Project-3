@@ -21,6 +21,10 @@ export default {
     return axios.get("/user/email/" + email);
   },
 
+  getUserByGoal: id => {
+    return axios.get("/user/goal/" + id);
+  },
+
   // This method will add a user to the database
   addUser: data => {
     return axios.post("/add/user", {

@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { Autocomplete } from "react-materialize";
 import { useAuth0 } from "../../react-auth0-spa";
 import API from "../../utils/API";
 import Loading from "../../components/Loading";
 import FindingBuddy from "../../components/FindingBuddy";
-import BuddyProfile from "../BuddyProfile";
 import Fuse from "fuse.js";
 import "./style.css";
 
@@ -17,7 +15,6 @@ const Buddies = () => {
   const [goals, setGoals] = useState([]);
   const [buddyGoals, setBuddyGoals] = useState([]);
   const [autocompleteData, setAutocompleteData] = useState([]);
-  const [buddyData, setBuddyData] = useState([]);
 
   // for fuse.js
   const options = {
@@ -32,6 +29,7 @@ const Buddies = () => {
   };
 
   let data;
+  let matches = [];
 
   useEffect(() => {
     // Get all goals from all users
@@ -127,17 +125,22 @@ const Buddies = () => {
       if (match.length === 0) {
         console.log("No match found.");
       } else {
-        let id = match[0].item.id;
-        let name = match[0].item.name;
-        let score = match[0].score;
-        let topMatch = {
-          "Top Match": {
-            id: id,
-            name: name,
-            score: score
-          }
-        };
-        console.log(topMatch);
+        API.getUserByGoal(match[0].item.id).then(res => {
+          let id = match[0].item.id;
+          let name = match[0].item.name;
+          let score = match[0].score;
+          let username = res.data.username;
+          let userId = res.data.userId;
+          let topMatch = {
+            goalId: id,
+            goalName: name,
+            matchScore: score,
+            username: username,
+            userId: userId
+          };
+          matches.push(topMatch);
+          console.log(matches);
+        });
       }
     });
   };
