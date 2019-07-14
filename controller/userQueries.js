@@ -488,6 +488,7 @@ module.exports = {
             username: data.username,
             email: data.email,
             image: data.image,
+            created: data.createdAt,
             buddies: {
               myBuddies: []
             },

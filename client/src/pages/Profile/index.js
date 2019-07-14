@@ -69,6 +69,7 @@ const Profile = () => {
               lastName={user.family_name}
               email={user.email}
               getUserProfile={getUserProfile}
+              image={user.picture}
             />
           )}
         </div>

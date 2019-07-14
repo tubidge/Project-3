@@ -76,7 +76,7 @@ const BuddyProfile = props => {
   };
 
   const getUserData = () => {
-    API.getUserByEmail(user.email).then(resp => {
+    API.getUserByEmail("schaaf1091@gmail.com").then(resp => {
       let userData = resp.data;
       API.getAllGoals(userData.id).then(res => {
         let goalData = res.data;

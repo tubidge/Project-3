@@ -4,21 +4,23 @@ import { Link } from "react-router-dom";
 const BuddyList = props => {
   const [buddies, setBuddies] = useState([]);
 
-  // const getUnique = (arr, comp) => {
-  //   const unique = arr
-  //     .map(e => e[comp])
-  //     // store the keys of the unique objects
-  //     .map((e, i, final) => final.indexOf(e) === i && i)
-  //     // eliminate the dead keys & store unique objects
-  //     .filter(e => arr[e])
-  //     .map(e => arr[e]);
-  //   return unique;
-  // };
+  const getUnique = (arr, comp) => {
+    const unique = arr
+      .map(e => e[comp])
+      // store the keys of the unique objects
+      .map((e, i, final) => final.indexOf(e) === i && i)
+      // eliminate the dead keys & store unique objects
+      .filter(e => arr[e])
+      .map(e => arr[e]);
+    return unique;
+  };
 
-  // useEffect(() => {
-  //   let temp = getUnique(props.buddies, "username");
-  //   setBuddies(temp);
-  // }, []);
+  useEffect(() => {
+    if (props.buddies) {
+      let temp = getUnique(props.buddies, "username");
+      setBuddies(temp);
+    }
+  }, []);
 
   return (
     <>
@@ -30,11 +32,11 @@ const BuddyList = props => {
           </li>
           <span>
             {props.buddies &&
-              props.buddies.map(buddy => (
+              buddies.map(buddy => (
                 <li key={props.makeid(5)} className="collection-item avatar">
                   <img
                     className="circle responsive-img z-depth-1"
-                    src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_640.png"
+                    src={buddy.image}
                     alt="Profile"
                   />
                   <span className="title">

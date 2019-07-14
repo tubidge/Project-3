@@ -16,7 +16,7 @@ const Form = props => {
 
   const handleSumbit = e => {
     e.preventDefault();
-
+    const image = props.image;
     confirmAlert({
       title: "Create your account",
       message: "Is everything right?",
@@ -29,7 +29,8 @@ const Form = props => {
                 firstName,
                 lastName,
                 username,
-                email
+                email,
+                image
               })
               .then(result => {
                 if (result) {
