@@ -136,7 +136,11 @@ const Dashboard = () => {
         </div>
         <div className="col l8 s12">{renderGoalCards()}</div>
         <div className="col s1 nextArrow">
-          <span>
+          <span
+            className="tooltipped"
+            data-position="top"
+            data-tooltip="More categories"
+          >
             <FontAwesomeIcon
               onClick={() => cycleCategories()}
               icon={faChevronRight}
