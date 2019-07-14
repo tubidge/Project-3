@@ -129,7 +129,7 @@ const Dashboard = () => {
             username={userInfo.username}
             email={userInfo.email}
             incompleteGoals={incompleteGoals}
-            buddies={getUnique(allBuddies, "username")}
+            buddies={allBuddies ? getUnique(allBuddies, "username") : null}
           />
           <BuddyList buddies={allBuddies} makeid={makeid} />
         </div>

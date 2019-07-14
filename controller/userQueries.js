@@ -5,7 +5,7 @@ const moment = require("moment");
 
 module.exports = {
   // This method will create a new user
-  addUser: (firstName, lastName, username, email, password, profilePic) => {
+  addUser: (firstName, lastName, username, email, password, image) => {
     return new Promise((resolve, reject) => {
       db.User.create({
         firstName: firstName,
@@ -13,7 +13,7 @@ module.exports = {
         username: username,
         email: email,
         password: password,
-        profilePic: profilePic
+        image: image
       })
         .then(resp => {
           console.log(resp);
@@ -23,7 +23,7 @@ module.exports = {
             lastName: resp.dataValues.lastName,
             username: resp.dataValues.username,
             email: resp.dataValues.email,
-            profilePic: resp.dataValues.profilePic
+            image: resp.dataValues.image
           };
           resolve(results);
         })
@@ -133,7 +133,7 @@ module.exports = {
                 lastName: resp[0].dataValues.lastName,
                 username: resp[0].dataValues.username,
                 email: resp[0].dataValues.email,
-                profilePic: resp[0].dataValues.profilePic
+                image: resp[0].dataValues.image
               };
 
               resolve(results);

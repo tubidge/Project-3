@@ -4,20 +4,21 @@ import { Link } from "react-router-dom";
 const BuddyList = props => {
   const [buddies, setBuddies] = useState([]);
 
-  const getUnique = (arr, comp) => {
-    const unique = arr
-      .map(e => e[comp])
-      // store the keys of the unique objects
-      .map((e, i, final) => final.indexOf(e) === i && i)
-      // eliminate the dead keys & store unique objects
-      .filter(e => arr[e])
-      .map(e => arr[e]);
-    return unique;
-  };
+  // const getUnique = (arr, comp) => {
+  //   const unique = arr
+  //     .map(e => e[comp])
+  //     // store the keys of the unique objects
+  //     .map((e, i, final) => final.indexOf(e) === i && i)
+  //     // eliminate the dead keys & store unique objects
+  //     .filter(e => arr[e])
+  //     .map(e => arr[e]);
+  //   return unique;
+  // };
 
-  useEffect(() => {
-    setBuddies(getUnique(props.buddies, "username"));
-  }, []);
+  // useEffect(() => {
+  //   let temp = getUnique(props.buddies, "username");
+  //   setBuddies(temp);
+  // }, []);
 
   return (
     <>
@@ -28,8 +29,8 @@ const BuddyList = props => {
             <Link to="/buddies">Search Buddies</Link>
           </li>
           <span>
-            {buddies &&
-              buddies.map(buddy => (
+            {props.buddies &&
+              props.buddies.map(buddy => (
                 <li key={props.makeid(5)} className="collection-item avatar">
                   <img
                     className="circle responsive-img z-depth-1"

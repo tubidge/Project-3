@@ -10,10 +10,10 @@ module.exports = app => {
     var username = req.body.username;
     var email = req.body.email;
     var password = req.body.password;
-    var profilePic = req.body.profilePic;
+    var image = req.body.image;
 
     user
-      .addUser(firstName, lastName, username, email, password, profilePic)
+      .addUser(firstName, lastName, username, email, password, image)
       .then(data => {
         res.send(data);
       })

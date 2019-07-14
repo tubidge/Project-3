@@ -125,7 +125,7 @@ const BuddyProfile = props => {
             username={buddyData.username}
             email={buddyData.email}
             incompleteGoals={buddyIncompleteGoals}
-            buddies={allBuddies}
+            buddies={allBuddies ? getUnique(allBuddies, "username") : null}
           />
         </div>
         <div className="row">
