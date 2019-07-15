@@ -62,19 +62,19 @@ function GoalDetail(props) {
   }
 
   return (
-    <div className="card">
+    <div className="card indigo darken-4 z-depth-5">
       <div className="card-content">
         <div className="card-title">
           <div className="goal-page-sub-header">
-            <p className="goal-page-dueDate">Due: {goal.dueDate}</p>
+            <p className="goal-page-dueDate white-text">Due: {goal.dueDate}</p>
             {/* <div className="goal-page-progressBar">
               <ProgressBar />
             </div> */}
-            <p className="goal-page-privacy">
+            <p className="goal-page-privacy white-text">
               {goal.private ? "Private" : "Public"}
             </p>
           </div>
-          <h3 className="goal-page-title">{goal.name}</h3>
+          <h3 className="goal-page-title white-text">{goal.name}</h3>
         </div>
         <div className="goal-page-upcomingView">
           {days.map(index => {

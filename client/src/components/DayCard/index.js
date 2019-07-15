@@ -60,31 +60,33 @@ function DayCard(props) {
         ""
       )}
 
-      <div className="card day-card">
+      <div className="card day-card z-depth-2">
+        <div className="day-card-add">
+          {" "}
+          <i
+            className="material-icons day-card-icon"
+            onClick={event => {
+              openMilestoneForm(event);
+            }}
+          >
+            add_circle
+          </i>
+        </div>
+        <div className="card-title">
+          <p className="day-card-date">{date}</p>
+          <p>Todo</p>
+        </div>
         <div className="card-content">
-          <div className="day-card-add">
-            {" "}
-            <i
-              className="material-icons day-card-icon"
-              onClick={event => {
-                openMilestoneForm(event);
-              }}
-            >
-              add_circle
-            </i>
-          </div>
-          <div className="card-title">
-            <p className="day-card-date">{date}</p>
-          </div>
           <div>
-            <p>Incomplete:</p>
-            <ul>
-              {milestones.incomplete.length
-                ? milestones.incomplete.map(index => {
-                    return <DayEvent milestone={index.name} />;
-                  })
-                : ""}
-            </ul>
+            <div className="day-card-todo">
+              <ul>
+                {milestones.incomplete.length
+                  ? milestones.incomplete.map(index => {
+                      return <DayEvent milestone={index.name} />;
+                    })
+                  : ""}
+              </ul>
+            </div>
           </div>
           <div>
             <p>Complete:</p>
