@@ -18,11 +18,13 @@ const Goals = props => {
   const [, setGoalInfo] = useState({});
   const [categories, setCategories] = useState([]);
   const [allBuddies, setAllBuddies] = useState();
+  const [currentGoal, setCurrentGoal] = useState(false);
+  const [reRender, setreRender] = useState(false);
 
   useEffect(() => {
     M.AutoInit();
     getAllData();
-  }, []);
+  }, [currentGoal]);
 
   const getAllData = () => {
     API.getUserByEmail(user.email).then(resp => {
@@ -56,77 +58,122 @@ const Goals = props => {
     const result = incompleteGoals.filter(goal => goal.category === category);
     return result.map(goal => (
       <a key={goal.id} href={`#${goal.id}"`}>
-        <li className="goal-tab center-align">{goal.name}</li>
+        <li
+          className="goal-tab center-align"
+          onClick={
+            (() => {
+              setCurrentGoal(false);
+            },
+            () => {
+              console.log(currentGoal);
+              renderGoalDetail(goal.id);
+            })
+          }
+        >
+          {goal.name}
+        </li>
       </a>
     ));
   };
 
   const renderGoalDetail = id => {
     const result = incompleteGoals.filter(goal => goal.id === id);
-    return result.map(goal => (
-      <GoalDetail
-        milestone="Test Milestone for Education"
-        name={goal.name}
-        due={goal.dueDate}
-        desc={goal.description}
-      />
-    ));
+    console.log(result);
+
+    setCurrentGoal(result[0]);
+  };
+
+  const handleClick = () => {
+    setCurrentGoal(false);
   };
 
   return (
-    <section className="container">
-      <div className="row">
-        <div className="col s12">
-          <ul className="tabs">
-            <li className="tab col s2 offset-s2">
-              <a href="#Fitness">Fitness</a>
-            </li>
-            <li className="tab col s2">
-              <a href="#Wellness">Wellness</a>
-            </li>
-            <li className="tab col s2">
-              <a href="#Financial">Financial</a>
-            </li>
-            <li className="tab col s2">
-              <a href="#Education">Education</a>
-            </li>
-            <li className="tab col s2">
-              <a href="#Travel">Travel</a>
-            </li>
-          </ul>
-        </div>
+    <>
+      <section className="container">
+        <div className="row">
+          <div className="col s12">
+            <ul className="tabs">
+              <li className="tab col s2 offset-s2">
+                <a href="#Fitness" onClick={handleClick}>
+                  Fitness
+                </a>
+              </li>
+              <li className="tab col s2">
+                <a href="#Wellness" onClick={handleClick}>
+                  Wellness
+                </a>
+              </li>
+              <li className="tab col s2">
+                <a href="#Financial" onClick={handleClick}>
+                  Financial
+                </a>
+              </li>
+              <li className="tab col s2">
+                <a href="#Education" onClick={handleClick}>
+                  Education
+                </a>
+              </li>
+              <li className="tab col s2">
+                <a href="#Travel" onClick={handleClick}>
+                  Travel
+                </a>
+              </li>
+            </ul>
+          </div>
 
-        <div id="Fitness">
-          <div className="col s2">
-            <ul className="goal-tabs">{renderGoalsForCategory("Fitness")}</ul>
+          <div id="Fitness">
+            <div className="col s2">
+              <ul className="goal-tabs">{renderGoalsForCategory("Fitness")}</ul>
+            </div>
+            <div className="col s10">
+              {currentGoal ? <GoalDetail goal={currentGoal} /> : ""}
+            </div>
+          </div>
+
+          <div id="Wellness">
+            <div className="col s2">
+              <ul className="goal-tabs">
+                {renderGoalsForCategory("Wellness")}
+              </ul>
+            </div>
+            <div className="col s10">
+              {currentGoal ? <GoalDetail goal={currentGoal} /> : ""}
+            </div>
+          </div>
+
+          <div id="Financial">
+            <div className="col s2">
+              <ul className="goal-tabs">
+                {renderGoalsForCategory("Financial")}
+              </ul>
+            </div>
+            <div className="col s10">
+              {currentGoal ? <GoalDetail goal={currentGoal} /> : ""}
+            </div>
+          </div>
+
+          <div id="Education">
+            <div className="col s2">
+              <ul className="goal-tabs">
+                {renderGoalsForCategory("Education")}
+              </ul>
+            </div>
+            <div className="col s10">
+              {currentGoal ? <GoalDetail goal={currentGoal} /> : ""}
+            </div>
+          </div>
+
+          <div id="Travel">
+            <div className="col s2">
+              <ul className="goal-tabs">{renderGoalsForCategory("Travel")}</ul>
+            </div>
+            <div className="col s10">
+              {currentGoal ? <GoalDetail goal={currentGoal} /> : ""}
+            </div>
           </div>
         </div>
-
-        <div id="Wellness">
-          <div className="col s2">
-            <ul className="goal-tabs">{renderGoalsForCategory("Wellness")}</ul>
-          </div>
-        </div>
-
-        <div id="Financial">
-          <div className="col s2">
-            <ul className="goal-tabs">{renderGoalsForCategory("Financial")}</ul>
-          </div>
-        </div>
-
-        <div id="Education">
-          <div className="col s2">
-            <ul className="goal-tabs">{renderGoalsForCategory("Education")}</ul>
-          </div>
-        </div>
-
-        <div id="Travel">
-          <div className="col s2">
-            <ul className="goal-tabs">{renderGoalsForCategory("Travel")}</ul>
-          </div>
-        </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 
