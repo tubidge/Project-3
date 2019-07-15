@@ -15,9 +15,10 @@ const JoinGoalModal = props => {
     M.Modal.init(modals, options);
   }, []);
 
-  const handleSubmit = (buddyId, buddyGoal, goalId, userId) => {
+  const handleSubmit = (e, buddyId, buddyGoal, goalId, userId) => {
+    e.preventDefault();
     props.addBuddy(buddyId, buddyGoal, goalId, userId);
-    M.Modal.close();
+    // M.Modal.close();
   };
 
   return (
@@ -38,8 +39,9 @@ const JoinGoalModal = props => {
                 to="#"
                 key={goal.id}
                 className="collection-item"
-                onClick={() =>
+                onClick={e =>
                   handleSubmit(
+                    e,
                     props.buddyId,
                     props.buddyGoalId,
                     goal.id,

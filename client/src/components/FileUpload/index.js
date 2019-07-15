@@ -6,6 +6,7 @@ import API from "../../utils/API";
 import "./style.css";
 
 const CLOUDINARY_UPLOAD_PRESET = "mrptyjwx";
+// const CLOUDINARY_UPLOAD_URL = "https://api.cloudinary.com/v1_1/goalden/upload";
 const CLOUDINARY_UPLOAD_URL = "https://api.cloudinary.com/v1_1/goalden/upload";
 
 export default class FileUpload extends React.Component {

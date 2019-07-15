@@ -563,6 +563,7 @@ module.exports = {
                           id: event.id,
                           email: resp[0].dataValues.email,
                           username: resp[0].dataValues.username,
+                          buddyId: resp[0].dataValues.id,
                           channel: event.channel
                         };
 
@@ -582,6 +583,7 @@ module.exports = {
                         const buddyData = {
                           id: event.id,
                           email: resp[0].dataValues.email,
+                          buddyId: resp[0].dataValues.id,
                           username: resp[0].dataValues.username,
                           channel: event.channel
                         };

@@ -44,16 +44,20 @@ const BuddyProfile = props => {
     let pathArray = window.location.pathname.split("/");
     let id = pathArray[2];
     API.getUser(id).then(res => {
-      if (res.data.buddies.allBuddies) {
-        setAllBuddies(
-          res.data.buddies.allBuddies
-            .map(buddy => buddy.username)
-            .reduce(
-              (unique, item) =>
-                unique.includes(item) ? unique : [...unique, item],
-              []
-            )
-        );
+      if (res.data.buddies) {
+        if (res.data.buddies.length > 0) {
+          setAllBuddies(
+            res.data.buddies.allBuddies
+              .map(buddy => buddy.id)
+              .reduce(
+                (unique, item) =>
+                  unique.includes(item) ? unique : [...unique, item],
+                []
+              )
+          );
+        } else {
+          setAllBuddies(res.data.buddies.allBuddies);
+        }
       }
       setBuddyData(res.data);
       console.log(res.data);
@@ -76,7 +80,7 @@ const BuddyProfile = props => {
   };
 
   const getUserData = () => {
-    API.getUserByEmail("schaaf1091@gmail.com").then(resp => {
+    API.getUserByEmail(user.email).then(resp => {
       let userData = resp.data;
       API.getAllGoals(userData.id).then(res => {
         let goalData = res.data;

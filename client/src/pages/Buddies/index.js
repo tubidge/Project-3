@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Autocomplete } from "react-materialize";
 import { useAuth0 } from "../../react-auth0-spa";
 import API from "../../utils/API";
@@ -15,11 +16,12 @@ const Buddies = () => {
   const [goals, setGoals] = useState([]);
   const [buddyGoals, setBuddyGoals] = useState([]);
   const [autocompleteData, setAutocompleteData] = useState([]);
+  const [matchesFound, setMatchesFound] = useState([]);
 
   // for fuse.js
   const options = {
     shouldSort: true,
-    threshold: 0.5, // lower value will result in a more exact match
+    threshold: 0.7, // lower value will result in a more exact match
     includeScore: true,
     location: 0,
     distance: 100,
@@ -130,7 +132,7 @@ const Buddies = () => {
           let name = match[0].item.name;
           let score = match[0].score;
           let username = res.data.username;
-          let userId = res.data.userId;
+          let userId = res.data.id;
           let topMatch = {
             goalId: id,
             goalName: name,
@@ -141,6 +143,7 @@ const Buddies = () => {
           matches.push(topMatch);
           console.log(matches);
         });
+        setMatchesFound(matches);
       }
     });
   };
@@ -157,6 +160,23 @@ const Buddies = () => {
     <>
       <div className="container">
         <h1 className="text-center">Search for Buddies</h1>
+        <div className="row">
+          {matchesFound &&
+            matchesFound.map(match => (
+              <div key={match.userId} className="col s4">
+                <div className="card">
+                  <div className="card-content">
+                    <div className="card-title">{match.username}</div>
+                    <p>{match.goalName}</p>
+                    <Link to={`/buddy-profile/${match.userId}`}>
+                      View Profile
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+        </div>
+
         <Autocomplete options={autocompleteData} placeholder="username" />
         <div className="row">
           <div className="col-sm-6 mx-auto">
@@ -190,9 +210,9 @@ const Buddies = () => {
                     />
                     <span className="title">{user.username}</span>
                     <p>{`${user.firstName} ${user.lastName}`}</p>
-                    <button onClick={() => showBuddyProfile(user.id)}>
+                    <Link to="#" onClick={() => showBuddyProfile(user.id)}>
                       View Profile
-                    </button>
+                    </Link>
                   </li>
                 ))}
               </ul>

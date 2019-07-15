@@ -80,15 +80,6 @@ const Form = props => {
               />
             </div>
           </div>
-          <div className="row">
-            <div className="form-group">
-              <FileUpload
-                userID={props.userID}
-                getUserProfile={props.getUserProfile}
-              />
-              {props.image && <img src={props.image} alt="Profile" />}
-            </div>
-          </div>
         </div>
         <div className="col s5 offset-s1">
           <div className="row">

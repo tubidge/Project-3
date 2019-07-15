@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import API from "../../utils/API";
 
 const BuddyList = props => {
   const [buddies, setBuddies] = useState([]);
@@ -16,10 +17,7 @@ const BuddyList = props => {
   };
 
   useEffect(() => {
-    if (props.buddies) {
-      let temp = getUnique(props.buddies, "username");
-      setBuddies(temp);
-    }
+    console.log(props.buddies);
   }, []);
 
   return (
@@ -32,18 +30,22 @@ const BuddyList = props => {
           </li>
           <span>
             {props.buddies &&
-              buddies.map(buddy => (
+              props.buddies.map(buddy => (
                 <li key={props.makeid(5)} className="collection-item avatar">
                   <img
                     className="circle responsive-img z-depth-1"
                     src={buddy.image}
                     alt="Profile"
                   />
-                  <span className="title">
-                    <Link to="#">{buddy.username}</Link>
-                  </span>
+                  <span className="title">{buddy.username}</span>
                   <p>
-                    <Link to={`/buddy-profile/${buddy.id}`}>View Profile</Link>
+                    <Link
+                      to={`/buddy-profile/${buddy.buddyId}`}
+                      style={{ marginRight: "15px" }}
+                    >
+                      View Profile
+                    </Link>
+                    <Link to="#">Chat</Link>
                   </p>
                 </li>
               ))}

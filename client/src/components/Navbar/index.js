@@ -29,10 +29,13 @@ const Navbar = () => {
           {/* Dropdown menu */}
           <ul id="dropdown1" className="dropdown-content">
             <li>
-              <Link to="/profile">Profile</Link>
+              <Link to="/dashboard">Dashboard</Link>
             </li>
             <li>
-              <Link to="/dashboard">Dashboard</Link>
+              <Link to="/goals">Goals</Link>
+            </li>
+            <li>
+              <Link to="/profile">Profile</Link>
             </li>
             <li className="divider" />
             {!isAuthenticated && (
@@ -70,13 +73,7 @@ const Navbar = () => {
               </Link>
               <ul className="right hide-on-med-and-down">
                 <li>
-                  <Link to="/buddies">Buddies</Link>
-                </li>
-                <li>
-                  <Link to="/buddy-profile">Buddy Profile</Link>
-                </li>
-                <li>
-                  <Link to="/goals">Goals</Link>
+                  <Link to="/buddies">Find Buddies</Link>
                 </li>
                 <li>
                   <a
@@ -84,12 +81,6 @@ const Navbar = () => {
                     href="#!"
                     data-target="dropdown1"
                   >
-                    {/* <img
-                      style={{ width: 50 }}
-                      className="circle"
-                      src={userInfo.image ? userInfo.image : user.picture}
-                      alt="Profile"
-                    /> */}
                     <i className="material-icons right">arrow_drop_down</i>
                   </a>
                 </li>
@@ -104,6 +95,9 @@ const Navbar = () => {
             </li>
             <li>
               <Link to="/dashboard">Dashboard</Link>
+            </li>
+            <li>
+              <Link to="/goals">Goals</Link>
             </li>
             <li className="divider" />
             {!isAuthenticated && (

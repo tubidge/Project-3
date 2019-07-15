@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import "./style.css";
 
 const UserProfile = props => {
   return (
@@ -7,12 +9,13 @@ const UserProfile = props => {
         <div className="row center-align">
           <div className="profileImageContainer">
             <img
-              className="circle responsive-img z-depth-3 profilePicture"
+              className="circle responsive-img z-depth-3"
               alt="Profile"
               src={props.userPicture}
             />
           </div>
-          <div className="mt10">
+          <Link to="/profile">Edit Picture</Link>
+          <div>
             {props.username}
             <br />
             {props.email}

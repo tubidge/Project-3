@@ -131,7 +131,11 @@ const Dashboard = () => {
             incompleteGoals={incompleteGoals}
             buddies={allBuddies ? getUnique(allBuddies, "username") : null}
           />
-          <BuddyList buddies={allBuddies} makeid={makeid} />
+          <BuddyList
+            userID={userInfo.id}
+            makeid={makeid}
+            buddies={allBuddies ? getUnique(allBuddies, "username") : null}
+          />
         </div>
         <div style={{ marginTop: "20px", marginBottom: "20px" }} />
         <div className="col l8 s12">{renderGoalCards()}</div>
