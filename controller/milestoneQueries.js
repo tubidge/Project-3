@@ -272,6 +272,40 @@ const Milestone = {
     });
   },
 
+  getDate: (id, date) => {
+    return new Promise((resolve, reject) => {
+      db.Milestones.findAll({
+        where: {
+          dueDate: date,
+          GoalId: id
+        }
+      })
+        .then(resp => {
+          console.log(resp);
+
+          const results = [];
+
+          resp.forEach(index => {
+            const milestone = {
+              id: index.dataValues.id,
+              name: index.dataValues.name,
+              frequency: index.dataValues.frequency,
+              dueDate: index.dataValues.dueDate,
+              startDate: index.dataValues.startDate,
+              endDate: index.dataValues.endDate,
+              notes: index.dataValues.notes
+            };
+            results.push(milestone);
+          });
+
+          resolve(results);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  },
+
   // This method will allow a user to update a particular column's data based on the
   // milestone id that they pass in
   updateMilestone: (id, colName, info) => {

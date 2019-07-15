@@ -126,7 +126,11 @@ const Goals = props => {
               <ul className="goal-tabs">{renderGoalsForCategory("Fitness")}</ul>
             </div>
             <div className="col s10">
-              {currentGoal ? <GoalDetail goal={currentGoal} /> : ""}
+              {currentGoal ? (
+                <GoalDetail userId={userInfo.id} goal={currentGoal} />
+              ) : (
+                ""
+              )}
             </div>
           </div>
 

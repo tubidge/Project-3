@@ -5,44 +5,14 @@ import moment from "moment";
 import Loading from "../../components/Loading";
 import DayCard from "../DayCard";
 
-// export default class GoalDetail extends React.Component {
-//   state = {
-//     name: this.props.goal.name,
-//     description: this.props.goal.description,
-//     dueDate: this.props.goal.dueDate,
-//     private: this.props.goal.private
-//   };
-
-//   getDerivedStateFromProps() {
-//     this.setState({
-//       name: this.props.goal.name,
-//       description: this.props.goal.description,
-//       dueDate: this.props.goal.dueDate,
-//       private: this.props.goal.private
-//     });
-//   }
-
-//   render() {
-//     console.log(this.state.name);
-//     return (
-//       <div className="card">
-//         <div className="card-content">
-//           <div className="card-title">
-//             <h3>{this.state.name}</h3>
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   }
-
-// }
-
 function GoalDetail(props) {
   const [goal, setGoal] = useState({});
   const [days, setDays] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [reRender, setreRender] = useState(false);
 
   useEffect(() => {
+    console.log(props.goal);
     setGoal(props.goal);
     configureDays();
   }, [props.goal]);
@@ -83,6 +53,7 @@ function GoalDetail(props) {
     });
     console.log(configDays);
     setDays(configDays);
+    console.log(goal);
     setIsLoading(false);
   };
 
@@ -109,6 +80,8 @@ function GoalDetail(props) {
           {days.map(index => {
             return (
               <DayCard
+                userId={props.userId}
+                goalId={goal.id}
                 date={index.date}
                 completed={index.completedMilestone}
                 incomplete={index.incompleteMilestone}

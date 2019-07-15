@@ -6,15 +6,15 @@ module.exports = app => {
   // It can also include notes, and a completed boolean (we shouldn't ever send a completed boolean tho)
   app.post("/add/milestone", (req, res) => {
     console.log(req.body);
-    // const userMilestone = req.body.data;
-    let userMilestone = {
-      name: "2 hour workout",
-      frequency: "Daily",
-      startDate: "2019-07-12",
-      endDate: "2019-07-30",
-      UserId: 1,
-      GoalId: 1
-    };
+    const userMilestone = req.body.data;
+    // let userMilestone = {
+    //   name: "2 hour workout",
+    //   frequency: "Daily",
+    //   startDate: "2019-07-12",
+    //   endDate: "2019-07-30",
+    //   UserId: 1,
+    //   GoalId: 1
+    // };
     milestone
       .configureMilestones(userMilestone)
       .then(data => {
@@ -43,6 +43,17 @@ module.exports = app => {
   app.get("/milestone/range/:start/:end", (req, res) => {
     milestone
       .getDateRange(req.params.start, req.params.end, 1)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
+
+  app.get("/milestone/date/:id/:date", (req, res) => {
+    milestone
+      .getDate(req.params.id, req.params.date)
       .then(data => {
         res.send(data);
       })

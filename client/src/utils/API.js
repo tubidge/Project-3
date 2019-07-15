@@ -88,6 +88,16 @@ export default {
     return axios.get("/milestone/" + id);
   },
 
+  addMilestone: data => {
+    return axios.post("/add/milestone", {
+      data
+    });
+  },
+
+  getMilestoneDate: (id, date) => {
+    return axios.get("/milestone/date/" + id + "/" + date);
+  },
+
   // This method will select a milestone to update based on id.
   // The data object needs to contain colName and info to update the object
   editMilestone: (id, data) => {
