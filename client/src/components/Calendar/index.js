@@ -113,8 +113,6 @@ export default class Cal extends React.Component {
     );
   };
 
-  // need to create a modal popup trigger by clicking a milestone on the calendar.
-
   render() {
     return (
       <div>

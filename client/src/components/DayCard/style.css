@@ -1,0 +1,21 @@
+.day-card {
+  height: 25rem;
+  width: 18rem;
+  padding: 0px;
+}
+
+.day-card-date {
+  font-size: 1rem;
+  text-align: center;
+  border-bottom: 3px solid black;
+}
+
+.day-card-add {
+  text-align: right;
+  margin: 0px;
+  padding: 0px;
+}
+
+.day-card-icon:hover {
+  cursor: pointer;
+}
