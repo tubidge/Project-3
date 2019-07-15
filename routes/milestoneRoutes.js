@@ -79,15 +79,20 @@ module.exports = app => {
   app.put("/milestone/:id", (req, res) => {
     let colName = req.body.data.colName;
     let info = req.body.data.info;
-    console.log(req.body);
-
+    console.log(req.body.data);
+    console.log(colName);
+    console.log(info);
+    console.log(req.params.id);
+    // let colName = "completed";
+    // let info = true;
     milestone
       .updateMilestone(req.params.id, colName, info)
       .then(data => {
+        console.log(data);
         res.send(data);
       })
       .catch(err => {
-        res.catch(err);
+        res.send(err);
       });
   });
 

@@ -14,6 +14,9 @@ function DayCard(props) {
   const [milestones, setMilestones] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [reRender, setreRender] = useState(false);
+  const [total, setTotal] = useState(0);
+  const [complete, setComplete] = useState(0);
+  const [milestoneSelected, setmilestoneSelected] = useState(false);
 
   useEffect(() => {
     API.getMilestoneDate(props.goalId, props.date).then(data => {
@@ -29,6 +32,10 @@ function DayCard(props) {
           milestones.incomplete.push(index);
         }
       });
+      let num1 = milestones.completed.length + milestones.incomplete.length;
+      let num2 = milestones.completed.length;
+      setTotal(num1);
+      setComplete(num2);
       setMilestones(milestones);
       setIsLoading(false);
     });
@@ -37,6 +44,21 @@ function DayCard(props) {
   const openMilestoneForm = event => {
     event.preventDefault();
     setmodalOpen(true);
+  };
+
+  const completeTask = () => {
+    let data = {
+      colName: "completed",
+      info: true
+    };
+    API.editMilestone(milestoneSelected, data).then(() => {
+      setmilestoneSelected(false);
+      setreRender(!reRender);
+    });
+  };
+
+  const clickMilestone = id => {
+    setmilestoneSelected(id);
   };
 
   const cancel = () => {
@@ -74,30 +96,42 @@ function DayCard(props) {
         </div>
         <div className="card-title">
           <p className="day-card-date">{date}</p>
-          <p>Todo</p>
+          <div className="day-card-buttons">
+            <p style={{ fontSize: "15px", marginLeft: "5px" }}>Todo</p>
+            {milestoneSelected ? (
+              <div>
+                <i className="material-icons" onClick={completeTask}>
+                  check_box
+                </i>
+                <i className="material-icons">delete_forever</i>
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
         </div>
-        <div className="card-content">
+        <div className="card-content day-card-content">
           <div>
             <div className="day-card-todo">
               <ul>
                 {milestones.incomplete.length
                   ? milestones.incomplete.map(index => {
-                      return <DayEvent milestone={index.name} />;
+                      return (
+                        <DayEvent
+                          clickMilestone={clickMilestone}
+                          milestone={index}
+                        />
+                      );
                     })
                   : ""}
               </ul>
             </div>
           </div>
-          <div>
-            <p>Complete:</p>
-            <ul>
-              {milestones.completed.length
-                ? milestones.completed.map(index => {
-                    return <DayEvent milestone={index.name} />;
-                  })
-                : ""}
-            </ul>
-          </div>
+        </div>
+        <div>
+          <p style={{ marginLeft: "5px" }}>
+            Complete: {complete}/{total}
+          </p>
         </div>
       </div>
     </>

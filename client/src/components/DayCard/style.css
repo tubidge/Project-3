@@ -4,6 +4,10 @@
   padding: 0px;
 }
 
+.day-card-content {
+  height: 15rem;
+}
+
 .day-card-date {
   font-size: 1rem;
   text-align: center;
@@ -23,6 +27,11 @@
 .day-card-icon:hover {
   cursor: pointer;
   transform: scale(1.1);
+}
+
+.day-card-buttons {
+  display: flex;
+  justify-content: space-between;
 }
 /* 
 .day-card-todo {

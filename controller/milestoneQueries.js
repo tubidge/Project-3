@@ -290,6 +290,7 @@ const Milestone = {
               id: index.dataValues.id,
               name: index.dataValues.name,
               frequency: index.dataValues.frequency,
+              completed: index.dataValues.completed,
               dueDate: index.dataValues.dueDate,
               startDate: index.dataValues.startDate,
               endDate: index.dataValues.endDate,
