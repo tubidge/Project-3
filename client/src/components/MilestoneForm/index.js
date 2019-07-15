@@ -6,7 +6,7 @@ function MilestoneForm(props) {
   //   const [milestone, setMilestone] = useState({});
   const [title, setTitle] = useState();
   const [frequency, setFrequency] = useState("Never");
-  const [due, setDue] = useState();
+  const [due, setDue] = useState(props.date);
   const [notes, setNotes] = useState();
   const [start, setStart] = useState();
   const [end, setEnd] = useState();
@@ -24,6 +24,8 @@ function MilestoneForm(props) {
     var instance = M.Modal.init(Modalelem);
     instance.open();
   }, []);
+
+  useEffect(() => {}, [frequency]);
 
   const handleInput = event => {
     event.preventDefault();
@@ -71,154 +73,245 @@ function MilestoneForm(props) {
       props.close();
     });
   };
-  //   if (props.frequency === "Never") {
-  return (
-    <div id="milestoneForm" className="modal">
-      <div className="modal-content">
-        <form className="col s12">
-          <div className="row">
-            <div className="input-field col s10">
-              <input
-                type="text"
-                name="title"
-                className="validate"
-                id="milestoneTitle"
-                placeholder=""
-                onChange={handleInput}
-              />
-              <label htmlFor="milestoneTitle">Title</label>
+  if (frequency === "Never") {
+    return (
+      <div id="milestoneForm" className="modal">
+        <div className="modal-content">
+          <form className="col s12">
+            <div className="row">
+              <div className="input-field col s10">
+                <input
+                  type="text"
+                  name="title"
+                  className="validate"
+                  id="milestoneTitle"
+                  placeholder=""
+                  onChange={handleInput}
+                />
+                <label htmlFor="milestoneTitle">Title</label>
+              </div>
             </div>
-          </div>
-          <div className="row">
-            <div className="input-field col s10">
-              <select
-                id="milestoneFrequency"
-                name="frequency"
-                onChange={handleInput}
-              >
-                <option value="Never">Never</option>
-                <option value="Daily">Daily</option>
-                <option value="Weekly">Weekly</option>
-                <option value="Monthly">Monthly</option>
-              </select>
-              <label htmlFor="milestoneFrequency">
-                Select Milestone Frequency
-              </label>
+            <div className="row">
+              <div className="input-field col s10">
+                <select
+                  id="milestoneFrequency"
+                  name="frequency"
+                  onChange={handleInput}
+                >
+                  <option value="Never">Never</option>
+                  <option value="Daily">Daily</option>
+                  <option value="Weekly">Weekly</option>
+                  <option value="Monthly">Monthly</option>
+                </select>
+                <label htmlFor="milestoneFrequency">
+                  Select Milestone Frequency
+                </label>
+              </div>
             </div>
-          </div>
-          <div className="row">
-            <div className="input-field col s10">
-              <input
-                name="dueDate"
-                type="text"
-                className="validate"
-                id="milestoneDueDate"
-                placeholder=""
-                onChange={handleInput}
-              />
-              <label htmlFor="milestoneDueDate">Due Date</label>
+            <div className="row">
+              <div className="input-field col s10">
+                <input
+                  name="dueDate"
+                  type="date"
+                  className="validate"
+                  id="milestoneDueDate"
+                  placeholder=""
+                  value={props.date ? props.date : ""}
+                  onChange={handleInput}
+                />
+                <label htmlFor="milestoneDueDate">Due Date</label>
+              </div>
             </div>
-          </div>
-          <div className="row">
-            <div className="input-field col s10">
-              <textarea
-                className="materialize-textarea"
-                id="milestoneNotes"
-                rows="3"
-                name="notes"
-                onChange={handleInput}
-              />
-              <label htmlFor="milestoneNotes">Notes</label>
+            <div className="row">
+              <div className="input-field col s10">
+                <textarea
+                  className="materialize-textarea"
+                  id="milestoneNotes"
+                  rows="3"
+                  name="notes"
+                  onChange={handleInput}
+                />
+                <label htmlFor="milestoneNotes">Notes</label>
+              </div>
             </div>
-          </div>
-          <button
-            type="button"
-            className="btn modal-close"
-            onClick={handleSubmit}
-          >
-            Add
-          </button>
-          <button
-            className="btn modal-close milestone-cancel-btn"
-            onClick={props.close}
-          >
-            Cancel
-          </button>
-        </form>
+            <button
+              type="button"
+              className="btn modal-close"
+              onClick={handleSubmit}
+            >
+              Add
+            </button>
+            <button
+              className="btn modal-close milestone-cancel-btn"
+              onClick={props.close}
+            >
+              Cancel
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
-  );
-  //   } else {
-  //     return (
-  //       <form>
-  //         <div className="form-group">
-  //           <label htmlFor="milestoneTitle">Title</label>
-  //           <input
-  //             type="text"
-  //             name="title"
-  //             className="form-control"
-  //             id="milestoneTitle"
-  //             placeholder=""
-  //             onChange={props.handleInput}
-  //           />
-  //         </div>
-  //         <div className="form-group">
-  //           <label htmlFor="milestoneFrequency">Select Milestone Frequency</label>
-  //           <select
-  //             className="form-control"
-  //             id="milestoneFrequency"
-  //             name="frequency"
-  //             onChange={props.handleInput}
-  //           >
-  //             <option>Never</option>
-  //             <option>Daily</option>
-  //             <option>Weekly</option>
-  //             <option>Monthly</option>
-  //           </select>
-  //         </div>
+    );
+  } else {
+    return (
+      <div id="milestoneForm" className="modal">
+        <div className="modal-content">
+          <form className="col s12">
+            <div className="row">
+              <div className="input-field col s10">
+                <input
+                  type="text"
+                  name="title"
+                  className="validate"
+                  id="milestoneTitle"
+                  placeholder=""
+                  onChange={handleInput}
+                />
+                <label htmlFor="milestoneTitle">Title</label>
+              </div>
+            </div>
+            <div className="row">
+              <div className="input-field col s10">
+                <select
+                  id="milestoneFrequency"
+                  name="frequency"
+                  onChange={handleInput}
+                >
+                  <option value="Never">Never</option>
+                  <option value="Daily">Daily</option>
+                  <option value="Weekly">Weekly</option>
+                  <option value="Monthly">Monthly</option>
+                </select>
+                <label htmlFor="milestoneFrequency">
+                  Select Milestone Frequency
+                </label>
+              </div>
+            </div>
+            <div className="row">
+              <div className="input-field col s10">
+                <input
+                  name="startDate"
+                  type="date"
+                  className="validate"
+                  id="milestoneStart"
+                  placeholder=""
+                  onChange={handleInput}
+                />
+                <label htmlFor="milestoneStart">Start Date</label>
+              </div>
+            </div>
+            <div className="row">
+              <div className="input-field col s10">
+                <input
+                  name="endDate"
+                  type="date"
+                  className="validate"
+                  id="milestoneEnd"
+                  placeholder=""
+                  onChange={handleInput}
+                />
+                <label htmlFor="milestoneEnd">End Date</label>
+              </div>
+            </div>
+            <div className="row">
+              <div className="input-field col s10">
+                <textarea
+                  className="materialize-textarea"
+                  id="milestoneNotes"
+                  rows="3"
+                  name="notes"
+                  onChange={handleInput}
+                />
+                <label htmlFor="milestoneNotes">Notes</label>
+              </div>
+            </div>
+            <button
+              type="button"
+              className="btn modal-close"
+              onClick={handleSubmit}
+            >
+              Add
+            </button>
+            <button
+              className="btn modal-close milestone-cancel-btn"
+              onClick={props.close}
+            >
+              Cancel
+            </button>
+          </form>
+        </div>
+      </div>
+    );
 
-  //         <div className="form-group">
-  //           <label htmlFor="milestoneStart">Start Date</label>
-  //           <input
-  //             name="startDate"
-  //             type="text"
-  //             className="form-control"
-  //             id="milestoneStart"
-  //             placeholder=""
-  //             onChange={props.handleInput}
-  //           />
-  //         </div>
-  //         <div className="form-group">
-  //           <label htmlFor="milestoneEnd">End Date</label>
-  //           <input
-  //             name="endDate"
-  //             type="text"
-  //             className="form-control"
-  //             id="milestoneEnd"
-  //             placeholder=""
-  //             onChange={props.handleInput}
-  //           />
-  //         </div>
-  //         <div className="form-group">
-  //           <label htmlFor="milestoneNotes">Notes</label>
-  //           <textarea
-  //             className="form-control"
-  //             id="milestoneNotes"
-  //             rows="3"
-  //             name="notes"
-  //             onChange={props.handleInput}
-  //           />
-  //         </div>
-  //         <button
-  //           type="button"
-  //           className="btn btn-primary"
-  //           onClick={props.addMilestone}
-  //         >
-  //           Add
-  //         </button>
-  //       </form>
-  //     );
-  //   }
+    //     return (
+    //       <form>
+    //         <div className="form-group">
+    //           <label htmlFor="milestoneTitle">Title</label>
+    //           <input
+    //             type="text"
+    //             name="title"
+    //             className="form-control"
+    //             id="milestoneTitle"
+    //             placeholder=""
+    //             onChange={props.handleInput}
+    //           />
+    //         </div>
+    //         <div className="form-group">
+    //           <label htmlFor="milestoneFrequency">Select Milestone Frequency</label>
+    //           <select
+    //             className="form-control"
+    //             id="milestoneFrequency"
+    //             name="frequency"
+    //             onChange={props.handleInput}
+    //           >
+    //             <option>Never</option>
+    //             <option>Daily</option>
+    //             <option>Weekly</option>
+    //             <option>Monthly</option>
+    //           </select>
+    //         </div>
+
+    // <div className="form-group">
+    //   <label htmlFor="milestoneStart">Start Date</label>
+    //   <input
+    //     name="startDate"
+    //     type="text"
+    //     className="form-control"
+    //     id="milestoneStart"
+    //     placeholder=""
+    //     onChange={props.handleInput}
+    //   />
+    // </div>
+    // <div className="form-group">
+    //   <label htmlFor="milestoneEnd">End Date</label>
+    //   <input
+    //     name="endDate"
+    //     type="text"
+    //     className="form-control"
+    //     id="milestoneEnd"
+    //     placeholder=""
+    //     onChange={props.handleInput}
+    //   />
+    // </div>
+    //         <div className="form-group">
+    //           <label htmlFor="milestoneNotes">Notes</label>
+    //           <textarea
+    //             className="form-control"
+    //             id="milestoneNotes"
+    //             rows="3"
+    //             name="notes"
+    //             onChange={props.handleInput}
+    //           />
+    //         </div>
+    //         <button
+    //           type="button"
+    //           className="btn btn-primary"
+    //           onClick={props.addMilestone}
+    //         >
+    //           Add
+    //         </button>
+    //       </form>
+    //     );
+  }
 }
 
 export default MilestoneForm;

@@ -19,8 +19,8 @@ function DayCard(props) {
   const [milestoneSelected, setmilestoneSelected] = useState(false);
 
   useEffect(() => {
+    console.log(milestoneSelected);
     API.getMilestoneDate(props.goalId, props.date).then(data => {
-      console.log(data);
       const milestones = {
         completed: [],
         incomplete: []
@@ -41,6 +41,20 @@ function DayCard(props) {
     });
   }, [reRender, props.goalId]);
 
+  useEffect(() => {
+    document.addEventListener("click", event => {
+      console.log(event.target.className);
+      console.log("running");
+      if (event.target.className === "day-event-item") {
+        return false;
+      } else if (milestoneSelected) {
+        console.log("if statement");
+        setmilestoneSelected(false);
+        setreRender(!reRender);
+      }
+    });
+  }, [milestoneSelected]);
+
   const openMilestoneForm = event => {
     event.preventDefault();
     setmodalOpen(true);
@@ -52,6 +66,13 @@ function DayCard(props) {
       info: true
     };
     API.editMilestone(milestoneSelected, data).then(() => {
+      setmilestoneSelected(false);
+      setreRender(!reRender);
+    });
+  };
+
+  const deleteTask = () => {
+    API.deleteMilestone(milestoneSelected).then(() => {
       setmilestoneSelected(false);
       setreRender(!reRender);
     });
@@ -74,6 +95,7 @@ function DayCard(props) {
     <>
       {modalOpen ? (
         <MilestoneForm
+          date={props.date}
           userId={props.userId}
           goalId={props.goalId}
           close={cancel}
@@ -100,10 +122,20 @@ function DayCard(props) {
             <p style={{ fontSize: "15px", marginLeft: "5px" }}>Todo</p>
             {milestoneSelected ? (
               <div>
-                <i className="material-icons" onClick={completeTask}>
+                <i
+                  className="material-icons day-card-button"
+                  onClick={completeTask}
+                  style={{ color: "#e2e77d", cursor: "pointer" }}
+                >
                   check_box
                 </i>
-                <i className="material-icons">delete_forever</i>
+                <i
+                  className="material-icons day-card-button"
+                  onClick={deleteTask}
+                  style={{ color: "#d50000", cursor: "pointer" }}
+                >
+                  delete_forever
+                </i>
               </div>
             ) : (
               ""
