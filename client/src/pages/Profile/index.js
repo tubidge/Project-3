@@ -13,6 +13,7 @@ const Profile = () => {
   const [, setIsLoading] = useState(true);
   const [newUser, setNew] = useState(true);
   const [userData, setUserData] = useState({});
+
   useEffect(() => {
     getUserProfile();
   }, []);
@@ -26,7 +27,6 @@ const Profile = () => {
       if (res.data.created !== undefined) {
         setNew(false);
       }
-      setIsLoading(false);
     });
   };
 

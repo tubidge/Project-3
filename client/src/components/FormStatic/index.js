@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import M from "materialize-css";
-
 import API from "../../utils/API";
 import FileUpload from "../FileUpload";
 import "./style.css";
@@ -10,8 +9,6 @@ const FormStatic = props => {
   const [username_db, setUsername_db] = useState(props.username);
   const [firstName_db, setFirstName_db] = useState(props.firstName);
   const [lastName_db, setLastName_db] = useState(props.lastName);
-  // const [disabled, setDisabled] = useState(true);
-  // const [edit, setEdit] = useState("Save");
 
   useEffect(() => {
     setUsername_db(props.username);

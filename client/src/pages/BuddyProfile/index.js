@@ -130,6 +130,7 @@ const BuddyProfile = props => {
             email={buddyData.email}
             incompleteGoals={buddyIncompleteGoals}
             buddies={allBuddies ? getUnique(allBuddies, "username") : null}
+            buddyProfile={true}
           />
         </div>
         <div className="row">

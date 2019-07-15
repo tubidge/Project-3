@@ -8,7 +8,6 @@ import Loading from "../../components/Loading";
 import UserProfile from "../../components/UserProfile";
 import BuddyList from "../../components/BuddyList";
 import GoalCard from "../../components/GoalCard";
-import Modal from "../../components/Modal";
 import Cal from "../../components/Calendar";
 
 import "./style.css";
@@ -140,12 +139,14 @@ const Dashboard = () => {
         <div style={{ marginTop: "20px", marginBottom: "20px" }} />
         <div className="col l8 s12">{renderGoalCards()}</div>
         <div className="col s1 nextArrow">
-          <span>
-            <FontAwesomeIcon
-              onClick={() => cycleCategories()}
-              icon={faChevronRight}
-            />
-          </span>
+          {activeCategories.length >= 2 && (
+            <span>
+              <FontAwesomeIcon
+                onClick={() => cycleCategories()}
+                icon={faChevronRight}
+              />
+            </span>
+          )}
         </div>
         <div className="row">
           <div className="col l8 s12 center-align">

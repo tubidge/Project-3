@@ -161,9 +161,10 @@ const Buddies = () => {
       <div className="container">
         <h1 className="text-center">Search for Buddies</h1>
         <div className="row">
+          {matchesFound.length > 0 ? <h4>Your Matches</h4> : null}
           {matchesFound &&
             matchesFound.map(match => (
-              <div key={match.userId} className="col s4">
+              <div key={match.userId} className="col s3">
                 <div className="card">
                   <div className="card-content">
                     <div className="card-title">{match.username}</div>

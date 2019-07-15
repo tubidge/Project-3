@@ -75,6 +75,7 @@ const Navbar = () => {
                 <li>
                   <Link to="/buddies">Find Buddies</Link>
                 </li>
+
                 <li>
                   <a
                     className="dropdown-trigger"

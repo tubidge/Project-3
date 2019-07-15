@@ -14,7 +14,7 @@ const UserProfile = props => {
               src={props.userPicture}
             />
           </div>
-          <Link to="/profile">Edit Picture</Link>
+          {!props.buddyProfile && <Link to="/profile">Edit Picture</Link>}
           <div>
             {props.username}
             <br />
