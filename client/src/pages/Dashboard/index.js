@@ -53,15 +53,22 @@ const Dashboard = () => {
           setAllBuddies(userData.buddies.allBuddies);
         }
         setIncompleteGoals(goalData.currentGoals.incomplete);
-        setCategories(
-          goalData.currentGoals.incomplete
-            .map(goal => goal.category)
-            .reduce(
-              (unique, item) =>
-                unique.includes(item) ? unique : [...unique, item],
-              []
-            )
-        );
+        setCategories([
+          "Fitness",
+          "Education",
+          "Wellness",
+          "Financial",
+          "Travel"
+        ]);
+        // setCategories(
+        //   goalData.currentGoals.incomplete
+        //     .map(goal => goal.category)
+        //     .reduce(
+        //       (unique, item) =>
+        //         unique.includes(item) ? unique : [...unique, item],
+        //       []
+        //     )
+        // );
         setIsLoading(false);
       });
     });
@@ -69,10 +76,8 @@ const Dashboard = () => {
 
   const renderGoalCards = () => {
     activeCategories = [];
-    stopIndex = categories.length;
-    if (categories.length > 3) {
-      stopIndex = 3;
-    }
+    stopIndex = 3;
+
     for (let i = 0; i < stopIndex; i++) {
       activeCategories.push(categories[i]);
     }
@@ -89,13 +94,11 @@ const Dashboard = () => {
 
   // Cycle through categories on arrow click
   const cycleCategories = () => {
-    if (stopIndex === 3) {
-      activeCategories = [];
-      categories.push(categories.shift());
-      console.log(`All Categories: ${categories}`);
-      for (let i = 0; i < stopIndex; i++) {
-        activeCategories.push(categories[i]);
-      }
+    activeCategories = [];
+    // categories.push(categories.shift());
+    categories.push(categories.shift());
+    for (let i = 0; i < stopIndex; i++) {
+      activeCategories.push(categories[i]);
     }
     setActive(activeCategories);
     console.log(`Active Categories: ${active}`);
@@ -139,7 +142,7 @@ const Dashboard = () => {
         <div style={{ marginTop: "20px", marginBottom: "20px" }} />
         <div className="col l8 s12">{renderGoalCards()}</div>
         <div className="col s1 nextArrow">
-          {activeCategories.length >= 2 && (
+          {activeCategories.length >= 3 && (
             <span>
               <FontAwesomeIcon
                 onClick={() => cycleCategories()}

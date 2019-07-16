@@ -25,6 +25,7 @@ const BuddyProfile = props => {
   const [allBuddies, setAllBuddies] = useState([]);
 
   useEffect(() => {
+    console.log(user);
     getBuddyData();
     getUserData();
   }, []);

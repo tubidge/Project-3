@@ -17,6 +17,10 @@ export default {
     return axios.get("/user/" + id);
   },
 
+  getUserByUsername: username => {
+    return axios.get("/user/basic/" + username);
+  },
+
   getUserByEmail: email => {
     return axios.get("/user/email/" + email);
   },

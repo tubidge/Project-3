@@ -80,6 +80,17 @@ module.exports = app => {
       });
   });
 
+  app.get("/user/basic/:username", (req, res) => {
+    user
+      .getBasicUserByUsername(req.params.username)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
+
   app.get("/user/goal/:id", (req, res) => {
     user
       .getUserByGoal(req.params.id)

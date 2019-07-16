@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Autocomplete } from "react-materialize";
-import { useAuth0 } from "../../react-auth0-spa";
-import API from "../../utils/API";
 import Loading from "../../components/Loading";
 import FindingBuddy from "../../components/FindingBuddy";
+import API from "../../utils/API";
+
+// Depenencies
+import { Autocomplete } from "react-materialize";
+import { useAuth0 } from "../../react-auth0-spa";
 import Fuse from "fuse.js";
+
 import "./style.css";
 
 const Buddies = () => {
@@ -15,13 +18,14 @@ const Buddies = () => {
   const [users, setUsers] = useState([]);
   const [goals, setGoals] = useState([]);
   const [buddyGoals, setBuddyGoals] = useState([]);
-  const [autocompleteData, setAutocompleteData] = useState([]);
   const [matchesFound, setMatchesFound] = useState([]);
+  const [autocompleteData, setAutocompleteData] = useState([]);
+  const [search, setSearch] = useState("");
 
   // for fuse.js
   const options = {
     shouldSort: true,
-    threshold: 0.7, // lower value will result in a more exact match
+    threshold: 0.5, // lower value will result in a more exact match
     includeScore: true,
     location: 0,
     distance: 100,
@@ -32,13 +36,13 @@ const Buddies = () => {
 
   let data;
   let matches = [];
+  // end of buddy match variables
 
   useEffect(() => {
     // Get all goals from all users
     let results = [];
     let currentUser = user.email;
     API.getAllUsers().then(res => {
-      console.log(res.data);
       const removedCurrentUser = res.data.filter(
         user => user.email !== currentUser
       );
@@ -63,7 +67,6 @@ const Buddies = () => {
         let { username } = user;
         return { ...acc, [username]: null };
       }, {});
-
       data = {
         data
       };
@@ -77,19 +80,30 @@ const Buddies = () => {
 
   const getUserGoals = () => {
     API.getUserByEmail(user.email).then(resp => {
-      let userData = resp.data;
-      API.getAllGoals(userData.id).then(res => {
-        console.log(res.data);
-        let goalData = res.data;
-        setGoals(goalData.currentGoals.incomplete);
+      API.getAllGoals(resp.data.id).then(res => {
+        setGoals(res.data.currentGoals.incomplete);
         setIsLoading(false);
       });
     });
   };
 
-  const showBuddyProfile = id => {
-    window.location.assign("/buddy-profile/" + id);
+  const getUnique = (arr, comp) => {
+    const unique = arr
+      .map(e => e[comp])
+      // store the keys of the unique objects
+      .map((e, i, final) => final.indexOf(e) === i && i)
+      // eliminate the dead keys & store unique objects
+      .filter(e => arr[e])
+      .map(e => arr[e]);
+    return unique;
   };
+
+  // const searchUsers = () => {
+  //   console.log(search);
+  //   API.getUserByUsername(search).then(res => {
+  //     console.log(res.data);
+  //   });
+  // };
 
   const findBuddy = () => {
     setFindingBuddy(true);
@@ -97,11 +111,9 @@ const Buddies = () => {
       setFindingBuddy(false);
     }, 5000);
 
-    let result;
     let fuse = new Fuse(buddyGoals, options); // buddyGoals is an array
     const goalMatches = goals.map(goal => {
-      result = fuse.search(goal.name);
-      return result;
+      return fuse.search(goal.name);
     });
     console.log(
       "==============================================================="
@@ -141,7 +153,7 @@ const Buddies = () => {
             userId: userId
           };
           matches.push(topMatch);
-          console.log(matches);
+          console.log(topMatch);
         });
         setMatchesFound(matches);
       }
@@ -163,13 +175,13 @@ const Buddies = () => {
         <div className="row">
           {matchesFound.length > 0 ? <h4>Your Matches</h4> : null}
           {matchesFound &&
-            matchesFound.map(match => (
+            getUnique(matchesFound, "goalId").map(match => (
               <div key={match.userId} className="col s3">
                 <div className="card">
                   <div className="card-content">
                     <div className="card-title">{match.username}</div>
                     <p>{match.goalName}</p>
-                    <Link to={`/buddy-profile/${match.userId}`}>
+                    <Link to={`/buddy-profile/${match.userId}`} target="_blank">
                       View Profile
                     </Link>
                   </div>
@@ -178,7 +190,13 @@ const Buddies = () => {
             ))}
         </div>
 
-        <Autocomplete options={autocompleteData} placeholder="username" />
+        <Autocomplete
+          options={autocompleteData}
+          placeholder="username"
+          type="text"
+          name="username"
+          onChange={e => setSearch(e.target.value)}
+        />
         <div className="row">
           <div className="col-sm-6 mx-auto">
             <div className="input-field mb-3">
@@ -187,6 +205,7 @@ const Buddies = () => {
                   style={{ marginRight: "10px" }}
                   className="btn grey darken-3"
                   type="button"
+                  // onClick={searchUsers}
                 >
                   Search
                 </button>
@@ -211,9 +230,7 @@ const Buddies = () => {
                     />
                     <span className="title">{user.username}</span>
                     <p>{`${user.firstName} ${user.lastName}`}</p>
-                    <Link to="#" onClick={() => showBuddyProfile(user.id)}>
-                      View Profile
-                    </Link>
+                    <Link to={`/buddy-profile/${user.id}`}>View Profile</Link>
                   </li>
                 ))}
               </ul>
