@@ -8,7 +8,7 @@ function MilestoneForm(props) {
   const [frequency, setFrequency] = useState("Never");
   const [due, setDue] = useState(props.date);
   const [notes, setNotes] = useState();
-  const [start, setStart] = useState();
+  const [start, setStart] = useState(props.date);
   const [end, setEnd] = useState();
 
   useEffect(() => {
@@ -68,9 +68,15 @@ function MilestoneForm(props) {
       UserId: props.userId
     };
     console.log(data);
+
+    const callback = () => {
+      console.log(data.frequency);
+      props.close(data.frequency);
+    };
+
     API.addMilestone(data).then(data => {
       console.log(data);
-      props.close();
+      callback();
     });
   };
   if (frequency === "Never") {
@@ -194,6 +200,7 @@ function MilestoneForm(props) {
                   className="validate"
                   id="milestoneStart"
                   placeholder=""
+                  value={props.date ? props.date : ""}
                   onChange={handleInput}
                 />
                 <label htmlFor="milestoneStart">Start Date</label>

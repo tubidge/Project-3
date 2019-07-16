@@ -348,9 +348,9 @@ const Milestone = {
         .then(resp => {
           let results;
           if (resp == 1) {
-            results = "Buddy relation deleted";
+            results = "Milestone Deleted";
           } else {
-            results = "Error in deleteing relation";
+            results = "Error in deleteing milestone";
           }
 
           resolve(results);

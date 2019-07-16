@@ -15,7 +15,7 @@ const Goals = props => {
   const [isLoading, setIsLoading] = useState(true);
   const [incompleteGoals, setIncompleteGoals] = useState([]);
   const [userInfo, setUserInfo] = useState({});
-  const [, setGoalInfo] = useState({});
+  const [goalInfo, setGoalInfo] = useState({});
   const [categories, setCategories] = useState([]);
   const [allBuddies, setAllBuddies] = useState();
   const [currentGoal, setCurrentGoal] = useState(false);
@@ -24,7 +24,7 @@ const Goals = props => {
   useEffect(() => {
     M.AutoInit();
     getAllData();
-  }, [currentGoal]);
+  }, [currentGoal, reRender]);
 
   const getAllData = () => {
     API.getUserByEmail(user.email).then(resp => {
@@ -87,6 +87,10 @@ const Goals = props => {
     setCurrentGoal(false);
   };
 
+  const orderRender = () => {
+    console.log("goal page render");
+    setreRender(!reRender);
+  };
   return (
     <>
       <section className="container">
@@ -127,7 +131,11 @@ const Goals = props => {
             </div>
             <div className="col s10">
               {currentGoal ? (
-                <GoalDetail userId={userInfo.id} goal={currentGoal} />
+                <GoalDetail
+                  userId={userInfo.id}
+                  goal={currentGoal}
+                  orderRender={orderRender}
+                />
               ) : (
                 ""
               )}
@@ -141,7 +149,15 @@ const Goals = props => {
               </ul>
             </div>
             <div className="col s10">
-              {currentGoal ? <GoalDetail goal={currentGoal} /> : ""}
+              {currentGoal ? (
+                <GoalDetail
+                  userId={userInfo.id}
+                  goal={currentGoal}
+                  orderRender={orderRender}
+                />
+              ) : (
+                ""
+              )}
             </div>
           </div>
 
@@ -152,7 +168,15 @@ const Goals = props => {
               </ul>
             </div>
             <div className="col s10">
-              {currentGoal ? <GoalDetail goal={currentGoal} /> : ""}
+              {currentGoal ? (
+                <GoalDetail
+                  userId={userInfo.id}
+                  goal={currentGoal}
+                  orderRender={orderRender}
+                />
+              ) : (
+                ""
+              )}
             </div>
           </div>
 
@@ -163,7 +187,15 @@ const Goals = props => {
               </ul>
             </div>
             <div className="col s10">
-              {currentGoal ? <GoalDetail goal={currentGoal} /> : ""}
+              {currentGoal ? (
+                <GoalDetail
+                  userId={userInfo.id}
+                  goal={currentGoal}
+                  orderRender={orderRender}
+                />
+              ) : (
+                ""
+              )}
             </div>
           </div>
 
@@ -172,7 +204,15 @@ const Goals = props => {
               <ul className="goal-tabs">{renderGoalsForCategory("Travel")}</ul>
             </div>
             <div className="col s10">
-              {currentGoal ? <GoalDetail goal={currentGoal} /> : ""}
+              {currentGoal ? (
+                <GoalDetail
+                  userId={userInfo.id}
+                  goal={currentGoal}
+                  orderRender={orderRender}
+                />
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </div>

@@ -17,9 +17,9 @@ function DayCard(props) {
   const [total, setTotal] = useState(0);
   const [complete, setComplete] = useState(0);
   const [milestoneSelected, setmilestoneSelected] = useState(false);
+  const [allRender, setAllRender] = useState(props.status);
 
   useEffect(() => {
-    console.log(milestoneSelected);
     API.getMilestoneDate(props.goalId, props.date).then(data => {
       const milestones = {
         completed: [],
@@ -43,12 +43,9 @@ function DayCard(props) {
 
   useEffect(() => {
     document.addEventListener("click", event => {
-      console.log(event.target.className);
-      console.log("running");
       if (event.target.className === "day-event-item") {
         return false;
       } else if (milestoneSelected) {
-        console.log("if statement");
         setmilestoneSelected(false);
         setreRender(!reRender);
       }
@@ -72,7 +69,8 @@ function DayCard(props) {
   };
 
   const deleteTask = () => {
-    API.deleteMilestone(milestoneSelected).then(() => {
+    API.deleteMilestone(milestoneSelected).then(data => {
+      console.log(data);
       setmilestoneSelected(false);
       setreRender(!reRender);
     });
@@ -82,7 +80,13 @@ function DayCard(props) {
     setmilestoneSelected(id);
   };
 
-  const cancel = () => {
+  const cancel = header => {
+    console.log(header);
+    if (header !== "Never") {
+      console.log(props);
+      console.log("render ordered");
+      props.reRender();
+    }
     setmodalOpen(false);
     setreRender(!reRender);
   };

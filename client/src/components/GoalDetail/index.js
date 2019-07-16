@@ -15,14 +15,20 @@ function GoalDetail(props) {
     console.log(props.goal);
     setGoal(props.goal);
     configureDays();
-  }, [props.goal]);
+  }, [props.goal, reRender]);
+
+  const orderRender = () => {
+    console.log("running good");
+    props.orderRender();
+    setreRender(!reRender);
+  };
 
   const configureDays = () => {
     let arrDays = [];
     for (var i = 0; i < 5; i++) {
-      let num = [i + 1];
+      // let num = [i + 1];
       let day = moment()
-        .add(`${num}`, "days")
+        .add(`${i}`, "days")
         .format("YYYY-MM-DD");
 
       arrDays.push(day);
@@ -80,11 +86,12 @@ function GoalDetail(props) {
           {days.map(index => {
             return (
               <DayCard
+                key={index.date}
+                reRender={orderRender}
                 userId={props.userId}
                 goalId={goal.id}
                 date={index.date}
-                completed={index.completedMilestone}
-                incomplete={index.incompleteMilestone}
+                status={reRender}
               />
             );
           })}
