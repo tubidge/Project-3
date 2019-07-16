@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import API from "../../utils/API";
 import M from "materialize-css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHome } from "@fortawesome/free-solid-svg-icons";
+
+import API from "../../utils/API";
 import { useAuth0 } from "../../react-auth0-spa";
+import "./style.css";
 
 const Navbar = () => {
   const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
@@ -26,68 +30,57 @@ const Navbar = () => {
     <>
       {isAuthenticated && (
         <>
-          {/* Dropdown menu */}
-          <ul id="dropdown1" className="dropdown-content">
-            <li>
-              <Link to="/dashboard">Dashboard</Link>
-            </li>
-            <li>
-              <Link to="/goals">Goals</Link>
-            </li>
-            <li>
-              <Link to="/profile">Profile</Link>
-            </li>
-            <li className="divider" />
-            {!isAuthenticated && (
-              <li>
-                <span
-                  onClick={() =>
-                    loginWithRedirect({
-                      redirect_uri: window.location.origin
-                    })
-                  }
+          <div class="navbar-fixed">
+            <nav>
+              <div className="nav-wrapper">
+                <Link to="/dashboard" className="brand-logo">
+                  <FontAwesomeIcon icon={faHome} />
+                </Link>
+                <Link
+                  to="#"
+                  data-target="mobile-demo"
+                  className="sidenav-trigger"
                 >
-                  Login
-                </span>
-              </li>
-            )}
-            {isAuthenticated && (
-              <li>
-                <span onClick={() => logoutWithRedirect()}>Logout</span>
-              </li>
-            )}
-          </ul>
-          {/* Dropdown menu end */}
-
-          <nav className="grey darken-4">
-            <div className="nav-wrapper">
-              <Link to="/dashboard" className="brand-logo">
-                GoalDen
-              </Link>
-              <Link
-                to="#"
-                data-target="mobile-demo"
-                className="sidenav-trigger"
-              >
-                <i className="material-icons">menu</i>
-              </Link>
-              <ul className="right hide-on-med-and-down">
-                <li>
-                  <Link to="/buddies">Find Buddies</Link>
-                </li>
-
-                <li>
-                  <a
-                    className="dropdown-trigger"
-                    href="#!"
-                    data-target="dropdown1"
-                  >
-                    <i className="material-icons right">arrow_drop_down</i>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </nav>
+                  <i className="material-icons">menu</i>
+                </Link>
+                <ul className="right hide-on-med-and-down">
+                  <li>
+                    <Link to="/buddies">Find Buddies</Link>
+                  </li>
+                  <li>
+                    <Link to="/profile">Profile</Link>
+                  </li>
+                  <li>
+                    <Link to="/goals">Goals</Link>
+                  </li>
+                  {!isAuthenticated && (
+                    <li>
+                      <span
+                        className="btn login"
+                        onClick={() =>
+                          loginWithRedirect({
+                            redirect_uri: window.location.origin
+                          })
+                        }
+                      >
+                        Login
+                      </span>
+                    </li>
+                  )}
+                  {isAuthenticated && (
+                    <li>
+                      <button
+                        className="btn logout"
+                        onClick={() => logoutWithRedirect()}
+                      >
+                        Logout
+                      </button>
+                    </li>
+                  )}
+                </ul>
+              </div>
+            </nav>
+          </div>
 
           {/* mobile menu */}
           <ul className="sidenav" id="mobile-demo">
@@ -104,7 +97,7 @@ const Navbar = () => {
             {!isAuthenticated && (
               <li>
                 <span
-                  style={{ cursor: "pointer" }}
+                  className="loginMobile"
                   onClick={() =>
                     loginWithRedirect({
                       redirect_uri: window.location.origin
@@ -118,7 +111,7 @@ const Navbar = () => {
             {isAuthenticated && (
               <li>
                 <span
-                  style={{ cursor: "pointer" }}
+                  className="logoutMobile"
                   onClick={() => logoutWithRedirect()}
                 >
                   Logout
