@@ -4,18 +4,46 @@ import ProgressBar from "../ProgressBar";
 import moment from "moment";
 import Loading from "../../components/Loading";
 import DayCard from "../DayCard";
+import API from "../../utils/API";
 
 function GoalDetail(props) {
   const [goal, setGoal] = useState({});
   const [days, setDays] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [reRender, setreRender] = useState(false);
+  const [total, setTotal] = useState();
+  const [percentage, setPercentage] = useState();
 
   useEffect(() => {
     console.log(props.goal);
-    setGoal(props.goal);
-    configureDays();
+    API.getGoal(props.goal.id).then(resp => {
+      console.log(resp);
+      setGoal(resp.data);
+      let total =
+        resp.data.milestones.complete.length +
+        resp.data.milestones.incomplete.length;
+      console.log(total);
+      setTotal(total);
+      let progress = resp.data.milestones.complete.length;
+      let percentage = progress / total;
+      console.log(percentage);
+      setPercentage(percentage);
+      configureDays();
+    });
   }, [props.goal, reRender]);
+
+  // useEffect(() => {
+  //   if (goal.milestones) {
+  //     let total =
+  //       goal.milestones.completed.length + goal.milestones.incomplete.length;
+  //     console.log(total);
+  //     setTotal(total);
+  //     let progress = goal.milestones.completed.length;
+  //     let percentage = progress / total;
+  //     console.log(percentage);
+  //     setPercentage(percentage);
+  //   }
+  // }, []);
 
   const orderRender = () => {
     console.log("running good");
@@ -63,6 +91,27 @@ function GoalDetail(props) {
     setIsLoading(false);
   };
 
+  const handleInput = event => {
+    let value = event.target.value;
+    let name = event.target.name;
+    console.log(value);
+    console.log(name);
+
+    switch (name) {
+      case "private":
+        let privacy = !goal.private;
+        let data = {
+          colName: "private",
+          info: privacy
+        };
+        API.editGoal(goal.id, data).then(resp => {
+          console.log(resp);
+          setreRender(!reRender);
+        });
+        break;
+    }
+  };
+
   if (isLoading) {
     return <Loading />;
   }
@@ -76,12 +125,33 @@ function GoalDetail(props) {
             {/* <div className="goal-page-progressBar">
               <ProgressBar />
             </div> */}
-            <p className="goal-page-privacy white-text">
-              {goal.private ? "Private" : "Public"}
-            </p>
+            <div className="switch">
+              <p className="goal-page-privacy white-text">
+                {goal.private ? "Private" : "Public"}
+              </p>
+              <div className="goal-privacy-checkbox">
+                <label>
+                  <input
+                    onChange={handleInput}
+                    type="checkbox"
+                    name="private"
+                    checked={goal.private ? "checked" : ""}
+                  />
+                  <span className="lever" />
+                </label>
+              </div>
+            </div>
           </div>
           <h3 className="goal-page-title white-text">{goal.name}</h3>
         </div>
+        <div className="row">
+          <div className="col s6 offset-s3">
+            <div className="">
+              <ProgressBar total={total} percentage={percentage} />
+            </div>
+          </div>
+        </div>
+
         <div className="goal-page-upcomingView">
           {days.map(index => {
             return (
