@@ -4,6 +4,7 @@ import { useAuth0 } from "../../react-auth0-spa";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import API from "../../utils/API";
+import Footer from "../../components/Footer";
 import Loading from "../../components/Loading";
 import UserProfile from "../../components/UserProfile";
 import BuddyList from "../../components/BuddyList";
@@ -154,6 +155,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };
