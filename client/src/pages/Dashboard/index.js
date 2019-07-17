@@ -150,7 +150,7 @@ const Dashboard = () => {
           )}
         </div>
         <div className="row">
-          <div className="col l8 s12 center-align">
+          <div className="calendar col l8 s12 center-align">
             <Cal userId={userInfo.id} orderRender={orderRender} />{" "}
           </div>
         </div>

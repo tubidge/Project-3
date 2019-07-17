@@ -34,23 +34,23 @@ export default class Cal extends React.Component {
         };
         switch (event.category) {
           case "Fitness":
-            event.backgroundColor = "#C65BC0";
+            event.backgroundColor = "#34495e";
             results.push(event);
             break;
           case "Education":
-            event.backgroundColor = "#25629F";
+            event.backgroundColor = "#BDBDBD";
             results.push(event);
             break;
           case "Financial":
-            event.backgroundColor = "#4CA824";
+            event.backgroundColor = "#d4ac0d";
             results.push(event);
             break;
           case "Wellness":
-            event.backgroundColor = "#93BCE6";
+            event.backgroundColor = "#5d6d7e";
             results.push(event);
             break;
           case "Travel":
-            event.backgroundColor = "#808B96";
+            event.backgroundColor = "#8e793e";
             results.push(event);
             break;
         }
@@ -65,23 +65,23 @@ export default class Cal extends React.Component {
         };
         switch (event.category) {
           case "Fitness":
-            event.backgroundColor = "#C65BC0";
+            event.backgroundColor = "#34495e";
             results.push(event);
             break;
           case "Education":
-            event.backgroundColor = "#25629F";
+            event.backgroundColor = "#bdbdbd";
             results.push(event);
             break;
           case "Financial":
-            event.backgroundColor = "#4CA824";
+            event.backgroundColor = "#d4ac0d";
             results.push(event);
             break;
           case "Wellness":
-            event.backgroundColor = "#93BCE6";
+            event.backgroundColor = "#5d6d7e";
             results.push(event);
             break;
           case "Travel":
-            event.backgroundColor = "#808B96";
+            event.backgroundColor = "#8e793e";
             results.push(event);
             break;
         }
@@ -118,6 +118,7 @@ export default class Cal extends React.Component {
       <div>
         <>
           <FullCalendar
+            className="grey-lighten-4"
             dateClick={this.handleDateClick}
             plugins={[dayGridPlugin]}
             defaultView="dayGridMonth"
