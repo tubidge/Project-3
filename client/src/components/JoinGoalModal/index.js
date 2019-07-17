@@ -26,6 +26,9 @@ const JoinGoalModal = props => {
       <Link to="#" className={props.className} data-target={props.dataTarget}>
         {props.btnName}
       </Link>
+      {/* <Link to="#" className={props.className} data-target={props.dataTarget}>
+        {props.btnName}
+      </Link> */}
       <div id={props.dataTarget} className="modal">
         <div className="modal-content">
           <div className="collection">
