@@ -8,10 +8,10 @@ module.exports = app => {
     console.log(req.body);
     // const userMilestone = req.body.data;
     let userMilestone = {
-      name: "Save Money",
+      name: "Eat Healthy",
       frequency: "Weekly",
-      startDate: "2019-07-12",
-      endDate: "2019-11-01",
+      startDate: "2019-07-15",
+      endDate: "2019-8-05",
       UserId: 10,
       GoalId: 18
     };

@@ -1,0 +1,23 @@
+.nav-color {
+  background-color: #1c2833;
+}
+
+.app-title {
+  color: #d4ac0d;
+  font-size: 30px;
+  margin-left: 15px;
+}
+
+.options {
+  color: #d4ac0d;
+  font-size: 16px;
+}
+.dropdown-content {
+  background-color: #1c2833 !important;
+}
+.dropdown-text {
+  color: #d4ac0d !important;
+  border-bottom-width: 10px;
+
+  border-bottom-color: #d4ac0d;
+}

@@ -1,9 +1,9 @@
 body {
-  background-color: white;
+  background-color: #dcdcdc;
 }
 
 #purpose {
-  background-color: rgb(235, 240, 243);
+  background-color: white;
 }
 
 #team {
@@ -13,7 +13,9 @@ body {
   margin-bottom: 50px;
   font-size: 20px;
 }
-
+.team-title {
+  margin-left: 20px;
+}
 #contact {
   font-family: "Anton", sans-serif;
   background-color: white;
@@ -28,17 +30,20 @@ body {
 
 hr {
   border: 0.5px solid !important;
+  color: #d4ac0d;
 }
 
 .signUp {
   margin-top: 10px;
   margin-left: 10px;
   margin-right: 10px;
+  background-color: #d4ac0d !important;
 }
 .login {
   margin-top: 10px;
   margin-right: 30px;
   margin-left: 10px;
+  background-color: #d4ac0d !important;
 }
 .people {
   max-width: 100%;
@@ -76,11 +81,17 @@ hr {
 .bridge {
   filter: brightness(0.8);
 }
-
+#bridge-container {
+  max-height: 600px !important;
+}
 #quote {
   margin-bottom: 250px;
 }
 
 #purposeTitle {
   font-family: "Anton", sans-serif;
+}
+
+#sendButton {
+  background-color: #d4ac0d !important;
 }

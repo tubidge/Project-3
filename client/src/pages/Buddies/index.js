@@ -5,6 +5,7 @@ import { useAuth0 } from "../../react-auth0-spa";
 import API from "../../utils/API";
 import Loading from "../../components/Loading";
 import FindingBuddy from "../../components/FindingBuddy";
+import Footer from "../../components/Footer";
 import Fuse from "fuse.js";
 import "./style.css";
 
@@ -145,9 +146,10 @@ const Buddies = () => {
   }
 
   return (
-    <div className="container">
-      {/* Use this section to match goals */}
-      {/* <div className="row">
+    <div>
+      <div className="container">
+        {/* Use this section to match goals */}
+        {/* <div className="row">
         <div className="col s6">
           <h5>All User's Goals</h5>
           {buddyGoals.map(goal => (
@@ -165,51 +167,53 @@ const Buddies = () => {
           ))}
         </div>
       </div> */}
-      {/* End of matching section */}
+        {/* End of matching section */}
 
-      <h1 className="text-center">Search for Buddies</h1>
-      <Autocomplete options={autocompleteData} placeholder="username" />
-      <div className="row">
-        <div className="col-sm-6 mx-auto">
-          <div className="input-field mb-3">
-            <div className="input-group-append">
-              <button
-                style={{ marginRight: "10px" }}
-                className="btn grey darken-3"
-                type="button"
-              >
-                Search
-              </button>
-              <button className="btn amber darken-1" onClick={findBuddy}>
-                Find a Buddy
-              </button>
+        <h1 className="text-center">Search for Buddies</h1>
+        <Autocomplete options={autocompleteData} placeholder="username" />
+        <div className="row">
+          <div className="col-sm-6 mx-auto">
+            <div className="input-field mb-3">
+              <div className="input-group-append">
+                <button
+                  style={{ marginRight: "10px" }}
+                  className="btn grey darken-3"
+                  type="button"
+                >
+                  Search
+                </button>
+                <button className="btn amber darken-1" onClick={findBuddy}>
+                  Find a Buddy
+                </button>
+              </div>
             </div>
           </div>
         </div>
+        <div>
+          {/* Check to see if any items are found*/}
+          {users.length ? (
+            <>
+              <ul className="collection">
+                {users.map(user => (
+                  <li key={user.id} className="collection-item avatar">
+                    <img
+                      src={user.image}
+                      alt={user.username}
+                      className="circle responsive-img"
+                    />
+                    <span className="title">{user.username}</span>
+                    <p>{`${user.firstName} ${user.lastName}`}</p>
+                    <Link to="#">View Profile</Link>
+                  </li>
+                ))}
+              </ul>
+            </>
+          ) : (
+            <h3>No Results to Display</h3>
+          )}
+        </div>
       </div>
-      <div>
-        {/* Check to see if any items are found*/}
-        {users.length ? (
-          <>
-            <ul className="collection">
-              {users.map(user => (
-                <li key={user.id} className="collection-item avatar">
-                  <img
-                    src={user.image}
-                    alt={user.username}
-                    className="circle responsive-img"
-                  />
-                  <span className="title">{user.username}</span>
-                  <p>{`${user.firstName} ${user.lastName}`}</p>
-                  <Link to="#">View Profile</Link>
-                </li>
-              ))}
-            </ul>
-          </>
-        ) : (
-          <h3>No Results to Display</h3>
-        )}
-      </div>
+      <Footer />
     </div>
   );
 };

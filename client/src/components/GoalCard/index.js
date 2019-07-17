@@ -26,13 +26,18 @@ const GoalCard = props => {
     );
     return result.map(goal => (
       <li key={goal.id}>
-        <div className="card-panel grey lighten-4 dark-text">
-          <Link to="/goals" className="truncate">
+        <div className="goal-color card-panel grey lighten-4 dark-text">
+          <div className="goal-due-alert">
+            <i className="material-icons">error</i>
+          </div>
+          <Link to="/goals" className="truncate goal-card-name">
             {goal.name}
           </Link>
-          <Modal
-            className="modal-trigger material-icons"
-            btnName="edit"
+          <p>Due: {goal.dueDate}</p>
+          {/* <Modal
+            style={{ marginRight: "20px" }}
+            className="modal-trigger"
+            btnName="Edit"
             header="Edit"
             text="Edit Goal"
             dataTarget={`editGoal_${goal.id}`}
@@ -52,17 +57,7 @@ const GoalCard = props => {
             action="Yes, I'm sure"
             goalId={goal.id}
             getAllData={props.getAllData}
-          />
-          <Modal
-            className="modal-trigger material-icons"
-            btnName="check"
-            header="Complete"
-            text="Mark as complete?"
-            dataTarget={`markComplete_${goal.id}`}
-            action="Yes, I'm done!"
-            goalId={goal.id}
-            getAllData={props.getAllData}
-          />
+          /> */}
         </div>
       </li>
     ));
@@ -72,25 +67,26 @@ const GoalCard = props => {
     <>
       <div className="col l4 s12">
         <div className="card goalCard">
-          <div className="card-content">
-            <div className="card-title">
-              <span>{props.category}</span>
-              <Modal
-                style={{
-                  marginLeft: "7px",
-                  color: "#ffc400",
-                  fontSize: "35px"
-                }}
-                className="material-icons modal-trigger right"
-                btnName={"add_circle"}
-                header="AddNew"
-                text="Complete this form"
-                dataTarget={`newGoalFromCard_${makeid(5)}`}
-                action="Add"
-                userID={props.userID}
-                getAllData={props.getAllData}
-              />
-            </div>
+          <div className="card-title center-align">
+            <span>{props.category}</span>
+            <Modal
+              style={{
+                marginRight: "5px",
+                color: "#d4ac0d",
+                fontSize: "35px"
+              }}
+              className="material-icons modal-trigger right"
+              btnName={"add_circle"}
+              header="AddNew"
+              text="Complete this form"
+              dataTarget={`newGoalFromCard_${makeid(5)}`}
+              action="Add"
+              userID={props.userID}
+              getAllData={props.getAllData}
+              goalCategory={props.category}
+            />
+          </div>
+          <div className="goal-card-content card-scrollable-content">
             <ul>{renderGoalsForCategories(props.category)}</ul>
           </div>
         </div>

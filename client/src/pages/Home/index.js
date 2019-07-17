@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 import Footer from "../../components/Footer";
 import { useAuth0 } from "../../react-auth0-spa";
 import Dashboard from "../Dashboard";
-import image from "./pics/sea-919042_960_720.jpg";
+import image from "./pics/rocks.jpeg";
 import image2 from "./pics/stairway-1149473_960_720.jpg";
 import josh from "./pics/Josh.jpg";
 import alex from "./pics/Alex.jpg";
 import hunter from "./pics/Hunter.jpg";
+import phil from "./pics/Labor Day Pic.jpg";
 import "./style.css";
 
 const Home = () => {
@@ -19,16 +20,10 @@ const Home = () => {
         <>
           <div id="index-banner" className="parallax-container">
             <div className="section">
-              <Link
-                to="/profile"
-                className="login waves-effect amber accent-3 btn right"
-              >
+              <Link to="/profile" className="login waves-effect btn right">
                 Sign Up
               </Link>
-              <Link
-                to="/dashboard"
-                className=" signUp waves-effect amber accent-3 btn right"
-              >
+              <Link to="/dashboard" className=" signUp waves-effect btn right">
                 Login
               </Link>
               <br />
@@ -41,7 +36,7 @@ const Home = () => {
                 <div className="row">
                   <div className="col s4" />
                   <div className="col s4">
-                    <hr className="hr amber-text text-accent-3" />
+                    <hr className="hr" />
                   </div>
                   <div className="col s4" />
                 </div>
@@ -50,8 +45,8 @@ const Home = () => {
                     GoalDen
                   </div>
                   <div className="center summary">
-                    A new app that helps hold you accountable to achieve your
-                    goals.
+                    A new app that connect you with your friends and complete
+                    your goals together!
                   </div>
                 </div>
               </div>
@@ -71,20 +66,11 @@ const Home = () => {
               <div className="row d-flex justify-content-center mb-4 purpose">
                 <div className="col-md-6">
                   <p className="text">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Quasi voluptate hic provident nulla repellat facere esse
-                    molestiae ipsa labore porro minima quam quaerat rem, natus
-                    repudiandae debitis est sit pariatur.
-                  </p>
-                  <p className="text">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Quasi voluptate hic provident nulla repellat facere esse
-                    molestiae ipsa labore porro minima quam quaerat rem, natus
-                    repudiandae debitis est sit pariatur. Lorem ipsum dolor sit
-                    amet, consectetur adipisicing elit. Quasi voluptate hic
-                    provident nulla repellat facere esse molestiae ipsa labore
-                    porro minima quam quaerat rem, natus repudiandae debitis est
-                    sit pariatur.
+                    The idea behind GoalDen is to help people create and track
+                    their goals, and keep themselves accountable to achieve
+                    them. Being able to connect with other people to join their
+                    goals and chat with them is a great way to hold each other
+                    accountable as well.
                   </p>
                 </div>
               </div>
@@ -93,7 +79,7 @@ const Home = () => {
           <div className="container">
             <div className="section" id="team">
               <div className="col-md-2 mb-5">
-                <h3 className="mb-5 font-weight-bold">Our Team</h3>
+                <h3 className="team-title mb-5 font-weight-bold">Our Team</h3>
                 <div className="row">
                   <div className="col s3 m3">
                     <div className="card">
@@ -122,7 +108,7 @@ const Home = () => {
                   <div className="col s3 m3">
                     <div className="card">
                       <div className="card-image">
-                        <img src={image} />
+                        <img src={phil} />
                       </div>
                       <div className="card-stacked">
                         <div className="card-content">
@@ -152,11 +138,12 @@ const Home = () => {
             <div className="row" id="quote">
               <div className="col m12 bold text-center white-text">
                 <div className="text2">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  "Holding myself accountable has never been so easy. Thank you
+                  GoalDen!" -Heather W.
                 </div>
               </div>
             </div>
-            <div className="parallax">
+            <div className="parallax" id="bridge-container">
               <img className="bridge" src={image2} />
             </div>
           </div>
@@ -198,7 +185,8 @@ const Home = () => {
                           <div className="col m12">
                             <p className="right-align">
                               <button
-                                className="waves-effect amber accent-3 btn"
+                                className="waves-effect btn"
+                                id="sendButton"
                                 type="button"
                                 name="action"
                               >

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import API from "../../utils/API";
 import M from "materialize-css";
 import { useAuth0 } from "../../react-auth0-spa";
+import "./style.css";
 
 const Navbar = () => {
   const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
@@ -28,13 +29,17 @@ const Navbar = () => {
         <>
           {/* Dropdown menu */}
           <ul id="dropdown1" className="dropdown-content">
-            <li>
-              <Link to="/profile">Profile</Link>
+            <li className="button-line-border">
+              <Link to="/profile" className="dropdown-text">
+                Profile
+              </Link>
             </li>
             <li>
-              <Link to="/dashboard">Dashboard</Link>
+              <Link to="/dashboard" className="dropdown-text">
+                Dashboard
+              </Link>
             </li>
-            <li className="divider" />
+            {/* <li className="divider" /> */}
             {!isAuthenticated && (
               <li>
                 <span
@@ -50,15 +55,20 @@ const Navbar = () => {
             )}
             {isAuthenticated && (
               <li>
-                <span onClick={() => logoutWithRedirect()}>Logout</span>
+                <span
+                  style={{ cursor: "pointer", color: "#d4ac0d" }}
+                  onClick={() => logoutWithRedirect()}
+                >
+                  Logout
+                </span>
               </li>
             )}
           </ul>
           {/* Dropdown menu end */}
 
-          <nav className="grey darken-4">
+          <nav className="nav-color">
             <div className="nav-wrapper">
-              <Link to="/dashboard" className="brand-logo">
+              <Link to="/dashboard" className="app-title">
                 GoalDen
               </Link>
               <Link
@@ -70,10 +80,14 @@ const Navbar = () => {
               </Link>
               <ul className="right hide-on-med-and-down">
                 <li>
-                  <Link to="/buddies">Buddies</Link>
+                  <Link to="/buddies" className="options">
+                    Buddies
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/goals">Goals</Link>
+                  <Link to="/goals" className="options">
+                    Goals
+                  </Link>
                 </li>
                 <li>
                   <a
@@ -87,7 +101,9 @@ const Navbar = () => {
                       src={userInfo.image ? userInfo.image : user.picture}
                       alt="Profile"
                     /> */}
-                    <i className="material-icons right">arrow_drop_down</i>
+                    <i className="options material-icons right">
+                      arrow_drop_down
+                    </i>
                   </a>
                 </li>
               </ul>
@@ -97,10 +113,14 @@ const Navbar = () => {
           {/* mobile menu */}
           <ul className="sidenav" id="mobile-demo">
             <li>
-              <Link to="/profile">Profile</Link>
+              <Link to="/profile" className="options">
+                Profile
+              </Link>
             </li>
             <li>
-              <Link to="/dashboard">Dashboard</Link>
+              <Link to="/dashboard" className="options">
+                Dashboard
+              </Link>
             </li>
             <li className="divider" />
             {!isAuthenticated && (
@@ -120,7 +140,7 @@ const Navbar = () => {
             {isAuthenticated && (
               <li>
                 <span
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: "pointer", color: "#d4ac0d" }}
                   onClick={() => logoutWithRedirect()}
                 >
                   Logout

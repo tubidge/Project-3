@@ -1,3 +1,13 @@
 .completed-milestone-cal {
   text-decoration: line-through;
 }
+.fc-left {
+  /* color: white; */
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.calendar {
+  background-color: #f5f5f5;
+  box-shadow: 2px 2px 3px 3px rgb(202, 201, 201);
+}

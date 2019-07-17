@@ -10,6 +10,7 @@ import BuddyList from "../../components/BuddyList";
 import GoalCard from "../../components/GoalCard";
 import Modal from "../../components/Modal";
 import Cal from "../../components/Calendar";
+import Footer from "../../components/Footer";
 
 import "./style.css";
 
@@ -122,18 +123,7 @@ const Dashboard = () => {
           />
           <BuddyList buddies={allBuddies} makeid={makeid} />
         </div>
-        <div style={{ marginTop: "20px", marginBottom: "20px" }}>
-          <Modal
-            className="btn-small modal-trigger green"
-            btnName="Add goal for new category..."
-            header="AddNew"
-            text="Complete this form"
-            dataTarget={`newGoal_${makeid(5)}`}
-            action="Add"
-            userID={userInfo.id}
-            getAllData={getAllData}
-          />
-        </div>
+        <div style={{ marginTop: "20px", marginBottom: "20px" }} />
         <div className="col l8 s12">{renderGoalCards()}</div>
         <div className="col s1 nextArrow">
           <span>
@@ -144,11 +134,12 @@ const Dashboard = () => {
           </span>
         </div>
         <div className="row">
-          <div className="col l8 s12 center-align">
+          <div className="calendar col l8 s12 center-align">
             <Cal />
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };
