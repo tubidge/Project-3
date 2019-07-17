@@ -62,6 +62,9 @@ export default {
     return axios.get("/goal/basic/" + id);
   },
 
+  getGoalPageInfo: email => {
+    return axios.get("/goal/page/" + email);
+  },
   // This method will add a goal to the database
   // The data object being passed in needs to have name, category, dueDate, and UserId
   addGoal: data => {

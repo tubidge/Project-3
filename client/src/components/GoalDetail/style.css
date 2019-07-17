@@ -1,3 +1,11 @@
+.goal-page-card {
+  background-color: #10355f;
+}
+
+.goal-page-cardTitle {
+  background-color: #10355f;
+}
+
 .goal-page-title {
   text-align: center;
 }
@@ -33,3 +41,16 @@
   display: flex;
   justify-content: center;
 } */
+.switch label input[type="checkbox"]:checked + .lever {
+  background-color: #e2e77d !important;
+}
+
+.switch label input[type="checkbox"]:checked + .lever::after {
+  background-color: white !important;
+}
+
+.milestone-image {
+  height: 100%;
+  width: 100%;
+  border-radius: 0;
+}

@@ -91,7 +91,7 @@ module.exports = app => {
       });
   });
 
-  app.get("/user/basic/:id", (req, res) => {
+  app.get("/basic/user/:id", (req, res) => {
     user
       .getBasicUser(req.params.id)
       .then(data => {
@@ -105,6 +105,17 @@ module.exports = app => {
   app.get("/user/goal/:id", (req, res) => {
     user
       .getUserByGoal(req.params.id)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
+
+  app.get("/goal/page/:email", (req, res) => {
+    user
+      .getGoalPageInfo(req.params.email)
       .then(data => {
         res.send(data);
       })

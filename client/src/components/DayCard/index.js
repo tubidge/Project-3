@@ -65,6 +65,7 @@ function DayCard(props) {
     API.editMilestone(milestoneSelected, data).then(() => {
       setmilestoneSelected(false);
       setreRender(!reRender);
+      props.orderProgressRender();
     });
   };
 
@@ -72,6 +73,7 @@ function DayCard(props) {
     API.deleteMilestone(milestoneSelected).then(data => {
       console.log(data);
       setmilestoneSelected(false);
+      props.orderProgressRender();
       setreRender(!reRender);
     });
   };
@@ -88,6 +90,7 @@ function DayCard(props) {
       props.reRender();
     }
     setmodalOpen(false);
+    props.orderProgressRender();
     setreRender(!reRender);
   };
 
@@ -120,7 +123,7 @@ function DayCard(props) {
             add_circle
           </i>
         </div>
-        <div className="card-title">
+        <div className="card-title day-card-cardTitle">
           <p className="day-card-date">{date}</p>
           <div className="day-card-buttons">
             <p style={{ fontSize: "15px", marginLeft: "5px" }}>Todo</p>
