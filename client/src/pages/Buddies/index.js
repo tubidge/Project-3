@@ -11,7 +11,7 @@ import Fuse from "fuse.js";
 
 import "./style.css";
 
-const Buddies = () => {
+const Buddies = props => {
   const { loading, user } = useAuth0();
   const [isLoading, setIsLoading] = useState(true);
   const [findingBuddy, setFindingBuddy] = useState(false);
@@ -21,6 +21,7 @@ const Buddies = () => {
   const [matchesFound, setMatchesFound] = useState([]);
   const [autocompleteData, setAutocompleteData] = useState([]);
   const [search, setSearch] = useState("");
+  const [currentUser, setCurrentUser] = useState("");
 
   // for fuse.js
   const options = {
@@ -39,9 +40,11 @@ const Buddies = () => {
   // end of buddy match variables
 
   useEffect(() => {
+    console.log(props.location.state.user);
     // Get all goals from all users
     let results = [];
-    let currentUser = user.email;
+    // let currentUser = props.location.state.user;
+    setCurrentUser(props.location.state.user);
     API.getAllUsers().then(res => {
       const removedCurrentUser = res.data.filter(
         user => user.email !== currentUser
@@ -74,12 +77,12 @@ const Buddies = () => {
 
       setBuddyGoals(results);
       setAutocompleteData(data);
-      getUserGoals();
+      getUserGoals(props.location.state.user);
     });
   }, []);
 
-  const getUserGoals = () => {
-    API.getUserByEmail(user.email).then(resp => {
+  const getUserGoals = email => {
+    API.getUserByEmail(email).then(resp => {
       API.getAllGoals(resp.data.id).then(res => {
         setGoals(res.data.currentGoals.incomplete);
         setIsLoading(false);
@@ -175,14 +178,24 @@ const Buddies = () => {
         <div className="row">
           {matchesFound.length > 0 ? <h4>Your Matches</h4> : null}
           {matchesFound &&
-            getUnique(matchesFound, "goalId").map(match => (
+            getUnique(matchesFound, "userId").map(match => (
               <div key={match.userId} className="col s3">
                 <div className="card">
                   <div className="card-content">
                     <div className="card-title">{match.username}</div>
                     <p>{match.goalName}</p>
-                    <Link to={`/buddy-profile/${match.userId}`} target="_blank">
+                    {/* <Link to={`/buddy-profile/${match.userId}`} target="_blank">
                       View Profile
+                    </Link> */}
+                    <Link
+                      to={{
+                        pathname: "/buddy-profile/" + match.userId,
+                        state: {
+                          user: currentUser
+                        }
+                      }}
+                    >
+                      Find Buddies
                     </Link>
                   </div>
                 </div>

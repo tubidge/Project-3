@@ -134,6 +134,7 @@ const Dashboard = () => {
             buddies={allBuddies ? getUnique(allBuddies, "username") : null}
           />
           <BuddyList
+            userEmail={userInfo.email}
             userID={userInfo.id}
             makeid={makeid}
             buddies={allBuddies ? getUnique(allBuddies, "username") : null}

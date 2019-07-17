@@ -10,7 +10,7 @@ import "./style.css";
 
 const Navbar = () => {
   const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
-  const [, setUserInfo] = useState({});
+  const [userInfo, setUserInfo] = useState({});
 
   const logoutWithRedirect = () =>
     logout({
@@ -45,7 +45,17 @@ const Navbar = () => {
                 </Link>
                 <ul className="right hide-on-med-and-down">
                   <li>
-                    <Link to="/buddies">Find Buddies</Link>
+                    {/* <Link to="/buddies">Find Buddies</Link> */}
+                    <Link
+                      to={{
+                        pathname: "/buddies",
+                        state: {
+                          user: user.email
+                        }
+                      }}
+                    >
+                      Find Buddies
+                    </Link>
                   </li>
                   <li>
                     <Link to="/profile">Profile</Link>

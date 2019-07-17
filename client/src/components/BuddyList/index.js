@@ -26,7 +26,17 @@ const BuddyList = props => {
         <ul className="collection with-header">
           <li className="collection-header">
             <h5>Buddies</h5>
-            <Link to="/buddies">Search Buddies</Link>
+            {/* <Link to="/buddies">Search Buddies</Link> */}
+            <Link
+              to={{
+                pathname: "/buddies",
+                state: {
+                  user: props.userEmail
+                }
+              }}
+            >
+              Search Buddies
+            </Link>
           </li>
           <span>
             {props.buddies &&
