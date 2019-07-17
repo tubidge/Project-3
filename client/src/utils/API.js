@@ -37,6 +37,14 @@ export default {
     });
   },
 
+  getUserByUsername: username => {
+    return axios.get("/user/basic/" + username);
+  },
+
+  getUserByGoal: id => {
+    return axios.get("/user/goal/" + id);
+  },
+
   // *** GOAL API METHODS
 
   // This method will return all the goals that a user owns

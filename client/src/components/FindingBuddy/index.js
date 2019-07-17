@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { AnimateOnChange } from "react-animation";
 
 const FindingBuddy = () => {
   const [current, setCurrent] = useState(0);
 
   const words = [
-    "Finding your buddy...",
+    "Finding you a buddy...",
     "Comparing your goals...",
     "A few more seconds...."
   ];
