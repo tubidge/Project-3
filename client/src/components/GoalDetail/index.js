@@ -30,7 +30,7 @@ function GoalDetail(props) {
       setPercentage(percentage);
       configureDays();
     });
-  }, [props.goal, reRender]);
+  }, [props.goal, reRender, props.goal.milestones.incomplete.length]);
 
   // useEffect(() => {
   //   if (goal.milestones) {
@@ -122,9 +122,7 @@ function GoalDetail(props) {
         <div className="card-title">
           <div className="goal-page-sub-header">
             <p className="goal-page-dueDate white-text">Due: {goal.dueDate}</p>
-            {/* <div className="goal-page-progressBar">
-              <ProgressBar />
-            </div> */}
+
             <div className="switch">
               <p className="goal-page-privacy white-text">
                 {goal.private ? "Private" : "Public"}

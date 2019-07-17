@@ -30,7 +30,7 @@ const Navbar = () => {
     <>
       {isAuthenticated && (
         <>
-          <div class="navbar-fixed">
+          <div className="navbar-fixed">
             <nav>
               <div className="nav-wrapper">
                 <Link to="/dashboard" className="brand-logo">
