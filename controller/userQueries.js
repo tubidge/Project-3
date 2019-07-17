@@ -148,6 +148,31 @@ module.exports = {
     });
   },
 
+  getBasicUserByUsername: username => {
+    return new Promise((resolve, reject) => {
+      db.User.findAll({
+        where: {
+          username: username
+        }
+      })
+        .then(resp => {
+          console.log(resp);
+          const results = {
+            id: resp[0].dataValues.id,
+            firstName: resp[0].dataValues.firstName,
+            lastName: resp[0].dataValues.lastName,
+            username: resp[0].dataValues.username,
+            email: resp[0].dataValues.email,
+            image: resp[0].dataValues.image
+          };
+          resolve(results);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  },
+
   // This method will return a single user with their goals, milestones, and any current buddies and all
   // relevant buddy data
   findUser: id => {
@@ -488,6 +513,7 @@ module.exports = {
             username: data.username,
             email: data.email,
             image: data.image,
+            created: data.createdAt,
             buddies: {
               myBuddies: []
             },

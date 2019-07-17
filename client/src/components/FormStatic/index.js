@@ -1,30 +1,22 @@
 import React, { useState, useEffect } from "react";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import M from "materialize-css";
-
 import API from "../../utils/API";
 import FileUpload from "../FileUpload";
 import "./style.css";
-
 const FormStatic = props => {
   const [username_db, setUsername_db] = useState(props.username);
   const [firstName_db, setFirstName_db] = useState(props.firstName);
   const [lastName_db, setLastName_db] = useState(props.lastName);
-  // const [disabled, setDisabled] = useState(true);
-  // const [edit, setEdit] = useState("Save");
-
   useEffect(() => {
     setUsername_db(props.username);
   }, [props.username]);
-
   useEffect(() => {
     setFirstName_db(props.firstName);
   }, [props.firstName]);
-
   useEffect(() => {
     setLastName_db(props.lastName);
   }, [props.lastName]);
-
   const editUser = e => {
     e.preventDefault();
     let editUsername = {
@@ -32,23 +24,19 @@ const FormStatic = props => {
       info: username_db
     };
     API.editUser(props.userID, editUsername).then(res => console.log(res));
-
     let editFirstName = {
       colName: "firstName",
       info: firstName_db
     };
     API.editUser(props.userID, editFirstName).then(res => console.log(res));
-
     let editLastName = {
       colName: "lastName",
       info: lastName_db
     };
     API.editUser(props.userID, editLastName).then(res => console.log(res));
     props.getUserProfile();
-
     M.toast({ html: "Profile updated!" });
   };
-
   return (
     <>
       <form>
@@ -185,5 +173,4 @@ const FormStatic = props => {
     </>
   );
 };
-
 export default FormStatic;

@@ -1,5 +1,10 @@
+:root {
+  --accentGold: #e8a246;
+  --charcoal: #212121;
+}
+
 .hero-image {
-  background: #1b2244;
+  background: #10355f;
   height: 200px;
 }
 
@@ -15,7 +20,7 @@
   line-height: normal;
   scale: 1;
   font-size: 60px;
-  color: #ffc400;
+  color: var(--accentGold);
   -moz-transition: all 0.3s ease-in-out 0s;
   -webkit-transition: all 0.3s ease-in-out 0s;
   -ms-transition: all 0.3s ease-in-out 0s;

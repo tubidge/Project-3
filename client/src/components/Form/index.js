@@ -4,19 +4,16 @@ import { confirmAlert } from "react-confirm-alert";
 import FileUpload from "../FileUpload";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import "./style.css";
-
 const axios = require("axios");
-
 const Form = props => {
   const [username, setUsername] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const email = props.email;
   const [, setDisabled] = useState(false);
-
   const handleSumbit = e => {
     e.preventDefault();
-
+    const image = props.image;
     confirmAlert({
       title: "Create your account",
       message: "Is everything right?",
@@ -29,7 +26,8 @@ const Form = props => {
                 firstName,
                 lastName,
                 username,
-                email
+                email,
+                image
               })
               .then(result => {
                 if (result) {
@@ -46,7 +44,6 @@ const Form = props => {
       ]
     });
   };
-
   return (
     <form>
       <div className="row">
@@ -79,15 +76,6 @@ const Form = props => {
               />
             </div>
           </div>
-          <div className="row">
-            <div className="form-group">
-              <FileUpload
-                userID={props.userID}
-                getUserProfile={props.getUserProfile}
-              />
-              {props.image && <img src={props.image} alt="Profile" />}
-            </div>
-          </div>
         </div>
         <div className="col s5 offset-s1">
           <div className="row">
@@ -118,7 +106,6 @@ const Form = props => {
               />
             </div>
           </div>
-
           <div className="row center-align">
             <b>Notifications</b>
             <hr />
@@ -181,5 +168,4 @@ const Form = props => {
     </form>
   );
 };
-
 export default withRouter(Form);
