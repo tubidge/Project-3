@@ -50,12 +50,14 @@ const GoalCard = props => {
     });
   };
 
-  const renderGoalsForCategories = category => {
+  const renderPropsForCategories = category => {
     const due = moment()
       .add(3, "days")
       .format("YYYY-MM-DD");
-
-    const result = goals.incomplete.filter(goal => goal.category === category);
+    console.log(props.incompleteGoals);
+    const result = props.incompleteGoals.filter(
+      goal => goal.category === category
+    );
 
     console.log(result);
     result.sort(sortDates);
@@ -78,7 +80,7 @@ const GoalCard = props => {
                 <Link to="/goals" className="truncate goal-card-name">
                   {goal.name}
                 </Link>
-                {total === percentage ? (
+                {percentage === 1 ? (
                   <i
                     class="material-icons"
                     style={{
@@ -110,7 +112,94 @@ const GoalCard = props => {
                 <Link to="/goals" className="truncate goal-card-name">
                   {goal.name}
                 </Link>
-                {total === percentage ? (
+                {percentage === 1 ? (
+                  <i
+                    class="material-icons"
+                    style={{
+                      color: "#d4ac0d",
+                      cursor: "pointer",
+                      transform: "scale(1.1)"
+                    }}
+                    onClick={() => completeGoal(goal.id)}
+                  >
+                    check_box
+                  </i>
+                ) : (
+                  ""
+                )}
+              </div>
+              <p>
+                Due: <span className="alert-goal-dueDate">{goal.dueDate}</span>
+              </p>
+              <ProgressBar total={total} percentage={percentage} />
+            </div>
+          </li>
+        );
+      }
+    });
+  };
+
+  const renderGoalsForCategories = category => {
+    const due = moment()
+      .add(3, "days")
+      .format("YYYY-MM-DD");
+
+    const result = goals.incomplete.filter(goal => goal.category === category);
+
+    console.log(result);
+    result.sort(sortDates);
+    console.log(result);
+
+    return result.map(goal => {
+      console.log(goal);
+      console.log(due);
+      let total =
+        goal.milestones.completed.length + goal.milestones.incomplete.length;
+      console.log(total);
+      let progress = goal.milestones.completed.length;
+      let percentage = progress / total;
+      console.log(percentage);
+      if (moment(goal.dueDate).isAfter(due)) {
+        return (
+          <li key={goal.id}>
+            <div className="card-panel grey lighten-4 dark-text">
+              <div className="goal-card-header">
+                <Link to="/goals" className="truncate goal-card-name">
+                  {goal.name}
+                </Link>
+                {percentage === 1 ? (
+                  <i
+                    class="material-icons"
+                    style={{
+                      color: "#d4ac0d",
+                      cursor: "pointer",
+                      transform: "scale(1.1)"
+                    }}
+                    onClick={() => completeGoal(goal.id)}
+                  >
+                    check_box
+                  </i>
+                ) : (
+                  ""
+                )}
+              </div>
+              <p>Due: {goal.dueDate}</p>
+              <ProgressBar total={total} percentage={percentage} />
+            </div>
+          </li>
+        );
+      } else {
+        return (
+          <li key={goal.id}>
+            <div className="card-panel grey lighten-4 dark-text">
+              <div className="goal-due-alert">
+                <i className="material-icons">error</i>
+              </div>
+              <div className="goal-card-header">
+                <Link to="/goals" className="truncate goal-card-name">
+                  {goal.name}
+                </Link>
+                {percentage === 1 ? (
                   <i
                     class="material-icons"
                     style={{
@@ -164,7 +253,7 @@ const GoalCard = props => {
             {goals.incomplete ? (
               <ul>{renderGoalsForCategories(props.category)}</ul>
             ) : (
-              ""
+              <ul>{renderPropsForCategories(props.category)}</ul>
             )}
           </div>
         </div>

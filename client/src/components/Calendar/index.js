@@ -18,73 +18,89 @@ export default class Cal extends React.Component {
   }
 
   getMilestones() {
-    API.getAllMilestones(this.props.userId).then(data => {
+    API.getAllGoals(this.props.userId).then(data => {
       console.log(data);
-      let incompleteMilestones = data.data.incomplete;
-      let completeMilestones = data.data.completed;
-      const results = [];
-      incompleteMilestones.forEach(index => {
-        let event = {
-          id: index.id,
-          title: index.name,
-          date: index.dueDate,
-          category: index.category,
-          className: "modal-trigger",
-          dataTarget: "milestoneModal"
-        };
-        switch (event.category) {
-          case "Fitness":
-            event.backgroundColor = "#34495e";
-            results.push(event);
-            break;
-          case "Education":
-            event.backgroundColor = "#BDBDBD";
-            results.push(event);
-            break;
-          case "Financial":
-            event.backgroundColor = "#d4ac0d";
-            results.push(event);
-            break;
-          case "Wellness":
-            event.backgroundColor = "#5d6d7e";
-            results.push(event);
-            break;
-          case "Travel":
-            event.backgroundColor = "#8e793e";
-            results.push(event);
-            break;
-        }
+      let incompleteGoals = data.data.currentGoals.incomplete;
+      let incompleteMilestones = [];
+      let completeMilestones = [];
+      incompleteGoals.forEach(index => {
+        incompleteMilestones.push(index.milestones.incomplete);
+        completeMilestones.push(index.milestones.completed);
       });
-      completeMilestones.forEach(index => {
-        let event = {
-          id: index.id,
-          title: index.name,
-          date: index.dueDate,
-          category: index.category,
-          className: "modal-trigger completed-milestone-cal"
-        };
-        switch (event.category) {
-          case "Fitness":
-            event.backgroundColor = "#34495e";
-            results.push(event);
-            break;
-          case "Education":
-            event.backgroundColor = "#bdbdbd";
-            results.push(event);
-            break;
-          case "Financial":
-            event.backgroundColor = "#d4ac0d";
-            results.push(event);
-            break;
-          case "Wellness":
-            event.backgroundColor = "#5d6d7e";
-            results.push(event);
-            break;
-          case "Travel":
-            event.backgroundColor = "#8e793e";
-            results.push(event);
-            break;
-        }
+      console.log(incompleteGoals);
+      console.log(incompleteMilestones);
+      console.log(completeMilestones);
+
+      const results = [];
+      incompleteMilestones.forEach(event => {
+        event.forEach(index => {
+          let event = {
+            id: index.id,
+            title: index.name,
+            date: index.dueDate,
+            category: index.category,
+            className: "modal-trigger",
+            dataTarget: "milestoneModal"
+          };
+          switch (event.category) {
+            case "Fitness":
+              event.backgroundColor = "#34495e";
+              results.push(event);
+              break;
+            case "Education":
+              event.backgroundColor = "#BDBDBD";
+              results.push(event);
+              break;
+            case "Financial":
+              event.backgroundColor = "#d4ac0d";
+              results.push(event);
+              break;
+            case "Wellness":
+              event.backgroundColor = "#5d6d7e";
+              results.push(event);
+              break;
+            case "Travel":
+              event.backgroundColor = "#8e793e";
+              results.push(event);
+              break;
+          }
+        });
+      });
+      completeMilestones.forEach(event => {
+        console.log(event);
+        event.forEach(index => {
+          console.log(results);
+          let event = {
+            id: index.id,
+            title: index.name,
+            date: index.dueDate,
+            category: index.category,
+            className: "modal-trigger completed-milestone-cal"
+          };
+          console.log(event);
+          switch (event.category) {
+            case "Fitness":
+              event.backgroundColor = "#34495e";
+              results.push(event);
+              break;
+            case "Education":
+              event.backgroundColor = "#bdbdbd";
+              results.push(event);
+              break;
+            case "Financial":
+              event.backgroundColor = "#d4ac0d";
+              results.push(event);
+              break;
+            case "Wellness":
+              event.backgroundColor = "#5d6d7e";
+              results.push(event);
+              break;
+            case "Travel":
+              event.backgroundColor = "#8e793e";
+              results.push(event);
+              break;
+          }
+        });
       });
       console.log(results);
       this.setState({
