@@ -78,12 +78,12 @@ const GoalCard = props => {
     <>
       <div className="col l4 s12">
         <div className="card goalCard">
-          <div className="card-title">
+          <div className="card-title center-line">
             <span>{props.category}</span>
             <Modal
               style={{
-                marginLeft: "7px",
-                color: "#ffc400",
+                marginRight: "5px",
+                color: "#d4ac0d",
                 fontSize: "35px"
               }}
               className="material-icons modal-trigger right"
