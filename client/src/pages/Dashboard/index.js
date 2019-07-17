@@ -10,8 +10,7 @@ import BuddyList from "../../components/BuddyList";
 import GoalCard from "../../components/GoalCard";
 import Modal from "../../components/Modal";
 import Cal from "../../components/Calendar";
-
-import "./style.css";
+import ProgressBar from "react-bootstrap/ProgressBar";
 
 const Dashboard = () => {
   const { loading, user } = useAuth0();
@@ -22,13 +21,14 @@ const Dashboard = () => {
   const [categories, setCategories] = useState([]);
   const [active, setActive] = useState([]);
   const [allBuddies, setAllBuddies] = useState();
+  const [reRender, setreRender] = useState(false);
 
   let stopIndex;
   let activeCategories = [];
 
   useEffect(() => {
     getAllData();
-  }, []);
+  }, [reRender]);
 
   const getAllData = () => {
     API.getUserByEmail(user.email).then(resp => {
@@ -55,6 +55,10 @@ const Dashboard = () => {
         setIsLoading(false);
       });
     });
+  };
+
+  const orderRender = () => {
+    setreRender(!reRender);
   };
 
   const renderGoalCards = () => {
@@ -134,7 +138,7 @@ const Dashboard = () => {
         </div>
         <div className="row">
           <div className="col l8 s12 center-align">
-            <Cal />
+            <Cal userId={userInfo.id} orderRender={orderRender} />
           </div>
         </div>
       </div>

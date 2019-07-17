@@ -272,6 +272,41 @@ const Milestone = {
     });
   },
 
+  getDate: (id, date) => {
+    return new Promise((resolve, reject) => {
+      db.Milestones.findAll({
+        where: {
+          dueDate: date,
+          GoalId: id
+        }
+      })
+        .then(resp => {
+          console.log(resp);
+
+          const results = [];
+
+          resp.forEach(index => {
+            const milestone = {
+              id: index.dataValues.id,
+              name: index.dataValues.name,
+              frequency: index.dataValues.frequency,
+              completed: index.dataValues.completed,
+              dueDate: index.dataValues.dueDate,
+              startDate: index.dataValues.startDate,
+              endDate: index.dataValues.endDate,
+              notes: index.dataValues.notes
+            };
+            results.push(milestone);
+          });
+
+          resolve(results);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  },
+
   // This method will allow a user to update a particular column's data based on the
   // milestone id that they pass in
   updateMilestone: (id, colName, info) => {
@@ -313,9 +348,9 @@ const Milestone = {
         .then(resp => {
           let results;
           if (resp == 1) {
-            results = "Buddy relation deleted";
+            results = "Milestone Deleted";
           } else {
-            results = "Error in deleteing relation";
+            results = "Error in deleteing milestone";
           }
 
           resolve(results);

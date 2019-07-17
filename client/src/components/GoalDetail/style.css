@@ -1,1 +1,35 @@
-/* Why doesn't this stylesheet do anything? */
+.goal-page-title {
+  text-align: center;
+}
+
+.goal-page-dueDate {
+  text-align: left;
+}
+.goal-page-privacy {
+  display: inline-block;
+  text-align: right;
+}
+
+.goal-page-progressBar {
+  display: inline-block;
+  width: 25rem;
+}
+.goal-page-sub-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.goal-page-upcomingView {
+  display: flex;
+  justify-content: space-around;
+}
+
+/* .goal-privacy-checkbox {
+  display: inline-block;
+  margin-bottom: 2rem;
+} */
+
+/* .goal-page-progressBar {
+  display: flex;
+  justify-content: center;
+} */

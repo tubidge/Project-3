@@ -18,7 +18,7 @@ export default class Cal extends React.Component {
   }
 
   getMilestones() {
-    API.getAllMilestones(1).then(data => {
+    API.getAllMilestones(this.props.userId).then(data => {
       console.log(data);
       let incompleteMilestones = data.data.incomplete;
       let completeMilestones = data.data.completed;
@@ -107,12 +107,11 @@ export default class Cal extends React.Component {
         currentMilestoneId: null
       },
       () => {
-        this.getMilestones(1);
+        this.getMilestones(this.props.userId);
+        this.props.orderRender();
       }
     );
   };
-
-  // need to create a modal popup trigger by clicking a milestone on the calendar.
 
   render() {
     return (

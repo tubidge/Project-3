@@ -415,18 +415,18 @@ module.exports = {
           if (data.Milestones.length > 0) {
             data.Milestones.forEach(index => {
               let date = moment().format("YYYY-MM-DD");
-              let milestoneDate = moment(index.dataValues.dueDate)
-                .add("1", "day")
-                .format("YYYY-MM-DD");
+              let milestoneDate = moment(index.dataValues.dueDate).format(
+                "YYYY-MM-DD"
+              );
 
               if (moment(milestoneDate).isAfter(date)) {
                 const milestone = {};
                 milestone.id = index.dataValues.id;
                 milestone.name = index.dataValues.name;
                 milestone.frequency = index.dataValues.frequency;
-                milestone.dueDate = moment(index.dataValues.dueDate)
-                  .add("1", "day")
-                  .format("YYYY-MM-DD");
+                milestone.dueDate = moment(index.dataValues.dueDate).format(
+                  "YYYY-MM-DD"
+                );
                 milestone.completed = index.dataValues.completed;
                 milestone.notes = index.dataValues.notes;
                 milestone.goalId = index.dataValues.GoalId;
@@ -442,9 +442,9 @@ module.exports = {
                 milestone.id = index.dataValues.id;
                 milestone.name = index.dataValues.name;
                 milestone.frequency = index.dataValues.frequency;
-                milestone.dueDate = moment(index.dataValues.dueDate)
-                  .add("1", "day")
-                  .format("YYYY-MM-DD");
+                milestone.dueDate = moment(index.dataValues.dueDate).format(
+                  "YYYY-MM-DD"
+                );
                 milestone.completed = index.dataValues.completed;
                 milestone.notes = index.dataValues.notes;
                 milestone.goalId = index.dataValues.GoalId;
