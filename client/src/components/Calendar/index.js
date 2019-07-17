@@ -17,6 +17,14 @@ export default class Cal extends React.Component {
     this.getMilestones();
   }
 
+  componentDidUpdate(prevProps) {
+    console.log("component working");
+    if (this.props.render !== prevProps.render) {
+      console.log("rerendering cal");
+      this.getMilestones();
+    }
+  }
+
   getMilestones() {
     API.getAllGoals(this.props.userId).then(data => {
       console.log(data);

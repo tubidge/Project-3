@@ -47,6 +47,7 @@ const GoalCard = props => {
     API.editGoal(id, data).then(resp => {
       console.log(resp);
       setreRender(!reRender);
+      props.renderCal();
     });
   };
 

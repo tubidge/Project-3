@@ -23,6 +23,7 @@ const Dashboard = () => {
   const [active, setActive] = useState([]);
   const [allBuddies, setAllBuddies] = useState();
   const [reRender, setreRender] = useState(false);
+  const [calRender, setCalRender] = useState(false);
 
   let stopIndex;
   let activeCategories = [];
@@ -46,8 +47,12 @@ const Dashboard = () => {
     API.getAllGoals(userInfo.id).then(resp => {
       setIncompleteGoals(resp.data.currentGoals.incomplete);
       renderGoalCards();
-      renderCalendar();
     });
+  };
+
+  const renderCal = () => {
+    setCalRender(!calRender);
+    renderCalendar();
   };
 
   const getAllData = () => {
@@ -89,6 +94,7 @@ const Dashboard = () => {
         userID={userInfo.id}
         incompleteGoals={incompleteGoals}
         getAllData={getAllData}
+        renderCal={renderCal}
       />
     ));
   };
@@ -118,7 +124,9 @@ const Dashboard = () => {
   };
 
   const renderCalendar = () => {
-    return <Cal userId={userInfo.id} orderRender={orderRender} />;
+    return (
+      <Cal userId={userInfo.id} orderRender={orderRender} render={calRender} />
+    );
   };
 
   if (loading || !userInfo || isLoading) {
