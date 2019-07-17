@@ -588,7 +588,8 @@ module.exports = {
                           id: event.id,
                           email: resp[0].dataValues.email,
                           username: resp[0].dataValues.username,
-                          channel: event.channel
+                          channel: event.channel,
+                          buddyId: resp[0].dataValues.id
                         };
 
                         buddyArr.push(buddyData);
@@ -608,7 +609,8 @@ module.exports = {
                           id: event.id,
                           email: resp[0].dataValues.email,
                           username: resp[0].dataValues.username,
-                          channel: event.channel
+                          channel: event.channel,
+                          buddyId: resp[0].dataValues.id
                         };
 
                         buddyArr.push(buddyData);

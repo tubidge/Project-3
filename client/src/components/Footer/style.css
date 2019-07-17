@@ -2,10 +2,13 @@
   display: flex;
   min-height: 100%;
   flex-direction: column;
-  background-color: white !important;
+  background-color: #1c2833 !important;
   font-size: 16px;
 }
 
 main {
   flex: 1 0 auto;
+}
+.footer-text {
+  color: #d4ac0d;
 }

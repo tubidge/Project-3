@@ -4,7 +4,7 @@ import "./style.css";
 function Footer() {
   return (
     <footer className="amber-text text-accent-3 center page-footer">
-      © Copyright GoalDen
+      <div className="footer-text">© Copyright GoalDen</div>
     </footer>
   );
 }
