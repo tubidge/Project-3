@@ -80,6 +80,7 @@ const Dashboard = () => {
     }
     return activeCategories.map(category => (
       <GoalCard
+        orderRender={orderRender}
         key={makeid(5)}
         category={category}
         userID={userInfo.id}
