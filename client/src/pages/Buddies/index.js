@@ -5,21 +5,20 @@ import FindingBuddy from "../../components/FindingBuddy";
 import API from "../../utils/API";
 
 // Depenencies
-import { Autocomplete } from "react-materialize";
 import { useAuth0 } from "../../react-auth0-spa";
 import Fuse from "fuse.js";
 
 import "./style.css";
 
 const Buddies = props => {
-  const { loading, user } = useAuth0();
+  const { loading } = useAuth0();
   const [isLoading, setIsLoading] = useState(true);
   const [findingBuddy, setFindingBuddy] = useState(false);
   const [users, setUsers] = useState([]);
   const [goals, setGoals] = useState([]);
   const [buddyGoals, setBuddyGoals] = useState([]);
   const [matchesFound, setMatchesFound] = useState([]);
-  const [autocompleteData, setAutocompleteData] = useState([]);
+  const [searchMatchFound, setSearchMatchFound] = useState([]);
   const [search, setSearch] = useState("");
   const [currentUser, setCurrentUser] = useState("");
 
@@ -30,33 +29,48 @@ const Buddies = props => {
     includeScore: true,
     location: 0,
     distance: 100,
-    maxPatternLength: 32,
+    maxPatternLength: 16,
     minMatchCharLength: 1,
-    keys: ["name"]
+    keys: ["name", "category", "username", "email", "firstName", "lastName"]
   };
 
-  let data;
   let matches = [];
+  let searchResults = [];
   // end of buddy match variables
 
   useEffect(() => {
     console.log(props.location.state.user);
     // Get all goals from all users
     let results = [];
-    // let currentUser = props.location.state.user;
+    let currentUser = props.location.state.user;
     setCurrentUser(props.location.state.user);
     API.getAllUsers().then(res => {
       const removedCurrentUser = res.data.filter(
         user => user.email !== currentUser
       );
       removedCurrentUser.map(user => {
+        let username = user.username;
+        let email = user.email;
+        let firstName = user.firstName;
+        let lastName = user.lastName;
+        let image = user.image;
         API.getAllGoals(user.id).then(res => {
           if (res.data.currentGoals.incomplete.length > 0) {
             let goal = res.data.currentGoals.incomplete;
             goal.map(goal => {
               let id = goal.id;
               let name = goal.name;
-              return results.push({ id, name });
+              let category = goal.category;
+              return results.push({
+                id,
+                name,
+                category,
+                username,
+                email,
+                firstName,
+                lastName,
+                image
+              });
             });
           }
         });
@@ -65,18 +79,7 @@ const Buddies = props => {
       setUsers(res.data);
       // end of get all goals
 
-      // Autocomplete
-      data = res.data.reduce((acc, user) => {
-        let { username } = user;
-        return { ...acc, [username]: null };
-      }, {});
-      data = {
-        data
-      };
-      // end of autocomplete
-
       setBuddyGoals(results);
-      setAutocompleteData(data);
       getUserGoals(props.location.state.user);
     });
   }, []);
@@ -101,12 +104,21 @@ const Buddies = props => {
     return unique;
   };
 
-  // const searchUsers = () => {
-  //   console.log(search);
-  //   API.getUserByUsername(search).then(res => {
-  //     console.log(res.data);
-  //   });
-  // };
+  const searchUsers = () => {
+    console.log(search);
+    let fuse = new Fuse(buddyGoals, options);
+    const searchMatches = fuse.search(search);
+    searchMatches
+      .map(match => match.score)
+      .sort(function(a, b) {
+        return a - b;
+      });
+    searchMatches.map(match => {
+      searchResults.push(match);
+    });
+    console.log(searchResults);
+    setSearchMatchFound(searchResults);
+  };
 
   const findBuddy = () => {
     setFindingBuddy(true);
@@ -118,26 +130,13 @@ const Buddies = props => {
     const goalMatches = goals.map(goal => {
       return fuse.search(goal.name);
     });
-    console.log(
-      "==============================================================="
-    );
-    console.log("Matches for Each Goal");
-    console.log(
-      "==============================================================="
-    );
     console.log(goalMatches);
     goalMatches
       .map(match => match.score)
       .sort(function(a, b) {
         return a - b;
       });
-    console.log(
-      "==============================================================="
-    );
     console.log("Top Matches for Each Goal");
-    console.log(
-      "==============================================================="
-    );
     goalMatches.map(match => {
       if (match.length === 0) {
         console.log("No match found.");
@@ -145,10 +144,12 @@ const Buddies = props => {
         API.getUserByGoal(match[0].item.id).then(res => {
           let id = match[0].item.id;
           let name = match[0].item.name;
+          let category = match[0].item.category;
           let score = match[0].score;
           let username = res.data.username;
           let userId = res.data.id;
           let topMatch = {
+            category: category,
             goalId: id,
             goalName: name,
             matchScore: score,
@@ -202,12 +203,35 @@ const Buddies = props => {
               </div>
             ))}
         </div>
-
-        <Autocomplete
-          options={autocompleteData}
+        <div className="row">
+          {searchMatchFound.length ? (
+            <>
+              <h4>Search Results</h4>
+              <ul className="collection">
+                {searchMatchFound.map(result => (
+                  <li className="collection-item avatar" key={result.item.id}>
+                    <img
+                      src={result.item.image}
+                      alt={result.item.username}
+                      className="circle responsive-img"
+                    />
+                    <span className="title">{result.item.username}</span>
+                    <p>
+                      {result.item.category}
+                      <br />
+                      {result.item.name}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </>
+          ) : null}
+        </div>
+        <input
           placeholder="username"
           type="text"
           name="username"
+          value={search}
           onChange={e => setSearch(e.target.value)}
         />
         <div className="row">
@@ -218,7 +242,7 @@ const Buddies = props => {
                   style={{ marginRight: "10px" }}
                   className="btn grey darken-3"
                   type="button"
-                  // onClick={searchUsers}
+                  onClick={searchUsers}
                 >
                   Search
                 </button>

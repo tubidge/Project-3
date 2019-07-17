@@ -10,7 +10,7 @@ import "./style.css";
 
 const Navbar = () => {
   const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
-  const [userInfo, setUserInfo] = useState({});
+  const [, setUserInfo] = useState({});
 
   const logoutWithRedirect = () =>
     logout({
@@ -30,7 +30,7 @@ const Navbar = () => {
     <>
       {isAuthenticated && (
         <>
-          <div class="navbar-fixed">
+          <div className="navbar-fixed">
             <nav>
               <div className="nav-wrapper">
                 <Link to="/dashboard" className="brand-logo">
