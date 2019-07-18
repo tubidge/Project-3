@@ -8,3 +8,14 @@
 .topRow {
   height: 80px;
 }
+.container-profile {
+  background-color: #f5f5f5;
+  box-shadow: 2px 2px 3px 3px rgb(202, 201, 201);
+}
+.profile-pic {
+  margin-left: 10px;
+  margin-top: 10px;
+}
+.profileName {
+  margin-left: 10px;
+}

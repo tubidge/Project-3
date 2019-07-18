@@ -36,13 +36,13 @@ const Profile = () => {
 
   return (
     <div className="container profileContainer">
-      <div className="row">
+      <div className="row container-profile">
         <div className="col s2">
           <div className="row center-align">
             <img
               src={userData.image ? userData.image : user.picture}
               alt="Profile"
-              className="circle img-fluid profilePic"
+              className="profile-pic circle img-fluid profilePic"
             />
           </div>
           <div className="row">

@@ -1,6 +1,6 @@
 .profileSummary img.responsive-img {
-  border: 4px solid goldenrod;
-  background: goldenrod;
+  border: 1px solid #d4ac0d;
+  background: #d4ac0d;
   margin-bottom: 10px;
   max-width: 75%;
   height: auto;

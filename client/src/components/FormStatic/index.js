@@ -166,7 +166,7 @@ const FormStatic = props => {
             </div>
           </div>
         </div>
-        <button className="btn left" onClick={editUser}>
+        <button className="save-changes btn left" onClick={editUser}>
           Save Changes
         </button>
       </form>
