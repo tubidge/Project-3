@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import M from "materialize-css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
@@ -33,23 +33,25 @@ const Navbar = () => {
           <div className="navbar-fixed">
             <nav>
               <div className="nav-wrapper">
-                <Link to="/dashboard" className="brand-logo">
+                <NavLink to="/dashboard" className="brand-logo">
                   Goal<span>Den</span>
-                </Link>
-                <Link
+                </NavLink>
+                <NavLink
                   to="#"
                   data-target="mobile-demo"
                   className="sidenav-trigger"
                 >
                   <i className="material-icons">menu</i>
-                </Link>
+                </NavLink>
                 <ul className="right hide-on-med-and-down">
                   <li>
-                    <Link to="/dashboard">Dashboard</Link>
+                    <NavLink to="/dashboard" activeClassName="active">
+                      Dashboard
+                    </NavLink>
                   </li>
                   <li>
                     {/* <Link to="/buddies">Find Buddies</Link> */}
-                    <Link
+                    <NavLink
                       to={{
                         pathname: "/buddies",
                         state: {
@@ -58,13 +60,13 @@ const Navbar = () => {
                       }}
                     >
                       Find Buddies
-                    </Link>
+                    </NavLink>
                   </li>
                   <li>
-                    <Link to="/goals">Goals</Link>
+                    <NavLink to="/goals">Goals</NavLink>
                   </li>
                   <li>
-                    <Link to="/profile">Profile</Link>
+                    <NavLink to="/profile">Profile</NavLink>
                   </li>
                   {!isAuthenticated && (
                     <li>
