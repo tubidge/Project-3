@@ -58,7 +58,7 @@ module.exports = {
             console.log(index);
             const milestone = {};
             milestone.id = index.dataValues.id;
-            milestone.name = index.dataValues.id;
+            milestone.name = index.dataValues.name;
             milestone.frequency = index.dataValues.frequency;
             milestone.dueDate = index.dataValues.dueDate;
             milestone.startDate = index.dataValues.startDate;

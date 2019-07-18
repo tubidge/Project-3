@@ -99,6 +99,10 @@ export default {
     return axios.get("/milestone/" + id);
   },
 
+  getMilestoneFreq: (id, freq) => {
+    return axios.get("/milestone/frequency/" + id + "/" + freq);
+  },
+
   addMilestone: data => {
     return axios.post("/add/milestone", {
       data
@@ -120,6 +124,10 @@ export default {
   // This method will select a milestone by id and delete it
   deleteMilestone: id => {
     return axios.delete("/milestone/" + id);
+  },
+
+  deleteMilestoneFreq: (id, name, freq) => {
+    return axios.delete("/milestone/" + id + "/" + name + "/" + freq);
   },
 
   // *** BUDDY API METHODS

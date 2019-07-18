@@ -4,6 +4,7 @@ import ProgressBar from "../ProgressBar";
 import moment from "moment";
 import Loading from "../../components/Loading";
 import DayCard from "../DayCard";
+import MilestonesCard from "../MilestonesCard";
 import API from "../../utils/API";
 import M from "materialize-css";
 
@@ -15,6 +16,8 @@ function GoalDetail(props) {
   const [total, setTotal] = useState();
   const [percentage, setPercentage] = useState();
   const [goalStatus, setGoalStatus] = useState(false);
+
+  const frequencies = ["Daily", "Weekly", "Monthly"];
 
   useEffect(() => {
     document.addEventListener("click", function() {
@@ -130,6 +133,27 @@ function GoalDetail(props) {
     }
   };
 
+  const renderDayCards = () => {
+    console.log("running");
+    console.log(days);
+    days.map(index => {
+      console.log(index);
+      return (
+        <>
+          <DayCard
+            orderProgressRender={orderProgressRender}
+            key={index.date}
+            reRender={orderRender}
+            userId={props.userId}
+            goalId={currentGoal.id}
+            date={index.date}
+            status={reRender}
+          />
+        </>
+      );
+    });
+  };
+
   const handleInput = event => {
     let value = event.target.value;
     let name = event.target.name;
@@ -196,63 +220,42 @@ function GoalDetail(props) {
         </div>
         <div className="row">
           <div className="col s5">
-            <ul class="collapsible">
+            <ul className="collapsible">
               <li>
-                <div class="collapsible-header">Milestones:</div>
-                <div class="collapsible-body">
-                  <span>Lorem ipsum dolor sit amet.</span>
+                <div className="collapsible-header">
+                  <i className="material-icons">assignment</i>
+                  Milestones: {currentGoal.milestones.complete.length}/
+                  {currentGoal.milestones.complete.length +
+                    currentGoal.milestones.incomplete.length}
+                </div>
+                <div className="collapsible-body milestones-body">
+                  {frequencies.map(index => {
+                    return (
+                      <MilestonesCard
+                        frequency={index}
+                        goalId={currentGoal.id}
+                        orderProgressRender={orderProgressRender}
+                        reRender={orderRender}
+                        key={index}
+                      />
+                    );
+                  })}
                 </div>
               </li>
               <li>
-                <div class="collapsible-header">Followers:</div>
-                <div class="collapsible-body">
+                <div className="collapsible-header">
+                  <i className="material-icons">directions_run</i>
+                  Followers: {currentGoal.buddies.current.length}{" "}
+                </div>
+                <div className="collapsible-body followers-body">
                   <span>Lorem ipsum dolor sit amet.</span>
                 </div>
               </li>
             </ul>
           </div>
-
-          {/* <div className="col s5 offset-s2">
-            <div className="card">
-              <div className="card-image waves-effect waves-block waves-light milestone-image">
-                <img
-                  className="activator milestone-image"
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSp-9dM8KwwPjPYeQZSemZR-vslgDfxvnED6twp31maZ24WkWWmKQ"
-                />
-              </div>
-              <div className="card-content">
-                <span className="card-title activator grey-text text-darken-4">
-                  Card Title<i className="material-icons right">more_vert</i>
-                </span>
-              </div>
-              <div className="card-reveal">
-                <span className="card-title grey-text text-darken-4">
-                  Card Title<i className="material-icons right">close</i>
-                </span>
-                <p>
-                  Here is some more information about this product that is only
-                  revealed once clicked on.
-                </p>
-              </div>
-            </div>
-          </div> */}
         </div>
         <div className="row">
-          <div className="goal-page-upcomingView">
-            {days.map(index => {
-              return (
-                <DayCard
-                  orderProgressRender={orderProgressRender}
-                  key={index.date}
-                  reRender={orderRender}
-                  userId={props.userId}
-                  goalId={currentGoal.id}
-                  date={index.date}
-                  status={reRender}
-                />
-              );
-            })}
-          </div>
+          <div className="goal-page-upcomingView">{renderDayCards()}</div>
         </div>
       </div>
     </div>

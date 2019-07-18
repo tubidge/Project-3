@@ -23,6 +23,7 @@ const Goals = props => {
 
   useEffect(() => {
     M.AutoInit();
+
     getAllData();
   }, [currentGoal, reRender]);
 
