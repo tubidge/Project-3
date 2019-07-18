@@ -34,7 +34,7 @@ const Navbar = () => {
             <nav>
               <div className="nav-wrapper">
                 <Link to="/dashboard" className="brand-logo">
-                  <FontAwesomeIcon icon={faHome} />
+                  Goal<span>Den</span>
                 </Link>
                 <Link
                   to="#"
@@ -44,6 +44,9 @@ const Navbar = () => {
                   <i className="material-icons">menu</i>
                 </Link>
                 <ul className="right hide-on-med-and-down">
+                  <li>
+                    <Link to="/dashboard">Dashboard</Link>
+                  </li>
                   <li>
                     {/* <Link to="/buddies">Find Buddies</Link> */}
                     <Link
@@ -58,10 +61,10 @@ const Navbar = () => {
                     </Link>
                   </li>
                   <li>
-                    <Link to="/profile">Profile</Link>
+                    <Link to="/goals">Goals</Link>
                   </li>
                   <li>
-                    <Link to="/goals">Goals</Link>
+                    <Link to="/profile">Profile</Link>
                   </li>
                   {!isAuthenticated && (
                     <li>

@@ -143,6 +143,7 @@ const BuddyProfile = props => {
               addBuddy={addBuddy}
               userId={userInfo.id}
               buddyId={buddyData.id}
+              buddyName={buddyData.username}
             />
           </div>
         </div>

@@ -19,19 +19,42 @@ nav {
 
 nav ul a:hover {
   background: none !important;
-  background-color: var(--darkBlue) !important;
   cursor: pointer;
   color: white;
-  -moz-transition: all 0.2s ease-in-out 0s;
-  -webkit-transition: all 0.2s ease-in-out 0s;
-  -ms-transition: all 0.2s ease-in-out 0s;
-  transition: all 0.2s ease-in-out 0s;
+  transform: scale(1.1) rotate(-4deg);
+  -moz-transition: all 0.1s ease-in-out 0s;
+  -webkit-transition: all 0.1s ease-in-out 0s;
+  -ms-transition: all 0.1s ease-in-out 0s;
+  transition: all 0.1s ease-in-out 0s;
+}
+
+nav ul a:active {
+  transform: scale(1.1) rotate(-4deg);
+  color: var(--accentGold);
 }
 
 nav .btn {
   line-height: 0px !important;
   font-size: 1rem;
   background-color: var(--darkBlue);
+}
+
+nav .brand-logo {
+  font-family: Anton, sans-serif;
+  letter-spacing: 1px;
+  margin-left: 10px;
+  -moz-transition: all 0.1s ease-in-out 0s;
+  -webkit-transition: all 0.1s ease-in-out 0s;
+  -ms-transition: all 0.1s ease-in-out 0s;
+  transition: all 0.1s ease-in-out 0s;
+}
+
+nav .brand-logo:hover {
+  transform: scale(1.1) rotate(-4deg);
+  -moz-transition: all 0.1s ease-in-out 0s;
+  -webkit-transition: all 0.1s ease-in-out 0s;
+  -ms-transition: all 0.1s ease-in-out 0s;
+  transition: all 0.1s ease-in-out 0s;
 }
 
 nav .brand-logo svg {
@@ -49,6 +72,14 @@ nav .brand-logo svg:hover {
   -webkit-transition: all 0.2s ease-in-out 0s;
   -ms-transition: all 0.2s ease-in-out 0s;
   transition: all 0.2s ease-in-out 0s;
+}
+
+nav .brand-logo span {
+  color: var(--accentGold);
+}
+
+nav .brand-logo span:hover {
+  color: var(--accentGold);
 }
 
 nav .logout,
@@ -71,10 +102,11 @@ nav .login:hover {
   cursor: pointer;
   color: white;
   border: 2px solid white;
-  -moz-transition: all 0.2s ease-in-out 0s;
-  -webkit-transition: all 0.2s ease-in-out 0s;
-  -ms-transition: all 0.2s ease-in-out 0s;
-  transition: all 0.2s ease-in-out 0s;
+  transform: rotate(3deg);
+  -moz-transition: all 0.1s ease-in-out 0s;
+  -webkit-transition: all 0.1s ease-in-out 0s;
+  -ms-transition: all 0.1s ease-in-out 0s;
+  transition: all 0.1s ease-in-out 0s;
 }
 
 nav .logoutMobile,

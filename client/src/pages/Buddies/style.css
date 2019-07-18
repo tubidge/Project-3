@@ -1,3 +1,12 @@
+:root {
+  --accentGold: #e8a246;
+  --darkBlue: #10355f;
+}
+h1 {
+  font-family: Anton, sans-serif;
+  color: var(--darkBlue);
+}
+
 input:focus {
   border-bottom: 1px solid #ffb300 !important;
   box-shadow: 0 1px 0 0 #ffb300 !important;
@@ -5,4 +14,15 @@ input:focus {
 
 label.active {
   color: #212121;
+}
+
+#search {
+  background-color: transparent;
+}
+
+.input-field .searchBtn,
+.input-field .searchBtn:focus,
+.input-field .searchBtn:hover,
+.input-field .searchBtn:active {
+  background-color: var(--darkBlue);
 }
