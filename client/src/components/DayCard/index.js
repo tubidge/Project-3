@@ -20,6 +20,7 @@ function DayCard(props) {
   const [allRender, setAllRender] = useState(props.status);
 
   useEffect(() => {
+    console.log("days changing");
     API.getMilestoneDate(props.goalId, props.date).then(data => {
       const milestones = {
         completed: [],
@@ -39,7 +40,7 @@ function DayCard(props) {
       setMilestones(milestones);
       setIsLoading(false);
     });
-  }, [reRender, props.goalId]);
+  }, [reRender, props.goalId, allRender]);
 
   useEffect(() => {
     document.addEventListener("click", event => {

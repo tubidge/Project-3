@@ -8,6 +8,7 @@ function MilestonesCard(props) {
   const [milestones, setMilestones] = useState(false);
   const [reRender, setreRender] = useState(false);
   const [milestoneSelected, setmilestoneSelected] = useState(false);
+  const [currentMilestone, setCurrentMilestone] = useState();
   const [modalOpen, setmodalOpen] = useState(false);
 
   useEffect(() => {
@@ -24,15 +25,18 @@ function MilestonesCard(props) {
         event.target.className === "chip" ||
         event.target.className === "milestones-card-button"
       ) {
-        console.log("return false for delete");
         return false;
       } else if (
-        milestoneSelected &&
-        event.target.className === "milestones-card-button"
+        event.target.className === "milestones-card-button" &&
+        milestoneSelected
       ) {
-        setmilestoneSelected(false);
-        setreRender(!reRender);
+        console.log("return false for delete");
+        return false;
+      } else if (!modalOpen && milestoneSelected) {
       }
+      console.log("reset");
+      setmilestoneSelected(false);
+      setreRender(!reRender);
     });
   }, [milestoneSelected]);
 
@@ -41,6 +45,9 @@ function MilestonesCard(props) {
   };
 
   const openConfirmModal = event => {
+    console.log("modal opening");
+    console.log(milestoneSelected);
+    setCurrentMilestone(milestoneSelected);
     event.preventDefault();
     setmodalOpen(true);
   };
@@ -53,6 +60,7 @@ function MilestonesCard(props) {
       setmodalOpen(false);
       setreRender(!reRender);
       setmilestoneSelected(false);
+      props.orderDays();
       props.orderProgressRender();
     }
   };
@@ -65,7 +73,7 @@ function MilestonesCard(props) {
             message="This will delete all repeating instances for this milestone"
             type="Delete"
             goalId={props.goalId}
-            milestone={milestoneSelected}
+            milestone={currentMilestone}
             render={close}
             action="cancel"
           />

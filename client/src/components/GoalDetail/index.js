@@ -16,6 +16,7 @@ function GoalDetail(props) {
   const [total, setTotal] = useState();
   const [percentage, setPercentage] = useState();
   const [goalStatus, setGoalStatus] = useState(false);
+  const [renderDays, setRenderDays] = useState(false);
 
   const frequencies = ["Daily", "Weekly", "Monthly"];
 
@@ -65,6 +66,11 @@ function GoalDetail(props) {
     });
   }, [goalStatus]);
 
+  useEffect(() => {
+    console.log(renderDays);
+    configureDays();
+  }, [renderDays]);
+
   const orderProgressRender = () => {
     setGoalStatus(!goalStatus);
   };
@@ -86,6 +92,12 @@ function GoalDetail(props) {
     console.log("running good");
     props.orderRender();
     setreRender(!reRender);
+  };
+
+  const orderDays = () => {
+    console.log("days running");
+    setRenderDays(!renderDays);
+    console.log(renderDays);
   };
 
   const configureDays = () => {
@@ -133,26 +145,26 @@ function GoalDetail(props) {
     }
   };
 
-  const renderDayCards = () => {
-    console.log("running");
-    console.log(days);
-    days.map(index => {
-      console.log(index);
-      return (
-        <>
-          <DayCard
-            orderProgressRender={orderProgressRender}
-            key={index.date}
-            reRender={orderRender}
-            userId={props.userId}
-            goalId={currentGoal.id}
-            date={index.date}
-            status={reRender}
-          />
-        </>
-      );
-    });
-  };
+  // const renderDayCards = () => {
+  //   console.log("running");
+  //   console.log(days);
+  //   days.map(index => {
+
+  //     return (
+
+  //         <DayCard
+  //           orderProgressRender={orderProgressRender}
+  //           key={index.date}
+  //           reRender={orderRender}
+  //           userId={props.userId}
+  //           goalId={currentGoal.id}
+  //           date={index.date}
+  //           status={reRender}
+  //         />
+
+  //     );
+  //   });
+  // };
 
   const handleInput = event => {
     let value = event.target.value;
@@ -237,6 +249,7 @@ function GoalDetail(props) {
                         orderProgressRender={orderProgressRender}
                         reRender={orderRender}
                         key={index}
+                        orderDays={orderDays}
                       />
                     );
                   })}
@@ -255,7 +268,21 @@ function GoalDetail(props) {
           </div>
         </div>
         <div className="row">
-          <div className="goal-page-upcomingView">{renderDayCards()}</div>
+          <div className="goal-page-upcomingView">
+            {days.map(index => {
+              return (
+                <DayCard
+                  orderProgressRender={orderProgressRender}
+                  key={index.date}
+                  reRender={orderRender}
+                  userId={props.userId}
+                  goalId={currentGoal.id}
+                  date={index.date}
+                  status={renderDays}
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
