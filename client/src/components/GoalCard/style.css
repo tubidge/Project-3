@@ -50,13 +50,15 @@
   margin: 0;
 }
 
-.goal-card-content {
+.card-content {
   background-color: #34495e;
 }
 
 .card-title {
   background-color: #34495e;
   color: #d4ac0d;
+  border-bottom: thin solid;
+  border-bottom-color: #d4ac0d;
 }
 
 .card-panel {

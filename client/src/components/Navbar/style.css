@@ -1,6 +1,6 @@
 :root {
-  --accentGold: #e8a246;
-  --darkBlue: #2c3e50;
+  --accentGold: #d4ac0d !important;
+  --darkBlue: #1c2833;
 }
 
 nav {
@@ -9,7 +9,7 @@ nav {
   background-color: none;
   text-transform: none;
   cursor: pointer;
-  color: var(--accentGold);
+  color: var(--accentGold) !important;
   margin-right: 10px;
   -moz-transition: all 0.2s ease-in-out 0s;
   -webkit-transition: all 0.2s ease-in-out 0s;
@@ -36,7 +36,7 @@ nav .btn {
 
 nav .brand-logo svg {
   margin-left: 10px;
-  color: var(--accentGold);
+  color: var(--accentGold) !important;
   -moz-transition: all 0.2s ease-in-out 0s;
   -webkit-transition: all 0.2s ease-in-out 0s;
   -ms-transition: all 0.2s ease-in-out 0s;
