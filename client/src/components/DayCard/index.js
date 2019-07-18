@@ -105,14 +105,16 @@ function DayCard(props) {
           close={cancel}
         />
       ) : (
-        ""
-      )}
+          ""
+        )}
 
       <div className="card day-card z-depth-2">
         <div className="day-card-add">
           {" "}
           <i
-            className="material-icons day-card-icon"
+            className="material-icons day-card-icon tooltipped"
+            data-position="top"
+            data-tooltip="Add a milestone"
             onClick={event => {
               openMilestoneForm(event);
             }}
@@ -142,8 +144,8 @@ function DayCard(props) {
                 </i>
               </div>
             ) : (
-              ""
-            )}
+                ""
+              )}
           </div>
         </div>
         <div className="card-content day-card-content">
@@ -152,13 +154,13 @@ function DayCard(props) {
               <ul>
                 {milestones.incomplete.length
                   ? milestones.incomplete.map(index => {
-                      return (
-                        <DayEvent
-                          clickMilestone={clickMilestone}
-                          milestone={index}
-                        />
-                      );
-                    })
+                    return (
+                      <DayEvent
+                        clickMilestone={clickMilestone}
+                        milestone={index}
+                      />
+                    );
+                  })
                   : ""}
               </ul>
             </div>
