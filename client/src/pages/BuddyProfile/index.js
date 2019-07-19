@@ -102,9 +102,9 @@ const BuddyProfile = props => {
     });
   };
 
-  const addBuddy = (buddyId, buddyGoalId, userGoalId, userId) => {
+  const addBuddy = (duration, buddyId, buddyGoalId, userGoalId, userId) => {
     let data = {
-      duration: "1 Week",
+      duration: duration,
       buddyId: buddyId,
       buddyGoal: buddyGoalId,
       GoalId: userGoalId,
