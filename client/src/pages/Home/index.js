@@ -23,7 +23,7 @@ const Home = () => {
               <Link to="/profile" className="login waves-effect btn right">
                 Sign Up
               </Link>
-              <Link to="/dashboard" className=" signUp waves-effect btn right">
+              <Link to="/dashboard" className=" signUp waves-effectX btn right">
                 Login
               </Link>
               <br />
@@ -36,7 +36,7 @@ const Home = () => {
                 <div className="row">
                   <div className="col s4" />
                   <div className="col s4">
-                    <hr className="hr amber-text text-accent-3" />
+                    <hr className="hr" />
                   </div>
                   <div className="col s4" />
                 </div>
@@ -58,7 +58,7 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="section" id="purpose">
+          {/* <div className="section" id="purpose">
             <div className="container">
               <h3 className="mb-5 font-weight-bold" id="purposeTitle">
                 Our Purpose
@@ -84,11 +84,11 @@ const Home = () => {
                 </div>
               </div>
             </div>
-          </div>
-          <div className="container">
+          </div> */}
+          <div className="team container">
             <div className="section" id="team">
               <div className="col-md-2 mb-5">
-                <h3 className="mb-5 font-weight-bold">Our Team</h3>
+                <h3 className="team-text mb-5 font-weight-bold">Our Team</h3>
                 <div className="row">
                   <div className="col s3 m3">
                     <div className="card">
@@ -96,7 +96,7 @@ const Home = () => {
                         <img src={alex} />
                       </div>
                       <div className="card-stacked">
-                        <div className="card-content">
+                        <div className="home-card-content">
                           <p className="center">Alex</p>
                         </div>
                       </div>
@@ -108,7 +108,7 @@ const Home = () => {
                         <img src={hunter} />
                       </div>
                       <div className="card-stacked">
-                        <div className="card-content">
+                        <div className="home-card-content">
                           <p className="center">Hunter</p>
                         </div>
                       </div>
@@ -120,7 +120,7 @@ const Home = () => {
                         <img src={phil} />
                       </div>
                       <div className="card-stacked">
-                        <div className="card-content">
+                        <div className="home-card-content">
                           <p className="center">Phil</p>
                         </div>
                       </div>
@@ -132,7 +132,7 @@ const Home = () => {
                         <img src={josh} />
                       </div>
                       <div className="card-stacked">
-                        <div className="card-content">
+                        <div className="home-card-content">
                           <p className="center">Josh</p>
                         </div>
                       </div>
@@ -145,9 +145,14 @@ const Home = () => {
           <br />
           <div className="parallax-container valign-wrapper">
             <div className="row" id="quote">
-              <div className="col m12 bold text-center white-text">
-                <div className="text2">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              <div className="container">
+                <div className="col m12 bold text-center white-text">
+                  <div className="text2">
+                    "I love GoalDen! I am finally able to hold myself
+                    accountable using this app. I really like that it tracks my
+                    progress and that the calendar reminds me which milestones I
+                    have that day to reach my goals." -Heather W.
+                  </div>
                 </div>
               </div>
             </div>
@@ -160,7 +165,7 @@ const Home = () => {
             <section id="contact">
               <div className="col-md-4 mb-1">
                 <div className="row">
-                  <div className="col m12">
+                  <div className="contact-card col m12">
                     <h3 className="center-align">Contact</h3>
                     <div className="row">
                       <form className="col m8 offset-m2 s12">
