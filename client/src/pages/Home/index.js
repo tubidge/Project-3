@@ -8,6 +8,7 @@ import image2 from "./pics/stairway-1149473_960_720.jpg";
 import josh from "./pics/Josh.jpg";
 import alex from "./pics/Alex.jpg";
 import hunter from "./pics/Hunter.jpg";
+import phil from "./pics/Labor Day Pic.jpg";
 import "./style.css";
 
 const Home = () => {
@@ -19,16 +20,10 @@ const Home = () => {
         <>
           <div id="index-banner" className="parallax-container">
             <div className="section">
-              <Link
-                to="/profile"
-                className="login waves-effect amber accent-3 btn right"
-              >
+              <Link to="/profile" className="login waves-effect btn right">
                 Sign Up
               </Link>
-              <Link
-                to="/dashboard"
-                className=" signUp waves-effect amber accent-3 btn right"
-              >
+              <Link to="/dashboard" className=" signUp waves-effect btn right">
                 Login
               </Link>
               <br />
@@ -70,13 +65,13 @@ const Home = () => {
               </h3>
               <div className="row d-flex justify-content-center mb-4 purpose">
                 <div className="col-md-6">
-                  <p className="text">
+                  <p className="home-text">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                     Quasi voluptate hic provident nulla repellat facere esse
                     molestiae ipsa labore porro minima quam quaerat rem, natus
                     repudiandae debitis est sit pariatur.
                   </p>
-                  <p className="text">
+                  <p className="home-text">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                     Quasi voluptate hic provident nulla repellat facere esse
                     molestiae ipsa labore porro minima quam quaerat rem, natus
@@ -122,7 +117,7 @@ const Home = () => {
                   <div className="col s3 m3">
                     <div className="card">
                       <div className="card-image">
-                        <img src={image} />
+                        <img src={phil} />
                       </div>
                       <div className="card-stacked">
                         <div className="card-content">
@@ -198,7 +193,7 @@ const Home = () => {
                           <div className="col m12">
                             <p className="right-align">
                               <button
-                                className="waves-effect amber accent-3 btn"
+                                className="home-buttons waves-effect btn"
                                 type="button"
                                 name="action"
                               >

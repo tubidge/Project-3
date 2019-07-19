@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Modal from "../Modal";
-import "./style.css";
 import moment from "moment";
 import API from "../../utils/API";
 import ProgressBar from "../ProgressBar";
+import "./style.css";
 
 const GoalCard = props => {
   const [goals, setGoals] = useState([]);
@@ -231,11 +231,12 @@ const GoalCard = props => {
     <>
       <div className="col l4 s12">
         <div className="card goalCard">
-          <div className="card-title center-align">
-            <span>{props.category}</span>
+          <div className="card-title">
+            <span className="category-title">{props.category}</span>
             <Modal
               style={{
                 marginRight: "5px",
+                marginTop: "5px",
                 color: "#d4ac0d",
                 fontSize: "35px"
               }}
@@ -247,11 +248,9 @@ const GoalCard = props => {
               action="Add"
               userID={props.userID}
               goalCategory={props.category}
-
               orderRender={orderRender}
               dataPosition="top"
               dataTooltip="Add a goal to this category"
-
             />
           </div>
           <div className="card-content card-scrollable-content">

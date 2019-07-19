@@ -4,6 +4,7 @@ import Form from "../../components/Form";
 import FormStatic from "../../components/FormStatic";
 import API from "../../utils/API";
 import { useAuth0 } from "../../react-auth0-spa";
+import Footer from "../../components/Footer";
 import "./style.css";
 
 const moment = require("moment");
@@ -35,35 +36,36 @@ const Profile = () => {
   }
 
   return (
-    <div className="container profileContainer">
-      <div className="row container-profile">
-        <div className="col s2">
-          <div className="row center-align">
-            <img
-              src={userData.image ? userData.image : user.picture}
-              alt="Profile"
-              className="profile-pic circle img-fluid profilePic"
-            />
+    <div>
+      <div className="container profileContainer">
+        <div className="row container-profile">
+          <div className="col s2">
+            <div className="row center-align">
+              <img
+                src={userData.image ? userData.image : user.picture}
+                alt="Profile"
+                className="profile-pic circle img-fluid profilePic"
+              />
+            </div>
+            <div className="row">
+              <h5 className="profileName center-align">{userData.username}</h5>
+            </div>
           </div>
-          <div className="row">
-            <h5 className="profileName center-align">{userData.username}</h5>
-          </div>
-        </div>
 
-        <div className="col s9 offset-s1">
-          <div className="row">
-            <h4>Profile</h4>
-          </div>
-          {!newUser ? (
-            <FormStatic
-              userID={userData.id}
-              username={userData.username}
-              firstName={userData.firstName}
-              lastName={userData.lastName}
-              email={user.email}
-              getUserProfile={getUserProfile}
-            />
-          ) : (
+          <div className="col s9 offset-s1">
+            <div className="row">
+              <h4>Profile</h4>
+            </div>
+            {!newUser ? (
+              <FormStatic
+                userID={userData.id}
+                username={userData.username}
+                firstName={userData.firstName}
+                lastName={userData.lastName}
+                email={user.email}
+                getUserProfile={getUserProfile}
+              />
+            ) : (
               <Form
                 fistName={user.given_name}
                 lastName={user.family_name}
@@ -71,8 +73,10 @@ const Profile = () => {
                 getUserProfile={getUserProfile}
               />
             )}
+          </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

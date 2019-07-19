@@ -6,6 +6,7 @@ import API from "../../utils/API";
 import M from "materialize-css";
 import { useAuth0 } from "../../react-auth0-spa";
 import Fuse from "fuse.js";
+import Footer from "../../components/Footer";
 
 import "./style.css";
 
@@ -183,7 +184,7 @@ const Buddies = props => {
   return (
     <>
       <div className="container">
-        <h1 className="text-center">Find Buddies</h1>
+        <h1 className="buddies-text text-center">Find Buddies</h1>
 
         <div className="row">
           <div className="col s12">
@@ -210,7 +211,7 @@ const Buddies = props => {
                   >
                     Search
                   </button>
-                  <button className="btn amber darken-1" onClick={findBuddy}>
+                  <button className="match-button btn" onClick={findBuddy}>
                     Get matched with a buddy
                   </button>
                 </div>
@@ -291,6 +292,7 @@ const Buddies = props => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

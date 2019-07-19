@@ -42,6 +42,7 @@
 
 .goal-card-name {
   text-align: left;
+  color: #34495e;
 }
 
 .goal-due-alert {
@@ -56,11 +57,15 @@
 
 .card-title {
   background-color: #34495e;
-  color: #d4ac0d;
+  color: #e5e8e8;
   border-bottom: thin solid;
   border-bottom-color: #d4ac0d;
+  min-height: 45px;
 }
-
+.category-title {
+  margin-left: 23px;
+  vertical-align: middle;
+}
 .card-panel {
   background-color: #e5e8e8 !important;
 }

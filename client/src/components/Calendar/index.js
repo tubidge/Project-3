@@ -64,7 +64,7 @@ export default class Cal extends React.Component {
               results.push(event);
               break;
             case "Wellness":
-              event.backgroundColor = "#5d6d7e";
+              event.backgroundColor = "#1c2833";
               results.push(event);
               break;
             case "Travel":

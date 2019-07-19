@@ -34,11 +34,13 @@ hr {
   margin-top: 10px;
   margin-left: 10px;
   margin-right: 10px;
+  background-color: #d4ac0d !important;
 }
 .login {
   margin-top: 10px;
   margin-right: 30px;
   margin-left: 10px;
+  background-color: #d4ac0d !important;
 }
 .people {
   max-width: 100%;
@@ -50,9 +52,10 @@ hr {
   min-height: 700px;
 }
 
-.text {
+.home-text {
   font-size: 20px;
   color: black;
+  word-wrap: break-word;
 }
 
 .text2 {
@@ -83,4 +86,7 @@ hr {
 
 #purposeTitle {
   font-family: "Anton", sans-serif;
+}
+.home-buttons {
+  background-color: #d4ac0d !important;
 }
