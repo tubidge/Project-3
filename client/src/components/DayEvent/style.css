@@ -1,0 +1,11 @@
+.day-event-item {
+  background: #e2e77d;
+  border-radius: 50px;
+  text-align: center;
+  margin: 5px;
+}
+
+.day-event-item:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}

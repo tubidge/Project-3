@@ -148,6 +148,212 @@ module.exports = {
     });
   },
 
+  getBasicUserByUsername: username => {
+    return new Promise((resolve, reject) => {
+      db.User.findAll({
+        where: {
+          username: username
+        }
+      })
+        .then(resp => {
+          console.log(resp);
+          const results = {
+            id: resp[0].dataValues.id,
+            firstName: resp[0].dataValues.firstName,
+            lastName: resp[0].dataValues.lastName,
+            username: resp[0].dataValues.username,
+            email: resp[0].dataValues.email,
+            image: resp[0].dataValues.image
+          };
+          resolve(results);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  },
+
+  getGoalPageInfo: email => {
+    return new Promise((resolve, reject) => {
+      db.User.findAll({
+        where: {
+          email: email
+        },
+        include: [db.Goals, db.Buddy]
+      })
+        .then(resp => {
+          console.log(resp);
+          const data = resp[0].dataValues;
+          const goalIds = [];
+          const id = data.id;
+
+          const user = {
+            id: data.id,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            username: data.username,
+            email: data.email,
+            image: data.image,
+            buddies: {
+              myBuddies: []
+            },
+
+            activeGoals: {
+              completed: [],
+              incomplete: []
+            },
+
+            pastGoals: {
+              completed: [],
+              incomplete: []
+            }
+          };
+
+          const getBuddies = id => {
+            console.log(`getbuddies id ${id}`);
+            helper
+              .asyncForEach(id, async event => {
+                console.log("test");
+
+                await buddy
+                  .getAllBuddiesId(id)
+                  .then(resp => {
+                    console.log(resp);
+                    console.log("resp");
+                    if (resp.length > 0) {
+                      resp.forEach(index => {
+                        console.log("index");
+                        console.log(index);
+                        if (index.active) {
+                          const myBuddy = {};
+                          myBuddy.id = index.id;
+                          myBuddy.duration = index.duration;
+                          myBuddy.active = index.active;
+                          myBuddy.buddyId = index.buddyId;
+                          myBuddy.buddyGoal = index.buddyGoal;
+                          myBuddy.channel = index.chatChannel;
+                          myBuddy.goalId = index.goalId;
+                          myBuddy.ownerId = index.ownerId;
+                          console.log(myBuddy);
+                          user.buddies.myBuddies.push(myBuddy);
+                        } else {
+                          return false;
+                        }
+                      });
+                    }
+                  })
+                  .catch(err => {
+                    console.log(err);
+                  });
+              })
+              .then(() => {
+                const buddyArr = [];
+                helper
+                  .asyncForEach(user.buddies.myBuddies, async event => {
+                    console.log(event);
+                    console.log(typeof event.buddyId);
+                    console.log("this is the event");
+                    console.log(typeof id);
+                    if (parseInt(id) === event.buddyId) {
+                      console.log("true");
+                      await db.User.findAll({
+                        where: {
+                          id: event.ownerId
+                        }
+                      }).then(resp => {
+                        console.log("async await");
+                        console.log(resp);
+                        const buddyData = {
+                          id: event.id,
+                          email: resp[0].dataValues.email,
+                          username: resp[0].dataValues.username,
+                          channel: event.channel
+                        };
+
+                        buddyArr.push(buddyData);
+                        console.log(buddyArr);
+                        user.buddies.allBuddies = buddyArr;
+                      });
+                    } else {
+                      console.log("false");
+                      await db.User.findAll({
+                        where: {
+                          id: event.buddyId
+                        }
+                      }).then(resp => {
+                        console.log("async await");
+                        console.log(resp);
+                        const buddyData = {
+                          id: event.id,
+                          email: resp[0].dataValues.email,
+                          username: resp[0].dataValues.username,
+                          channel: event.channel
+                        };
+
+                        buddyArr.push(buddyData);
+                        console.log(buddyArr);
+                        user.buddies.allBuddies = buddyArr;
+                      });
+                    }
+                  })
+                  .then(() => {
+                    resolve(user);
+                  });
+              });
+          };
+
+          if (data.Goals.length > 0) {
+            data.Goals.forEach(index => {
+              goalIds.push(index.dataValues.id);
+              let date = moment().format("YYYY-MM-DD");
+              let goalDate = moment(index.dataValues.dueDate)
+                .add("1", "day")
+                .format("YYYY-MM-DD");
+              if (moment(goalDate).isAfter(date)) {
+                const goal = {};
+                goal.id = index.dataValues.id;
+                goal.name = index.dataValues.name;
+                goal.category = index.dataValues.category;
+                goal.description = index.dataValues.description;
+                goal.dueDate = moment(index.dataValues.dueDate)
+                  .add("1", "day")
+                  .format("YYYY-MM-DD");
+                goal.private = index.dataValues.private;
+                goal.complete = index.dataValues.complete;
+                goal.userId = index.dataValues.UserId;
+                if (goal.complete) {
+                  user.activeGoals.completed.push(goal);
+                } else {
+                  user.activeGoals.incomplete.push(goal);
+                }
+              } else {
+                const goal = {};
+                goal.id = index.dataValues.id;
+                goal.name = index.dataValues.name;
+                goal.category = index.dataValues.category;
+                goal.description = index.dataValues.description;
+                goal.dueDate = moment(index.dataValues.dueDate)
+                  .add("1", "day")
+                  .format("YYYY-MM-DD");
+                goal.private = index.dataValues.private;
+                goal.complete = index.dataValues.complete;
+                goal.userId = index.dataValues.UserId;
+                if (goal.complete) {
+                  user.pastGoals.completed.push(goal);
+                } else {
+                  user.pastGoals.incomplete.push(goal);
+                }
+              }
+            });
+          }
+          getBuddies(id);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  },
+
   // This method will return a single user with their goals, milestones, and any current buddies and all
   // relevant buddy data
   findUser: id => {
@@ -415,18 +621,18 @@ module.exports = {
           if (data.Milestones.length > 0) {
             data.Milestones.forEach(index => {
               let date = moment().format("YYYY-MM-DD");
-              let milestoneDate = moment(index.dataValues.dueDate)
-                .add("1", "day")
-                .format("YYYY-MM-DD");
+              let milestoneDate = moment(index.dataValues.dueDate).format(
+                "YYYY-MM-DD"
+              );
 
               if (moment(milestoneDate).isAfter(date)) {
                 const milestone = {};
                 milestone.id = index.dataValues.id;
                 milestone.name = index.dataValues.name;
                 milestone.frequency = index.dataValues.frequency;
-                milestone.dueDate = moment(index.dataValues.dueDate)
-                  .add("1", "day")
-                  .format("YYYY-MM-DD");
+                milestone.dueDate = moment(index.dataValues.dueDate).format(
+                  "YYYY-MM-DD"
+                );
                 milestone.completed = index.dataValues.completed;
                 milestone.notes = index.dataValues.notes;
                 milestone.goalId = index.dataValues.GoalId;
@@ -442,9 +648,9 @@ module.exports = {
                 milestone.id = index.dataValues.id;
                 milestone.name = index.dataValues.name;
                 milestone.frequency = index.dataValues.frequency;
-                milestone.dueDate = moment(index.dataValues.dueDate)
-                  .add("1", "day")
-                  .format("YYYY-MM-DD");
+                milestone.dueDate = moment(index.dataValues.dueDate).format(
+                  "YYYY-MM-DD"
+                );
                 milestone.completed = index.dataValues.completed;
                 milestone.notes = index.dataValues.notes;
                 milestone.goalId = index.dataValues.GoalId;
@@ -488,6 +694,7 @@ module.exports = {
             username: data.username,
             email: data.email,
             image: data.image,
+            created: data.createdAt,
             buddies: {
               myBuddies: []
             },
@@ -562,7 +769,8 @@ module.exports = {
                           id: event.id,
                           email: resp[0].dataValues.email,
                           username: resp[0].dataValues.username,
-                          channel: event.channel
+                          channel: event.channel,
+                          buddyId: resp[0].dataValues.id
                         };
 
                         buddyArr.push(buddyData);
@@ -582,7 +790,8 @@ module.exports = {
                           id: event.id,
                           email: resp[0].dataValues.email,
                           username: resp[0].dataValues.username,
-                          channel: event.channel
+                          channel: event.channel,
+                          buddyId: resp[0].dataValues.id
                         };
 
                         buddyArr.push(buddyData);

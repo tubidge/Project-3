@@ -37,6 +37,14 @@ export default {
     });
   },
 
+  getUserByUsername: username => {
+    return axios.get("/user/basic/" + username);
+  },
+
+  getUserByGoal: id => {
+    return axios.get("/user/goal/" + id);
+  },
+
   // *** GOAL API METHODS
 
   // This method will return all the goals that a user owns
@@ -54,6 +62,9 @@ export default {
     return axios.get("/goal/basic/" + id);
   },
 
+  getGoalPageInfo: email => {
+    return axios.get("/goal/page/" + email);
+  },
   // This method will add a goal to the database
   // The data object being passed in needs to have name, category, dueDate, and UserId
   addGoal: data => {
@@ -88,6 +99,20 @@ export default {
     return axios.get("/milestone/" + id);
   },
 
+  getMilestoneFreq: (id, freq) => {
+    return axios.get("/milestone/frequency/" + id + "/" + freq);
+  },
+
+  addMilestone: data => {
+    return axios.post("/add/milestone", {
+      data
+    });
+  },
+
+  getMilestoneDate: (id, date) => {
+    return axios.get("/milestone/date/" + id + "/" + date);
+  },
+
   // This method will select a milestone to update based on id.
   // The data object needs to contain colName and info to update the object
   editMilestone: (id, data) => {
@@ -99,6 +124,10 @@ export default {
   // This method will select a milestone by id and delete it
   deleteMilestone: id => {
     return axios.delete("/milestone/" + id);
+  },
+
+  deleteMilestoneFreq: (id, name, freq) => {
+    return axios.delete("/milestone/" + id + "/" + name + "/" + freq);
   },
 
   // *** BUDDY API METHODS

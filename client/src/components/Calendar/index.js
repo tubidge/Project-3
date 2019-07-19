@@ -17,74 +17,98 @@ export default class Cal extends React.Component {
     this.getMilestones();
   }
 
+  componentDidUpdate(prevProps) {
+    console.log("component working");
+    if (this.props.render !== prevProps.render) {
+      console.log("rerendering cal");
+      this.getMilestones();
+    }
+  }
+
   getMilestones() {
-    API.getAllMilestones(1).then(data => {
+    API.getAllGoals(this.props.userId).then(data => {
       console.log(data);
-      let incompleteMilestones = data.data.incomplete;
-      let completeMilestones = data.data.completed;
-      const results = [];
-      incompleteMilestones.forEach(index => {
-        let event = {
-          id: index.id,
-          title: index.name,
-          date: index.dueDate,
-          category: index.category,
-          className: "modal-trigger",
-          dataTarget: "milestoneModal"
-        };
-        switch (event.category) {
-          case "Fitness":
-            event.backgroundColor = "#C65BC0";
-            results.push(event);
-            break;
-          case "Education":
-            event.backgroundColor = "#25629F";
-            results.push(event);
-            break;
-          case "Financial":
-            event.backgroundColor = "#4CA824";
-            results.push(event);
-            break;
-          case "Wellness":
-            event.backgroundColor = "#93BCE6";
-            results.push(event);
-            break;
-          case "Travel":
-            event.backgroundColor = "#808B96";
-            results.push(event);
-            break;
-        }
+      let incompleteGoals = data.data.currentGoals.incomplete;
+      let incompleteMilestones = [];
+      let completeMilestones = [];
+      incompleteGoals.forEach(index => {
+        incompleteMilestones.push(index.milestones.incomplete);
+        completeMilestones.push(index.milestones.completed);
       });
-      completeMilestones.forEach(index => {
-        let event = {
-          id: index.id,
-          title: index.name,
-          date: index.dueDate,
-          category: index.category,
-          className: "modal-trigger completed-milestone-cal"
-        };
-        switch (event.category) {
-          case "Fitness":
-            event.backgroundColor = "#C65BC0";
-            results.push(event);
-            break;
-          case "Education":
-            event.backgroundColor = "#25629F";
-            results.push(event);
-            break;
-          case "Financial":
-            event.backgroundColor = "#4CA824";
-            results.push(event);
-            break;
-          case "Wellness":
-            event.backgroundColor = "#93BCE6";
-            results.push(event);
-            break;
-          case "Travel":
-            event.backgroundColor = "#808B96";
-            results.push(event);
-            break;
-        }
+      console.log(incompleteGoals);
+      console.log(incompleteMilestones);
+      console.log(completeMilestones);
+
+      const results = [];
+      incompleteMilestones.forEach(event => {
+        event.forEach(index => {
+          let event = {
+            id: index.id,
+            title: index.name,
+            date: index.dueDate,
+            category: index.category,
+            className: "modal-trigger",
+            dataTarget: "milestoneModal"
+          };
+          switch (event.category) {
+            case "Fitness":
+              event.backgroundColor = "#34495e";
+              results.push(event);
+              break;
+            case "Education":
+              event.backgroundColor = "#BDBDBD";
+              results.push(event);
+              break;
+            case "Financial":
+              event.backgroundColor = "#d4ac0d";
+              results.push(event);
+              break;
+            case "Wellness":
+              event.backgroundColor = "#5d6d7e";
+              results.push(event);
+              break;
+            case "Travel":
+              event.backgroundColor = "#8e793e";
+              results.push(event);
+              break;
+          }
+        });
+      });
+      completeMilestones.forEach(event => {
+        console.log(event);
+        event.forEach(index => {
+          console.log(results);
+          let event = {
+            id: index.id,
+            title: index.name,
+            date: index.dueDate,
+            category: index.category,
+            className: "modal-trigger completed-milestone-cal"
+          };
+          console.log(event);
+          switch (event.category) {
+            case "Fitness":
+              event.backgroundColor = "#34495e";
+              results.push(event);
+              break;
+            case "Education":
+              event.backgroundColor = "#bdbdbd";
+              results.push(event);
+              break;
+            case "Financial":
+              event.backgroundColor = "#d4ac0d";
+              results.push(event);
+              break;
+            case "Wellness":
+              event.backgroundColor = "#5d6d7e";
+              results.push(event);
+              break;
+            case "Travel":
+              event.backgroundColor = "#8e793e";
+              results.push(event);
+              break;
+          }
+        });
       });
       console.log(results);
       this.setState({
@@ -107,18 +131,18 @@ export default class Cal extends React.Component {
         currentMilestoneId: null
       },
       () => {
-        this.getMilestones(1);
+        this.getMilestones(this.props.userId);
+        this.props.orderRender();
       }
     );
   };
-
-  // need to create a modal popup trigger by clicking a milestone on the calendar.
 
   render() {
     return (
       <div>
         <>
           <FullCalendar
+            className="grey-lighten-4"
             dateClick={this.handleDateClick}
             plugins={[dayGridPlugin]}
             defaultView="dayGridMonth"

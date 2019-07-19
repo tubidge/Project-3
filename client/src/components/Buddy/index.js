@@ -1,5 +1,6 @@
 import React from "react";
-import "./style.css";
+import { Link } from "react-router-dom";
+// import "./style.css";
 
 function Buddy(props) {
   return (
@@ -10,7 +11,7 @@ function Buddy(props) {
         </div>
         <div className="col s6">
           <p>
-            <a href="#">View Profile</a>
+            <Link to="#">View Profile</Link>
           </p>
         </div>
       </li>

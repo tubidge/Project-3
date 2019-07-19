@@ -184,6 +184,41 @@ const Milestone = {
     });
   },
 
+  getMilestoneByFreq: (id, freq) => {
+    return new Promise((resolve, reject) => {
+      db.Milestones.findAll({
+        where: {
+          GoalId: id,
+          frequency: freq,
+          completed: false
+        }
+      })
+        .then(resp => {
+          console.log(resp);
+          const milestones = [];
+          const names = [];
+          resp.forEach(index => {
+            const milestone = {
+              id: index.dataValues.id,
+              name: index.dataValues.name,
+              completed: index.dataValues.completed,
+              frequency: index.dataValues.frequency
+            };
+
+            if (!names.includes(milestone.name)) {
+              names.push(milestone.name);
+              milestones.push(milestone);
+            }
+          });
+
+          resolve(milestones);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    });
+  },
+
   // This method will return a single milestone selected off id
   getMilestone: id => {
     return new Promise((resolve, reject) => {
@@ -272,6 +307,41 @@ const Milestone = {
     });
   },
 
+  getDate: (id, date) => {
+    return new Promise((resolve, reject) => {
+      db.Milestones.findAll({
+        where: {
+          dueDate: date,
+          GoalId: id
+        }
+      })
+        .then(resp => {
+          console.log(resp);
+
+          const results = [];
+
+          resp.forEach(index => {
+            const milestone = {
+              id: index.dataValues.id,
+              name: index.dataValues.name,
+              frequency: index.dataValues.frequency,
+              completed: index.dataValues.completed,
+              dueDate: index.dataValues.dueDate,
+              startDate: index.dataValues.startDate,
+              endDate: index.dataValues.endDate,
+              notes: index.dataValues.notes
+            };
+            results.push(milestone);
+          });
+
+          resolve(results);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  },
+
   // This method will allow a user to update a particular column's data based on the
   // milestone id that they pass in
   updateMilestone: (id, colName, info) => {
@@ -313,12 +383,32 @@ const Milestone = {
         .then(resp => {
           let results;
           if (resp == 1) {
-            results = "Buddy relation deleted";
+            results = "Milestone Deleted";
           } else {
-            results = "Error in deleteing relation";
+            results = "Error in deleteing milestone";
           }
 
           resolve(results);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  },
+
+  deleteFrequency: (id, name, frequency) => {
+    return new Promise((resolve, reject) => {
+      db.Milestones.destroy({
+        where: {
+          GoalId: id,
+          name: name,
+          frequency: frequency
+        }
+      })
+        .then(resp => {
+          console.log(resp);
+
+          resolve(resp);
         })
         .catch(err => {
           reject(err);

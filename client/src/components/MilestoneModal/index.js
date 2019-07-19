@@ -81,17 +81,23 @@ function MilestoneModal(props) {
       colName: "completed",
       info: milestone.completed
     };
-    API.editMilestone(milestone.id, firstEdit).then(resp => {
-      console.log(resp);
-      let secondEdit = {
-        colName: "notes",
-        info: milestone.notes
-      };
-      API.editMilestone(milestone.id, secondEdit).then(resp => {
-        console.log(resp);
+    API.editMilestone(milestone.id, firstEdit)
+      .then(resp => {
+        let secondEdit = {
+          colName: "notes",
+          info: milestone.notes
+        };
+        API.editMilestone(milestone.id, secondEdit)
+          .then(resp => {
+            props.cancel();
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      })
+      .catch(err => {
+        console.log(err);
       });
-    });
-    props.cancel();
   };
 
   return (

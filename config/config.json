@@ -1,8 +1,13 @@
 {
   "development": {
     "username": "root",
+<<<<<<< HEAD
     "password": "Midwestpest1!",
     "database": "project_3db",
+=======
+    "password": "Comphealth1",
+    "database": "goalapp_db",
+>>>>>>> 96dccb0100d793332811af982ebca743004f949f
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
@@ -15,7 +20,7 @@
   },
   "production": {
     "username": "root",
-    "password": "root",
+    "password": "Comphealth1",
     "database": "goalapp_db",
     "host": "127.0.0.1",
     "dialect": "mysql"

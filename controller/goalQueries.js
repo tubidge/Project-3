@@ -29,12 +29,12 @@ module.exports = {
       })
         .then(resp => {
           console.log("database response");
-          console.log(resp);
+          console.log(resp[0]);
           const goal = {
             id: resp[0].dataValues.id,
             name: resp[0].dataValues.name,
             category: resp[0].dataValues.category,
-            dueDate: moment(resp[0].dataValues)
+            dueDate: moment(resp[0].dataValues.dueDate)
               .add("1", "day")
               .format("YYYY-MM-DD"),
             description: resp[0].dataValues.description,
@@ -51,40 +51,50 @@ module.exports = {
             }
           };
 
+          console.log(goal);
+
           resp[0].dataValues.Milestones.forEach(index => {
+            console.log("for each running");
+            console.log(index);
             const milestone = {};
             milestone.id = index.dataValues.id;
-            milestone.name = index.dataValues.id;
+            milestone.name = index.dataValues.name;
             milestone.frequency = index.dataValues.frequency;
             milestone.dueDate = index.dataValues.dueDate;
-
+            milestone.startDate = index.dataValues.startDate;
+            milestone.endDate = index.dataValues.endDate;
             milestone.completed = index.dataValues.completed;
             milestone.notes = index.dataValues.notes;
             milestone.goalId = index.dataValues.GoalId;
             milestone.userId = index.dataValues.UserId;
 
             if (milestone.completed) {
-              goal.milestones.completed.push(milestone);
+              console.log("completed");
+
+              goal.milestones.complete.push(milestone);
+              console.log(goal.milestones);
             } else {
+              console.log("incomplete");
               goal.milestones.incomplete.push(milestone);
+              console.log(goal.milestones);
             }
           });
+          console.log("after for each");
+          // resp[0].dataValues.Buddies.forEach(index => {
+          //   const buddy = {};
+          //   buddy.id = index.dataValues.id;
+          //   buddy.duration = index.dataValues.duration;
+          //   buddy.active = index.dataValues.active;
+          //   buddy.buddyId = index.dataValues.buddyId;
+          //   buddy.goalId = index.dataValues.GoalId;
+          //   buddy.ownerId = index.dataValues.UserId;
 
-          resp[0].dataValues.Buddies.forEach(index => {
-            const buddy = {};
-            buddy.id = index.dataValues.id;
-            buddy.duration = index.dataValues.duration;
-            buddy.active = index.dataValues.active;
-            buddy.buddyId = index.dataValues.buddyId;
-            buddy.goalId = index.dataValues.GoalId;
-            buddy.ownerId = index.dataValues.UserId;
-
-            if (buddy.active) {
-              goal.buddies.current.push(buddy);
-            } else {
-              goal.buddies.past.push(buddy);
-            }
-          });
+          //   if (buddy.active) {
+          //     goal.buddies.current.push(buddy);
+          //   } else {
+          //     goal.buddies.past.push(buddy);
+          //   }
+          // });
           console.log("right before resolve");
           console.log(goal);
           resolve(goal);
@@ -188,6 +198,7 @@ module.exports = {
                 milestone.notes = index.dataValues.notes;
                 milestone.goalId = index.dataValues.GoalId;
                 milestone.userId = index.dataValues.UserId;
+                milestone.category = goal.category;
 
                 if (milestone.completed) {
                   goal.milestones.completed.push(milestone);
@@ -247,6 +258,7 @@ module.exports = {
                 milestone.notes = index.dataValues.notes;
                 milestone.goalId = index.dataValues.GoalId;
                 milestone.userId = index.dataValues.UserId;
+                milestone.category = goal.category;
 
                 if (milestone.completed) {
                   goal.milestones.completed.push(milestone);

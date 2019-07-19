@@ -10,28 +10,83 @@ import BuddyGoalCard from "../../components/BuddyGoalCard";
 const BuddyProfile = props => {
   const { loading, user } = useAuth0();
   const [isLoading, setIsLoading] = useState(true);
-  const [, setGoalInfo] = useState({});
-  const [incompleteGoals, setIncompleteGoals] = useState([]);
+
   const [categories, setCategories] = useState([]);
-  const [allBuddies, setAllBuddies] = useState();
+
+  // for the current user
+  const [goalInfo, setGoalInfo] = useState({});
+  const [incompleteGoals, setIncompleteGoals] = useState([]);
+  const [userInfo, setUserInfo] = useState([]);
+
+  // for the selected buddy
+  const [buddyGoalInfo, setBuddyGoalInfo] = useState({});
+  const [buddyIncompleteGoals, setBuddyIncompleteGoals] = useState([]);
   const [buddyData, setBuddyData] = useState([]);
+  const [allBuddies, setAllBuddies] = useState([]);
 
   useEffect(() => {
+    console.log(user);
     getBuddyData();
+    getUserData();
   }, []);
+
+  const getUnique = (arr, comp) => {
+    const unique = arr
+      .map(e => e[comp])
+      // store the keys of the unique objects
+      .map((e, i, final) => final.indexOf(e) === i && i)
+      // eliminate the dead keys & store unique objects
+      .filter(e => arr[e])
+      .map(e => arr[e]);
+    return unique;
+  };
 
   const getBuddyData = () => {
     let pathArray = window.location.pathname.split("/");
     let id = pathArray[2];
     API.getUser(id).then(res => {
+      if (res.data.buddies) {
+        if (res.data.buddies.length > 0) {
+          setAllBuddies(
+            res.data.buddies.allBuddies
+              .map(buddy => buddy.id)
+              .reduce(
+                (unique, item) =>
+                  unique.includes(item) ? unique : [...unique, item],
+                []
+              )
+          );
+        } else {
+          setAllBuddies(res.data.buddies.allBuddies);
+        }
+      }
       setBuddyData(res.data);
+      console.log(res.data);
       API.getAllGoals(id).then(res => {
-        console.log(res.data);
+        let goalData = res.data;
+        setBuddyGoalInfo(goalData);
+        setBuddyIncompleteGoals(goalData.currentGoals.incomplete);
+        setCategories(
+          goalData.currentGoals.incomplete
+            .map(goal => goal.category)
+            .reduce(
+              (unique, item) =>
+                unique.includes(item) ? unique : [...unique, item],
+              []
+            )
+        );
+        setIsLoading(false);
+      });
+    });
+  };
+
+  const getUserData = () => {
+    API.getUserByEmail(user.email).then(resp => {
+      let userData = resp.data;
+      API.getAllGoals(userData.id).then(res => {
         let goalData = res.data;
         setGoalInfo(goalData);
-        // if (buddyData.buddies) {
-        //   setAllBuddies(buddyData.buddies.allBuddies);
-        // }
+        setUserInfo(userData);
         setIncompleteGoals(goalData.currentGoals.incomplete);
         setCategories(
           goalData.currentGoals.incomplete
@@ -47,18 +102,17 @@ const BuddyProfile = props => {
     });
   };
 
-  const addBuddy = e => {
-    e.preventDefault();
-    // let data = {
-    //   duration: "1 Week",
-    //   buddyId: 2,
-    //   buddyGoal: 96,
-    //   GoalId: 96,
-    //   UserId: 1
-    // };
-    // API.addBuddy(data).then(res => {
-    //   console.log(res.data);
-    // });
+  const addBuddy = (buddyId, buddyGoalId, userGoalId, userId) => {
+    let data = {
+      duration: "1 Week",
+      buddyId: buddyId,
+      buddyGoal: buddyGoalId,
+      GoalId: userGoalId,
+      UserId: userId
+    };
+    API.addBuddy(data).then(res => {
+      console.log(res.data);
+    });
   };
 
   if (loading || !buddyData || isLoading) {
@@ -75,15 +129,21 @@ const BuddyProfile = props => {
             userPicture={buddyData.image ? buddyData.image : user.picture}
             username={buddyData.username}
             email={buddyData.email}
-            incompleteGoals={incompleteGoals}
-            buddies={allBuddies}
+            incompleteGoals={buddyIncompleteGoals}
+            buddies={allBuddies ? getUnique(allBuddies, "username") : null}
+            buddyProfile={true}
           />
         </div>
         <div className="row">
           <div className="col l8 s12 center-align">
             <BuddyGoalCard
-              incompleteGoals={incompleteGoals}
+              incompleteGoals={buddyIncompleteGoals}
               addBuddy={addBuddy}
+              currentUserGoals={incompleteGoals}
+              addBuddy={addBuddy}
+              userId={userInfo.id}
+              buddyId={buddyData.id}
+              buddyName={buddyData.username}
             />
           </div>
         </div>

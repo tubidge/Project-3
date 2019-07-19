@@ -4,11 +4,11 @@ import { useAuth0 } from "../../react-auth0-spa";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import API from "../../utils/API";
+import Footer from "../../components/Footer";
 import Loading from "../../components/Loading";
 import UserProfile from "../../components/UserProfile";
 import BuddyList from "../../components/BuddyList";
 import GoalCard from "../../components/GoalCard";
-import Modal from "../../components/Modal";
 import Cal from "../../components/Calendar";
 
 import "./style.css";
@@ -22,13 +22,38 @@ const Dashboard = () => {
   const [categories, setCategories] = useState([]);
   const [active, setActive] = useState([]);
   const [allBuddies, setAllBuddies] = useState();
+  const [reRender, setreRender] = useState(false);
+  const [calRender, setCalRender] = useState(false);
 
   let stopIndex;
   let activeCategories = [];
 
   useEffect(() => {
     getAllData();
-  }, []);
+  }, [reRender]);
+
+  const getUnique = (arr, comp) => {
+    const unique = arr
+      .map(e => e[comp])
+      // store the keys of the unique objects
+      .map((e, i, final) => final.indexOf(e) === i && i)
+      // eliminate the dead keys & store unique objects
+      .filter(e => arr[e])
+      .map(e => arr[e]);
+    return unique;
+  };
+
+  const orderRender = () => {
+    API.getAllGoals(userInfo.id).then(resp => {
+      setIncompleteGoals(resp.data.currentGoals.incomplete);
+      renderGoalCards();
+    });
+  };
+
+  const renderCal = () => {
+    setCalRender(!calRender);
+    renderCalendar();
+  };
 
   const getAllData = () => {
     API.getUserByEmail(user.email).then(resp => {
@@ -43,15 +68,13 @@ const Dashboard = () => {
           setAllBuddies(userData.buddies.allBuddies);
         }
         setIncompleteGoals(goalData.currentGoals.incomplete);
-        setCategories(
-          goalData.currentGoals.incomplete
-            .map(goal => goal.category)
-            .reduce(
-              (unique, item) =>
-                unique.includes(item) ? unique : [...unique, item],
-              []
-            )
-        );
+        setCategories([
+          "Fitness",
+          "Education",
+          "Wellness",
+          "Financial",
+          "Travel"
+        ]);
         setIsLoading(false);
       });
     });
@@ -59,10 +82,8 @@ const Dashboard = () => {
 
   const renderGoalCards = () => {
     activeCategories = [];
-    stopIndex = categories.length;
-    if (categories.length > 3) {
-      stopIndex = 3;
-    }
+    stopIndex = 3;
+
     for (let i = 0; i < stopIndex; i++) {
       activeCategories.push(categories[i]);
     }
@@ -73,19 +94,18 @@ const Dashboard = () => {
         userID={userInfo.id}
         incompleteGoals={incompleteGoals}
         getAllData={getAllData}
+        renderCal={renderCal}
       />
     ));
   };
 
   // Cycle through categories on arrow click
   const cycleCategories = () => {
-    if (stopIndex === 3) {
-      activeCategories = [];
-      categories.push(categories.shift());
-      console.log(`All Categories: ${categories}`);
-      for (let i = 0; i < stopIndex; i++) {
-        activeCategories.push(categories[i]);
-      }
+    activeCategories = [];
+    // categories.push(categories.shift());
+    categories.push(categories.shift());
+    for (let i = 0; i < stopIndex; i++) {
+      activeCategories.push(categories[i]);
     }
     setActive(activeCategories);
     console.log(`Active Categories: ${active}`);
@@ -103,6 +123,12 @@ const Dashboard = () => {
     return text;
   };
 
+  const renderCalendar = () => {
+    return (
+      <Cal userId={userInfo.id} orderRender={orderRender} render={calRender} />
+    );
+  };
+
   if (loading || !userInfo || isLoading) {
     return <Loading />;
   }
@@ -118,26 +144,38 @@ const Dashboard = () => {
             username={userInfo.username}
             email={userInfo.email}
             incompleteGoals={incompleteGoals}
-            buddies={allBuddies}
+            buddies={allBuddies ? getUnique(allBuddies, "username") : null}
           />
-          <BuddyList buddies={allBuddies} makeid={makeid} />
+          <BuddyList
+            userEmail={userInfo.email}
+            userID={userInfo.id}
+            makeid={makeid}
+            buddies={allBuddies ? getUnique(allBuddies, "username") : null}
+          />
         </div>
         <div style={{ marginTop: "20px", marginBottom: "20px" }} />
         <div className="col l8 s12">{renderGoalCards()}</div>
         <div className="col s1 nextArrow">
-          <span>
-            <FontAwesomeIcon
-              onClick={() => cycleCategories()}
-              icon={faChevronRight}
-            />
-          </span>
+          {activeCategories.length >= 3 && (
+            <span
+              className="tooltipped"
+              data-position="top"
+              data-tooltip="More categories"
+            >
+              <FontAwesomeIcon
+                onClick={() => cycleCategories()}
+                icon={faChevronRight}
+              />
+            </span>
+          )}
         </div>
         <div className="row">
-          <div className="col l8 s12 center-align">
-            <Cal />
+          <div className="calendar col l8 s12 center-align">
+            {renderCalendar()}
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

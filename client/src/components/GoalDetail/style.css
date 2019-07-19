@@ -1,1 +1,56 @@
-/* Why doesn't this stylesheet do anything? */
+.goal-page-card {
+  background-color: #10355f;
+}
+
+.goal-page-cardTitle {
+  background-color: #10355f;
+}
+
+.goal-page-title {
+  text-align: center;
+}
+
+.goal-page-dueDate {
+  text-align: left;
+}
+.goal-page-privacy {
+  display: inline-block;
+  text-align: right;
+}
+
+.goal-page-progressBar {
+  display: inline-block;
+  width: 25rem;
+}
+.goal-page-sub-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.goal-page-upcomingView {
+  display: flex;
+  justify-content: space-around;
+}
+
+/* .goal-privacy-checkbox {
+  display: inline-block;
+  margin-bottom: 2rem;
+} */
+
+/* .goal-page-progressBar {
+  display: flex;
+  justify-content: center;
+} */
+.switch label input[type="checkbox"]:checked + .lever {
+  background-color: #e2e77d !important;
+}
+
+.switch label input[type="checkbox"]:checked + .lever::after {
+  background-color: white !important;
+}
+
+.milestone-image {
+  height: 100%;
+  width: 100%;
+  border-radius: 0;
+}

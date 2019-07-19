@@ -25,3 +25,47 @@
 .alert-goal-dueDate {
   color: red;
 }
+
+.goalCard {
+  max-height: 200px;
+}
+
+.card-scrollable-content {
+  max-height: 150px;
+  overflow: auto;
+}
+
+.goalCard .card-panel > .truncate:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.goal-card-name {
+  text-align: left;
+}
+
+.goal-due-alert {
+  text-align: right;
+  color: red;
+  margin: 0;
+}
+
+.card-content {
+  background-color: #34495e;
+}
+
+.card-title {
+  background-color: #34495e;
+  color: #d4ac0d;
+  border-bottom: thin solid;
+  border-bottom-color: #d4ac0d;
+}
+
+.card-panel {
+  background-color: #e5e8e8 !important;
+}
+
+.goal-card-header {
+  display: flex;
+  justify-content: space-between;
+}

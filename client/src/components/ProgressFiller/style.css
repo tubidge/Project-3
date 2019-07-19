@@ -1,0 +1,6 @@
+.progress-filler {
+  background: #e2e77d;
+  height: 100%;
+  border-radius: inherit;
+  transition: width 0.2s ease-in;
+}

@@ -6,15 +6,15 @@ module.exports = app => {
   // It can also include notes, and a completed boolean (we shouldn't ever send a completed boolean tho)
   app.post("/add/milestone", (req, res) => {
     console.log(req.body);
-    // const userMilestone = req.body.data;
-    let userMilestone = {
-      name: "Assess BMI",
-      frequency: "Monthly",
-      startDate: "2019-07-12",
-      endDate: "2019-11-01",
-      UserId: 1,
-      GoalId: 1
-    };
+    const userMilestone = req.body.data;
+    // let userMilestone = {
+    //   name: "2 hour workout",
+    //   frequency: "Daily",
+    //   startDate: "2019-07-12",
+    //   endDate: "2019-07-30",
+    //   UserId: 1,
+    //   GoalId: 1
+    // };
     milestone
       .configureMilestones(userMilestone)
       .then(data => {
@@ -40,9 +40,31 @@ module.exports = app => {
       });
   });
 
+  app.get("/milestone/frequency/:id/:freq", (req, res) => {
+    milestone
+      .getMilestoneByFreq(req.params.id, req.params.freq)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
+
   app.get("/milestone/range/:start/:end", (req, res) => {
     milestone
       .getDateRange(req.params.start, req.params.end, 1)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
+
+  app.get("/milestone/date/:id/:date", (req, res) => {
+    milestone
+      .getDate(req.params.id, req.params.date)
       .then(data => {
         res.send(data);
       })
@@ -68,15 +90,20 @@ module.exports = app => {
   app.put("/milestone/:id", (req, res) => {
     let colName = req.body.data.colName;
     let info = req.body.data.info;
-    console.log(req.body);
-
+    console.log(req.body.data);
+    console.log(colName);
+    console.log(info);
+    console.log(req.params.id);
+    // let colName = "completed";
+    // let info = true;
     milestone
       .updateMilestone(req.params.id, colName, info)
       .then(data => {
+        console.log(data);
         res.send(data);
       })
       .catch(err => {
-        res.catch(err);
+        res.send(err);
       });
   });
 
@@ -86,6 +113,17 @@ module.exports = app => {
       .deleteMilestone(req.params.id)
       .then(data => {
         res.send(data);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
+
+  app.delete("/milestone/:id/:name/:freq", (req, res) => {
+    milestone
+      .deleteFrequency(req.params.id, req.params.name, req.params.freq)
+      .then(data => {
+        res.send(`${data} milestones deleted`);
       })
       .catch(err => {
         res.send(err);

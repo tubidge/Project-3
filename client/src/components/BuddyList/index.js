@@ -1,27 +1,63 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import API from "../../utils/API";
+import "./style.css";
 
 const BuddyList = props => {
+  const [buddies, setBuddies] = useState([]);
+
+  const getUnique = (arr, comp) => {
+    const unique = arr
+      .map(e => e[comp])
+      // store the keys of the unique objects
+      .map((e, i, final) => final.indexOf(e) === i && i)
+      // eliminate the dead keys & store unique objects
+      .filter(e => arr[e])
+      .map(e => arr[e]);
+    return unique;
+  };
+
+  useEffect(() => {
+    console.log(props.buddies);
+  }, []);
+
   return (
     <>
       <section className="buddiesList">
         <ul className="collection with-header">
           <li className="collection-header">
             <h5>Buddies</h5>
-            <Link to="/buddies">Search Buddies</Link>
+            {/* <Link to="/buddies">Search Buddies</Link> */}
+            <Link
+              to={{
+                pathname: "/buddies",
+                state: {
+                  user: props.userEmail
+                }
+              }}
+            >
+              Search Buddies
+            </Link>
           </li>
           <span>
             {props.buddies &&
               props.buddies.map(buddy => (
                 <li key={props.makeid(5)} className="collection-item avatar">
-
-                  <Link to="/buddy-profile">{buddy}</Link>
-
                   <img
                     className="circle responsive-img z-depth-1"
-                    src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_640.png"
+                    src={buddy.image}
                     alt="Profile"
                   />
+                  <span className="title">{buddy.username}</span>
+                  <p>
+                    <Link
+                      to={`/buddy-profile/${buddy.buddyId}`}
+                      style={{ marginRight: "15px" }}
+                    >
+                      View Profile
+                    </Link>
+                    <Link to="#">Chat</Link>
+                  </p>
                 </li>
               ))}
             {!props.buddies && null}

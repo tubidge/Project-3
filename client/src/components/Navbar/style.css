@@ -1,0 +1,134 @@
+:root {
+  --accentGold: #d4ac0d !important;
+  --darkBlue: #1c2833;
+}
+
+nav {
+  background-color: var(--darkBlue) !important;
+  box-shadow: none !important;
+  background-color: none;
+  text-transform: none;
+  cursor: pointer;
+  color: var(--accentGold) !important;
+  margin-right: 10px;
+  -moz-transition: all 0.2s ease-in-out 0s;
+  -webkit-transition: all 0.2s ease-in-out 0s;
+  -ms-transition: all 0.2s ease-in-out 0s;
+  transition: all 0.2s ease-in-out 0s;
+}
+
+nav ul a:hover {
+  background: none !important;
+  cursor: pointer;
+  color: white;
+  transform: scale(1.1) rotate(-4deg);
+  -moz-transition: all 0.1s ease-in-out 0s;
+  -webkit-transition: all 0.1s ease-in-out 0s;
+  -ms-transition: all 0.1s ease-in-out 0s;
+  transition: all 0.1s ease-in-out 0s;
+}
+
+nav ul .active {
+  transform: scale(1.1) rotate(-4deg);
+  color: var(--accentGold);
+  font-weight: bold;
+}
+
+nav .btn {
+  line-height: 0px !important;
+  font-size: 1rem;
+  background-color: var(--darkBlue);
+}
+
+nav .brand-logo {
+  font-family: Anton, sans-serif;
+  letter-spacing: 1px;
+  margin-left: 10px;
+  -moz-transition: all 0.1s ease-in-out 0s;
+  -webkit-transition: all 0.1s ease-in-out 0s;
+  -ms-transition: all 0.1s ease-in-out 0s;
+  transition: all 0.1s ease-in-out 0s;
+}
+
+nav .brand-logo:hover {
+  transform: scale(1.1) rotate(-4deg);
+  -moz-transition: all 0.1s ease-in-out 0s;
+  -webkit-transition: all 0.1s ease-in-out 0s;
+  -ms-transition: all 0.1s ease-in-out 0s;
+  transition: all 0.1s ease-in-out 0s;
+}
+
+nav .brand-logo svg {
+  margin-left: 10px;
+  color: var(--accentGold) !important;
+  -moz-transition: all 0.2s ease-in-out 0s;
+  -webkit-transition: all 0.2s ease-in-out 0s;
+  -ms-transition: all 0.2s ease-in-out 0s;
+  transition: all 0.2s ease-in-out 0s;
+}
+
+nav .brand-logo svg:hover {
+  color: white;
+  -moz-transition: all 0.2s ease-in-out 0s;
+  -webkit-transition: all 0.2s ease-in-out 0s;
+  -ms-transition: all 0.2s ease-in-out 0s;
+  transition: all 0.2s ease-in-out 0s;
+}
+
+nav .brand-logo span {
+  color: var(--accentGold);
+}
+
+nav .brand-logo span:hover {
+  color: var(--accentGold);
+}
+
+nav .logout,
+nav .login {
+  background-color: none;
+  text-transform: none;
+  cursor: pointer;
+  color: var(--accentGold);
+  margin-right: 10px;
+  border: 2px solid var(--accentGold);
+  -moz-transition: all 0.2s ease-in-out 0s;
+  -webkit-transition: all 0.2s ease-in-out 0s;
+  -ms-transition: all 0.2s ease-in-out 0s;
+  transition: all 0.2s ease-in-out 0s;
+}
+
+nav .logout:hover,
+nav .login:hover {
+  background-color: var(--darkBlue) !important;
+  cursor: pointer;
+  color: white;
+  border: 2px solid white;
+  transform: rotate(3deg);
+  -moz-transition: all 0.1s ease-in-out 0s;
+  -webkit-transition: all 0.1s ease-in-out 0s;
+  -ms-transition: all 0.1s ease-in-out 0s;
+  transition: all 0.1s ease-in-out 0s;
+}
+
+nav .logoutMobile,
+nav .loginMobile {
+  color: rgba(0, 0, 0, 0.87);
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  height: 48px;
+  line-height: 48px;
+  padding: 0 32px;
+  cursor: pointer;
+}
+
+nav .logoutMobile:hover,
+nav .loginMobile:hover {
+  color: var(--accentGold);
+  background-color: rgba(0, 0, 0, 0.87);
+}
+
+nav ul a:hover {
+  background: black;
+  color: var(--accentGold);
+}
