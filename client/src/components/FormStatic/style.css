@@ -20,3 +20,8 @@
 #button {
   float: right;
 }
+.save-changes {
+  background-color: #1c2833 !important;
+  color: #d4ac0d !important;
+  margin-bottom: 20px;
+}

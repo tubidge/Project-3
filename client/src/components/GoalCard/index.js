@@ -231,7 +231,7 @@ const GoalCard = props => {
     <>
       <div className="col l4 s12">
         <div className="card goalCard">
-          <div className="card-title center-line">
+          <div className="card-title center-align">
             <span>{props.category}</span>
             <Modal
               style={{
