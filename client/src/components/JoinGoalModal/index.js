@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { confirmAlert } from "react-confirm-alert";
+import Select from "react-select";
 import M from "materialize-css";
 
 const JoinGoalModal = props => {
+  let selectOptions = [];
+
   useEffect(() => {
     M.AutoInit();
     let modals = document.querySelectorAll(".modal");
@@ -13,6 +15,10 @@ const JoinGoalModal = props => {
       outDuration: 400
     };
     M.Modal.init(modals, options);
+
+    props.currentUserGoals.map(goal => {
+      selectOptions.push(goal.name);
+    });
   }, []);
 
   const handleClick = () => {
@@ -31,6 +37,18 @@ const JoinGoalModal = props => {
       </Link>
       <div id={props.dataTarget} className="modal">
         <div className="modal-content">
+          <form onSubmit={handleSubmit}>
+            <div className="input-field col s12">
+              <Select />
+            </div>
+            <div className="input-field col s12">
+              <input type="date" className="validate" />
+              <label htmlFor="dueDate">Due Date</label>
+            </div>
+
+            <input className="btn modal-close" type="submit" />
+          </form>
+
           <div className="collection">
             <h5>Connect {props.buddyGoalName} with one of your goals!</h5>
             <p>
@@ -48,15 +66,6 @@ const JoinGoalModal = props => {
                           to="#"
                           className="collection-item"
                           onClick={handleClick}
-                          // onClick={e =>
-                          //   handleSubmit(
-                          //     e,
-                          //     props.buddyId,
-                          //     props.buddyGoalId,
-                          //     goal.id,
-                          //     props.userId
-                          //   )
-                          // }
                         >
                           {goal.name}
                         </Link>

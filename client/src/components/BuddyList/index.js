@@ -35,56 +35,51 @@ const BuddyList = props => {
         }
       });
     });
+    console.log("BUDDIES=========================");
     console.log(buddies);
   };
 
   return (
     <>
-      <section className="buddiesList">
-        <ul className="collection with-header">
-          <li className="collection-header">
-            <h5>Buddies</h5>
-            {/* <Link to="/buddies">Search Buddies</Link> */}
-            <Link
-              to={{
-                pathname: "/buddies",
-                state: {
-                  user: props.userEmail
-                }
-              }}
-            >
-              Search Buddies
-            </Link>
-          </li>
-          <span>
-            {buddies &&
-              buddies.map(buddy => (
-                <li key={props.makeid(5)} className="collection-item avatar">
-                  <img
-                    className="circle responsive-img z-depth-1"
-                    src={buddy.image}
-                    alt="Profile"
+      <section id="buddiesList">
+        <Link
+          to={{
+            pathname: "/buddies",
+            state: {
+              user: props.userEmail
+            }
+          }}
+        >
+          Find Buddies
+        </Link>
+        <ul class="w3-ul w3-card-4">
+          {buddies &&
+            buddies.map(buddy => (
+              <li key={props.makeid(5)} className="w3-bar">
+                <span class="w3-right">
+                  <Link to={`/buddy-profile/${buddy.buddyId}`}>
+                    <i class="material-icons">account_circle</i>
+                  </Link>{" "}
+                  <ChatButton
+                    key={buddy.channel}
+                    openChannel={props.openChannel}
+                    channel={buddy.channel}
+                    user={buddy.email}
+                    username={buddy.username}
                   />
-                  <span className="title">{buddy.username}</span>
-                  <p>
-                    <Link
-                      to={`/buddy-profile/${buddy.buddyId}`}
-                      style={{ marginRight: "15px" }}
-                    >
-                      View Profile
-                    </Link>
+                </span>
 
-                    <ChatButton
-                      key={buddy.channel}
-                      openChannel={props.openChannel}
-                      channel={buddy.channel}
-                      user={buddy.email}
-                    />
-                  </p>
-                </li>
-              ))}
-            {!props.buddies && null}
-          </span>
+                <img
+                  src={buddy.image}
+                  class="w3-bar-item w3-circle"
+                  style={{ width: "85px" }}
+                />
+                <div class="w3-bar-item">
+                  <div class="w3-large">{buddy.username}</div>
+                </div>
+              </li>
+            ))}
+          {!props.buddies && null}
         </ul>
       </section>
     </>

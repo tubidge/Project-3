@@ -8,8 +8,8 @@ function ChatMessage(props) {
   } else {
     if (props.userId === props.sender) {
       return (
-        <div className=" float-right clearfix d-block userMessage my-2">
-          <p className="float-right clearfix shadow-lg px-3">{props.message}</p>
+        <div className="clearfix d-block userMessage my-2">
+          <p className="clearfix shadow-lg px-3">{props.message}</p>
         </div>
       );
     } else {

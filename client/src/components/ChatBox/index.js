@@ -1,14 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./style.css";
 import ChatMessage from "../ChatMessage";
+import API from "../../utils/API";
 // This chatbox should render a card that takes in props for the current channel and sends those props to a hook that then populates the card
 // and allows for new messages to be sent
+
 function ChatBox(props) {
   console.log(props.messages);
+
   useEffect(() => {
     document.getElementById("testing").scrollIntoView(true);
     console.log("messages changes");
   }, [props.messages.length]);
+
   useEffect(() => {
     document
       .getElementById("messageField")
@@ -19,15 +23,16 @@ function ChatBox(props) {
         }
       });
   }, []);
+
   return (
-    <div className="card mt-5">
-      <div className="card-header d-flex justify-content-between text-white shadow-lg bg-success rounded">
-        <h4 className="ml-4">Username</h4>
+    <div className="card">
+      <div className="card-header">
+        <h4 className="ml-4">Chat with {props.messages[0]._sender.userId}</h4>
         <div>
           <i onClick={props.exit} className="fas fa-times text-white" />
         </div>
       </div>
-      <div className="card-body scroll-box mx-3 messageContent">
+      <div className="card-body scroll-box messageContent">
         {props.messages.map(index => {
           return (
             <ChatMessage
@@ -41,12 +46,12 @@ function ChatBox(props) {
         })}
         <div id="testing" style={{ float: "right" }} />
       </div>
-      <div className="card-footer text-muted py-0 shadow-lg bg-success rounded">
+      <div className="card-footer rounded">
         <form className="py-0">
-          <div className="form-group d-flex justify-content-between px-0">
+          <div className="form-group">
             <label htmlFor="messageField" />
             <textarea
-              className="form-control mt-2"
+              className="form-control"
               name="messageBody"
               id="messageField"
               rows="1"

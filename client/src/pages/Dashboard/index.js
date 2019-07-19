@@ -4,10 +4,8 @@ import { useAuth0 } from "../../react-auth0-spa";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import API from "../../utils/API";
-import Footer from "../../components/Footer";
 import Loading from "../../components/Loading";
 import UserProfile from "../../components/UserProfile";
-import BuddyList from "../../components/BuddyList";
 import GoalCard from "../../components/GoalCard";
 import Chat from "../../components/Chat";
 import Cal from "../../components/Calendar";
@@ -65,6 +63,8 @@ const Dashboard = () => {
         let goalData = res.data;
         setGoalInfo(goalData);
         setUserInfo(userData);
+        console.log("USER DATA FROM DASHBOARD");
+        console.log(userData);
         if (userData.buddies) {
           setAllBuddies(userData.buddies.allBuddies);
         }
@@ -147,12 +147,15 @@ const Dashboard = () => {
             incompleteGoals={incompleteGoals}
             buddies={allBuddies ? getUnique(allBuddies, "username") : null}
           />
-          {/* <BuddyList
-            userEmail={userInfo.email}
-            userID={userInfo.id}
+          <Chat
+            userInfo={userInfo}
+            buddies={allBuddies}
+            buddiesUsername={
+              allBuddies ? getUnique(allBuddies, "username") : null
+            }
+            buddiesEmail={allBuddies ? getUnique(allBuddies, "email") : null}
             makeid={makeid}
-            buddies={allBuddies ? getUnique(allBuddies, "username") : null}
-          /> */}
+          />
         </div>
         <div style={{ marginTop: "20px", marginBottom: "20px" }} />
         <div className="col l8 s12">{renderGoalCards()}</div>
@@ -175,15 +178,6 @@ const Dashboard = () => {
             {renderCalendar()}
           </div>
         </div>
-        <Chat
-          userInfo={userInfo}
-          buddies={allBuddies}
-          buddiesUsername={
-            allBuddies ? getUnique(allBuddies, "username") : null
-          }
-          buddiesEmail={allBuddies ? getUnique(allBuddies, "email") : null}
-          makeid={makeid}
-        />
       </div>
     </>
   );

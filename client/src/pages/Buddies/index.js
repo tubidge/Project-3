@@ -39,6 +39,7 @@ const Buddies = props => {
 
   useEffect(() => {
     M.AutoInit();
+    M.Carousel.init();
     console.log(props.location.state.user);
     // Get all goals from all users
     let results = [];
@@ -143,6 +144,7 @@ const Buddies = props => {
           let name = match[0].item.name;
           let category = match[0].item.category;
           let score = match[0].score;
+          let image = res.data.image;
           let username = res.data.username;
           let userId = res.data.id;
           let topMatch = {
@@ -151,7 +153,8 @@ const Buddies = props => {
             goalName: name,
             matchScore: score,
             username: username,
-            userId: userId
+            userId: userId,
+            image: image
           };
           matches.push(topMatch);
           console.log(topMatch);
@@ -182,112 +185,146 @@ const Buddies = props => {
 
   return (
     <>
-      <div className="container">
-        <h1 className="text-center">Find Buddies</h1>
-
-        <div className="row">
-          <div className="col s12">
-            <form>
-              <div className="input-field">
-                <input
-                  placeholder="Search by username, goal, category..."
-                  id="search"
-                  type="search"
-                  value={search}
-                  onChange={e => setSearch(e.target.value)}
-                />
-                <i className="material-icons" onClick={e => clearInputs(e, "")}>
-                  close
-                </i>
-              </div>
-              <div className="input-field">
-                <div className="input-group-append">
-                  <button
-                    style={{ marginRight: "10px" }}
-                    className="btn searchBtn"
-                    type="submit"
-                    onClick={e => searchUsers(e, search)}
+      <div id="buddiesPage">
+        <div className="container">
+          <h1 className="text-center">Find Buddies</h1>
+          <div className="row">
+            <div className="col s12">
+              <form>
+                <div className="input-field">
+                  <input
+                    placeholder="Search by username, goal, category..."
+                    id="search"
+                    type="search"
+                    value={search}
+                    onChange={e => setSearch(e.target.value)}
+                  />
+                  <i
+                    className="material-icons"
+                    onClick={e => clearInputs(e, "")}
                   >
-                    Search
-                  </button>
-                  <button className="btn amber darken-1" onClick={findBuddy}>
-                    Get matched with a buddy
-                  </button>
+                    close
+                  </i>
+                </div>
+                <div className="input-field">
+                  <div className="input-group-append">
+                    <button
+                      style={{ marginRight: "10px" }}
+                      className="btn searchBtn"
+                      type="submit"
+                      onClick={e => searchUsers(e, search)}
+                    >
+                      Search
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col s6">
+              {/* Check to see if any items are found*/}
+              {searchMatchFound.length ? (
+                <>
+                  <ul className="collection">
+                    {searchMatchFound.map(result => (
+                      <li
+                        className="collection-item avatar"
+                        key={result.item.id}
+                      >
+                        <img
+                          src={result.item.image}
+                          alt={result.item.username}
+                          className="circle responsive-img"
+                        />
+                        <span className="title">
+                          Owner: {result.item.username}
+                        </span>
+                        <p>
+                          Goal: {result.item.name}
+                          <br />
+                          Category: {result.item.category}
+                        </p>
+                        <Link to={`/buddy-profile/${result.item.userId}`}>
+                          View Profile
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              ) : users.length ? (
+                <>
+                  <ul className="collection">
+                    {users.map(user => (
+                      <li key={user.id} className="collection-item avatar">
+                        <img
+                          src={user.image}
+                          alt={user.username}
+                          className="circle responsive-img"
+                        />
+                        <span className="title">{user.username}</span>
+                        <p>{`${user.firstName} ${user.lastName}`}</p>
+                        <Link to={`/buddy-profile/${user.id}`}>
+                          View Profile
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              ) : null}
+            </div>
+            <div className="col s6">
+              <div className="card">
+                <div className="card-content">
+                  <span className="card-title">Find a Match</span>
+                  <p>Get matched with a buddy based on your current goals</p>
+                  <div className="card-action">
+                    <button className="btn findBuddy" onClick={findBuddy}>
+                      Click here to begin
+                    </button>
+                  </div>
                 </div>
               </div>
-            </form>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col s6">
-            {/* Check to see if any items are found*/}
-            {searchMatchFound.length ? (
-              <>
-                <ul className="collection">
-                  {searchMatchFound.map(result => (
-                    <li className="collection-item avatar" key={result.item.id}>
-                      <img
-                        src={result.item.image}
-                        alt={result.item.username}
-                        className="circle responsive-img"
-                      />
-                      <span className="title">
-                        Owner: {result.item.username}
-                      </span>
-                      <p>
-                        Goal: {result.item.name}
-                        <br />
-                        Category: {result.item.category}
-                      </p>
-                      <Link to={`/buddy-profile/${result.item.userId}`}>
-                        View Profile
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </>
-            ) : users.length ? (
-              <>
-                <ul className="collection">
-                  {users.map(user => (
-                    <li key={user.id} className="collection-item avatar">
-                      <img
-                        src={user.image}
-                        alt={user.username}
-                        className="circle responsive-img"
-                      />
-                      <span className="title">{user.username}</span>
-                      <p>{`${user.firstName} ${user.lastName}`}</p>
-                      <Link to={`/buddy-profile/${user.id}`}>View Profile</Link>
-                    </li>
-                  ))}
-                </ul>
-              </>
-            ) : null}
-          </div>
-          <div className="col s6">
-            {matchesFound.length > 0 ? <h4>Buddy Matches</h4> : null}
-            {matchesFound &&
-              getUnique(matchesFound, "userId").map(match => (
-                <div key={match.userId} className="col s6">
+            </div>
+            {matchesFound.length > 0 ? (
+              <div id="buddyMatches">
+                <div className="col s6">
                   <div className="card">
                     <div className="card-content">
-                      <div className="card-title">{match.username}</div>
-                      <p>{match.goalName}</p>
-                      <Link
-                        to={{
-                          pathname: "/buddy-profile/" + match.userId,
-                          state: {
-                            user: currentUser
-                          }
-                        }}
-                      >
-                        View Profile
-                      </Link>
+                      <span className="card-title">Your Matches</span>
+                      <ul className="collection">
+                        {matchesFound &&
+                          getUnique(matchesFound, "userId").map(match => (
+                            <li
+                              className="collection-item avatar"
+                              key={match.userId}
+                            >
+                              <img
+                                src={match.image}
+                                alt={match.username}
+                                className="circle responsive-img"
+                              />
+                              <span className="title">{match.username}</span>
+                              <p>
+                                Goal: {match.goalName}
+                                <br />
+                                Category: {match.category}
+                              </p>
+                              <Link
+                                to={`/buddy-profile/${match.userId}`}
+                                target="_blank"
+                              >
+                                View Profile
+                              </Link>
+                            </li>
+                          ))}
+                      </ul>
                     </div>
                   </div>
                 </div>
-              ))}
+              </div>
+            ) : null}
+            <div className="col s6" />
           </div>
         </div>
       </div>

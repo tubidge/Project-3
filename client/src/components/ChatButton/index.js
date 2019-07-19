@@ -1,20 +1,20 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function ChatButton(props) {
   return (
     <>
-      <button
+      <Link
+        to="#"
         key={props.channel}
         id={props.channel}
-        type="button"
-        className="btn btn-outline-success"
         onClick={event => {
           event.preventDefault();
           props.openChannel(props.channel);
         }}
       >
-        {props.user}
-      </button>
+        <i class="material-icons">message</i>
+      </Link>
     </>
   );
 }

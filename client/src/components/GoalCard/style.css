@@ -1,7 +1,3 @@
-.goalCard {
-  max-height: 200px;
-}
-
 .card-scrollable-content {
   max-height: 150px;
   overflow: auto;
