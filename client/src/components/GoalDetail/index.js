@@ -21,7 +21,7 @@ function GoalDetail(props) {
   const frequencies = ["Daily", "Weekly", "Monthly"];
 
   useEffect(() => {
-    document.addEventListener("click", function() {
+    document.addEventListener("click", function () {
       let options = {};
       var elems = document.querySelectorAll(".collapsible");
       var instances = M.Collapsible.init(elems, options);
@@ -201,7 +201,11 @@ function GoalDetail(props) {
               Due: {currentGoal.dueDate}
             </p>
 
-            <div className="switch">
+            <div
+              className="switch tooltipped"
+              data-position="bottom"
+              data-tooltip="Private goals will not be seen by others"
+            >
               <p className="goal-page-privacy white-text">
                 {currentGoal.private ? "Private" : "Public"}
               </p>
