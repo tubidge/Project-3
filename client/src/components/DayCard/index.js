@@ -5,6 +5,7 @@ import DayEvent from "../DayEvent";
 import MilestoneForm from "../MilestoneForm";
 import Loading from "../../components/Loading";
 import API from "../../utils/API";
+import M from "materialize-css";
 // This needs to use an api call and find milestones based on the date so that it can dynamically rerender without having the whole section rerender
 
 function DayCard(props) {
@@ -20,6 +21,7 @@ function DayCard(props) {
   const [allRender, setAllRender] = useState(props.status);
 
   useEffect(() => {
+    M.AutoInit();
     API.getMilestoneDate(props.goalId, props.date).then(data => {
       const milestones = {
         completed: [],
