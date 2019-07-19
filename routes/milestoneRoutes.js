@@ -40,6 +40,17 @@ module.exports = app => {
       });
   });
 
+  app.get("/milestone/frequency/:id/:freq", (req, res) => {
+    milestone
+      .getMilestoneByFreq(req.params.id, req.params.freq)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
+
   app.get("/milestone/range/:start/:end", (req, res) => {
     milestone
       .getDateRange(req.params.start, req.params.end, 1)
@@ -102,6 +113,17 @@ module.exports = app => {
       .deleteMilestone(req.params.id)
       .then(data => {
         res.send(data);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
+
+  app.delete("/milestone/:id/:name/:freq", (req, res) => {
+    milestone
+      .deleteFrequency(req.params.id, req.params.name, req.params.freq)
+      .then(data => {
+        res.send(`${data} milestones deleted`);
       })
       .catch(err => {
         res.send(err);

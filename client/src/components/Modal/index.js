@@ -78,8 +78,12 @@ const Modal = props => {
         setName("");
         setDueDate("");
         setCategory("");
+        if (props.getAllData) {
+          props.getAllData();
+        } else {
+          props.orderRender();
+        }
       });
-    props.getAllData();
   };
 
   const editGoal = e => {
@@ -101,14 +105,22 @@ const Modal = props => {
       info: dueDate
     };
     API.editGoal(props.goalId, editDueDate).then(res => console.log(res));
-    props.getAllData();
+    if (props.getAllData) {
+      props.getAllData();
+    } else {
+      props.orderRender();
+    }
   };
 
   const deleteGoal = e => {
     e.preventDefault();
     API.deleteGoal(props.goalId).then(res => {
       console.log(res.data);
-      props.getAllData();
+      if (props.getAllData) {
+        props.getAllData();
+      } else {
+        props.orderRender();
+      }
     });
   };
 
@@ -119,7 +131,11 @@ const Modal = props => {
     };
     e.preventDefault();
     API.editGoal(props.goalId, editComplete).then(res => console.log(res));
-    props.getAllData();
+    if (props.getAllData) {
+      props.getAllData();
+    } else {
+      props.orderRender();
+    }
   };
 
   return (

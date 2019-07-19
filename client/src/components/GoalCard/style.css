@@ -62,3 +62,8 @@
 .card-panel {
   background-color: #e5e8e8 !important;
 }
+
+.goal-card-header {
+  display: flex;
+  justify-content: space-between;
+}

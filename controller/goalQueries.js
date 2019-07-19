@@ -58,7 +58,7 @@ module.exports = {
             console.log(index);
             const milestone = {};
             milestone.id = index.dataValues.id;
-            milestone.name = index.dataValues.id;
+            milestone.name = index.dataValues.name;
             milestone.frequency = index.dataValues.frequency;
             milestone.dueDate = index.dataValues.dueDate;
             milestone.startDate = index.dataValues.startDate;
@@ -198,6 +198,7 @@ module.exports = {
                 milestone.notes = index.dataValues.notes;
                 milestone.goalId = index.dataValues.GoalId;
                 milestone.userId = index.dataValues.UserId;
+                milestone.category = goal.category;
 
                 if (milestone.completed) {
                   goal.milestones.completed.push(milestone);
@@ -257,6 +258,7 @@ module.exports = {
                 milestone.notes = index.dataValues.notes;
                 milestone.goalId = index.dataValues.GoalId;
                 milestone.userId = index.dataValues.UserId;
+                milestone.category = goal.category;
 
                 if (milestone.completed) {
                   goal.milestones.completed.push(milestone);

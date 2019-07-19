@@ -149,7 +149,7 @@ function MilestoneForm(props) {
             </button>
             <button
               className="btn modal-close milestone-cancel-btn"
-              onClick={props.close}
+              onClick={() => props.close("Never")}
             >
               Cancel
             </button>

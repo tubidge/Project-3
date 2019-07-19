@@ -184,6 +184,41 @@ const Milestone = {
     });
   },
 
+  getMilestoneByFreq: (id, freq) => {
+    return new Promise((resolve, reject) => {
+      db.Milestones.findAll({
+        where: {
+          GoalId: id,
+          frequency: freq,
+          completed: false
+        }
+      })
+        .then(resp => {
+          console.log(resp);
+          const milestones = [];
+          const names = [];
+          resp.forEach(index => {
+            const milestone = {
+              id: index.dataValues.id,
+              name: index.dataValues.name,
+              completed: index.dataValues.completed,
+              frequency: index.dataValues.frequency
+            };
+
+            if (!names.includes(milestone.name)) {
+              names.push(milestone.name);
+              milestones.push(milestone);
+            }
+          });
+
+          resolve(milestones);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    });
+  },
+
   // This method will return a single milestone selected off id
   getMilestone: id => {
     return new Promise((resolve, reject) => {
@@ -354,6 +389,26 @@ const Milestone = {
           }
 
           resolve(results);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  },
+
+  deleteFrequency: (id, name, frequency) => {
+    return new Promise((resolve, reject) => {
+      db.Milestones.destroy({
+        where: {
+          GoalId: id,
+          name: name,
+          frequency: frequency
+        }
+      })
+        .then(resp => {
+          console.log(resp);
+
+          resolve(resp);
         })
         .catch(err => {
           reject(err);

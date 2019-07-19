@@ -4,8 +4,15 @@
   padding: 0px;
 }
 
+.day-card-cardTitle {
+  background-color: white;
+  color: black;
+}
+
 .day-card-content {
   height: 15rem;
+  max-height: 15rem;
+  overflow: auto;
 }
 
 .day-card-date {

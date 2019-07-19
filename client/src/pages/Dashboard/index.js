@@ -23,6 +23,7 @@ const Dashboard = () => {
   const [active, setActive] = useState([]);
   const [allBuddies, setAllBuddies] = useState();
   const [reRender, setreRender] = useState(false);
+  const [calRender, setCalRender] = useState(false);
 
   let stopIndex;
   let activeCategories = [];
@@ -43,7 +44,15 @@ const Dashboard = () => {
   };
 
   const orderRender = () => {
-    setreRender(!reRender);
+    API.getAllGoals(userInfo.id).then(resp => {
+      setIncompleteGoals(resp.data.currentGoals.incomplete);
+      renderGoalCards();
+    });
+  };
+
+  const renderCal = () => {
+    setCalRender(!calRender);
+    renderCalendar();
   };
 
   const getAllData = () => {
@@ -85,6 +94,7 @@ const Dashboard = () => {
         userID={userInfo.id}
         incompleteGoals={incompleteGoals}
         getAllData={getAllData}
+        renderCal={renderCal}
       />
     ));
   };
@@ -111,6 +121,12 @@ const Dashboard = () => {
       text += char_list.charAt(Math.floor(Math.random() * char_list.length));
     }
     return text;
+  };
+
+  const renderCalendar = () => {
+    return (
+      <Cal userId={userInfo.id} orderRender={orderRender} render={calRender} />
+    );
   };
 
   if (loading || !userInfo || isLoading) {
@@ -155,7 +171,7 @@ const Dashboard = () => {
         </div>
         <div className="row">
           <div className="calendar col l8 s12 center-align">
-            <Cal userId={userInfo.id} orderRender={orderRender} />{" "}
+            {renderCalendar()}
           </div>
         </div>
       </div>

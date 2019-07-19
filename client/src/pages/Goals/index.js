@@ -23,34 +23,33 @@ const Goals = props => {
 
   useEffect(() => {
     M.AutoInit();
+
     getAllData();
   }, [currentGoal, reRender]);
 
   const getAllData = () => {
-    API.getUserByEmail(user.email).then(resp => {
-      console.log(resp.data);
+    console.log("function running");
+    console.log(user.email);
+
+    API.getGoalPageInfo(user.email).then(resp => {
+      console.log(resp);
       let userData = resp.data;
-      API.getAllGoals(userData.id).then(res => {
-        console.log(res.data);
-        let goalData = res.data;
-        setGoalInfo(goalData);
-        setUserInfo(userData);
-        if (userData.buddies) {
-          setAllBuddies(userData.buddies.allBuddies);
-        }
-        setIncompleteGoals(goalData.currentGoals.incomplete);
-        setCategories(
-          goalData.currentGoals.incomplete
-            .map(goal => goal.category)
-            .reduce(
-              (unique, item) =>
-                unique.includes(item) ? unique : [...unique, item],
-              []
-            )
-        );
-        setIsLoading(false);
-        console.log(incompleteGoals);
-      });
+      setUserInfo(userData);
+      setGoalInfo(userData.activeGoals);
+      if (userData.buddies) {
+        setAllBuddies(userData.buddies.allBuddies);
+      }
+      setIncompleteGoals(userData.activeGoals.incomplete);
+      setCategories(
+        userData.activeGoals.incomplete
+          .map(goal => goal.category)
+          .reduce(
+            (unique, item) =>
+              unique.includes(item) ? unique : [...unique, item],
+            []
+          )
+      );
+      setIsLoading(false);
     });
   };
 
