@@ -9,6 +9,7 @@ import Loading from "../../components/Loading";
 import UserProfile from "../../components/UserProfile";
 import BuddyList from "../../components/BuddyList";
 import GoalCard from "../../components/GoalCard";
+import Chat from "../../components/Chat";
 import Cal from "../../components/Calendar";
 
 import "./style.css";
@@ -174,8 +175,8 @@ const Dashboard = () => {
             {renderCalendar()}
           </div>
         </div>
+        <Chat buddies={allBuddies} user={userInfo.email} />
       </div>
-      <Footer />
     </>
   );
 };

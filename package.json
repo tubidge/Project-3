@@ -53,6 +53,7 @@
     "react-select": "^3.0.4",
     "reactjs-popup": "^1.4.1",
     "reactstrap": "^8.0.0",
+    "sendbird": "^3.0.103",
     "sequelize": "^5.8.12",
     "superagent": "^5.1.0"
   }
