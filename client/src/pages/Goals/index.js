@@ -63,10 +63,10 @@ const Goals = props => {
             (() => {
               setCurrentGoal(false);
             },
-            () => {
-              console.log(currentGoal);
-              renderGoalDetail(goal.id);
-            })
+              () => {
+                console.log(currentGoal);
+                renderGoalDetail(goal.id);
+              })
           }
         >
           {goal.name}
@@ -136,8 +136,8 @@ const Goals = props => {
                   orderRender={orderRender}
                 />
               ) : (
-                ""
-              )}
+                  ""
+                )}
             </div>
           </div>
 
@@ -155,8 +155,8 @@ const Goals = props => {
                   orderRender={orderRender}
                 />
               ) : (
-                ""
-              )}
+                  ""
+                )}
             </div>
           </div>
 
@@ -174,8 +174,8 @@ const Goals = props => {
                   orderRender={orderRender}
                 />
               ) : (
-                ""
-              )}
+                  ""
+                )}
             </div>
           </div>
 
@@ -193,8 +193,8 @@ const Goals = props => {
                   orderRender={orderRender}
                 />
               ) : (
-                ""
-              )}
+                  ""
+                )}
             </div>
           </div>
 
@@ -210,8 +210,8 @@ const Goals = props => {
                   orderRender={orderRender}
                 />
               ) : (
-                ""
-              )}
+                  ""
+                )}
             </div>
           </div>
         </div>

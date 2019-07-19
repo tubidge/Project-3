@@ -3,24 +3,22 @@ import { Link } from "react-router-dom";
 import Loading from "../../components/Loading";
 import FindingBuddy from "../../components/FindingBuddy";
 import API from "../../utils/API";
-
-// Depenencies
-import { Autocomplete } from "react-materialize";
+import M from "materialize-css";
 import { useAuth0 } from "../../react-auth0-spa";
 import Fuse from "fuse.js";
 
 import "./style.css";
 
 const Buddies = props => {
-  const { loading, user } = useAuth0();
+  const { loading } = useAuth0();
   const [isLoading, setIsLoading] = useState(true);
   const [findingBuddy, setFindingBuddy] = useState(false);
   const [users, setUsers] = useState([]);
   const [goals, setGoals] = useState([]);
   const [buddyGoals, setBuddyGoals] = useState([]);
   const [matchesFound, setMatchesFound] = useState([]);
-  const [autocompleteData, setAutocompleteData] = useState([]);
   const [search, setSearch] = useState("");
+  const [searchMatchFound, setSearchMatchFound] = useState([]);
   const [currentUser, setCurrentUser] = useState("");
 
   // for fuse.js
@@ -30,53 +28,60 @@ const Buddies = props => {
     includeScore: true,
     location: 0,
     distance: 100,
-    maxPatternLength: 32,
+    maxPatternLength: 16,
     minMatchCharLength: 1,
-    keys: ["name"]
+    keys: ["name", "category", "username", "email", "firstName", "lastName"]
   };
 
-  let data;
   let matches = [];
+  let searchResults = [];
   // end of buddy match variables
 
   useEffect(() => {
+    M.AutoInit();
     console.log(props.location.state.user);
     // Get all goals from all users
     let results = [];
-    // let currentUser = props.location.state.user;
+    let currentUser = props.location.state.user;
     setCurrentUser(props.location.state.user);
     API.getAllUsers().then(res => {
       const removedCurrentUser = res.data.filter(
         user => user.email !== currentUser
       );
       removedCurrentUser.map(user => {
+        let username = user.username;
+        let email = user.email;
+        let firstName = user.firstName;
+        let lastName = user.lastName;
+        let image = user.image;
+        let userId = user.id;
         API.getAllGoals(user.id).then(res => {
           if (res.data.currentGoals.incomplete.length > 0) {
             let goal = res.data.currentGoals.incomplete;
             goal.map(goal => {
               let id = goal.id;
               let name = goal.name;
-              return results.push({ id, name });
+              let category = goal.category;
+              return results.push({
+                id,
+                name,
+                category,
+                userId,
+                username,
+                email,
+                firstName,
+                lastName,
+                image,
+                user
+              });
             });
           }
         });
         return results;
       });
       setUsers(res.data);
-      // end of get all goals
-
-      // Autocomplete
-      data = res.data.reduce((acc, user) => {
-        let { username } = user;
-        return { ...acc, [username]: null };
-      }, {});
-      data = {
-        data
-      };
-      // end of autocomplete
-
+      console.log(results);
       setBuddyGoals(results);
-      setAutocompleteData(data);
       getUserGoals(props.location.state.user);
     });
   }, []);
@@ -90,23 +95,27 @@ const Buddies = props => {
     });
   };
 
-  const getUnique = (arr, comp) => {
-    const unique = arr
-      .map(e => e[comp])
-      // store the keys of the unique objects
-      .map((e, i, final) => final.indexOf(e) === i && i)
-      // eliminate the dead keys & store unique objects
-      .filter(e => arr[e])
-      .map(e => arr[e]);
-    return unique;
+  const searchUsers = (e, search) => {
+    e.preventDefault();
+    console.log(search);
+    let fuse = new Fuse(buddyGoals, options);
+    const searchMatches = fuse.search(search);
+    searchMatches
+      .map(match => match.score)
+      .sort(function(a, b) {
+        return a - b;
+      });
+    searchMatches.map(match => {
+      searchResults.push(match);
+    });
+    console.log(searchResults);
+    setSearchMatchFound(searchResults);
   };
 
-  // const searchUsers = () => {
-  //   console.log(search);
-  //   API.getUserByUsername(search).then(res => {
-  //     console.log(res.data);
-  //   });
-  // };
+  const clearInputs = e => {
+    setSearch("");
+    searchUsers(e);
+  };
 
   const findBuddy = () => {
     setFindingBuddy(true);
@@ -118,26 +127,13 @@ const Buddies = props => {
     const goalMatches = goals.map(goal => {
       return fuse.search(goal.name);
     });
-    console.log(
-      "==============================================================="
-    );
-    console.log("Matches for Each Goal");
-    console.log(
-      "==============================================================="
-    );
     console.log(goalMatches);
     goalMatches
       .map(match => match.score)
       .sort(function(a, b) {
         return a - b;
       });
-    console.log(
-      "==============================================================="
-    );
     console.log("Top Matches for Each Goal");
-    console.log(
-      "==============================================================="
-    );
     goalMatches.map(match => {
       if (match.length === 0) {
         console.log("No match found.");
@@ -145,10 +141,12 @@ const Buddies = props => {
         API.getUserByGoal(match[0].item.id).then(res => {
           let id = match[0].item.id;
           let name = match[0].item.name;
+          let category = match[0].item.category;
           let score = match[0].score;
           let username = res.data.username;
           let userId = res.data.id;
           let topMatch = {
+            category: category,
             goalId: id,
             goalName: name,
             matchScore: score,
@@ -163,6 +161,17 @@ const Buddies = props => {
     });
   };
 
+  const getUnique = (arr, comp) => {
+    const unique = arr
+      .map(e => e[comp])
+      // store the keys of the unique objects
+      .map((e, i, final) => final.indexOf(e) === i && i)
+      // eliminate the dead keys & store unique objects
+      .filter(e => arr[e])
+      .map(e => arr[e]);
+    return unique;
+  };
+
   if (loading || !users || isLoading) {
     return <Loading />;
   }
@@ -174,83 +183,112 @@ const Buddies = props => {
   return (
     <>
       <div className="container">
-        <h1 className="text-center">Search for Buddies</h1>
+        <h1 className="text-center">Find Buddies</h1>
+
         <div className="row">
-          {matchesFound.length > 0 ? <h4>Your Matches</h4> : null}
-          {matchesFound &&
-            getUnique(matchesFound, "userId").map(match => (
-              <div key={match.userId} className="col s3">
-                <div className="card">
-                  <div className="card-content">
-                    <div className="card-title">{match.username}</div>
-                    <p>{match.goalName}</p>
-                    {/* <Link to={`/buddy-profile/${match.userId}`} target="_blank">
-                      View Profile
-                    </Link> */}
-                    <Link
-                      to={{
-                        pathname: "/buddy-profile/" + match.userId,
-                        state: {
-                          user: currentUser
-                        }
-                      }}
-                    >
-                      View Profile
-                    </Link>
-                  </div>
+          <div className="col s12">
+            <form>
+              <div className="input-field">
+                <input
+                  placeholder="Search by username, goal, category..."
+                  id="search"
+                  type="search"
+                  value={search}
+                  onChange={e => setSearch(e.target.value)}
+                />
+                <i className="material-icons" onClick={e => clearInputs(e, "")}>
+                  close
+                </i>
+              </div>
+              <div className="input-field">
+                <div className="input-group-append">
+                  <button
+                    style={{ marginRight: "10px" }}
+                    className="btn searchBtn"
+                    type="submit"
+                    onClick={e => searchUsers(e, search)}
+                  >
+                    Search
+                  </button>
+                  <button className="btn amber darken-1" onClick={findBuddy}>
+                    Get matched with a buddy
+                  </button>
                 </div>
               </div>
-            ))}
-        </div>
-
-        <Autocomplete
-          options={autocompleteData}
-          placeholder="username"
-          type="text"
-          name="username"
-          onChange={e => setSearch(e.target.value)}
-        />
-        <div className="row">
-          <div className="col-sm-6 mx-auto">
-            <div className="input-field mb-3">
-              <div className="input-group-append">
-                <button
-                  style={{ marginRight: "10px" }}
-                  className="btn grey darken-3"
-                  type="button"
-                  // onClick={searchUsers}
-                >
-                  Search
-                </button>
-                <button className="btn amber darken-1" onClick={findBuddy}>
-                  Find a Buddy
-                </button>
-              </div>
-            </div>
+            </form>
           </div>
         </div>
-        <div>
-          {/* Check to see if any items are found*/}
-          {users.length ? (
-            <>
-              <ul className="collection">
-                {users.map(user => (
-                  <li key={user.id} className="collection-item avatar">
-                    <img
-                      src={user.image}
-                      alt={user.username}
-                      className="circle responsive-img"
-                    />
-                    <span className="title">{user.username}</span>
-                    <p>{`${user.firstName} ${user.lastName}`}</p>
-                    <Link to={`/buddy-profile/${user.id}`}>View Profile</Link>
-                  </li>
-                ))}
-              </ul>
-            </>
-          ) : (
-            <h3>No Results to Display</h3>
-          )}
+        <div className="row">
+          <div className="col s6">
+            {/* Check to see if any items are found*/}
+            {searchMatchFound.length ? (
+              <>
+                <ul className="collection">
+                  {searchMatchFound.map(result => (
+                    <li className="collection-item avatar" key={result.item.id}>
+                      <img
+                        src={result.item.image}
+                        alt={result.item.username}
+                        className="circle responsive-img"
+                      />
+                      <span className="title">
+                        Owner: {result.item.username}
+                      </span>
+                      <p>
+                        Goal: {result.item.name}
+                        <br />
+                        Category: {result.item.category}
+                      </p>
+                      <Link to={`/buddy-profile/${result.item.userId}`}>
+                        View Profile
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : users.length ? (
+              <>
+                <ul className="collection">
+                  {users.map(user => (
+                    <li key={user.id} className="collection-item avatar">
+                      <img
+                        src={user.image}
+                        alt={user.username}
+                        className="circle responsive-img"
+                      />
+                      <span className="title">{user.username}</span>
+                      <p>{`${user.firstName} ${user.lastName}`}</p>
+                      <Link to={`/buddy-profile/${user.id}`}>View Profile</Link>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : null}
+          </div>
+          <div className="col s6">
+            {matchesFound.length > 0 ? <h4>Buddy Matches</h4> : null}
+            {matchesFound &&
+              getUnique(matchesFound, "userId").map(match => (
+                <div key={match.userId} className="col s6">
+                  <div className="card">
+                    <div className="card-content">
+                      <div className="card-title">{match.username}</div>
+                      <p>{match.goalName}</p>
+                      <Link
+                        to={{
+                          pathname: "/buddy-profile/" + match.userId,
+                          state: {
+                            user: currentUser
+                          }
+                        }}
+                      >
+                        View Profile
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              ))}
+          </div>
         </div>
       </div>
     </>

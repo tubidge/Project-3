@@ -196,6 +196,7 @@ function GoalDetail(props) {
       <div className="card-content goal-page-card">
         <div className="card-title goal-page-cardTitle">
           <div className="goal-page-sub-header">
+
             <p className="goal-page-dueDate white-text">
               Due: {currentGoal.dueDate}
             </p>
@@ -214,6 +215,7 @@ function GoalDetail(props) {
                   />
                   <span className="lever" />
                 </label>
+
               </div>
             </div>
           </div>
