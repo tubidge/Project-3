@@ -129,6 +129,8 @@ const Modal = props => {
         className={props.className}
         data-target={dataTarget}
         style={props.style}
+        data-position={props.dataPosition}
+        data-tooltip={props.dataTooltip}
       >
         {props.btnName}
       </Link>

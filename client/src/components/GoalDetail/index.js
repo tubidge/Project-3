@@ -125,20 +125,26 @@ function GoalDetail(props) {
             {/* <div className="goal-page-progressBar">
               <ProgressBar />
             </div> */}
-            <div className="switch">
-              <p className="goal-page-privacy white-text">
-                {goal.private ? "Private" : "Public"}
-              </p>
-              <div className="goal-privacy-checkbox">
-                <label>
-                  <input
-                    onChange={handleInput}
-                    type="checkbox"
-                    name="private"
-                    checked={goal.private ? "checked" : ""}
-                  />
-                  <span className="lever" />
-                </label>
+            <div
+              className="tooltipped"
+              data-position="top"
+              data-tooltip="Private goals will not be seen by others"
+            >
+              <div className="switch">
+                <p className="goal-page-privacy white-text">
+                  {goal.private ? "Private" : "Public"}
+                </p>
+                <div className="goal-privacy-checkbox">
+                  <label>
+                    <input
+                      onChange={handleInput}
+                      type="checkbox"
+                      name="private"
+                      checked={goal.private ? "checked" : ""}
+                    />
+                    <span className="lever" />
+                  </label>
+                </div>
               </div>
             </div>
           </div>

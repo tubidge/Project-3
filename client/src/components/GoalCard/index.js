@@ -86,7 +86,7 @@ const GoalCard = props => {
                 color: "#d4ac0d",
                 fontSize: "35px"
               }}
-              className="material-icons modal-trigger right"
+              className="material-icons modal-trigger right tooltipped"
               btnName={"add_circle"}
               header="AddNew"
               text="Complete this form"
@@ -95,6 +95,8 @@ const GoalCard = props => {
               userID={props.userID}
               getAllData={props.getAllData}
               goalCategory={props.category}
+              dataPosition="top"
+              dataTooltip="Add a goal to this category"
             />
           </div>
           <div className="card-content card-scrollable-content">

@@ -64,13 +64,13 @@ const Profile = () => {
               getUserProfile={getUserProfile}
             />
           ) : (
-            <Form
-              fistName={user.given_name}
-              lastName={user.family_name}
-              email={user.email}
-              getUserProfile={getUserProfile}
-            />
-          )}
+              <Form
+                fistName={user.given_name}
+                lastName={user.family_name}
+                email={user.email}
+                getUserProfile={getUserProfile}
+              />
+            )}
         </div>
       </div>
     </div>
