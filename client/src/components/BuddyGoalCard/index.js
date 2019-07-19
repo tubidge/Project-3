@@ -20,14 +20,17 @@ const BuddyGoalCard = props => {
           <div className="card">
             <div className="card-content">
               <div className="card-title">{goal.name}</div>
-              <p>{goal.dueDate}</p>
-              <p>{goal.category}</p>
+              <div className="goalSummary">
+                <p>Category: {goal.category}</p>
+                <p>Due Date: {goal.dueDate}</p>
+              </div>
               <JoinGoalModal
-                className="modal-trigger material-icons "
+                className="modal-trigger material-icons"
                 btnName={"add_circle"}
                 dataTarget={`joinGoal_${goal.id}}`}
                 currentUserGoals={props.currentUserGoals}
                 addBuddy={props.addBuddy}
+                buddyName={props.buddyName}
                 userId={props.userId}
                 buddyGoalName={goal.name}
                 buddyId={props.buddyId}

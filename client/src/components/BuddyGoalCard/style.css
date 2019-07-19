@@ -1,4 +1,19 @@
+:root {
+  --accentGold: #dd8e27;
+  --darkBlue: #10355f;
+}
+
 #buddyGoalCard .card-title {
   font-size: 1.2em;
   font-weight: 700 !important;
+  color: var(--darkBlue) !important;
+  background-color: transparent !important;
+}
+
+#buddyGoalCard .card .card-content {
+  padding: 12px;
+}
+
+#buddyGoalCard a {
+  color: var(--accentGold);
 }

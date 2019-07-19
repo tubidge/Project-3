@@ -15,10 +15,13 @@ const JoinGoalModal = props => {
     M.Modal.init(modals, options);
   }, []);
 
+  const handleClick = () => {
+    return <h1>Hello</h1>;
+  };
+
   const handleSubmit = (e, buddyId, buddyGoal, goalId, userId) => {
     e.preventDefault();
     props.addBuddy(buddyId, buddyGoal, goalId, userId);
-    // M.Modal.close();
   };
 
   return (
@@ -29,29 +32,40 @@ const JoinGoalModal = props => {
       <div id={props.dataTarget} className="modal">
         <div className="modal-content">
           <div className="collection">
-            <h4>Select your goal to connect with: </h4>
-            <h5>
-              <b>{props.buddyGoalName}</b>
-            </h5>
-
-            {props.currentUserGoals.map(goal => (
-              <Link
-                to="#"
-                key={goal.id}
-                className="collection-item"
-                onClick={e =>
-                  handleSubmit(
-                    e,
-                    props.buddyId,
-                    props.buddyGoalId,
-                    goal.id,
-                    props.userId
-                  )
-                }
-              >
-                {goal.name}
-              </Link>
-            ))}
+            <h5>Connect {props.buddyGoalName} with one of your goals!</h5>
+            <p>
+              When you select a goal, you and {props.buddyName} will become
+              buddies for the duration you choose.
+            </p>
+            <div className="col s10 offset-s1">
+              <div className="card">
+                <div className="card-content">
+                  <div className="card-title">Your Goals</div>
+                  <div className="row">
+                    {props.currentUserGoals.map(goal => (
+                      <div className="col s6" key={goal.id}>
+                        <Link
+                          to="#"
+                          className="collection-item"
+                          onClick={handleClick}
+                          // onClick={e =>
+                          //   handleSubmit(
+                          //     e,
+                          //     props.buddyId,
+                          //     props.buddyGoalId,
+                          //     goal.id,
+                          //     props.userId
+                          //   )
+                          // }
+                        >
+                          {goal.name}
+                        </Link>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div className="modal-footer">
             <div className="btn modal-close">X</div>
