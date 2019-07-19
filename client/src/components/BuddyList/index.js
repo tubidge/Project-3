@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import API from "../../utils/API";
 import "./style.css";
+import ChatButton from "../ChatButton";
 
 const BuddyList = props => {
-  const [buddies, setBuddies] = useState([]);
+  const [buddies, setBuddies] = useState(props.buddies);
 
   const getUnique = (arr, comp) => {
     const unique = arr
@@ -18,8 +19,24 @@ const BuddyList = props => {
   };
 
   useEffect(() => {
+    console.log("======================================");
     console.log(props.buddies);
+    console.log(props.channels);
+    configChannels();
   }, []);
+
+  const configChannels = () => {
+    props.channels.forEach(index => {
+      let channel = index;
+      console.log(channel);
+      buddies.forEach(index => {
+        if (index.email === channel.user) {
+          return index.channel === channel;
+        }
+      });
+    });
+    console.log(buddies);
+  };
 
   return (
     <>
@@ -40,8 +57,8 @@ const BuddyList = props => {
             </Link>
           </li>
           <span>
-            {props.buddies &&
-              props.buddies.map(buddy => (
+            {buddies &&
+              buddies.map(buddy => (
                 <li key={props.makeid(5)} className="collection-item avatar">
                   <img
                     className="circle responsive-img z-depth-1"
@@ -56,7 +73,13 @@ const BuddyList = props => {
                     >
                       View Profile
                     </Link>
-                    <Link to="#">Chat</Link>
+
+                    <ChatButton
+                      key={buddy.channel}
+                      openChannel={props.openChannel}
+                      channel={buddy.channel}
+                      user={buddy.email}
+                    />
                   </p>
                 </li>
               ))}

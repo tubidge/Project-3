@@ -1,20 +1,23 @@
 import React from "react";
-import ChatButton from "../ChatButton";
+// import ChatButton from "../ChatButton";
+import BuddyList from "../BuddyList";
 
 function OpenChat(props) {
   if (props.isConfigured) {
     let channels = props.channels;
+
     return (
       <div>
         <ul>
-          {channels.map(index => (
-            <ChatButton
-              key={index.connection}
-              openChannel={props.openChannel}
-              channel={index.connection}
-              user={index.user}
-            />
-          ))}
+          <BuddyList
+            userEmail={props.userEmail}
+            userID={props.userID}
+            makeid={props.makeid}
+            buddies={props.buddies}
+            channels={channels}
+            emails={props.buddiesEmail}
+            openChannel={props.openChannel}
+          />
         </ul>
       </div>
     );

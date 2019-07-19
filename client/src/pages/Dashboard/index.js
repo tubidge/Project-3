@@ -147,12 +147,12 @@ const Dashboard = () => {
             incompleteGoals={incompleteGoals}
             buddies={allBuddies ? getUnique(allBuddies, "username") : null}
           />
-          <BuddyList
+          {/* <BuddyList
             userEmail={userInfo.email}
             userID={userInfo.id}
             makeid={makeid}
             buddies={allBuddies ? getUnique(allBuddies, "username") : null}
-          />
+          /> */}
         </div>
         <div style={{ marginTop: "20px", marginBottom: "20px" }} />
         <div className="col l8 s12">{renderGoalCards()}</div>
@@ -175,7 +175,15 @@ const Dashboard = () => {
             {renderCalendar()}
           </div>
         </div>
-        <Chat buddies={allBuddies} user={userInfo.email} />
+        <Chat
+          userInfo={userInfo}
+          buddies={allBuddies}
+          buddiesUsername={
+            allBuddies ? getUnique(allBuddies, "username") : null
+          }
+          buddiesEmail={allBuddies ? getUnique(allBuddies, "email") : null}
+          makeid={makeid}
+        />
       </div>
     </>
   );

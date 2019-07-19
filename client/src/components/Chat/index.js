@@ -3,6 +3,7 @@ import API from "../../utils/API";
 import Sendbird from "../../utils/Sendbird";
 import OpenChat from "../../components/OpenChat";
 import ChatBox from "../../components/ChatBox";
+import BuddyList from "../../components/BuddyList";
 
 class Chat extends Component {
   state = {
@@ -19,8 +20,11 @@ class Chat extends Component {
   }
 
   chatSetup = () => {
-    if (this.props.buddies) {
-      this.state.Messenger = new Sendbird(this.props.user, this.props.buddies);
+    if (this.props.buddiesEmail) {
+      this.state.Messenger = new Sendbird(
+        this.props.userInfo.email,
+        this.props.buddiesEmail
+      );
       this.state.Messenger.configUser();
       this.configChannels();
       this.loadChannels();
@@ -123,6 +127,11 @@ class Chat extends Component {
               isConfigured={this.state.channelsConfigured}
               channels={this.state.Messenger.channels}
               openChannel={this.openChannel}
+              userEmail={this.props.userInfo.email}
+              userID={this.props.userInfo.id}
+              makeid={this.props.makeid}
+              buddies={this.props.buddiesUsername}
+              buddiesEmail={this.props.buddiesEmail}
             />
           ) : null}
         </div>
@@ -133,9 +142,18 @@ class Chat extends Component {
               handleInput={this.handleInputChange}
               submitNewMessage={this.submitNewMessage}
               messages={this.state.currentChannel.messages}
-              userId={this.props.user}
+              userId={this.props.userInfo.email}
             />
           ) : null}
+        </div>
+        <div>
+          {/* <BuddyList
+            userEmail={this.props.userInfo.email}
+            userID={this.props.userInfo.id}
+            makeid={this.props.makeid}
+            buddies={this.props.buddiesUsername}
+          
+          /> */}
         </div>
       </>
     );
