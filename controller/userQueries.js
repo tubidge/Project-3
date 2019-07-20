@@ -1,6 +1,7 @@
 const db = require("../models");
 const helper = require("../utils/helperFunctions");
 const buddy = require("../controller/buddyQueries");
+const goalQuery = require("./goalQueries");
 const moment = require("moment");
 
 module.exports = {
@@ -754,8 +755,25 @@ module.exports = {
                   .asyncForEach(user.buddies.myBuddies, async event => {
                     console.log(event);
                     console.log(typeof event.buddyId);
+                    const getGoal = id => {
+                      goalQuery.getBasicGoal(id).then(resp => {
+                        console.log("=========-------=======");
+                        console.log(resp);
+                        goalName = resp.name;
+                      });
+                    };
+                    const getUserGoal = id => {
+                      goalQuery.getBasicGoal(id).then(resp => {
+                        userGoal = resp.name;
+                      });
+                    };
+
                     console.log("this is the event");
                     console.log(typeof id);
+                    let goalName;
+                    let userGoal;
+                    getUserGoal(event.goalId)
+                    getGoal(event.buddyGoal);
                     if (parseInt(id) === event.buddyId) {
                       console.log("true");
                       await db.User.findAll({
@@ -770,7 +788,9 @@ module.exports = {
                           email: resp[0].dataValues.email,
                           username: resp[0].dataValues.username,
                           channel: event.channel,
-                          buddyId: resp[0].dataValues.id
+                          buddyId: resp[0].dataValues.id,
+                          buddyGoal: goalName,
+                          userGoal: userGoal
                         };
 
                         buddyArr.push(buddyData);
@@ -791,7 +811,9 @@ module.exports = {
                           email: resp[0].dataValues.email,
                           username: resp[0].dataValues.username,
                           channel: event.channel,
-                          buddyId: resp[0].dataValues.id
+                          buddyId: resp[0].dataValues.id,
+                          buddyGoal: goalName,
+                          userGoal: userGoal
                         };
 
                         buddyArr.push(buddyData);
