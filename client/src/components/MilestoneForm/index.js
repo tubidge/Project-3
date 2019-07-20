@@ -5,7 +5,7 @@ import API from "../../utils/API";
 function MilestoneForm(props) {
   //   const [milestone, setMilestone] = useState({});
   const [title, setTitle] = useState();
-  const [frequency, setFrequency] = useState("Never");
+  const [frequency, setFrequency] = useState(props.frequency);
   const [due, setDue] = useState(props.date);
   const [notes, setNotes] = useState();
   const [start, setStart] = useState(props.date);
@@ -97,23 +97,7 @@ function MilestoneForm(props) {
                 <label htmlFor="milestoneTitle">Title</label>
               </div>
             </div>
-            <div className="row">
-              <div className="input-field col s10">
-                <select
-                  id="milestoneFrequency"
-                  name="frequency"
-                  onChange={handleInput}
-                >
-                  <option value="Never">Never</option>
-                  <option value="Daily">Daily</option>
-                  <option value="Weekly">Weekly</option>
-                  <option value="Monthly">Monthly</option>
-                </select>
-                <label htmlFor="milestoneFrequency">
-                  Select Milestone Frequency
-                </label>
-              </div>
-            </div>
+
             <div className="row">
               <div className="input-field col s10">
                 <input
@@ -161,6 +145,9 @@ function MilestoneForm(props) {
     return (
       <div id="milestoneForm" className="modal">
         <div className="modal-content">
+          <h4 style={{ textAlign: "center" }}>
+            New {props.frequency} Milestone
+          </h4>
           <form className="col s12">
             <div className="row">
               <div className="input-field col s10">
@@ -175,7 +162,7 @@ function MilestoneForm(props) {
                 <label htmlFor="milestoneTitle">Title</label>
               </div>
             </div>
-            <div className="row">
+            {/* <div className="row">
               <div className="input-field col s10">
                 <select
                   id="milestoneFrequency"
@@ -191,7 +178,7 @@ function MilestoneForm(props) {
                   Select Milestone Frequency
                 </label>
               </div>
-            </div>
+            </div> */}
             <div className="row">
               <div className="input-field col s10">
                 <input
@@ -200,7 +187,6 @@ function MilestoneForm(props) {
                   className="validate"
                   id="milestoneStart"
                   placeholder=""
-                  value={props.date ? props.date : ""}
                   onChange={handleInput}
                 />
                 <label htmlFor="milestoneStart">Start Date</label>
@@ -213,7 +199,6 @@ function MilestoneForm(props) {
                   type="date"
                   className="validate"
                   id="milestoneEnd"
-                  placeholder=""
                   onChange={handleInput}
                 />
                 <label htmlFor="milestoneEnd">End Date</label>
@@ -240,7 +225,7 @@ function MilestoneForm(props) {
             </button>
             <button
               className="btn modal-close milestone-cancel-btn"
-              onClick={props.close}
+              onClick={() => props.close("cancel")}
             >
               Cancel
             </button>

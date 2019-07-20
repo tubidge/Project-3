@@ -3,21 +3,21 @@ import "./style.css";
 import Loading from "../../components/Loading";
 import API from "../../utils/API";
 import ConfirmModal from "../ConfirmModal";
+import MilestoneForm from "../MilestoneForm";
 
 function MilestonesCard(props) {
+  console.log(props);
   const [milestones, setMilestones] = useState(false);
   const [reRender, setreRender] = useState(false);
   const [milestoneSelected, setmilestoneSelected] = useState(false);
   const [currentMilestone, setCurrentMilestone] = useState();
   const [modalOpen, setmodalOpen] = useState(false);
+  const [frequency, setFrequency] = useState();
+  const [newMilestone, setNewMilestone] = useState(false);
 
   useEffect(() => {
-    API.getMilestoneFreq(props.goalId, props.frequency).then(data => {
-      console.log(data);
-      setMilestones(data.data);
-      console.log(milestones);
-    });
-  }, [reRender]);
+    getData();
+  }, [reRender, props.goalId]);
 
   useEffect(() => {
     document.addEventListener("click", event => {
@@ -30,15 +30,20 @@ function MilestonesCard(props) {
         event.target.className === "milestones-card-button" &&
         milestoneSelected
       ) {
-        console.log("return false for delete");
         return false;
       } else if (!modalOpen && milestoneSelected) {
       }
-      console.log("reset");
+
       setmilestoneSelected(false);
       setreRender(!reRender);
     });
   }, [milestoneSelected]);
+
+  const getData = () => {
+    API.getMilestoneFreq(props.goalId, props.frequency).then(data => {
+      setMilestones(data.data);
+    });
+  };
 
   const clickMilestone = (name, frequency) => {
     setmilestoneSelected({ name: name, frequency: frequency });
@@ -52,13 +57,21 @@ function MilestonesCard(props) {
     setmodalOpen(true);
   };
 
+  const openNewMilestone = header => {
+    setFrequency(header);
+
+    setNewMilestone(true);
+  };
+
   const close = header => {
     if (header !== "cancel") {
+      setreRender(!reRender);
+      props.orderDays();
       props.reRender();
     } else {
       setreRender(!reRender);
       setmodalOpen(false);
-      setreRender(!reRender);
+      setNewMilestone(false);
       setmilestoneSelected(false);
       props.orderDays();
       props.orderProgressRender();
@@ -75,7 +88,18 @@ function MilestonesCard(props) {
             goalId={props.goalId}
             milestone={currentMilestone}
             render={close}
-            action="cancel"
+            action="Delete"
+          />
+        ) : (
+          ""
+        )}
+
+        {newMilestone ? (
+          <MilestoneForm
+            goalId={props.goalId}
+            userId={props.userId}
+            frequency={frequency}
+            close={close}
           />
         ) : (
           ""
@@ -104,6 +128,7 @@ function MilestonesCard(props) {
             <a
               className="waves-effect waves-light btn milestones-card-button"
               style={{ backgroundColor: "#10355f", color: "#e2e77d" }}
+              onClick={() => openNewMilestone(props.frequency)}
             >
               <i className="material-icons right" style={{ color: "#e2e77d" }}>
                 add_to_photos

@@ -54,3 +54,24 @@
   width: 100%;
   border-radius: 0;
 }
+
+#goalCard {
+  margin-top: 3%;
+  width: 100%;
+  display: inline-block;
+}
+
+.nextGoalArrow {
+  height: 200px;
+  line-height: 200px;
+  text-align: center;
+  margin-top: 20%;
+}
+.nextGoalArrow > span {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+  scale: 1;
+  font-size: 60px;
+  color: #d4ac0d !important;
+}

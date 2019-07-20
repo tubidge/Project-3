@@ -83,3 +83,12 @@
 .light-blue.accent-4:hover {
   background-color: #34495e !important;
 }
+
+.goalDetail-container {
+  display: flex;
+  justify-content: center;
+}
+
+.goal-page-overview {
+  text-align: center;
+}
