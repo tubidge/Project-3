@@ -23,6 +23,7 @@ const Goals = props => {
   const [goalInfo, setGoalInfo] = useState({});
   const [categories, setCategories] = useState([]);
   const [allBuddies, setAllBuddies] = useState();
+  const [myBuddies, setMyBuddies] = useState();
   const [currentGoal, setCurrentGoal] = useState(false);
   const [reRender, setreRender] = useState(false);
   const [currentGoals, setCurrentGoals] = useState();
@@ -32,14 +33,7 @@ const Goals = props => {
   const [myBuddies, setMyBuddies] = useState();
 
   useEffect(() => {
-    M.Tabs.init();
-    // var elem = document.querySelector(".tabs");
-    // var instance = M.Tabs.init(elem);
-    // instance.select("Fitness");
-    // instance.select("Wellness");
-    // instance.select("Financial");
-    // instance.select("Edcuation");
-    // instance.select("Travel");
+    M.AutoInit();
 
     getAllData();
   }, [currentGoal, reRender]);
@@ -221,7 +215,7 @@ const Goals = props => {
                     allBuddies ? getUnique(allBuddies, "username") : null
                   }
                 />
-                <BuddyList
+                {/* <BuddyList
                   myBuddies={myBuddies}
                   userEmail={userInfo.email}
                   userID={userInfo.id}
@@ -229,7 +223,7 @@ const Goals = props => {
                   buddies={
                     allBuddies ? getUnique(allBuddies, "username") : null
                   }
-                />{" "}
+                />{" "} */}
               </>
             ) : (
               ""
@@ -323,7 +317,7 @@ const Goals = props => {
                     allBuddies ? getUnique(allBuddies, "username") : null
                   }
                 />
-                <BuddyList
+                {/* <BuddyList
                   myBuddies={myBuddies}
                   userEmail={userInfo.email}
                   userID={userInfo.id}
@@ -331,7 +325,7 @@ const Goals = props => {
                   buddies={
                     allBuddies ? getUnique(allBuddies, "username") : null
                   }
-                />{" "}
+                />{" "} */}
               </>
             ) : (
               ""
@@ -386,7 +380,7 @@ const Goals = props => {
                     allBuddies ? getUnique(allBuddies, "username") : null
                   }
                 />
-                <BuddyList
+                {/* <BuddyList
                   myBuddies={myBuddies}
                   userEmail={userInfo.email}
                   userID={userInfo.id}
@@ -394,7 +388,7 @@ const Goals = props => {
                   buddies={
                     allBuddies ? getUnique(allBuddies, "username") : null
                   }
-                />{" "}
+                />{" "} */}
               </>
             ) : (
               ""
@@ -449,7 +443,7 @@ const Goals = props => {
                     allBuddies ? getUnique(allBuddies, "username") : null
                   }
                 />
-                <BuddyList
+                {/* <BuddyList
                   myBuddies={myBuddies}
                   userEmail={userInfo.email}
                   userID={userInfo.id}
@@ -457,7 +451,7 @@ const Goals = props => {
                   buddies={
                     allBuddies ? getUnique(allBuddies, "username") : null
                   }
-                />{" "}
+                />{" "} */}
               </>
             ) : (
               ""
@@ -512,7 +506,7 @@ const Goals = props => {
                     allBuddies ? getUnique(allBuddies, "username") : null
                   }
                 />
-                <BuddyList
+                {/* <BuddyList
                   myBuddies={myBuddies}
                   userEmail={userInfo.email}
                   userID={userInfo.id}
@@ -520,7 +514,7 @@ const Goals = props => {
                   buddies={
                     allBuddies ? getUnique(allBuddies, "username") : null
                   }
-                />{" "}
+                />{" "} */}
               </>
             ) : (
               ""

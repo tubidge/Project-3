@@ -2,7 +2,6 @@ const db = require("../models");
 const helper = require("../utils/helperFunctions");
 const buddy = require("../controller/buddyQueries");
 const moment = require("moment");
-const goalQuery = require("./goalQueries");
 
 module.exports = {
   // This method will create a new user
