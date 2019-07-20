@@ -35,7 +35,7 @@
   justify-content: center;
 } */
 .switch label input[type="checkbox"]:checked + .lever {
-  background-color: #e2e77d !important;
+  background-color: #d4ac0d !important;
 }
 .switch label input[type="checkbox"]:checked + .lever::after {
   background-color: white !important;
