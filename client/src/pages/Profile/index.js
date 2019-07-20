@@ -39,12 +39,12 @@ const Profile = () => {
     <div>
       <div className="container profileContainer">
         <div className="row container-profile">
-          <div className="col s2">
+          <div className="col s2 offset-s1">
             <div className="row center-align">
               <img
                 src={userData.image ? userData.image : user.picture}
                 alt="Profile"
-                className="profile-pic circle img-fluid profilePic"
+                className="profile-pic center-align circle img-fluid profilePic"
               />
             </div>
             <div className="row">
@@ -52,9 +52,9 @@ const Profile = () => {
             </div>
           </div>
 
-          <div className="col s9 offset-s1">
+          <div className="col s8 offset-s1">
             <div className="row">
-              <h4>Profile</h4>
+              <h3>Profile</h3>
             </div>
             {!newUser ? (
               <FormStatic

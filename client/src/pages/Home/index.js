@@ -29,10 +29,6 @@ const Home = () => {
               <br />
               <br />
               <div className="container">
-                <div className="row" />
-                <br />
-                <br />
-                <br />
                 <div className="row">
                   <div className="col s4" />
                   <div className="col s4">
@@ -42,7 +38,7 @@ const Home = () => {
                 </div>
                 <div className="row">
                   <div className="center" id="title">
-                    GoalDen
+                    Goal<span className="den-title">Den</span>
                   </div>
                   <div className="center summary">
                     A new app that helps hold you accountable to achieve your
@@ -168,38 +164,44 @@ const Home = () => {
                   <div className="contact-card col m12">
                     <h3 className="center-align">Contact</h3>
                     <div className="row">
-                      <form className="col m8 offset-m2 s12">
+                      <form
+                        action="https://formspree.io/goal.denapp@gmail.com"
+                        method="POST"
+                        className="col m8 offset-m2 s12"
+                      >
                         <div className="row">
                           <div className="input-field col s12">
-                            <input id="name" type="text" placeholder="Name">
-                              {/* <label for="name">Name</label> */}
-                            </input>
+                            <input
+                              id="name"
+                              type="text"
+                              name="name"
+                              placeholder="Name"
+                            />
                           </div>
                           <div className="input-field col s12">
                             <input
                               id="email"
                               type="email"
                               className="form-input"
+                              name="_email"
                               placeholder="Email"
-                            >
-                              {/* <label for="email">Email</label> */}
-                            </input>
+                            />
                           </div>
                           <div className="input-field col s12">
                             <textarea
                               id="message"
                               className="materialize-textarea"
                               placeholder="Message"
+                              name="message"
                             />
-                            {/* <label for="message">Message</label> */}
                           </div>
                         </div>
                         <div className="row">
                           <div className="col m12">
                             <p className="right-align">
                               <button
+                                type="submit"
                                 className="home-buttons waves-effect btn"
-                                type="button"
                                 name="action"
                               >
                                 Send Message

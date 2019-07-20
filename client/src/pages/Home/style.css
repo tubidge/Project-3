@@ -5,7 +5,9 @@ body {
 .contact-card {
   background-color: #f5f5f5 !important;
 }
-
+.den-title {
+  color: #d4ac0d;
+}
 #team {
   font-family: "Anton", sans-serif;
   background-color: #f5f5f5;

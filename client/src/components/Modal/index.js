@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Select from "react-select";
 import M from "materialize-css";
 import API from "../../utils/API";
+import "./style.css";
 
 const axios = require("axios");
 
@@ -225,12 +226,15 @@ const Modal = props => {
               </>
             )}
             <input
-              className="btn modal-close"
+              className="new-goal-modal btn modal-close"
               type="submit"
               value={props.action}
             />
           </form>
-          <button onClick={handleCancel} className="btn modal-close">
+          <button
+            onClick={handleCancel}
+            className="new-goal-modal btn modal-close"
+          >
             Cancel
           </button>
         </div>

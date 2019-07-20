@@ -64,11 +64,11 @@ export default class Cal extends React.Component {
               results.push(event);
               break;
             case "Wellness":
-              event.backgroundColor = "#1c2833";
+              event.backgroundColor = "#1A5276";
               results.push(event);
               break;
             case "Travel":
-              event.backgroundColor = "#8e793e";
+              event.backgroundColor = "#FFD54F";
               results.push(event);
               break;
           }
@@ -100,11 +100,11 @@ export default class Cal extends React.Component {
               results.push(event);
               break;
             case "Wellness":
-              event.backgroundColor = "#5d6d7e";
+              event.backgroundColor = "#1A5276";
               results.push(event);
               break;
             case "Travel":
-              event.backgroundColor = "#8e793e";
+              event.backgroundColor = "#FFD54F";
               results.push(event);
               break;
           }

@@ -1,7 +1,9 @@
 .goalCard {
   max-height: 200px;
 }
-
+.goal-modal-text {
+  color: black !important;
+}
 .card-scrollable-content {
   max-height: 150px;
   overflow: auto;
@@ -42,7 +44,7 @@
 
 .goal-card-name {
   text-align: left;
-  color: #34495e;
+  color: #1a5276;
 }
 
 .goal-due-alert {

@@ -36,7 +36,7 @@ const BuddyList = props => {
                 }
               }}
             >
-              Search Buddies
+              <div className="search-buddies-text">Search Buddies</div>
             </Link>
           </li>
           <span>
