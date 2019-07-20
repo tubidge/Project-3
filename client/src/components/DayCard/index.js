@@ -63,7 +63,13 @@ function DayCard(props) {
     console.log(milestones);
     console.log(props);
     return props.date.incompleteMilestone.map(index => {
-      return <DayEvent clickMilestone={clickMilestone} milestone={index} />;
+      return <DayEvent
+        clickMilestone={clickMilestone}
+        milestone={index}
+        className="day-event-item tooltipped"
+        dataPosition="top"
+        dataTooltip={index}
+      />;
     });
   };
   const deleteTask = () => {
@@ -103,8 +109,8 @@ function DayCard(props) {
           frequency="Never"
         />
       ) : (
-        ""
-      )}
+          ""
+        )}
       <div className="card day-card z-depth-2">
         <div className="day-card-add">
           {" "}
@@ -141,8 +147,8 @@ function DayCard(props) {
                 </i>
               </div>
             ) : (
-              ""
-            )}
+                ""
+              )}
           </div>
         </div>
         <div className="card-content day-card-content">
