@@ -29,6 +29,7 @@ const Goals = props => {
   const [pastGoals, setPastGoals] = useState();
   const [goalArr, setGoalArr] = useState();
   const [startIndex, setStartIndex] = useState();
+  const [myBuddies, setMyBuddies] = useState();
 
   useEffect(() => {
     M.Tabs.init();
@@ -54,7 +55,9 @@ const Goals = props => {
       setGoalInfo(userData.activeGoals);
       if (userData.buddies) {
         setAllBuddies(userData.buddies.allBuddies);
+        setMyBuddies(userData.buddies.myBuddies);
       }
+
       let current = [];
       current.push(userData.activeGoals.incomplete);
       current.push(userData.activeGoals.completed);
@@ -219,6 +222,7 @@ const Goals = props => {
                   }
                 />
                 <BuddyList
+                  myBuddies={myBuddies}
                   userEmail={userInfo.email}
                   userID={userInfo.id}
                   makeid={makeid}
@@ -320,6 +324,7 @@ const Goals = props => {
                   }
                 />
                 <BuddyList
+                  myBuddies={myBuddies}
                   userEmail={userInfo.email}
                   userID={userInfo.id}
                   makeid={makeid}
@@ -382,6 +387,7 @@ const Goals = props => {
                   }
                 />
                 <BuddyList
+                  myBuddies={myBuddies}
                   userEmail={userInfo.email}
                   userID={userInfo.id}
                   makeid={makeid}
@@ -444,6 +450,7 @@ const Goals = props => {
                   }
                 />
                 <BuddyList
+                  myBuddies={myBuddies}
                   userEmail={userInfo.email}
                   userID={userInfo.id}
                   makeid={makeid}
@@ -506,6 +513,7 @@ const Goals = props => {
                   }
                 />
                 <BuddyList
+                  myBuddies={myBuddies}
                   userEmail={userInfo.email}
                   userID={userInfo.id}
                   makeid={makeid}

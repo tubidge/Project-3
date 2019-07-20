@@ -1,7 +1,6 @@
 const db = require("../models");
 const helper = require("../utils/helperFunctions");
 const buddy = require("../controller/buddyQueries");
-const goalQuery = require("./goalQueries");
 const moment = require("moment");
 const goalQuery = require("./goalQueries");
 
@@ -798,7 +797,7 @@ module.exports = {
                     console.log(typeof id);
                     let goalName;
                     let userGoal;
-                    getUserGoal(event.goalId)
+                    getUserGoal(event.goalId);
                     getGoal(event.buddyGoal);
                     if (parseInt(id) === event.buddyId) {
                       console.log("true");
