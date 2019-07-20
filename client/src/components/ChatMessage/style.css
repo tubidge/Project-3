@@ -1,0 +1,30 @@
+:root {
+  --accentGold: #d4ac0d !important;
+  --darkBlue: #1c2833;
+}
+
+.userMessage {
+  width: 50%;
+  float: right;
+  margin-right: 10px;
+}
+
+.buddyMessage {
+  width: 50%;
+  float: left;
+  margin-left: 10px;
+}
+
+.userMessage p {
+  background-color: #dfbe3b;
+  border-radius: 17px;
+  padding: 5px 8px;
+  height: 34px;
+}
+
+.buddyMessage p {
+  background-color: lightgray;
+  border-radius: 17px;
+  padding: 5px 8px;
+  height: 34px;
+}

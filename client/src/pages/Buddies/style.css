@@ -1,18 +1,30 @@
 :root {
-  --accentGold: #e8a246;
-  --darkBlue: #10355f;
-}
-h1 {
-  font-family: Anton, sans-serif;
-  color: var(--darkBlue);
+  --accentGold: #d4ac0d !important;
+  --darkBlueTwo: #34495e !important;
 }
 
-input:focus {
+p {
+  font-weight: 500;
+  /* white-space: nowrap; */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#buddiesPage h1 {
+  font-family: Anton, sans-serif;
+  color: var(--darkBlueTwo);
+}
+.match-button {
+  color: var(--accentGold) !important;
+  background-color: var(--darkBlueTwo) !important;
+}
+
+#buddiesPage input:focus {
   border-bottom: 1px solid #ffb300 !important;
   box-shadow: 0 1px 0 0 #ffb300 !important;
 }
 
-label.active {
+#buddiesPage label.active {
   color: #212121;
 }
 
@@ -20,9 +32,23 @@ label.active {
   background-color: transparent;
 }
 
-.input-field .searchBtn,
-.input-field .searchBtn:focus,
-.input-field .searchBtn:hover,
-.input-field .searchBtn:active {
+#buddiesPage .input-field .searchBtn,
+#buddiesPage .input-field .searchBtn:focus,
+#buddiesPage .input-field .searchBtn:hover,
+#buddiesPage .input-field .searchBtn:active {
+  background-color: var(--darkBlue);
+}
+
+#buddiesPage .card .card-content,
+#buddiesPage .card .card-title {
+  background: none;
+  border: none;
+}
+
+#buddiesPage .card .card-action {
+  padding: 16px 0px;
+}
+
+#buddiesPage .findBuddy {
   background-color: var(--darkBlue);
 }

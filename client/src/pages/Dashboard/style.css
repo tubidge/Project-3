@@ -1,6 +1,6 @@
 :root {
   --accentGold: #d4ac0d !important;
-  --charcoal: #212121;
+  --darkBlue: #1c2833;
 }
 
 .hero-image {
@@ -51,7 +51,7 @@ body {
   background: #eeeeee !important;
 }
 .hero-image {
-  background-image: url("./pics/office-1834294_960_720.jpg") !important;
+  background-image: url("./pics/lighthouse.jpg") !important;
   min-height: 300px;
   background-repeat: no-repeat !important;
   background-size: cover !important;

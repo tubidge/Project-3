@@ -2,21 +2,22 @@ body {
   background-color: white;
 }
 
-#purpose {
-  background-color: rgb(235, 240, 243);
+.contact-card {
+  background-color: #f5f5f5 !important;
 }
-
+.den-title {
+  color: #d4ac0d;
+}
 #team {
   font-family: "Anton", sans-serif;
-
-  background-color: white;
+  background-color: #f5f5f5;
   margin-bottom: 50px;
   font-size: 20px;
 }
 
 #contact {
   font-family: "Anton", sans-serif;
-  background-color: white;
+  background-color: #f5f5f5 !important;
   margin-bottom: 50px;
   font-size: 20px;
 }
@@ -34,11 +35,15 @@ hr {
   margin-top: 10px;
   margin-left: 10px;
   margin-right: 10px;
+  background-color: #34495e !important;
+  color: #d4ac0d !important;
 }
 .login {
   margin-top: 10px;
   margin-right: 30px;
   margin-left: 10px;
+  background-color: #34495e !important;
+  color: #d4ac0d !important;
 }
 .people {
   max-width: 100%;
@@ -47,17 +52,20 @@ hr {
 }
 
 .parallax-container {
-  min-height: 700px;
+  min-height: 300px;
 }
 
-.text {
+.home-text {
   font-size: 20px;
   color: black;
+  word-wrap: break-word;
 }
-
+.team-text {
+  margin-left: 20px;
+}
 .text2 {
   font-family: "Anton", sans-serif;
-  font-size: 25px;
+  font-size: 20px;
   color: White;
 }
 
@@ -83,4 +91,12 @@ hr {
 
 #purposeTitle {
   font-family: "Anton", sans-serif;
+}
+.home-buttons {
+  background-color: #34495e !important;
+  color: #d4ac0d !important;
+}
+.hr {
+  background-color: #d4ac0d;
+  color: #d4ac0d;
 }

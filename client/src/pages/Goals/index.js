@@ -31,7 +31,14 @@ const Goals = props => {
   const [startIndex, setStartIndex] = useState();
 
   useEffect(() => {
-    M.AutoInit();
+    M.Tabs.init();
+    // var elem = document.querySelector(".tabs");
+    // var instance = M.Tabs.init(elem);
+    // instance.select("Fitness");
+    // instance.select("Wellness");
+    // instance.select("Financial");
+    // instance.select("Edcuation");
+    // instance.select("Travel");
 
     getAllData();
   }, [currentGoal, reRender]);

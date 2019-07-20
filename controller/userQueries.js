@@ -3,6 +3,7 @@ const helper = require("../utils/helperFunctions");
 const buddy = require("../controller/buddyQueries");
 const goalQuery = require("./goalQueries");
 const moment = require("moment");
+const goalQuery = require("./goalQueries");
 
 module.exports = {
   // This method will create a new user
@@ -134,7 +135,7 @@ module.exports = {
                 lastName: resp[0].dataValues.lastName,
                 username: resp[0].dataValues.username,
                 email: resp[0].dataValues.email,
-                profilePic: resp[0].dataValues.profilePic
+                image: resp[0].dataValues.image
               };
 
               resolve(results);
@@ -154,6 +155,31 @@ module.exports = {
       db.User.findAll({
         where: {
           username: username
+        }
+      })
+        .then(resp => {
+          console.log(resp);
+          const results = {
+            id: resp[0].dataValues.id,
+            firstName: resp[0].dataValues.firstName,
+            lastName: resp[0].dataValues.lastName,
+            username: resp[0].dataValues.username,
+            email: resp[0].dataValues.email,
+            image: resp[0].dataValues.image
+          };
+          resolve(results);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  },
+
+  getBasicUserByEmail: email => {
+    return new Promise((resolve, reject) => {
+      db.User.findAll({
+        where: {
+          email: email
         }
       })
         .then(resp => {

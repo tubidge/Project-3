@@ -56,6 +56,17 @@ module.exports = app => {
       });
   });
 
+  app.get("/user/basic/:email", (req, res) => {
+    user
+      .getBasicUserByEmail(req.params.username)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
+
   app.get("/all/username", (req, res) => {
     user
       .getAllUsername()

@@ -4,11 +4,10 @@ import { useAuth0 } from "../../react-auth0-spa";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import API from "../../utils/API";
-import Footer from "../../components/Footer";
 import Loading from "../../components/Loading";
 import UserProfile from "../../components/UserProfile";
-import BuddyList from "../../components/BuddyList";
 import GoalCard from "../../components/GoalCard";
+import Chat from "../../components/Chat";
 import Cal from "../../components/Calendar";
 
 import "./style.css";
@@ -22,6 +21,7 @@ const Dashboard = () => {
   const [categories, setCategories] = useState([]);
   const [active, setActive] = useState([]);
   const [allBuddies, setAllBuddies] = useState();
+  const [myBuddies, setMyBuddies] = useState();
   const [reRender, setreRender] = useState(false);
   const [calRender, setCalRender] = useState(false);
 
@@ -57,15 +57,15 @@ const Dashboard = () => {
 
   const getAllData = () => {
     API.getUserByEmail(user.email).then(resp => {
-      console.log(resp.data);
       let userData = resp.data;
       API.getAllGoals(userData.id).then(res => {
-        console.log(res.data);
         let goalData = res.data;
         setGoalInfo(goalData);
         setUserInfo(userData);
+        console.log(userData);
         if (userData.buddies) {
           setAllBuddies(userData.buddies.allBuddies);
+          setMyBuddies(userData.buddies.myBuddies);
         }
         setIncompleteGoals(goalData.currentGoals.incomplete);
         setCategories([
@@ -108,8 +108,6 @@ const Dashboard = () => {
       activeCategories.push(categories[i]);
     }
     setActive(activeCategories);
-    console.log(`Active Categories: ${active}`);
-
     renderGoalCards();
   };
 
@@ -146,11 +144,28 @@ const Dashboard = () => {
             incompleteGoals={incompleteGoals}
             buddies={allBuddies ? getUnique(allBuddies, "username") : null}
           />
-          <BuddyList
-            userEmail={userInfo.email}
-            userID={userInfo.id}
+          <div>
+            <Link
+              to={{
+                pathname: "/buddies",
+                state: {
+                  user: user.email
+                }
+              }}
+              className="link"
+            >
+              Find Buddies
+            </Link>
+          </div>
+          <Chat
+            userInfo={userInfo}
+            myBuddies={myBuddies}
+            buddies={allBuddies}
+            buddiesUsername={
+              allBuddies ? getUnique(allBuddies, "username") : null
+            }
+            buddiesEmail={allBuddies ? getUnique(allBuddies, "email") : null}
             makeid={makeid}
-            buddies={allBuddies ? getUnique(allBuddies, "username") : null}
           />
         </div>
         <div style={{ marginTop: "20px", marginBottom: "20px" }} />

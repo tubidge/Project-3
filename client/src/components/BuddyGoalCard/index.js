@@ -17,25 +17,25 @@ const BuddyGoalCard = props => {
     <>
       {props.incompleteGoals.map(goal => (
         <div id="buddyGoalCard" key={goal.id} className="col l4 s12">
-          <div className="card">
+          <div className="card rounded">
             <div className="card-content">
               <div className="card-title">{goal.name}</div>
-              <div className="goalSummary">
-                <p>Category: {goal.category}</p>
-                <p>Due Date: {goal.dueDate}</p>
+              <p>Category: {goal.category}</p>
+              <p>Due Date: {goal.dueDate}</p>
+              <div className="card-action">
+                <JoinGoalModal
+                  className="modal-trigger btn-small"
+                  btnName={"Join goal"}
+                  dataTarget={`joinGoal_${goal.id}}`}
+                  currentUserGoals={props.currentUserGoals}
+                  addBuddy={props.addBuddy}
+                  buddyName={props.buddyName}
+                  userId={props.userId}
+                  buddyGoalName={goal.name}
+                  buddyId={props.buddyId}
+                  buddyGoalId={goal.id}
+                />
               </div>
-              <JoinGoalModal
-                className="modal-trigger material-icons"
-                btnName={"add_circle"}
-                dataTarget={`joinGoal_${goal.id}}`}
-                currentUserGoals={props.currentUserGoals}
-                addBuddy={props.addBuddy}
-                buddyName={props.buddyName}
-                userId={props.userId}
-                buddyGoalName={goal.name}
-                buddyId={props.buddyId}
-                buddyGoalId={goal.id}
-              />
             </div>
           </div>
         </div>

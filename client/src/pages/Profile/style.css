@@ -13,9 +13,9 @@
   box-shadow: 2px 2px 3px 3px rgb(202, 201, 201);
 }
 .profile-pic {
-  margin-left: 10px;
-  margin-top: 10px;
+  /* margin-left: 10px; */
+  margin-top: 25px;
 }
-.profileName {
+/* .profileName {
   margin-left: 10px;
-}
+} */

@@ -1,0 +1,65 @@
+:root {
+  --accentGold: #dd8e27;
+  --darkBlue: #10355f;
+}
+
+#chatBox {
+  position: absolute;
+  right: 0;
+}
+
+#chatBox .card .card-content {
+  background-color: transparent !important;
+}
+
+#chatBox .card .card-title {
+  background-color: transparent !important;
+  color: #d4ac0d;
+  border-bottom: none;
+}
+
+#chatBox .card .card-title .material-icons {
+  cursor: pointer;
+}
+
+#chatBox .card {
+  background-color: #eee;
+  min-height: 350px;
+  min-width: 400px;
+  z-index: 2;
+  margin: 0 5px 0px 0;
+  padding: 0 10px 0 10px;
+}
+
+#chatBox .material-icons {
+  color: var(--accentGold);
+}
+
+#chatBox .card .card-action {
+  background-color: inherit;
+  border-top: 1px solid rgba(160, 160, 160, 0.2);
+  position: relative;
+  padding: 14px 0px;
+}
+
+#sendMessage {
+  cursor: pointer;
+}
+
+textarea.materialize-textarea {
+  margin-top: 10px !important;
+  background: white !important;
+  border-radius: 5px !important;
+  line-height: normal;
+  overflow-y: hidden;
+  padding: 0.8rem 0 0.8rem 0;
+  resize: none;
+  min-height: 4rem !important;
+  box-sizing: border-box;
+  border: 1px solid var(--accentGold) !important;
+}
+textarea:focus,
+textarea.materialize-textarea:focus {
+  border-bottom: var(--accentGold) !important;
+  box-shadow: 0 1px 0 0 var(--darkBlue) !important;
+}

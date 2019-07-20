@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Modal from "../Modal";
-import "./style.css";
 import moment from "moment";
 import API from "../../utils/API";
 import ProgressBar from "../ProgressBar";
+import "./style.css";
 
 const GoalCard = props => {
   const [goals, setGoals] = useState([]);
@@ -12,7 +12,7 @@ const GoalCard = props => {
 
   useEffect(() => {
     API.getAllGoals(props.userID).then(resp => {
-      console.log(resp);
+      // console.log(resp);
       setGoals(resp.data.currentGoals);
     });
   }, [reRender]);
@@ -42,10 +42,10 @@ const GoalCard = props => {
       colName: "complete",
       info: true
     };
-    console.log(id);
-    console.log("running");
+    // console.log(id);
+    // console.log("running");
     API.editGoal(id, data).then(resp => {
-      console.log(resp);
+      // console.log(resp);
       setreRender(!reRender);
       props.renderCal();
     });
@@ -55,24 +55,24 @@ const GoalCard = props => {
     const due = moment()
       .add(3, "days")
       .format("YYYY-MM-DD");
-    console.log(props.incompleteGoals);
+    // console.log(props.incompleteGoals);
     const result = props.incompleteGoals.filter(
       goal => goal.category === category
     );
 
-    console.log(result);
+    // console.log(result);
     result.sort(sortDates);
-    console.log(result);
+    // console.log(result);
 
     return result.map(goal => {
-      console.log(goal);
-      console.log(due);
+      // console.log(goal);
+      // console.log(due);
       let total =
         goal.milestones.completed.length + goal.milestones.incomplete.length;
-      console.log(total);
+      // console.log(total);
       let progress = goal.milestones.completed.length;
       let percentage = progress / total;
-      console.log(percentage);
+      // console.log(percentage);
       if (moment(goal.dueDate).isAfter(due)) {
         return (
           <li key={goal.id}>
@@ -144,19 +144,19 @@ const GoalCard = props => {
 
     const result = goals.incomplete.filter(goal => goal.category === category);
 
-    console.log(result);
+    // console.log(result);
     result.sort(sortDates);
-    console.log(result);
+    // console.log(result);
 
     return result.map(goal => {
-      console.log(goal);
-      console.log(due);
+      // console.log(goal);
+      // console.log(due);
       let total =
         goal.milestones.completed.length + goal.milestones.incomplete.length;
-      console.log(total);
+      // console.log(total);
       let progress = goal.milestones.completed.length;
       let percentage = progress / total;
-      console.log(percentage);
+      // console.log(percentage);
       if (moment(goal.dueDate).isAfter(due)) {
         return (
           <li key={goal.id}>
@@ -225,11 +225,12 @@ const GoalCard = props => {
     <>
       <div className="col l4 s12">
         <div className="card goalCard">
-          <div className="card-title center-align">
-            <span>{props.category}</span>
+          <div className="card-title">
+            <span className="category-title">{props.category}</span>
             <Modal
               style={{
                 marginRight: "5px",
+                marginTop: "5px",
                 color: "#d4ac0d",
                 fontSize: "35px"
               }}

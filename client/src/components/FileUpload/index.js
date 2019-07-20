@@ -78,12 +78,11 @@ export default class FileUpload extends React.Component {
         <div>
           {this.state.uploadedFileCloudinaryUrl === "" ? null : (
             <div>
-              <p>{this.state.uploadedFile.name}</p>
-              {/* <img
-                className="circle img-fluid profilePicture"
-                src={this.state.uploadedFileCloudinaryUrl}
-                alt="Profile"
-              /> */}
+              {this.state.uploadedFile.name ? (
+                <p>{this.state.uploadedFile.name}</p>
+              ) : (
+                <p>Loading...</p>
+              )}
             </div>
           )}
         </div>
