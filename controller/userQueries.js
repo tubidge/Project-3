@@ -2,6 +2,7 @@ const db = require("../models");
 const helper = require("../utils/helperFunctions");
 const buddy = require("../controller/buddyQueries");
 const moment = require("moment");
+const goalQuery = require("./goalQueries");
 
 module.exports = {
   // This method will create a new user
@@ -779,8 +780,18 @@ module.exports = {
                   .asyncForEach(user.buddies.myBuddies, async event => {
                     console.log(event);
                     console.log(typeof event.buddyId);
+                    const getGoal = id => {
+                      goalQuery.getBasicGoal(id).then(resp => {
+                        console.log("=========-------=======");
+                        console.log(resp);
+                        goalName = resp.name;
+                      });
+                    };
+
                     console.log("this is the event");
                     console.log(typeof id);
+                    let goalName;
+                    getGoal(event.buddyGoal);
                     if (parseInt(id) === event.buddyId) {
                       console.log("true");
                       await db.User.findAll({
@@ -796,7 +807,8 @@ module.exports = {
                           username: resp[0].dataValues.username,
                           channel: event.channel,
                           buddyId: resp[0].dataValues.id,
-                          image: resp[0].dataValues.image
+                          image: resp[0].dataValues.image,
+                          buddyGoal: goalName
                         };
 
                         buddyArr.push(buddyData);
@@ -818,7 +830,8 @@ module.exports = {
                           username: resp[0].dataValues.username,
                           channel: event.channel,
                           buddyId: resp[0].dataValues.id,
-                          image: resp[0].dataValues.image
+                          image: resp[0].dataValues.image,
+                          buddyGoal: goalName
                         };
 
                         buddyArr.push(buddyData);

@@ -10,6 +10,7 @@ const messageParams = new sb.UserMessageParams();
 const ChannelHandler = new sb.ChannelHandler();
 
 function Sendbird(user, buddies) {
+  console.log("SENDBIRD ==========================");
   this.user = user;
   this.buddies = buddies;
   this.sb = sb;
@@ -28,11 +29,11 @@ function Sendbird(user, buddies) {
   this.configHandler = function(cb) {
     this.channels.forEach(index => {
       this.ChannelHandler.onTypingStatusUpdated = function(channel) {
-        console.log(channel);
+        // console.log(channel);
       };
       this.ChannelHandler.onMessageReceived = function(channel, message) {
-        console.log(channel);
-        console.log(message);
+        // console.log(channel);
+        // console.log(message);
         cb(message);
       };
       this.sb.addChannelHandler(index.connection, this.ChannelHandler);

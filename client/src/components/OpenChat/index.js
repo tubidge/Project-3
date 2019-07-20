@@ -10,9 +10,11 @@ function OpenChat(props) {
       <div>
         <ul>
           <BuddyList
+            myBuddies={props.myBuddies}
             userEmail={props.userEmail}
             userID={props.userID}
             makeid={props.makeid}
+            allBuddies={props.allBuddies}
             buddies={props.buddies}
             channels={channels}
             emails={props.buddiesEmail}

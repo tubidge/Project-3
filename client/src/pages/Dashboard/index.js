@@ -21,6 +21,7 @@ const Dashboard = () => {
   const [categories, setCategories] = useState([]);
   const [active, setActive] = useState([]);
   const [allBuddies, setAllBuddies] = useState();
+  const [myBuddies, setMyBuddies] = useState();
   const [reRender, setreRender] = useState(false);
   const [calRender, setCalRender] = useState(false);
 
@@ -56,17 +57,15 @@ const Dashboard = () => {
 
   const getAllData = () => {
     API.getUserByEmail(user.email).then(resp => {
-      console.log(resp.data);
       let userData = resp.data;
       API.getAllGoals(userData.id).then(res => {
-        console.log(res.data);
         let goalData = res.data;
         setGoalInfo(goalData);
         setUserInfo(userData);
-        console.log("USER DATA FROM DASHBOARD");
         console.log(userData);
         if (userData.buddies) {
           setAllBuddies(userData.buddies.allBuddies);
+          setMyBuddies(userData.buddies.myBuddies);
         }
         setIncompleteGoals(goalData.currentGoals.incomplete);
         setCategories([
@@ -109,8 +108,6 @@ const Dashboard = () => {
       activeCategories.push(categories[i]);
     }
     setActive(activeCategories);
-    console.log(`Active Categories: ${active}`);
-
     renderGoalCards();
   };
 
@@ -147,8 +144,22 @@ const Dashboard = () => {
             incompleteGoals={incompleteGoals}
             buddies={allBuddies ? getUnique(allBuddies, "username") : null}
           />
+          <div>
+            <Link
+              to={{
+                pathname: "/buddies",
+                state: {
+                  user: user.email
+                }
+              }}
+              className="link"
+            >
+              Find Buddies
+            </Link>
+          </div>
           <Chat
             userInfo={userInfo}
+            myBuddies={myBuddies}
             buddies={allBuddies}
             buddiesUsername={
               allBuddies ? getUnique(allBuddies, "username") : null

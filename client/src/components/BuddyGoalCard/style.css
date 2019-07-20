@@ -3,6 +3,13 @@
   --darkBlue: #10355f;
 }
 
+p {
+  font-weight: 500;
+  /* white-space: nowrap; */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 #buddyGoalCard .card-title {
   font-size: 1.2em;
   font-weight: 700 !important;

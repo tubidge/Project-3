@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./style.css";
 import ChatMessage from "../ChatMessage";
-import API from "../../utils/API";
 // This chatbox should render a card that takes in props for the current channel and sends those props to a hook that then populates the card
 // and allows for new messages to be sent
 
@@ -17,7 +16,7 @@ function ChatBox(props) {
     document
       .getElementById("messageField")
       .addEventListener("keydown", function(event) {
-        if (event.keyCode == 13 && !event.shiftKey) {
+        if (event.keyCode === 13 && !event.shiftKey) {
           event.preventDefault();
           document.getElementById("sendMessage").click();
         }
@@ -27,7 +26,6 @@ function ChatBox(props) {
   return (
     <div className="card">
       <div className="card-header">
-        <h4 className="ml-4">Chat with {props.messages[0]._sender.userId}</h4>
         <div>
           <i onClick={props.exit} className="fas fa-times text-white" />
         </div>

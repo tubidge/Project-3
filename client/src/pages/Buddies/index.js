@@ -10,7 +10,7 @@ import Fuse from "fuse.js";
 import "./style.css";
 
 const Buddies = props => {
-  const { loading } = useAuth0();
+  const { loading, user } = useAuth0();
   const [isLoading, setIsLoading] = useState(true);
   const [findingBuddy, setFindingBuddy] = useState(false);
   const [users, setUsers] = useState([]);
@@ -19,7 +19,7 @@ const Buddies = props => {
   const [matchesFound, setMatchesFound] = useState([]);
   const [search, setSearch] = useState("");
   const [searchMatchFound, setSearchMatchFound] = useState([]);
-  const [currentUser, setCurrentUser] = useState("");
+  const [currentUserRemoved, setCurrentUserRemoved] = useState([]);
 
   // for fuse.js
   const options = {
@@ -39,16 +39,15 @@ const Buddies = props => {
 
   useEffect(() => {
     M.AutoInit();
-    M.Carousel.init();
-    console.log(props.location.state.user);
     // Get all goals from all users
     let results = [];
     let currentUser = props.location.state.user;
-    setCurrentUser(props.location.state.user);
+    console.log(currentUser);
     API.getAllUsers().then(res => {
       const removedCurrentUser = res.data.filter(
         user => user.email !== currentUser
       );
+      setCurrentUserRemoved(removedCurrentUser);
       removedCurrentUser.map(user => {
         let username = user.username;
         let email = user.email;
@@ -98,7 +97,6 @@ const Buddies = props => {
 
   const searchUsers = (e, search) => {
     e.preventDefault();
-    console.log(search);
     let fuse = new Fuse(buddyGoals, options);
     const searchMatches = fuse.search(search);
     searchMatches
@@ -109,6 +107,14 @@ const Buddies = props => {
     searchMatches.map(match => {
       searchResults.push(match);
     });
+    if (searchResults.length === 0) {
+      if (search) {
+        M.toast({
+          html: `<i class="material-icons left">error</i>No results found.`,
+          displayLength: 2000
+        });
+      }
+    }
     console.log(searchResults);
     setSearchMatchFound(searchResults);
   };
@@ -255,7 +261,7 @@ const Buddies = props => {
               ) : users.length ? (
                 <>
                   <ul className="collection">
-                    {users.map(user => (
+                    {currentUserRemoved.map(user => (
                       <li key={user.id} className="collection-item avatar">
                         <img
                           src={user.image}
@@ -276,11 +282,13 @@ const Buddies = props => {
             <div className="col s6">
               <div className="card">
                 <div className="card-content">
-                  <span className="card-title">Find a Match</span>
-                  <p>Get matched with a buddy based on your current goals</p>
+                  <span className="card-title">Get Paired with a Buddy</span>
+                  <p>
+                    Find someone with similar goals, so you can help each other!
+                  </p>
                   <div className="card-action">
                     <button className="btn findBuddy" onClick={findBuddy}>
-                      Click here to begin
+                      Click here to begin search
                     </button>
                   </div>
                 </div>
@@ -291,7 +299,11 @@ const Buddies = props => {
                 <div className="col s6">
                   <div className="card">
                     <div className="card-content">
-                      <span className="card-title">Your Matches</span>
+                      <span className="card-title">Your Matches!</span>
+                      <p>
+                        Here are some potentials Buddies for you. Check out
+                        their profiles and see if it's a good fit.
+                      </p>
                       <ul className="collection">
                         {matchesFound &&
                           getUnique(matchesFound, "userId").map(match => (

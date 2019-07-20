@@ -7,57 +7,46 @@ import ChatButton from "../ChatButton";
 const BuddyList = props => {
   const [buddies, setBuddies] = useState(props.buddies);
 
-  const getUnique = (arr, comp) => {
-    const unique = arr
-      .map(e => e[comp])
-      // store the keys of the unique objects
-      .map((e, i, final) => final.indexOf(e) === i && i)
-      // eliminate the dead keys & store unique objects
-      .filter(e => arr[e])
-      .map(e => arr[e]);
-    return unique;
-  };
-
   useEffect(() => {
-    console.log("======================================");
-    console.log(props.buddies);
-    console.log(props.channels);
+    getBuddyGoalData();
+    // console.log(props.channels);
     configChannels();
   }, []);
+
+  const getBuddyGoalData = () => {
+    let temp = [];
+    const goalIds = props.myBuddies.map(index => ({
+      buddyGoalId: index.buddyGoal,
+      userGoalId: index.goalId
+    }));
+    goalIds.map(index => {
+      API.getGoal(index.buddyGoalId).then(res => {
+        temp.push(res.data);
+        console.log(temp);
+      });
+    });
+  };
 
   const configChannels = () => {
     props.channels.forEach(index => {
       let channel = index;
-      console.log(channel);
+      // console.log(channel);
       buddies.forEach(index => {
         if (index.email === channel.user) {
           return index.channel === channel;
         }
       });
     });
-    console.log("BUDDIES=========================");
-    console.log(buddies);
   };
 
   return (
     <>
       <section id="buddiesList">
-        <Link
-          to={{
-            pathname: "/buddies",
-            state: {
-              user: props.userEmail
-            }
-          }}
-          className="link"
-        >
-          Find Buddies
-        </Link>
-        <ul class="w3-ul w3-card-4">
+        <ul className="w3-ul w3-card-4">
           {buddies &&
             buddies.map(buddy => (
               <li key={props.makeid(5)} className="w3-bar">
-                <span class="w3-right">
+                <span className="w3-right">
                   <ChatButton
                     key={buddy.channel}
                     openChannel={props.openChannel}
@@ -66,16 +55,17 @@ const BuddyList = props => {
                     username={buddy.username}
                   />
                 </span>
-
                 <img
                   src={buddy.image}
-                  class="w3-bar-item w3-circle"
+                  className="w3-bar-item w3-circle"
                   style={{ width: "85px" }}
                 />
-                <div class="w3-bar-item">
+                <div className="w3-bar-item">
                   <Link to={`/buddy-profile/${buddy.buddyId}`}>
                     {buddy.username}
                   </Link>
+                  <br />
+                  {buddy.buddyGoal}
                 </div>
               </li>
             ))}

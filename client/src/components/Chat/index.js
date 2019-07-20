@@ -37,7 +37,7 @@ class Chat extends Component {
         this.openChannel(this.state.currentChannel.connection.url);
       }
     });
-    console.log(this.state.Messenger.channels);
+    // console.log(this.state.Messenger.channels);
     let channels = this.state.Messenger.channels;
     this.setState({
       channelsConfigured: true,
@@ -55,7 +55,7 @@ class Chat extends Component {
         return false;
       }
     });
-    console.log(this.state.currentChannel.connection);
+    // console.log(this.state.currentChannel.connection);
     this.setState({
       messageBody: "",
       currentChannel: {
@@ -81,11 +81,11 @@ class Chat extends Component {
     this.setState({
       [name]: value
     });
-    console.log(this.state.currentChannel);
+    // console.log(this.state.currentChannel);
   };
   submitNewMessage = event => {
     event.preventDefault();
-    console.log("working");
+    // console.log("working");
     if (this.state.messageBody === "" || this.state.messageBody === " ") {
       return false;
     } else {
@@ -95,10 +95,10 @@ class Chat extends Component {
         this.state.currentChannel.connection,
         data => {
           document.getElementById("messageField").value = "";
-          console.log("running");
-          console.log(data);
+          // console.log("running");
+          // console.log(data);
           let channel = this.state.currentChannel.messages;
-          console.log(channel);
+          // console.log(channel);
           this.openChannel(this.state.currentChannel.connection.url);
         }
       );
@@ -126,9 +126,11 @@ class Chat extends Component {
               isConfigured={this.state.channelsConfigured}
               channels={this.state.Messenger.channels}
               openChannel={this.openChannel}
+              myBuddies={this.props.myBuddies}
               userEmail={this.props.userInfo.email}
               userID={this.props.userInfo.id}
               makeid={this.props.makeid}
+              allBuddies={this.props.buddies}
               buddies={this.props.buddiesUsername}
               buddiesEmail={this.props.buddiesEmail}
             />
@@ -144,15 +146,6 @@ class Chat extends Component {
               userId={this.props.userInfo.email}
             />
           ) : null}
-        </div>
-        <div>
-          {/* <BuddyList
-            userEmail={this.props.userInfo.email}
-            userID={this.props.userInfo.id}
-            makeid={this.props.makeid}
-            buddies={this.props.buddiesUsername}
-          
-          /> */}
         </div>
       </>
     );
