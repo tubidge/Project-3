@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import M from "materialize-css";
 import API from "../../utils/API";
 import "./style.css";

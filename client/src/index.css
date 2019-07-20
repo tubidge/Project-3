@@ -13,6 +13,12 @@ code {
     monospace;
 }
 
+.buddyInfo {
+  color: var(--darkBlue);
+  font-weight: 600;
+  border-bottom: 1px dashed var(--accentGold);
+}
+
 .profilePicture {
   margin-top: 20px;
   height: 200px !important;

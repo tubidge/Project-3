@@ -22,7 +22,14 @@ const Goals = props => {
   const [reRender, setreRender] = useState(false);
 
   useEffect(() => {
-    M.AutoInit();
+    M.Tabs.init();
+    // var elem = document.querySelector(".tabs");
+    // var instance = M.Tabs.init(elem);
+    // instance.select("Fitness");
+    // instance.select("Wellness");
+    // instance.select("Financial");
+    // instance.select("Edcuation");
+    // instance.select("Travel");
 
     getAllData();
   }, [currentGoal, reRender]);
@@ -63,10 +70,10 @@ const Goals = props => {
             (() => {
               setCurrentGoal(false);
             },
-              () => {
-                console.log(currentGoal);
-                renderGoalDetail(goal.id);
-              })
+            () => {
+              console.log(currentGoal);
+              renderGoalDetail(goal.id);
+            })
           }
         >
           {goal.name}
@@ -136,8 +143,8 @@ const Goals = props => {
                   orderRender={orderRender}
                 />
               ) : (
-                  ""
-                )}
+                ""
+              )}
             </div>
           </div>
 
@@ -155,8 +162,8 @@ const Goals = props => {
                   orderRender={orderRender}
                 />
               ) : (
-                  ""
-                )}
+                ""
+              )}
             </div>
           </div>
 
@@ -174,8 +181,8 @@ const Goals = props => {
                   orderRender={orderRender}
                 />
               ) : (
-                  ""
-                )}
+                ""
+              )}
             </div>
           </div>
 
@@ -193,8 +200,8 @@ const Goals = props => {
                   orderRender={orderRender}
                 />
               ) : (
-                  ""
-                )}
+                ""
+              )}
             </div>
           </div>
 
@@ -210,8 +217,8 @@ const Goals = props => {
                   orderRender={orderRender}
                 />
               ) : (
-                  ""
-                )}
+                ""
+              )}
             </div>
           </div>
         </div>

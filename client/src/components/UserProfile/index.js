@@ -33,7 +33,7 @@ const UserProfile = props => {
             <span>{props.buddies ? props.buddies.length : "0"}</span>
           </div>
         </div>
-        <hr />
+        <hr style={{ width: "100%" }} />
         <div className="row center-align">
           <span>Completed 15/20 goals</span>
         </div>
