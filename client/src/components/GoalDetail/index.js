@@ -19,6 +19,7 @@ function GoalDetail(props) {
   const [total, setTotal] = useState();
   const [percentage, setPercentage] = useState();
   const [goalStatus, setGoalStatus] = useState(false);
+  const [currentDay, setCurrentDay] = useState();
 
   const frequencies = ["Daily", "Weekly", "Monthly"];
 
@@ -51,6 +52,10 @@ function GoalDetail(props) {
 
       configureDays(resp.data);
     });
+  };
+
+  const getMilestoneRender = () => {
+    getData();
   };
 
   // useEffect(() => {
@@ -100,9 +105,16 @@ function GoalDetail(props) {
 
   const configureDays = goal => {
     let arrDays = [];
+    let now;
+    if (currentDay) {
+      now = moment(currentDay).format("YYYY-MM-DD");
+    } else {
+      now = moment().format("YYYY-MM-DD");
+    }
+    setCurrentDay(now);
     for (var i = 0; i < 5; i++) {
       // let num = [i + 1];
-      let day = moment()
+      let day = moment(now)
         .add(`${i}`, "days")
         .format("YYYY-MM-DD");
 
@@ -138,6 +150,103 @@ function GoalDetail(props) {
 
     setDays(configDays);
     setIsLoading(false);
+  };
+
+  const nextFive = () => {
+    let arrDays = [];
+    let now = moment(currentDay)
+      .add("5", "days")
+      .format("YYYY-MM-DD");
+
+    setCurrentDay(now);
+    for (var i = 0; i < 5; i++) {
+      // let num = [i + 1];
+      let day = moment(now)
+        .add(`${i}`, "days")
+        .format("YYYY-MM-DD");
+
+      arrDays.push(day);
+    }
+
+    let configDays = [];
+    // let data = data;
+    arrDays.forEach(index => {
+      const day = {
+        date: index,
+        incompleteMilestone: [],
+        completedMilestone: []
+      };
+      currentGoal.milestones.incomplete.forEach(index => {
+        if (index.dueDate === day.date) {
+          day.incompleteMilestone.push(index);
+          console.log(day);
+        }
+      });
+
+      currentGoal.milestones.complete.forEach(index => {
+        if (index.dueDate === day.date) {
+          day.completedMilestone.push(index);
+          console.log(day);
+        }
+      });
+
+      configDays.push(day);
+    });
+
+    console.log(configDays);
+
+    setDays(configDays);
+  };
+
+  const lastFive = () => {
+    let arrDays = [];
+    let now = moment(currentDay)
+      .subtract("5", "days")
+      .format("YYYY-MM-DD");
+
+    setCurrentDay(now);
+    for (var i = 0; i < 5; i++) {
+      // let num = [i + 1];
+      let day = moment(now)
+        .add(`${i}`, "days")
+        .format("YYYY-MM-DD");
+
+      arrDays.push(day);
+    }
+
+    let configDays = [];
+    // let data = data;
+    arrDays.forEach(index => {
+      const day = {
+        date: index,
+        incompleteMilestone: [],
+        completedMilestone: []
+      };
+      currentGoal.milestones.incomplete.forEach(index => {
+        if (index.dueDate === day.date) {
+          day.incompleteMilestone.push(index);
+          console.log(day);
+        }
+      });
+
+      currentGoal.milestones.complete.forEach(index => {
+        if (index.dueDate === day.date) {
+          day.completedMilestone.push(index);
+          console.log(day);
+        }
+      });
+
+      configDays.push(day);
+    });
+
+    console.log(configDays);
+
+    setDays(configDays);
+  };
+
+  const getToday = () => {
+    setCurrentDay(false);
+    setreRender(!reRender);
   };
 
   const handleInput = event => {
@@ -258,41 +367,61 @@ function GoalDetail(props) {
                 style={{ display: "flex", justifyContent: "space-between" }}
               >
                 {" "}
+                <div>
+                  <i
+                    class="material-icons day-card-controls"
+                    onClick={lastFive}
+                    style={{
+                      color: "white",
+                      fontSize: "3rem",
+                      cursor: "pointer"
+                    }}
+                  >
+                    fast_rewind
+                  </i>
+
+                  <i
+                    class="material-icons day-card-controls"
+                    onClick={getToday}
+                    style={{
+                      color: "white",
+                      fontSize: "3rem",
+                      cursor: "pointer",
+                      marginLeft: "2rem"
+                    }}
+                  >
+                    today
+                  </i>
+                </div>
                 <i
-                  class="material-icons"
-                  // onClick={lastFive}
-                  style={{ color: "white", fontSize: "3rem" }}
-                >
-                  fast_rewind
-                </i>
-                <i
-                  // onClick={nextFive}
-                  class="material-icons"
-                  style={{ color: "white", fontSize: "3rem" }}
+                  onClick={nextFive}
+                  class="material-icons day-card-controls"
+                  style={{
+                    color: "white",
+                    fontSize: "3rem",
+                    cursor: "pointer"
+                  }}
                 >
                   fast_forward
                 </i>
               </div>
             </div>
             <div className="row">
-              {currentGoal ? (
-                <div className="goal-page-upcomingView">
-                  {days.map(index => {
-                    return (
-                      <DayCard
-                        orderProgressRender={orderProgressRender}
-                        key={index.date}
-                        reRender={orderRender}
-                        userId={props.userId}
-                        goalId={currentGoal.id}
-                        date={index}
-                      />
-                    );
-                  })}
-                </div>
-              ) : (
-                ""
-              )}
+              <div className="goal-page-upcomingView">
+                {days.map(index => {
+                  return (
+                    <DayCard
+                      orderProgressRender={orderProgressRender}
+                      key={index.date}
+                      reRender={orderRender}
+                      userId={props.userId}
+                      goalId={currentGoal.id}
+                      date={index}
+                      getMilestoneRender={getMilestoneRender}
+                    />
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>

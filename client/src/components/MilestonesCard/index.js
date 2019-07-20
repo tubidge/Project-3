@@ -66,14 +66,14 @@ function MilestonesCard(props) {
   const close = header => {
     if (header !== "cancel") {
       setreRender(!reRender);
-      props.orderDays();
+
       props.reRender();
     } else {
       setreRender(!reRender);
       setmodalOpen(false);
       setNewMilestone(false);
       setmilestoneSelected(false);
-      props.orderDays();
+
       props.orderProgressRender();
     }
   };

@@ -75,3 +75,7 @@
   font-size: 60px;
   color: #d4ac0d !important;
 }
+
+.day-card-controls:hover {
+  transform: scale(1.05);
+}
