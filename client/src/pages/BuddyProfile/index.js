@@ -25,7 +25,6 @@ const BuddyProfile = props => {
   const [allBuddies, setAllBuddies] = useState([]);
 
   useEffect(() => {
-    console.log(user);
     getBuddyData();
     getUserData();
   }, []);
@@ -61,7 +60,6 @@ const BuddyProfile = props => {
         }
       }
       setBuddyData(res.data);
-      console.log(res.data);
       API.getAllGoals(id).then(res => {
         let goalData = res.data;
         setBuddyGoalInfo(goalData);
@@ -102,16 +100,16 @@ const BuddyProfile = props => {
     });
   };
 
-  const addBuddy = (buddyId, buddyGoalId, userGoalId, userId) => {
+  const addBuddy = (duration, buddyId, buddyGoalId, userGoalId, userId) => {
     let data = {
-      duration: "1 Week",
+      duration: duration,
       buddyId: buddyId,
       buddyGoal: buddyGoalId,
       GoalId: userGoalId,
       UserId: userId
     };
     API.addBuddy(data).then(res => {
-      console.log(res.data);
+      // console.log(res.data);
     });
   };
 

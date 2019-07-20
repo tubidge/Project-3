@@ -1,74 +1,157 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { confirmAlert } from "react-confirm-alert";
+import Select from "react-select";
 import M from "materialize-css";
+import "./style.css";
 
 const JoinGoalModal = props => {
+  const [selectedGoal, setSelectedGoal] = useState("");
+  const [goal, setGoal] = useState("");
+  const [selectedDuration, setSelectedDuration] = useState("");
+  const [duration, setDuration] = useState("");
+
   useEffect(() => {
     M.AutoInit();
     let modals = document.querySelectorAll(".modal");
-    let options = {
+    let modalOptions = {
       dismissible: true,
       inDuration: 200,
       outDuration: 400
     };
-    M.Modal.init(modals, options);
+    M.Modal.init(modals, modalOptions);
+
+    let toasts = document.querySelectorAll(".toast");
+    let toastOptions = {
+      displayLength: 2000
+    };
   }, []);
 
-  const handleClick = () => {
-    return <h1>Hello</h1>;
+  const clearFields = () => {
+    setSelectedGoal("");
+    setSelectedDuration("");
+    setGoal("");
+    setDuration("");
   };
 
-  const handleSubmit = (e, buddyId, buddyGoal, goalId, userId) => {
+  const handleGoalChange = selectedGoal => {
+    setSelectedGoal(selectedGoal);
+    setGoal(selectedGoal.label);
+  };
+
+  const handleDurationChange = selectedDuration => {
+    setSelectedDuration(selectedDuration);
+    setDuration(selectedDuration.label);
+  };
+
+  const handleSubmit = e => {
     e.preventDefault();
-    props.addBuddy(buddyId, buddyGoal, goalId, userId);
+    if (selectedDuration === "" || selectedGoal === "") {
+      M.toast({
+        html: `<i class="material-icons left">error</i>You didn't complete all the requried fields.`,
+        displayLength: 2000
+      });
+    } else {
+      props.addBuddy(
+        selectedDuration.label,
+        props.buddyId,
+        props.buddyGoalId,
+        selectedGoal.value,
+        props.userId
+      );
+      M.toast({ html: "Buddy added!" });
+      clearFields();
+    }
   };
 
   return (
     <>
-      <Link to="#" className={props.className} data-target={props.dataTarget}>
-        {props.btnName}
-      </Link>
-      <div id={props.dataTarget} className="modal">
-        <div className="modal-content">
-          <div className="collection">
-            <h5>Connect {props.buddyGoalName} with one of your goals!</h5>
+      <div id="joinGoalModal">
+        <button className={props.className} data-target={props.dataTarget}>
+          <i className="material-icons left">person_add</i>
+          {props.btnName}
+        </button>
+        <div id={props.dataTarget} className="modal">
+          <div className="modal-content">
+            <h5>
+              Join <span className="buddyInfo">{props.buddyGoalName}</span>
+            </h5>
             <p>
-              When you select a goal, you and {props.buddyName} will become
+              When you select a goal, you and{" "}
+              <span className="buddyInfo">{props.buddyName}</span> will become
               buddies for the duration you choose.
             </p>
-            <div className="col s10 offset-s1">
-              <div className="card">
-                <div className="card-content">
-                  <div className="card-title">Your Goals</div>
-                  <div className="row">
-                    {props.currentUserGoals.map(goal => (
-                      <div className="col s6" key={goal.id}>
-                        <Link
-                          to="#"
-                          className="collection-item"
-                          onClick={handleClick}
-                          // onClick={e =>
-                          //   handleSubmit(
-                          //     e,
-                          //     props.buddyId,
-                          //     props.buddyGoalId,
-                          //     goal.id,
-                          //     props.userId
-                          //   )
-                          // }
-                        >
-                          {goal.name}
-                        </Link>
-                      </div>
-                    ))}
-                  </div>
+            <div className="col s10 offset-s1" style={{ marginTop: "20px" }}>
+              <form onSubmit={handleSubmit}>
+                <div className="input-field col s12 left-align validate">
+                  <span className="labelForSelect">Your Goals</span>
+                  <Select
+                    theme={theme => ({
+                      ...theme,
+                      borderRadius: 5,
+                      colors: {
+                        ...theme.colors,
+                        primary25: "#ccc",
+                        primary: "#d4ac0d"
+                      }
+                    })}
+                    options={props.currentUserGoals.map(goal => ({
+                      label: goal.name,
+                      value: goal.id
+                    }))}
+                    value={selectedGoal}
+                    onChange={handleGoalChange}
+                  />
                 </div>
-              </div>
+                <div className="input-field col s12 left-align">
+                  <span className="labelForSelect">
+                    How long do you want to be Buddies for?
+                  </span>
+
+                  <Select
+                    theme={theme => ({
+                      ...theme,
+                      borderRadius: 5,
+                      colors: {
+                        ...theme.colors,
+                        primary25: "#ccc",
+                        primary: "#d4ac0d"
+                      }
+                    })}
+                    options={[
+                      { label: "1 week", value: 1 },
+                      { label: "2 weeks", value: 2 },
+                      { label: "3 weeks", value: 3 },
+                      { label: "1 month", value: 4 },
+                      { label: "Goal due date", value: 5 }
+                    ]}
+                    value={selectedDuration}
+                    onChange={handleDurationChange}
+                  />
+                </div>
+                <div className="modal-footer">
+                  <span
+                    onClick={clearFields}
+                    className="btn modal-close grey"
+                    style={{ marginRight: "10px" }}
+                  >
+                    Cancel
+                    <i className="material-icons right">cancel</i>
+                  </span>
+
+                  <button
+                    className={
+                      selectedGoal !== "" && selectedDuration !== ""
+                        ? "btn submit modal-close"
+                        : "btn submit"
+                    }
+                    type="submit"
+                  >
+                    Submit
+                    <i className="material-icons right">send</i>
+                  </button>
+                </div>
+              </form>
             </div>
-          </div>
-          <div className="modal-footer">
-            <div className="btn modal-close">X</div>
           </div>
         </div>
       </div>
