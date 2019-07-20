@@ -1,9 +1,6 @@
 .goalCard {
   max-height: 200px;
 }
-.goal-modal-text {
-  color: black !important;
-}
 .card-scrollable-content {
   max-height: 150px;
   overflow: auto;
