@@ -282,14 +282,28 @@ function GoalDetail(props) {
         </span>
       </div>
       <div className="col s10">
-        <div id="goalCard" className="card indigo darken-4 z-depth-5">
+        <div id="goalCard" className="card z-depth-5">
+          <div className="row">
+            <div
+              className="col s12"
+              style={{ textAlign: "right", marginBottom: "-42px" }}
+            >
+              <i
+                className="material-icons"
+                style={{
+                  color: "white",
+                  cursor: "pointer",
+                  fontSize: "3rem"
+                }}
+                onClick={props.exit}
+              >
+                close
+              </i>
+            </div>
+          </div>
           <div className="card-content goal-page-card">
             <div className="card-title goal-page-cardTitle">
               <div className="goal-page-sub-header">
-                <p className="goal-page-dueDate white-text">
-                  Due: {currentGoal.dueDate}
-                </p>
-
                 <div className="switch">
                   <p className="goal-page-privacy white-text">
                     {currentGoal.private ? "Private" : "Public"}
@@ -306,6 +320,9 @@ function GoalDetail(props) {
                     </label>
                   </div>
                 </div>
+                <p className="goal-page-dueDate white-text">
+                  Due: {currentGoal.dueDate}
+                </p>
               </div>
               <h3 className="goal-page-title white-text">{currentGoal.name}</h3>
             </div>

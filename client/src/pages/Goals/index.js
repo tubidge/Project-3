@@ -144,6 +144,10 @@ const Goals = props => {
     setCurrentGoal(result[0]);
   };
 
+  const exitGoal = () => {
+    setCurrentGoal(false);
+  };
+
   const handleClick = () => {
     setCurrentGoal(false);
   };
@@ -233,14 +237,43 @@ const Goals = props => {
                     </div>
                   </div>
                 </div>
+                <div id="backdrop">
+                  <>
+                    <div className="row">
+                      <div className="col s12">
+                        <div className="card goal-overview-card">
+                          <div className="card-content">
+                            <h3 style={{ textAlign: "center" }}>
+                              Current Goals
+                            </h3>
+                            <div id="currentGoal-row" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col s12">
+                        <div className="card goal-overview-card">
+                          <div className="card-content">
+                            <h3 style={{ textAlign: "center" }}>Past Goals</h3>
+                            <div id="pastGoal-row" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                </div>
 
-                <GoalDetail
-                  userId={userInfo.id}
-                  goal={currentGoal}
-                  orderRender={orderRender}
-                  nextGoal={nextGoal}
-                  prevGoal={prevGoal}
-                />
+                <div id="curtain">
+                  <GoalDetail
+                    userId={userInfo.id}
+                    goal={currentGoal}
+                    orderRender={orderRender}
+                    nextGoal={nextGoal}
+                    prevGoal={prevGoal}
+                    exit={exitGoal}
+                  />
+                </div>
               </>
             ) : (
               <>
