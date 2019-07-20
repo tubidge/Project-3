@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import M from "materialize-css";
 import API from "../../utils/API";
-
 function MilestoneForm(props) {
   //   const [milestone, setMilestone] = useState({});
   const [title, setTitle] = useState();
@@ -10,7 +9,6 @@ function MilestoneForm(props) {
   const [notes, setNotes] = useState();
   const [start, setStart] = useState(props.date);
   const [end, setEnd] = useState();
-
   useEffect(() => {
     M.AutoInit();
     let modals = document.querySelectorAll(".modal");
@@ -24,9 +22,7 @@ function MilestoneForm(props) {
     var instance = M.Modal.init(Modalelem);
     instance.open();
   }, []);
-
   useEffect(() => {}, [frequency]);
-
   const handleInput = event => {
     event.preventDefault();
     let value = event.target.value;
@@ -53,7 +49,6 @@ function MilestoneForm(props) {
         break;
     }
   };
-
   const handleSubmit = event => {
     console.log("working");
     event.preventDefault();
@@ -68,12 +63,10 @@ function MilestoneForm(props) {
       UserId: props.userId
     };
     console.log(data);
-
     const callback = () => {
       console.log(data.frequency);
       props.close(data.frequency);
     };
-
     API.addMilestone(data).then(data => {
       console.log(data);
       callback();
@@ -97,7 +90,6 @@ function MilestoneForm(props) {
                 <label htmlFor="milestoneTitle">Title</label>
               </div>
             </div>
-
             <div className="row">
               <div className="input-field col s10">
                 <input
@@ -233,7 +225,6 @@ function MilestoneForm(props) {
         </div>
       </div>
     );
-
     //     return (
     //       <form>
     //         <div className="form-group">
@@ -261,7 +252,6 @@ function MilestoneForm(props) {
     //             <option>Monthly</option>
     //           </select>
     //         </div>
-
     // <div className="form-group">
     //   <label htmlFor="milestoneStart">Start Date</label>
     //   <input
@@ -305,5 +295,4 @@ function MilestoneForm(props) {
     //     );
   }
 }
-
 export default MilestoneForm;

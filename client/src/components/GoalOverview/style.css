@@ -2,21 +2,15 @@
   display: flex;
   justify-content: space-evenly;
 }
-
-.goal-overview-card {
-}
-
 .goal-overview-card .card-content {
   background-color: whitesmoke;
   height: 500px;
 }
-
 .overview-goal .card-content {
   height: 18rem;
   width: 16rem;
   background-color: #10355f;
 }
-
 .overview-goal .card-title {
   background-color: #10355f;
   border: none;

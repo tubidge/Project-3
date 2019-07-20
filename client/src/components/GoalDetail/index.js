@@ -10,7 +10,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import M from "materialize-css";
-
 function GoalDetail(props) {
   const [currentGoal, setCurrentGoal] = useState();
   const [days, setDays] = useState();
@@ -20,53 +19,41 @@ function GoalDetail(props) {
   const [percentage, setPercentage] = useState();
   const [goalStatus, setGoalStatus] = useState(false);
   const [currentDay, setCurrentDay] = useState();
-
   const frequencies = ["Daily", "Weekly", "Monthly"];
-
   useEffect(() => {
     document.addEventListener("click", function() {
       let options = { fullWidth: true };
       var elems = document.querySelectorAll(".collapsible");
       var instances = M.Collapsible.init(elems, options);
     });
-
     getData();
-
     console.log(props.goal);
   }, [props.goal.id, reRender]);
-
   const getData = () => {
     API.getGoal(props.goal.id).then(resp => {
       console.log(resp.data);
       setCurrentGoal(resp.data);
-
       let total =
         resp.data.milestones.complete.length +
         resp.data.milestones.incomplete.length;
-
       setTotal(total);
       let progress = resp.data.milestones.complete.length;
       let percentage = progress / total;
       console.log(percentage);
       setPercentage(percentage);
-
       configureDays(resp.data);
     });
   };
-
   const getMilestoneRender = () => {
     getData();
   };
-
   // useEffect(() => {
   //   API.getGoal(props.goal.id).then(resp => {
   //     console.log(resp.data);
   //     setCurrentGoal(resp.data);
-
   //     let total =
   //       resp.data.milestones.complete.length +
   //       resp.data.milestones.incomplete.length;
-
   //     setTotal(total);
   //     let progress = resp.data.milestones.complete.length;
   //     let percentage = progress / total;
@@ -74,16 +61,13 @@ function GoalDetail(props) {
   //     setPercentage(percentage);
   //   });
   // }, [goalStatus]);
-
   // useEffect(() => {
   //   console.log(renderDays);
   //   configureDays();
   // }, [renderDays]);
-
   const orderProgressRender = () => {
     setGoalStatus(!goalStatus);
   };
-
   // useEffect(() => {
   //   if (goal.milestones) {
   //     let total =
@@ -96,13 +80,11 @@ function GoalDetail(props) {
   //     setPercentage(percentage);
   //   }
   // }, []);
-
   const orderRender = () => {
     console.log("running good");
     props.orderRender();
     setreRender(!reRender);
   };
-
   const configureDays = goal => {
     let arrDays = [];
     let now;
@@ -117,10 +99,8 @@ function GoalDetail(props) {
       let day = moment(now)
         .add(`${i}`, "days")
         .format("YYYY-MM-DD");
-
       arrDays.push(day);
     }
-
     let configDays = [];
     // let data = data;
     arrDays.forEach(index => {
@@ -135,39 +115,31 @@ function GoalDetail(props) {
           console.log(day);
         }
       });
-
       goal.milestones.complete.forEach(index => {
         if (index.dueDate === day.date) {
           day.completedMilestone.push(index);
           console.log(day);
         }
       });
-
       configDays.push(day);
     });
-
     console.log(configDays);
-
     setDays(configDays);
     setIsLoading(false);
   };
-
   const nextFive = () => {
     let arrDays = [];
     let now = moment(currentDay)
       .add("5", "days")
       .format("YYYY-MM-DD");
-
     setCurrentDay(now);
     for (var i = 0; i < 5; i++) {
       // let num = [i + 1];
       let day = moment(now)
         .add(`${i}`, "days")
         .format("YYYY-MM-DD");
-
       arrDays.push(day);
     }
-
     let configDays = [];
     // let data = data;
     arrDays.forEach(index => {
@@ -182,38 +154,30 @@ function GoalDetail(props) {
           console.log(day);
         }
       });
-
       currentGoal.milestones.complete.forEach(index => {
         if (index.dueDate === day.date) {
           day.completedMilestone.push(index);
           console.log(day);
         }
       });
-
       configDays.push(day);
     });
-
     console.log(configDays);
-
     setDays(configDays);
   };
-
   const lastFive = () => {
     let arrDays = [];
     let now = moment(currentDay)
       .subtract("5", "days")
       .format("YYYY-MM-DD");
-
     setCurrentDay(now);
     for (var i = 0; i < 5; i++) {
       // let num = [i + 1];
       let day = moment(now)
         .add(`${i}`, "days")
         .format("YYYY-MM-DD");
-
       arrDays.push(day);
     }
-
     let configDays = [];
     // let data = data;
     arrDays.forEach(index => {
@@ -228,33 +192,26 @@ function GoalDetail(props) {
           console.log(day);
         }
       });
-
       currentGoal.milestones.complete.forEach(index => {
         if (index.dueDate === day.date) {
           day.completedMilestone.push(index);
           console.log(day);
         }
       });
-
       configDays.push(day);
     });
-
     console.log(configDays);
-
     setDays(configDays);
   };
-
   const getToday = () => {
     setCurrentDay(false);
     setreRender(!reRender);
   };
-
   const handleInput = event => {
     let value = event.target.value;
     let name = event.target.name;
     console.log(value);
     console.log(name);
-
     switch (name) {
       case "private":
         let privacy = !currentGoal.private;
@@ -269,11 +226,9 @@ function GoalDetail(props) {
         break;
     }
   };
-
   if (isLoading) {
     return <Loading />;
   }
-
   return (
     <div className="row">
       <div className="col s1 nextGoalArrow">
@@ -396,7 +351,6 @@ function GoalDetail(props) {
                   >
                     fast_rewind
                   </i>
-
                   <i
                     class="material-icons day-card-controls"
                     onClick={getToday}
@@ -451,5 +405,4 @@ function GoalDetail(props) {
     </div>
   );
 }
-
 export default GoalDetail;

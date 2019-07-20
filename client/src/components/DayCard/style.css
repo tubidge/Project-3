@@ -3,44 +3,36 @@
   width: 18rem;
   padding: 0px;
 }
-
 .day-card-cardTitle {
   background-color: white;
   color: black;
 }
-
 .day-card-content {
   height: 15rem;
   max-height: 15rem;
   overflow: auto;
 }
-
 .day-card-date {
   font-size: 1rem;
   text-align: center;
   border-bottom: 3px solid #1a237e;
 }
-
 .day-card-add {
   text-align: right;
   margin: 0px;
   padding: 0px;
 }
-
 .day-card-icon {
   color: #e2e77d;
 }
-
 .day-card-icon:hover {
   cursor: pointer;
   transform: scale(1.1);
 }
-
 .day-card-buttons {
   display: flex;
   justify-content: space-between;
 }
-
 .day-card-button:hover {
   transform: scale(1.1);
 }

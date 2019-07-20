@@ -1,15 +1,12 @@
 .goal-page-card {
   background-color: #10355f;
 }
-
 .goal-page-cardTitle {
   background-color: #10355f;
 }
-
 .goal-page-title {
   text-align: center;
 }
-
 .goal-page-dueDate {
   text-align: left;
 }
@@ -17,7 +14,6 @@
   display: inline-block;
   text-align: right;
 }
-
 .goal-page-progressBar {
   display: inline-block;
   width: 25rem;
@@ -26,17 +22,14 @@
   display: flex;
   justify-content: space-between;
 }
-
 .goal-page-upcomingView {
   display: flex;
   justify-content: space-around;
 }
-
 /* .goal-privacy-checkbox {
   display: inline-block;
   margin-bottom: 2rem;
 } */
-
 /* .goal-page-progressBar {
   display: flex;
   justify-content: center;
@@ -44,24 +37,20 @@
 .switch label input[type="checkbox"]:checked + .lever {
   background-color: #e2e77d !important;
 }
-
 .switch label input[type="checkbox"]:checked + .lever::after {
   background-color: white !important;
 }
-
 .milestone-image {
   height: 100%;
   width: 100%;
   border-radius: 0;
 }
-
 #goalCard {
   margin-top: 3%;
   width: 100%;
   display: inline-block;
   background-color: #10355f;
 }
-
 .nextGoalArrow {
   height: 200px;
   line-height: 200px;
@@ -76,7 +65,6 @@
   font-size: 60px;
   color: #d4ac0d !important;
 }
-
 .day-card-controls:hover {
   transform: scale(1.05);
 }

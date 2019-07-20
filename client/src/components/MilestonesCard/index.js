@@ -4,7 +4,6 @@ import Loading from "../../components/Loading";
 import API from "../../utils/API";
 import ConfirmModal from "../ConfirmModal";
 import MilestoneForm from "../MilestoneForm";
-
 function MilestonesCard(props) {
   console.log(props);
   const [milestones, setMilestones] = useState(false);
@@ -14,11 +13,9 @@ function MilestonesCard(props) {
   const [modalOpen, setmodalOpen] = useState(false);
   const [frequency, setFrequency] = useState();
   const [newMilestone, setNewMilestone] = useState(false);
-
   useEffect(() => {
     getData();
   }, [reRender, props.goalId]);
-
   useEffect(() => {
     document.addEventListener("click", event => {
       if (
@@ -33,22 +30,18 @@ function MilestonesCard(props) {
         return false;
       } else if (!modalOpen && milestoneSelected) {
       }
-
       setmilestoneSelected(false);
       setreRender(!reRender);
     });
   }, [milestoneSelected]);
-
   const getData = () => {
     API.getMilestoneFreq(props.goalId, props.frequency).then(data => {
       setMilestones(data.data);
     });
   };
-
   const clickMilestone = (name, frequency) => {
     setmilestoneSelected({ name: name, frequency: frequency });
   };
-
   const openConfirmModal = event => {
     console.log("modal opening");
     console.log(milestoneSelected);
@@ -56,28 +49,22 @@ function MilestonesCard(props) {
     event.preventDefault();
     setmodalOpen(true);
   };
-
   const openNewMilestone = header => {
     setFrequency(header);
-
     setNewMilestone(true);
   };
-
   const close = header => {
     if (header !== "cancel") {
       setreRender(!reRender);
-
       props.reRender();
     } else {
       setreRender(!reRender);
       setmodalOpen(false);
       setNewMilestone(false);
       setmilestoneSelected(false);
-
       props.orderProgressRender();
     }
   };
-
   if (milestones) {
     return (
       <>
@@ -93,7 +80,6 @@ function MilestonesCard(props) {
         ) : (
           ""
         )}
-
         {newMilestone ? (
           <MilestoneForm
             goalId={props.goalId}
@@ -104,7 +90,6 @@ function MilestonesCard(props) {
         ) : (
           ""
         )}
-
         <div className="card milestones-card z-depth-5">
           <div className="card-content white-text milestones-card-body">
             <span className="card-title milestones-card-title">
@@ -157,5 +142,4 @@ function MilestonesCard(props) {
     return "";
   }
 }
-
 export default MilestonesCard;

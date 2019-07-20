@@ -7,10 +7,8 @@ import Loading from "../../components/Loading";
 import API from "../../utils/API";
 import M from "materialize-css";
 // This needs to use an api call and find milestones based on the date so that it can dynamically rerender without having the whole section rerender
-
 function DayCard(props) {
   const date = moment(props.date.date).format("dddd, MMM Do");
-
   const [modalOpen, setmodalOpen] = useState(false);
   const [milestones, setMilestones] = useState(props.date.incompleteMilestone);
   const [isLoading, setIsLoading] = useState(true);
@@ -22,18 +20,14 @@ function DayCard(props) {
     props.date.completedMilestone.length
   );
   const [milestoneSelected, setmilestoneSelected] = useState(false);
-
   useEffect(() => {
     setIsLoading(true);
-
     M.AutoInit();
     getData();
   }, [props.goalId, milestones.length]);
-
   // useEffect(() => {
   //   setIsLoading(true);
   // }, [allRender, milestones.length]);
-
   useEffect(() => {
     document.addEventListener("click", event => {
       if (event.target.className === "day-event-item") {
@@ -44,18 +38,14 @@ function DayCard(props) {
       }
     });
   }, [milestoneSelected]);
-
   const getData = () => {
     console.log(props.date);
-
     setIsLoading(false);
   };
-
   const openMilestoneForm = event => {
     event.preventDefault();
     setmodalOpen(true);
   };
-
   const completeTask = () => {
     let data = {
       colName: "completed",
@@ -68,7 +58,6 @@ function DayCard(props) {
       props.orderProgressRender();
     });
   };
-
   const showMilestones = () => {
     console.log("====================");
     console.log(milestones);
@@ -77,22 +66,18 @@ function DayCard(props) {
       return <DayEvent clickMilestone={clickMilestone} milestone={index} />;
     });
   };
-
   const deleteTask = () => {
     API.deleteMilestone(milestoneSelected).then(data => {
       console.log(data);
       setmilestoneSelected(false);
       props.orderProgressRender();
       props.getMilestoneRender();
-
       setreRender(!reRender);
     });
   };
-
   const clickMilestone = id => {
     setmilestoneSelected(id);
   };
-
   const cancel = header => {
     console.log(header);
     if (header !== "Never") {
@@ -104,11 +89,9 @@ function DayCard(props) {
     props.orderProgressRender();
     setreRender(!reRender);
   };
-
   if (isLoading) {
     return <Loading />;
   }
-
   return (
     <>
       {modalOpen ? (
@@ -122,7 +105,6 @@ function DayCard(props) {
       ) : (
         ""
       )}
-
       <div className="card day-card z-depth-2">
         <div className="day-card-add">
           {" "}
@@ -181,5 +163,4 @@ function DayCard(props) {
     </>
   );
 }
-
 export default DayCard;

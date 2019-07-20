@@ -4,29 +4,22 @@ import ProgressBar from "../ProgressBar";
 import moment from "moment";
 import Loading from "../../components/Loading";
 import API from "../../utils/API";
-
 function GoalOverview(props) {
   console.log(props);
-
   const [currentGoals, setCurrentGoals] = useState();
   const [pastGoals, setPastGoals] = useState();
-
   useEffect(() => {
     getData();
   }, []);
-
   const getData = () => {
     console.log(props);
-
     API.getGoalCategory(props.userId, props.category).then(resp => {
       console.log(resp);
       setCurrentGoals(resp.data.currentGoals);
       setPastGoals(resp.data.pastGoals);
-
       props.renderGoalsForCategory(props.category, resp.data.currentGoals);
     });
   };
-
   return (
     <>
       <div className="row">
@@ -84,5 +77,4 @@ function GoalOverview(props) {
     </>
   );
 }
-
 export default GoalOverview;
