@@ -2,6 +2,14 @@
   --accentGold: #e8a246;
   --darkBlue: #10355f;
 }
+
+p {
+  font-weight: 500;
+  /* white-space: nowrap; */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 #buddiesPage h1 {
   font-family: Anton, sans-serif;
   color: var(--darkBlue);

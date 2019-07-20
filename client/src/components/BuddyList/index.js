@@ -42,11 +42,26 @@ const BuddyList = props => {
   return (
     <>
       <section id="buddiesList">
-        <ul className="w3-ul w3-card-4">
+        <ul className="collection">
           {buddies &&
             buddies.map(buddy => (
-              <li key={props.makeid(5)} className="w3-bar">
-                <span className="w3-right">
+              <li className="collection-item avatar">
+                <img
+                  src={buddy.image}
+                  alt={buddy.username}
+                  className="circle"
+                />
+                <span className="title">
+                  {" "}
+                  <Link to={`/buddy-profile/${buddy.buddyId}`}>
+                    {buddy.username}
+                  </Link>
+                </span>
+                <p>
+                  <span className="buddyInfo">{buddy.buddyGoal}</span> <br />
+                  Second Line
+                </p>
+                <Link to="#!" className="secondary-content">
                   <ChatButton
                     key={buddy.channel}
                     openChannel={props.openChannel}
@@ -54,19 +69,7 @@ const BuddyList = props => {
                     user={buddy.email}
                     username={buddy.username}
                   />
-                </span>
-                <img
-                  src={buddy.image}
-                  className="w3-bar-item w3-circle"
-                  style={{ width: "85px" }}
-                />
-                <div className="w3-bar-item">
-                  <Link to={`/buddy-profile/${buddy.buddyId}`}>
-                    {buddy.username}
-                  </Link>
-                  <br />
-                  {buddy.buddyGoal}
-                </div>
+                </Link>
               </li>
             ))}
           {!props.buddies && null}

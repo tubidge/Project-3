@@ -73,13 +73,11 @@ const JoinGoalModal = props => {
         <div id={props.dataTarget} className="modal">
           <div className="modal-content">
             <h5>
-              Connect
-              <span className="joinGoal"> {props.buddyGoalName}</span> with one
-              of your goals!
+              Join <span className="buddyInfo">{props.buddyGoalName}</span>
             </h5>
             <p>
               When you select a goal, you and{" "}
-              <span className="joinGoal">{props.buddyName}</span> will become
+              <span className="buddyInfo">{props.buddyName}</span> will become
               buddies for the duration you choose.
             </p>
             <div className="col s10 offset-s1" style={{ marginTop: "20px" }}>

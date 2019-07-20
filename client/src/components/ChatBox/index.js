@@ -24,44 +24,52 @@ function ChatBox(props) {
   }, []);
 
   return (
-    <div className="card">
-      <div className="card-header">
-        <div>
-          <i onClick={props.exit} className="fas fa-times text-white" />
+    <div id="chatBox">
+      <div className="card">
+        <div className="card-content">
+          <span className="card-title">
+            <i className="material-icons" onClick={props.exit}>
+              close
+            </i>
+          </span>
         </div>
-      </div>
-      <div className="card-body scroll-box messageContent">
-        {props.messages.map(index => {
-          return (
-            <ChatMessage
-              all={props.messages}
-              key={index.messageId}
-              userId={props.userId}
-              sender={index._sender.userId}
-              message={index.message}
-            />
-          );
-        })}
-        <div id="testing" style={{ float: "right" }} />
-      </div>
-      <div className="card-footer rounded">
-        <form className="py-0">
-          <div className="form-group">
-            <label htmlFor="messageField" />
-            <textarea
-              className="form-control"
-              name="messageBody"
-              id="messageField"
-              rows="1"
-              onChange={props.handleInput}
-            />
-            <i
-              id="sendMessage"
-              onClick={props.submitNewMessage}
-              className="far fa-paper-plane text-white ml-4 mt-3"
-            />{" "}
-          </div>
-        </form>
+        <div className="messageContent">
+          {props.messages.map(index => {
+            return (
+              <ChatMessage
+                all={props.messages}
+                key={index.messageId}
+                userId={props.userId}
+                sender={index._sender.userId}
+                message={index.message}
+              />
+            );
+          })}
+          <div id="testing" style={{ float: "right" }} />
+        </div>
+        <div className="card-footer">
+          <form>
+            <div className="input-field">
+              <label htmlFor="messageField" />
+              <textarea
+                className="materialize-textarea"
+                name="messageBody"
+                id="messageField"
+                onChange={props.handleInput}
+              />
+              <div className="card-action right-align">
+                <span
+                  className="btn"
+                  id="sendMessage"
+                  onClick={props.submitNewMessage}
+                >
+                  Send
+                  <i className="material-icons right">send</i>
+                </span>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
