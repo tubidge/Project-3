@@ -45,16 +45,10 @@ function ConfirmModal(props) {
         <p>{props.message}</p>
       </div>
       <div className="modal-footer confirm-modal-footer">
-        <a
-          className="modal-close waves-effect waves-green btn"
-          onClick={takeAction}
-        >
+        <a className="modal-close btn" onClick={takeAction}>
           {props.type}
         </a>
-        <a
-          className="modal-close waves-effect waves-green btn"
-          onClick={() => props.render("cancel")}
-        >
+        <a className="modal-close btn" onClick={() => props.render("cancel")}>
           Cancel
         </a>
       </div>

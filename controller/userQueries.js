@@ -2,6 +2,7 @@ const db = require("../models");
 const helper = require("../utils/helperFunctions");
 const buddy = require("../controller/buddyQueries");
 const moment = require("moment");
+const goalQuery = require("./goalQueries");
 
 module.exports = {
   // This method will create a new user
@@ -782,12 +783,16 @@ module.exports = {
                     const getGoal = id => {
                       goalQuery.getBasicGoal(id).then(resp => {
                         console.log("=========-------=======");
+                        console.log("BUDDY");
                         console.log(resp);
                         goalName = resp.name;
                       });
                     };
                     const getUserGoal = id => {
                       goalQuery.getBasicGoal(id).then(resp => {
+                        console.log("=========-------=======");
+                        console.log("USER");
+                        console.log(resp);
                         userGoal = resp.name;
                       });
                     };
@@ -813,8 +818,8 @@ module.exports = {
                           username: resp[0].dataValues.username,
                           channel: event.channel,
                           buddyId: resp[0].dataValues.id,
-                          buddyGoal: goalName,
-                          userGoal: userGoal
+                          buddyGoal: userGoal,
+                          userGoal: goalName
                         };
 
                         buddyArr.push(buddyData);

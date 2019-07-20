@@ -30,7 +30,6 @@ const Goals = props => {
   const [pastGoals, setPastGoals] = useState();
   const [goalArr, setGoalArr] = useState();
   const [startIndex, setStartIndex] = useState();
-  const [myBuddies, setMyBuddies] = useState();
 
   useEffect(() => {
     M.AutoInit();

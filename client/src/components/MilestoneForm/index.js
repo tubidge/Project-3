@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import M from "materialize-css";
 import API from "../../utils/API";
 function MilestoneForm(props) {
+  console.log(props);
   //   const [milestone, setMilestone] = useState({});
   const [title, setTitle] = useState();
   const [frequency, setFrequency] = useState(props.frequency);
@@ -49,28 +50,66 @@ function MilestoneForm(props) {
         break;
     }
   };
+
+  const clearForm = () => {
+    console.log("+++++++++++++");
+    console.log("clear form ");
+    setTitle(null);
+    setFrequency(null);
+    setDue(null);
+    setStart(null);
+    setEnd(null);
+    setNotes(null);
+    console.log(frequency);
+  };
+
   const handleSubmit = event => {
     console.log("working");
-    event.preventDefault();
-    let data = {
-      name: title,
-      frequency: frequency,
-      dueDate: due,
-      startDate: start,
-      endDate: end,
-      notes: notes,
-      GoalId: props.goalId,
-      UserId: props.userId
-    };
-    console.log(data);
-    const callback = () => {
-      console.log(data.frequency);
-      props.close(data.frequency);
-    };
-    API.addMilestone(data).then(data => {
+    if (frequency === "Never" && title) {
+      let data = {
+        name: title,
+        frequency: frequency,
+        dueDate: due,
+        startDate: start,
+        endDate: end,
+        notes: notes,
+        GoalId: props.goalId,
+        UserId: props.userId
+      };
       console.log(data);
-      callback();
-    });
+      const callback = () => {
+        console.log(data.frequency);
+        props.close(data.frequency);
+      };
+      API.addMilestone(data).then(data => {
+        console.log(data);
+        callback();
+      });
+      clearForm();
+    } else if (title && end) {
+      let data = {
+        name: title,
+        frequency: frequency,
+        dueDate: due,
+        startDate: start,
+        endDate: end,
+        notes: notes,
+        GoalId: props.goalId,
+        UserId: props.userId
+      };
+      console.log(data);
+      const callback = () => {
+        console.log(data.frequency);
+        props.close(data.frequency);
+      };
+      API.addMilestone(data).then(data => {
+        console.log(data);
+        callback();
+      });
+      clearForm();
+    } else {
+      return false;
+    }
   };
   if (frequency === "Never") {
     return (
@@ -116,16 +155,15 @@ function MilestoneForm(props) {
                 <label htmlFor="milestoneNotes">Notes</label>
               </div>
             </div>
-            <button
-              type="button"
-              className="btn modal-close"
-              onClick={handleSubmit}
-            >
+            <button type="button" className="btn" onClick={handleSubmit}>
               Add
             </button>
             <button
               className="btn modal-close milestone-cancel-btn"
-              onClick={() => props.close("Never")}
+              onClick={() => {
+                clearForm();
+                props.close("Never");
+              }}
             >
               Cancel
             </button>
@@ -154,23 +192,7 @@ function MilestoneForm(props) {
                 <label htmlFor="milestoneTitle">Title</label>
               </div>
             </div>
-            {/* <div className="row">
-              <div className="input-field col s10">
-                <select
-                  id="milestoneFrequency"
-                  name="frequency"
-                  onChange={handleInput}
-                >
-                  <option value="Never">Never</option>
-                  <option value="Daily">Daily</option>
-                  <option value="Weekly">Weekly</option>
-                  <option value="Monthly">Monthly</option>
-                </select>
-                <label htmlFor="milestoneFrequency">
-                  Select Milestone Frequency
-                </label>
-              </div>
-            </div> */}
+
             <div className="row">
               <div className="input-field col s10">
                 <input
@@ -208,11 +230,7 @@ function MilestoneForm(props) {
                 <label htmlFor="milestoneNotes">Notes</label>
               </div>
             </div>
-            <button
-              type="button"
-              className="btn modal-close"
-              onClick={handleSubmit}
-            >
+            <button type="button" className="btn" onClick={handleSubmit}>
               Add
             </button>
             <button

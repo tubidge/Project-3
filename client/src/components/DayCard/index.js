@@ -80,13 +80,10 @@ function DayCard(props) {
   };
   const cancel = header => {
     console.log(header);
-    if (header !== "Never") {
-      console.log(props);
-      console.log("render ordered");
-      props.reRender();
-    }
+
     setmodalOpen(false);
     props.orderProgressRender();
+    props.reRender();
     setreRender(!reRender);
   };
   if (isLoading) {
@@ -96,7 +93,7 @@ function DayCard(props) {
     <>
       {modalOpen ? (
         <MilestoneForm
-          date={props.date}
+          date={props.date.date}
           userId={props.userId}
           goalId={props.goalId}
           close={cancel}
