@@ -1,0 +1,9 @@
+:root {
+  --accentGold: #d4ac0d !important;
+  --darkBlueTwo: #34495e !important;
+}
+
+.new-goal-modal {
+  background-color: var(--darkBlueTwo) !important;
+  color: var(--accentGold) !important;
+}

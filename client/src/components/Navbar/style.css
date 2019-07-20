@@ -1,6 +1,6 @@
 :root {
   --accentGold: #d4ac0d !important;
-  --darkBlue: #1c2833;
+  --darkBlue: #1c2833 !important;
 }
 
 nav {

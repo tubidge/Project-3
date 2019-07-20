@@ -1,6 +1,6 @@
 :root {
-  --accentGold: #e8a246;
-  --darkBlue: #10355f;
+  --accentGold: #d4ac0d !important;
+  --darkBlueTwo: #34495e !important;
 }
 
 p {
@@ -12,7 +12,11 @@ p {
 
 #buddiesPage h1 {
   font-family: Anton, sans-serif;
-  color: var(--darkBlue);
+  color: var(--darkBlueTwo);
+}
+.match-button {
+  color: var(--accentGold) !important;
+  background-color: var(--darkBlueTwo) !important;
 }
 
 #buddiesPage input:focus {

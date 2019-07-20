@@ -10,3 +10,7 @@
   background-color: #f5f5f5;
   box-shadow: 2px 2px 3px 3px rgb(202, 201, 201);
 }
+.fc-event {
+  color: white;
+  word-wrap: break-word;
+}

@@ -6,6 +6,7 @@ import API from "../../utils/API";
 import M from "materialize-css";
 import { useAuth0 } from "../../react-auth0-spa";
 import Fuse from "fuse.js";
+import Footer from "../../components/Footer";
 
 import "./style.css";
 
@@ -340,6 +341,7 @@ const Buddies = props => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };
