@@ -10,6 +10,36 @@
 }
 
 #joinGoalModal .modal {
-  width: 65%;
-  height: 125%;
+  width: 50%;
+  height: 100%;
 }
+
+#joinGoalModal .modal .modal-footer {
+  padding: 5px 10px;
+}
+
+#joinGoalModal .modal .modal-footer .submit {
+  background-color: var(--darkBlue) !important;
+}
+
+#joinGoalModal .labelForSelect {
+  position: relative;
+  bottom: 7px;
+  color: white;
+  padding: 5px 10px;
+  background-color: #1c2833;
+  background-color: var(--darkBlue);
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.toast {
+  background-color: #bd8c07 !important;
+}
+
+/* #toast-container {
+  top: auto !important;
+  right: auto !important;
+  bottom: 10%;
+  left: 40%;
+} */

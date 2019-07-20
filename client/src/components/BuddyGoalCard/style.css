@@ -11,9 +11,21 @@
 }
 
 #buddyGoalCard .card .card-content {
+  text-align: left;
+  background: none;
   padding: 12px;
 }
 
-#buddyGoalCard a {
-  color: var(--accentGold);
+#buddyGoalCard .card .card-content .modal-content {
+  text-align: center;
+  background: none;
+  padding: 12px;
+}
+
+#buddyGoalCard .card .card-action {
+  padding: 12px 0 6px 10px;
+}
+
+#buddyGoalCard .btn-small {
+  background-color: var(--darkBlue) !important;
 }

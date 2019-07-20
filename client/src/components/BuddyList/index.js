@@ -49,6 +49,7 @@ const BuddyList = props => {
               user: props.userEmail
             }
           }}
+          className="link"
         >
           Find Buddies
         </Link>
@@ -57,9 +58,6 @@ const BuddyList = props => {
             buddies.map(buddy => (
               <li key={props.makeid(5)} className="w3-bar">
                 <span class="w3-right">
-                  <Link to={`/buddy-profile/${buddy.buddyId}`}>
-                    <i class="material-icons">account_circle</i>
-                  </Link>{" "}
                   <ChatButton
                     key={buddy.channel}
                     openChannel={props.openChannel}
@@ -75,7 +73,9 @@ const BuddyList = props => {
                   style={{ width: "85px" }}
                 />
                 <div class="w3-bar-item">
-                  <div class="w3-large">{buddy.username}</div>
+                  <Link to={`/buddy-profile/${buddy.buddyId}`}>
+                    {buddy.username}
+                  </Link>
                 </div>
               </li>
             ))}
