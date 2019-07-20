@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import M from "materialize-css";
+
 function GoalDetail(props) {
   const [currentGoal, setCurrentGoal] = useState();
   const [days, setDays] = useState();
@@ -21,11 +22,10 @@ function GoalDetail(props) {
   const [currentDay, setCurrentDay] = useState();
   const frequencies = ["Daily", "Weekly", "Monthly"];
   useEffect(() => {
-    document.addEventListener("click", function() {
-      let options = { fullWidth: true };
-      var elems = document.querySelectorAll(".collapsible");
-      var instances = M.Collapsible.init(elems, options);
-    });
+    let options = { fullWidth: true };
+    var elems = document.querySelectorAll(".collapsible");
+    var instances = M.Collapsible.init(elems, options);
+
     getData();
     console.log(props.goal);
   }, [props.goal.id, reRender]);

@@ -6,13 +6,23 @@
   background-color: whitesmoke;
   height: 500px;
 }
+
+.overview-goal {
+  background-color: #10355f !important;
+}
+
 .overview-goal .card-content {
   height: 18rem;
   width: 16rem;
   background-color: #10355f;
+  text-align: center;
 }
 .overview-goal .card-title {
   background-color: #10355f;
   border: none;
   text-align: center;
+}
+
+.goal-overview-p {
+  margin-bottom: 2rem !important;
 }

@@ -51,7 +51,15 @@ module.exports = app => {
 
   // This route will add a new buddy relationship to the database. This relationship will be defaulted to active.
   app.post("/buddy/add", (req, res) => {
-    const newBuddy = req.body.data;
+    // const newBuddy = req.body.data;
+
+    const newBuddy = {
+      duration: "1 Week",
+      buddyId: 2,
+      buddyGoal: 2,
+      GoalId: 1,
+      UserId: 1
+    };
 
     buddy
       .addBuddyRelation(newBuddy)

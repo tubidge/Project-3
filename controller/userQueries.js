@@ -761,6 +761,7 @@ module.exports = {
                       myBuddy.id = index.id;
                       myBuddy.duration = index.duration;
                       myBuddy.active = index.active;
+                      myBuddy.endDate = index.endDate;
                       myBuddy.buddyId = index.buddyId;
                       myBuddy.buddyGoal = index.buddyGoal;
                       myBuddy.channel = index.chatChannel;
@@ -817,6 +818,7 @@ module.exports = {
                           email: resp[0].dataValues.email,
                           username: resp[0].dataValues.username,
                           channel: event.channel,
+                          endDate: event.endDate,
                           buddyId: resp[0].dataValues.id,
                           buddyGoal: userGoal,
                           userGoal: goalName
@@ -840,6 +842,7 @@ module.exports = {
                           email: resp[0].dataValues.email,
                           username: resp[0].dataValues.username,
                           channel: event.channel,
+                          endDate: event.endDate,
                           buddyId: resp[0].dataValues.id,
                           buddyGoal: goalName,
                           userGoal: userGoal

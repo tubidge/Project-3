@@ -12,6 +12,14 @@ function ProgressBar(props) {
           </p>
         </div>
       );
+    } else if (props.header === "goal-card") {
+      return (
+        <div>
+          <p className="white-text" style={{ textAlign: "center" }}>
+            no milestones
+          </p>
+        </div>
+      );
     } else {
       return (
         <div>

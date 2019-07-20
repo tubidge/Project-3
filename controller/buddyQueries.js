@@ -1,4 +1,5 @@
 var db = require("../models");
+const moment = require("moment");
 
 module.exports = {
   // This id is the buddyId. This method will return all active buddy goal relationships that this id is associated with
@@ -16,6 +17,7 @@ module.exports = {
             let buddy = {
               id: index.dataValues.id,
               duration: index.dataValues.duration,
+              endDate: index.dataValues.endDate,
               buddyId: index.dataValues.buddyId,
               buddyGoal: index.dataValues.buddyGoal,
               active: index.dataValues.active,
@@ -42,6 +44,7 @@ module.exports = {
                 id: index.dataValues.id,
                 duration: index.dataValues.duration,
                 buddyId: index.dataValues.buddyId,
+                endDate: index.dataValues.endDate,
                 buddyGoal: index.dataValues.buddyGoal,
                 chatChannel: index.dataValues.chatChannel,
                 active: index.dataValues.active,
@@ -75,6 +78,7 @@ module.exports = {
             id: resp[0].dataValues.id,
             duration: resp[0].dataValues.duration,
             buddyId: resp[0].dataValues.buddyId,
+            endDate: resp[0].dataValues.endDate,
             buddyGoal: resp[0].dataValues.buddyGoal,
             goalId: resp[0].dataValues.GoalId,
             chatChannel: resp[0].chatChannel,
@@ -139,6 +143,7 @@ module.exports = {
             const buddy = {
               id: index.dataValues.id,
               duration: index.dataValues.duration,
+              endDate: index.dataValues.endDate,
               buddyId: index.dataValues.buddyId,
               buddyGoal: index.dataValues.buddyGoal,
               active: index.dataValues.active,
@@ -160,6 +165,7 @@ module.exports = {
               const buddy = {
                 id: index.dataValues.id,
                 duration: index.dataValues.duration,
+                endDate: index.dataValues.endDate,
                 buddyId: index.dataValues.buddyId,
                 buddyGoal: index.dataValues.buddyGoal,
                 active: index.dataValues.active,
@@ -183,6 +189,31 @@ module.exports = {
   // the req.body that is passed from the frontend
   addBuddyRelation: newBuddy => {
     return new Promise((resolve, reject) => {
+      console.log(newBuddy);
+      let num;
+      let time;
+
+      switch (newBuddy.duration) {
+        case "1 week":
+          num = 1;
+          time = "weeks";
+          break;
+        case "2 weeks":
+          num = 2;
+          time = "weeks";
+          break;
+        case "3 weeks":
+          num = 3;
+          time = "weeks";
+          break;
+        case "4 weeks":
+          num = 4;
+          time = "weeks";
+          break;
+      }
+
+      newBuddy.endDate = moment().add(`${num}`, `${time}`);
+      console.log(newBuddy);
       db.Buddy.create(newBuddy)
         .then(resp => {
           console.log(resp);
@@ -190,6 +221,7 @@ module.exports = {
             id: resp.dataValues.id,
             duration: resp.dataValues.duration,
             active: resp.dataValues.active,
+            endDate: resp.dataValues.endDate,
             buddyId: resp.dataValues.buddyId,
             buddyGoal: resp.dataValues.buddyGoal,
             chatChannel: resp.dataValues.chatChannel,

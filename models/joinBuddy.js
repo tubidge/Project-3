@@ -7,6 +7,13 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true
       }
     },
+    endDate: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      validation: {
+        notEmpty: true
+      }
+    },
     active: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
