@@ -135,6 +135,160 @@ module.exports = {
     });
   },
 
+  getCategoryGoals: (id, category) => {
+    return new Promise((resolve, reject) => {
+      db.Goals.findAll({
+        where: {
+          UserId: id,
+          category: category
+        },
+        include: [db.Milestones, db.Buddy]
+      })
+        .then(resp => {
+          console.log(resp);
+
+          const goals = {
+            currentGoals: [],
+            pastGoals: []
+          };
+
+          resp.forEach(index => {
+            // goalIds.push(index.dataValues.id)
+            console.log("index");
+            console.log(index.dataValues);
+            let date = moment().format("YYYY-MM-DD");
+            let goalDate = moment(index.dataValues.dueDate)
+              .add("1", "day")
+              .format("YYYY-MM-DD");
+            if (moment(goalDate).isAfter(date)) {
+              console.log("working");
+              const goal = {};
+              goal.id = index.dataValues.id;
+              goal.name = index.dataValues.name;
+              goal.category = index.dataValues.category;
+              goal.dueDate = moment(index.dataValues.dueDate)
+                .add("1", "day")
+                .format("YYYY-MM-DD");
+              goal.description = index.dataValues.description;
+              goal.private = index.dataValues.private;
+              goal.complete = index.dataValues.complete;
+              goal.milestones = {
+                completed: [],
+                incomplete: []
+              };
+              goal.buddy = {
+                current: []
+              };
+              console.log("======================");
+              console.log(goal);
+              index.dataValues.Milestones.forEach(index => {
+                console.log("Milestones running");
+                const milestone = {};
+                milestone.id = index.dataValues.id;
+                milestone.name = index.dataValues.name;
+                milestone.frequency = index.dataValues.frequency;
+                milestone.dueDate = index.dataValues.dueDate;
+
+                milestone.completed = index.dataValues.completed;
+                milestone.notes = index.dataValues.notes;
+                milestone.goalId = index.dataValues.GoalId;
+                milestone.userId = index.dataValues.UserId;
+                milestone.category = goal.category;
+
+                if (milestone.completed) {
+                  goal.milestones.completed.push(milestone);
+                } else {
+                  goal.milestones.incomplete.push(milestone);
+                }
+              });
+              index.dataValues.Buddies.forEach(index => {
+                console.log("Buddies running");
+                console.log(index);
+                const myBuddy = {};
+                myBuddy.id = index.dataValues.id;
+                myBuddy.duration = index.dataValues.duration;
+                myBuddy.active = index.dataValues.active;
+                myBuddy.buddyId = index.dataValues.buddyId;
+                myBuddy.buddyGoal = index.dataValues.buddyGoal;
+                myBuddy.channel = index.dataValues.chatChannel;
+                myBuddy.goalId = index.dataValues.goalId;
+                myBuddy.ownerId = index.dataValues.ownerId;
+
+                if (myBuddy.active) {
+                  goal.buddy.current.push(myBuddy);
+                }
+              });
+              console.log(goal);
+
+              goals.currentGoals.push(goal);
+            } else {
+              console.log("else statement");
+              const goal = {};
+              goal.id = index.dataValues.id;
+              goal.name = index.dataValues.name;
+              goal.category = index.dataValues.category;
+              goal.dueDate = moment(index.dataValues.dueDate)
+                .add("1", "day")
+                .format("YYYY-MM-DD");
+              goal.description = index.dataValues.description;
+              goal.private = index.dataValues.private;
+              goal.complete = index.dataValues.complete;
+              goal.milestones = {
+                completed: [],
+                incomplete: []
+              };
+              goal.buddy = {
+                current: []
+              };
+              index.dataValues.Milestones.forEach(index => {
+                console.log("Milestones running");
+                const milestone = {};
+                milestone.id = index.dataValues.id;
+                milestone.name = index.dataValues.id;
+                milestone.frequency = index.dataValues.frequency;
+                milestone.dueDate = index.dataValues.dueDate;
+
+                milestone.completed = index.dataValues.completed;
+                milestone.notes = index.dataValues.notes;
+                milestone.goalId = index.dataValues.GoalId;
+                milestone.userId = index.dataValues.UserId;
+                milestone.category = goal.category;
+
+                if (milestone.completed) {
+                  goal.milestones.completed.push(milestone);
+                } else {
+                  goal.milestones.incomplete.push(milestone);
+                }
+              });
+              index.dataValues.Buddies.forEach(index => {
+                console.log("Buddies running");
+                const myBuddy = {};
+                myBuddy.id = index.dataValues.id;
+                myBuddy.duration = index.dataValues.duration;
+                myBuddy.active = index.dataValues.active;
+                myBuddy.buddyId = index.dataValues.buddyId;
+                myBuddy.buddyGoal = index.dataValues.buddyGoal;
+                myBuddy.channel = index.dataValues.chatChannel;
+                myBuddy.goalId = index.dataValues.goalId;
+                myBuddy.ownerId = index.dataValues.ownerId;
+
+                if (myBuddy.active) {
+                  goal.myBuddy.current.push(myBuddy);
+                }
+              });
+
+              goals.pastGoals.push(goal);
+            }
+          });
+
+          resolve(goals);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  },
+
   // This method takes in the userId and will return all of the goals, associated milestones, and buddies that have joined each goal
   // This method also sorts the goals into finished and unfinished categories
   getAllGoals: userId => {

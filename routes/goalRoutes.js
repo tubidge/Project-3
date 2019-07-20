@@ -56,6 +56,17 @@ module.exports = app => {
       });
   });
 
+  app.get("/goal/category/:id/:category", (req, res) => {
+    goal
+      .getCategoryGoals(req.params.id, req.params.category)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
+
   // // This route will return all the unfinished goals of a user
   // // note the req.params.id is the userId
   // app.get('/unfinished/goals/:id', (req, res) => {

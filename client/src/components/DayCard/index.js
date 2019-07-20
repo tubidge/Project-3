@@ -9,40 +9,30 @@ import M from "materialize-css";
 // This needs to use an api call and find milestones based on the date so that it can dynamically rerender without having the whole section rerender
 
 function DayCard(props) {
-  const date = moment(props.date).format("dddd, MMM Do");
+  const date = moment(props.date.date).format("dddd, MMM Do");
 
   const [modalOpen, setmodalOpen] = useState(false);
-  const [milestones, setMilestones] = useState();
+  const [milestones, setMilestones] = useState(props.date.incompleteMilestone);
   const [isLoading, setIsLoading] = useState(true);
   const [reRender, setreRender] = useState(false);
-  const [total, setTotal] = useState(0);
-  const [complete, setComplete] = useState(0);
+  const [total, setTotal] = useState([
+    props.date.incompleteMilestone.length + props.date.completedMilestone.length
+  ]);
+  const [complete, setComplete] = useState(
+    props.date.completedMilestone.length
+  );
   const [milestoneSelected, setmilestoneSelected] = useState(false);
-  const [allRender, setAllRender] = useState(props.status);
 
   useEffect(() => {
-    M.AutoInit();
+    setIsLoading(true);
 
-    API.getMilestoneDate(props.goalId, props.date).then(data => {
-      const milestones = {
-        completed: [],
-        incomplete: []
-      };
-      data.data.forEach(index => {
-        if (index.completed) {
-          milestones.completed.push(index);
-        } else {
-          milestones.incomplete.push(index);
-        }
-      });
-      let num1 = milestones.completed.length + milestones.incomplete.length;
-      let num2 = milestones.completed.length;
-      setTotal(num1);
-      setComplete(num2);
-      setMilestones(milestones);
-      setIsLoading(false);
-    });
-  }, [reRender, props.goalId, allRender]);
+    M.AutoInit();
+    getData();
+  }, [props.goalId, milestones.length]);
+
+  // useEffect(() => {
+  //   setIsLoading(true);
+  // }, [allRender, milestones.length]);
 
   useEffect(() => {
     document.addEventListener("click", event => {
@@ -54,6 +44,12 @@ function DayCard(props) {
       }
     });
   }, [milestoneSelected]);
+
+  const getData = () => {
+    console.log(props.date);
+
+    setIsLoading(false);
+  };
 
   const openMilestoneForm = event => {
     event.preventDefault();
@@ -68,7 +64,17 @@ function DayCard(props) {
     API.editMilestone(milestoneSelected, data).then(() => {
       setmilestoneSelected(false);
       setreRender(!reRender);
+      props.getMilestoneRender();
       props.orderProgressRender();
+    });
+  };
+
+  const showMilestones = () => {
+    console.log("====================");
+    console.log(milestones);
+    console.log(props);
+    return props.date.incompleteMilestone.map(index => {
+      return <DayEvent clickMilestone={clickMilestone} milestone={index} />;
     });
   };
 
@@ -77,6 +83,8 @@ function DayCard(props) {
       console.log(data);
       setmilestoneSelected(false);
       props.orderProgressRender();
+      props.getMilestoneRender();
+
       setreRender(!reRender);
     });
   };
@@ -109,10 +117,11 @@ function DayCard(props) {
           userId={props.userId}
           goalId={props.goalId}
           close={cancel}
+          frequency="Never"
         />
       ) : (
-          ""
-        )}
+        ""
+      )}
 
       <div className="card day-card z-depth-2">
         <div className="day-card-add">
@@ -150,31 +159,22 @@ function DayCard(props) {
                 </i>
               </div>
             ) : (
-                ""
-              )}
+              ""
+            )}
           </div>
         </div>
         <div className="card-content day-card-content">
           <div>
             <div className="day-card-todo">
-              <ul>
-                {milestones.incomplete.length
-                  ? milestones.incomplete.map(index => {
-                    return (
-                      <DayEvent
-                        clickMilestone={clickMilestone}
-                        milestone={index}
-                      />
-                    );
-                  })
-                  : ""}
-              </ul>
+              <ul>{showMilestones()}</ul>
             </div>
           </div>
         </div>
         <div>
           <p style={{ marginLeft: "5px" }}>
-            Complete: {complete}/{total}
+            Complete: {props.date.completedMilestone.length}/{" "}
+            {props.date.incompleteMilestone.length +
+              props.date.completedMilestone.length}
           </p>
         </div>
       </div>
