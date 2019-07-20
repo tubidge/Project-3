@@ -106,9 +106,6 @@ const GoalCard = props => {
         return (
           <li key={goal.id}>
             <div className="card-panel grey lighten-4 dark-text">
-              <div className="goal-due-alert">
-                <i className="material-icons">error</i>
-              </div>
               <div className="goal-card-header">
                 <Link to="/goals" className="truncate goal-card-name">
                   {goal.name}
@@ -193,9 +190,6 @@ const GoalCard = props => {
         return (
           <li key={goal.id}>
             <div className="card-panel grey lighten-4 dark-text">
-              <div className="goal-due-alert">
-                <i className="material-icons">error</i>
-              </div>
               <div className="goal-card-header">
                 <Link to="/goals" className="truncate goal-card-name">
                   {goal.name}
