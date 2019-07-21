@@ -6,7 +6,8 @@ import "./style.css";
 import ChatButton from "../ChatButton";
 
 const BuddyList = props => {
-  const [buddies, setBuddies] = useState(props.buddies);
+  // const [buddies, setBuddies] = useState(props.buddies);
+  const [buddies, setBuddies] = useState(props.allBuddies);
   const fade = useSpring({
     from: {
       opacity: 0
@@ -15,24 +16,9 @@ const BuddyList = props => {
   });
 
   useEffect(() => {
-    getBuddyGoalData();
-    // console.log(props.channels);
     configChannels();
+    // console.log(props.channels);
   }, []);
-
-  const getBuddyGoalData = () => {
-    let temp = [];
-    const goalIds = props.myBuddies.map(index => ({
-      buddyGoalId: index.buddyGoal,
-      userGoalId: index.goalId
-    }));
-    goalIds.map(index => {
-      API.getGoal(index.buddyGoalId).then(res => {
-        temp.push(res.data);
-        console.log(temp);
-      });
-    });
-  };
 
   const configChannels = () => {
     props.channels.forEach(index => {
@@ -51,8 +37,8 @@ const BuddyList = props => {
       <section id="buddiesList">
         <ul className="collection">
           {buddies &&
-            buddies.map(buddy => (
-              <li className="collection-item avatar">
+            props.buddies.map(buddy => (
+              <li key={buddy.buddyId} className="collection-item avatar">
                 <img
                   src={buddy.image}
                   alt={buddy.username}
@@ -65,14 +51,25 @@ const BuddyList = props => {
                 </span>
                 <div id="buddyGoal">
                   <p>
-                    <span className="buddyInfo">{buddy.buddyGoal}</span> <br />
-                    <i className="tiny material-icons">call_missed_outgoing</i>
-                    <span className="userGoal">{buddy.userGoal}</span>
+                    {props.allBuddies
+                      .filter(index => index.username === buddy.username)
+                      .map(index => (
+                        <>
+                          <li key={index.buddyId}>
+                            <span className="buddyInfo truncate">
+                              {index.buddyGoal}
+                            </span>
+                            <i className="tiny material-icons">
+                              call_missed_outgoing
+                            </i>
+                            <span className="userGoal">{index.userGoal}</span>
+                          </li>
+                        </>
+                      ))}
                   </p>
                 </div>
-                <Link to="#!" className="secondary-content">
+                <Link to="#" className="secondary-content">
                   <ChatButton
-                    key={buddy.channel}
                     openChannel={props.openChannel}
                     channel={buddy.channel}
                     user={buddy.email}

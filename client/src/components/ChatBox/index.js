@@ -7,13 +7,17 @@ import ChatMessage from "../ChatMessage";
 
 function ChatBox(props) {
   const [buddyUsername, setBuddyUsername] = useState("");
+
   useEffect(() => {
     document.getElementById("testing").scrollIntoView(true);
     console.log("messages changes");
   }, [props.messages.length]);
 
   useEffect(() => {
-    findBuddyUsername();
+    findBuddyUsername(
+      props.buddies,
+      props.messages[0].mentionedUsers[0].userId
+    );
     document
       .getElementById("messageField")
       .addEventListener("keydown", function(event) {
@@ -24,14 +28,12 @@ function ChatBox(props) {
       });
   }, []);
 
-  const findBuddyUsername = () => {
-    props.buddies.filter(buddy => {
-      props.messages.filter(message => {
-        if (message._sender.userId === buddy.email) {
-          console.log(buddy.username);
-          return buddy.username;
-        }
-      });
+  const findBuddyUsername = (buddies, userFromMessage) => {
+    buddies.filter(buddy => {
+      if (buddy.email === userFromMessage) {
+        setBuddyUsername(buddy.username);
+        return buddy.username;
+      }
     });
   };
 
@@ -40,7 +42,8 @@ function ChatBox(props) {
       <div className="card">
         <div className="card-content">
           <span className="card-title">
-            Chat with your <span className="buddyInfoInvert">Buddy</span>
+            {/* Chat with your <span className="buddyInfoInvert">Buddy</span> */}
+            Chat with <span className="buddyInfoInvert">{buddyUsername}</span>
             <i className="material-icons right" onClick={props.exit}>
               close
             </i>

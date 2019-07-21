@@ -1101,6 +1101,7 @@ module.exports = {
                       myBuddy.channel = index.chatChannel;
                       myBuddy.goalId = index.goalId;
                       myBuddy.ownerId = index.ownerId;
+                      myBuddy.image = index.image;
                       console.log(myBuddy);
                       user.buddies.myBuddies.push(myBuddy);
                     } else {
@@ -1154,6 +1155,7 @@ module.exports = {
                           channel: event.channel,
                           endDate: event.endDate,
                           buddyId: resp[0].dataValues.id,
+                          image: resp[0].dataValues.image,
                           buddyGoal: userGoal,
                           userGoal: goalName
                         };
@@ -1178,6 +1180,7 @@ module.exports = {
                           channel: event.channel,
                           endDate: event.endDate,
                           buddyId: resp[0].dataValues.id,
+                          image: resp[0].dataValues.image,
                           buddyGoal: goalName,
                           userGoal: userGoal
                         };

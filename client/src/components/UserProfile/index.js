@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useSpring, animated } from "react-spring";
 import { Link } from "react-router-dom";
+import bronzeFitnessBadge from "../../assets/badges/bronze_fitness.svg";
+import silverEducationBadge from "../../assets/badges/silver_education.svg";
+import goldTravelBadge from "../../assets/badges/gold_travel.svg";
 import "./style.css";
 
 const UserProfile = props => {
@@ -14,7 +17,7 @@ const UserProfile = props => {
   return (
     <animated.div style={fade}>
       <div className="profileSummary">
-        <div className="row center-align">
+        <div className="row center-align" style={{ marginBottom: "15px" }}>
           <div className="profileImageContainer">
             <img
               className="circle responsive-img z-depth-3"
@@ -24,12 +27,17 @@ const UserProfile = props => {
           </div>
           {!props.buddyProfile && <Link to="/profile">Edit Picture</Link>}
           <div>
-            {props.username}
-            <br />
-            {props.email}
+            <span className="buddyInfo" style={{ fontSize: "1.5em" }}>
+              {props.username}
+            </span>
           </div>
         </div>
-        <div className="row center-align">
+        <div className="row center-align" style={{ marginBottom: "15px" }}>
+          <div className="badges">
+            <img src={bronzeFitnessBadge} alt="Fitness" />
+            <img src={silverEducationBadge} alt="Education" />
+            <img src={goldTravelBadge} alt="Travel" />
+          </div>
           <div className="col s6">
             <span className="mb10">Goals</span>
             <br />

@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 // import ChatButton from "../ChatButton";
 import BuddyList from "../BuddyList";
 
 function OpenChat(props) {
   if (props.isConfigured) {
     let channels = props.channels;
-
     return (
       <div>
         <ul>

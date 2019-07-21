@@ -15,6 +15,7 @@ class Chat extends Component {
 
   // Fetch the list on first mount
   componentDidMount() {
+    console.log(this.props.buddies);
     this.chatSetup();
   }
 
