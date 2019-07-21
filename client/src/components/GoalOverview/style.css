@@ -2,9 +2,25 @@
   display: flex;
   justify-content: space-evenly;
 }
+
+#pastGoal-row {
+  display: flex;
+  justify-content: space-evenly;
+}
+
 .goal-overview-card .card-content {
   background-color: whitesmoke;
   height: 500px;
+}
+
+.past-overview-card .card-content {
+  background-color: whitesmoke;
+  height: 625px;
+}
+
+.goal-overview-card {
+  margin-top: 5% !important;
+  background-color: whitesmoke !important;
 }
 
 .overview-goal {
@@ -25,4 +41,7 @@
 
 .goal-overview-p {
   margin-bottom: 2rem !important;
+}
+
+.new-goal-button {
 }

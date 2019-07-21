@@ -8,13 +8,13 @@ function ConfirmModal(props) {
     M.AutoInit();
     let modals = document.querySelectorAll(".modal");
     let options = {
-      dismissible: true,
+      dismissible: false,
       inDuration: 200,
       outDuration: 400
     };
     M.Modal.init(modals, options);
     var Modalelem = document.querySelector("#confirmModal");
-    var instance = M.Modal.init(Modalelem);
+    var instance = M.Modal.init(Modalelem, options);
     instance.open();
   }, []);
 
@@ -30,10 +30,19 @@ function ConfirmModal(props) {
     });
   };
 
+  const delGoal = () => {
+    API.deleteGoal(props.goalId).then(resp => {
+      props.render(props.action);
+    });
+  };
+
   const takeAction = () => {
     switch (props.type) {
       case "Delete":
         del();
+        break;
+      case "Delete Goal":
+        delGoal();
         break;
     }
   };

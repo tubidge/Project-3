@@ -231,16 +231,6 @@ const Goals = props => {
           <div className="col s9">
             {currentGoal ? (
               <>
-                <div className="row">
-                  <div className="col s12 goal-page-overview">
-                    <h3>Fitness Goals</h3>
-                    <div className="goal-page-subheader">
-                      {/* <ul className="goal-tabs">
-                        {renderGoalsForCategory("Fitness")}
-                      </ul> */}
-                    </div>
-                  </div>
-                </div>
                 <div id="backdrop">
                   <>
                     <div className="row">
@@ -257,7 +247,7 @@ const Goals = props => {
                     </div>
                     <div className="row">
                       <div className="col s12">
-                        <div className="card goal-overview-card">
+                        <div className="card past-overview-card">
                           <div className="card-content">
                             <h3 style={{ textAlign: "center" }}>Past Goals</h3>
                             <div id="pastGoal-row" />
@@ -281,12 +271,6 @@ const Goals = props => {
               </>
             ) : (
               <>
-                <div className="row">
-                  <div className="col s12 goal-page-overview">
-                    <h3>Fitness Goals</h3>
-                    <div className="goal-page-subheader" />
-                  </div>
-                </div>
                 {userInfo ? (
                   <GoalOverview
                     userId={userInfo.id}
@@ -333,34 +317,57 @@ const Goals = props => {
           <div className="col s9">
             {currentGoal ? (
               <>
-                <div className="row">
-                  <div className="col s12 goal-page-overview">
-                    <h3>Wellness Goals</h3>
-                    <div className="goal-page-subheader">
-                      {/* <ul className="goal-tabs">
-                        {renderGoalsForCategory("Wellness")}
-                      </ul> */}
+                <div id="backdrop">
+                  <>
+                    <div className="row">
+                      <div className="col s12">
+                        <div className="card goal-overview-card">
+                          <div className="card-content">
+                            <h3 style={{ textAlign: "center" }}>
+                              Current Goals
+                            </h3>
+                            <div id="currentGoal-row" />
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                    <div className="row">
+                      <div className="col s12">
+                        <div className="card past-overview-card">
+                          <div className="card-content">
+                            <h3 style={{ textAlign: "center" }}>Past Goals</h3>
+                            <div id="pastGoal-row" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </>
                 </div>
 
-                <GoalDetail
-                  userId={userInfo.id}
-                  goal={currentGoal}
-                  orderRender={orderRender}
-                />
+                <div id="curtain">
+                  <GoalDetail
+                    userId={userInfo.id}
+                    goal={currentGoal}
+                    orderRender={orderRender}
+                    nextGoal={nextGoal}
+                    prevGoal={prevGoal}
+                    exit={exitGoal}
+                  />
+                </div>
               </>
             ) : (
-              <div className="row">
-                <div className="col s12 goal-page-overview">
-                  <h3>Wellness Goals</h3>
-                  <div className="goal-page-subheader">
-                    {/* <ul className="goal-tabs">
-                      {renderGoalsForCategory("wellness")}
-                    </ul> */}
-                  </div>
-                </div>
-              </div>
+              <>
+                {userInfo ? (
+                  <GoalOverview
+                    userId={userInfo.id}
+                    category="Wellness"
+                    renderGoalDetail={renderGoalDetail}
+                    renderGoalsForCategory={renderGoalsForCategory}
+                  />
+                ) : (
+                  ""
+                )}
+              </>
             )}
           </div>
         </div>
@@ -396,34 +403,57 @@ const Goals = props => {
           <div className="col s9">
             {currentGoal ? (
               <>
-                <div className="row">
-                  <div className="col s12 goal-page-overview">
-                    <h3>Financial Goals</h3>
-                    <div className="goal-page-subheader">
-                      {/* <ul className="goal-tabs">
-                        {renderGoalsForCategory("Financial")}
-                      </ul> */}
+                <div id="backdrop">
+                  <>
+                    <div className="row">
+                      <div className="col s12">
+                        <div className="card goal-overview-card">
+                          <div className="card-content">
+                            <h3 style={{ textAlign: "center" }}>
+                              Current Goals
+                            </h3>
+                            <div id="currentGoal-row" />
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                    <div className="row">
+                      <div className="col s12">
+                        <div className="card past-overview-card">
+                          <div className="card-content">
+                            <h3 style={{ textAlign: "center" }}>Past Goals</h3>
+                            <div id="pastGoal-row" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </>
                 </div>
 
-                <GoalDetail
-                  userId={userInfo.id}
-                  goal={currentGoal}
-                  orderRender={orderRender}
-                />
+                <div id="curtain">
+                  <GoalDetail
+                    userId={userInfo.id}
+                    goal={currentGoal}
+                    orderRender={orderRender}
+                    nextGoal={nextGoal}
+                    prevGoal={prevGoal}
+                    exit={exitGoal}
+                  />
+                </div>
               </>
             ) : (
-              <div className="row">
-                <div className="col s12 goal-page-overview">
-                  <h3>Financial Goals</h3>
-                  <div className="goal-page-subheader">
-                    {/* <ul className="goal-tabs">
-                      {renderGoalsForCategory("Financial")}
-                    </ul> */}
-                  </div>
-                </div>
-              </div>
+              <>
+                {userInfo ? (
+                  <GoalOverview
+                    userId={userInfo.id}
+                    category="Financial"
+                    renderGoalDetail={renderGoalDetail}
+                    renderGoalsForCategory={renderGoalsForCategory}
+                  />
+                ) : (
+                  ""
+                )}
+              </>
             )}
           </div>
         </div>
@@ -459,34 +489,57 @@ const Goals = props => {
           <div className="col s9">
             {currentGoal ? (
               <>
-                <div className="row">
-                  <div className="col s12 goal-page-overview">
-                    <h3>Education Goals</h3>
-                    <div className="goal-page-subheader">
-                      {/* <ul className="goal-tabs">
-                        {renderGoalsForCategory("Education")}
-                      </ul> */}
+                <div id="backdrop">
+                  <>
+                    <div className="row">
+                      <div className="col s12">
+                        <div className="card goal-overview-card">
+                          <div className="card-content">
+                            <h3 style={{ textAlign: "center" }}>
+                              Current Goals
+                            </h3>
+                            <div id="currentGoal-row" />
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                    <div className="row">
+                      <div className="col s12">
+                        <div className="card past-overview-card">
+                          <div className="card-content">
+                            <h3 style={{ textAlign: "center" }}>Past Goals</h3>
+                            <div id="pastGoal-row" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </>
                 </div>
 
-                <GoalDetail
-                  userId={userInfo.id}
-                  goal={currentGoal}
-                  orderRender={orderRender}
-                />
+                <div id="curtain">
+                  <GoalDetail
+                    userId={userInfo.id}
+                    goal={currentGoal}
+                    orderRender={orderRender}
+                    nextGoal={nextGoal}
+                    prevGoal={prevGoal}
+                    exit={exitGoal}
+                  />
+                </div>
               </>
             ) : (
-              <div className="row">
-                <div className="col s12 goal-page-overview">
-                  <h3>Education Goals</h3>
-                  <div className="goal-page-subheader">
-                    {/* <ul className="goal-tabs">
-                      {renderGoalsForCategory("Education")}
-                    </ul> */}
-                  </div>
-                </div>
-              </div>
+              <>
+                {userInfo ? (
+                  <GoalOverview
+                    userId={userInfo.id}
+                    category="Education"
+                    renderGoalDetail={renderGoalDetail}
+                    renderGoalsForCategory={renderGoalsForCategory}
+                  />
+                ) : (
+                  ""
+                )}
+              </>
             )}
           </div>
         </div>
@@ -522,34 +575,57 @@ const Goals = props => {
           <div className="col s9">
             {currentGoal ? (
               <>
-                <div className="row">
-                  <div className="col s12 goal-page-overview">
-                    <h3>Travel Goals</h3>
-                    <div className="goal-page-subheader">
-                      {/* <ul className="goal-tabs">
-                        {renderGoalsForCategory("Travel")}
-                      </ul> */}
+                <div id="backdrop">
+                  <>
+                    <div className="row">
+                      <div className="col s12">
+                        <div className="card goal-overview-card">
+                          <div className="card-content">
+                            <h3 style={{ textAlign: "center" }}>
+                              Current Goals
+                            </h3>
+                            <div id="currentGoal-row" />
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                    <div className="row">
+                      <div className="col s12">
+                        <div className="card past-overview-card">
+                          <div className="card-content">
+                            <h3 style={{ textAlign: "center" }}>Past Goals</h3>
+                            <div id="pastGoal-row" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </>
                 </div>
 
-                <GoalDetail
-                  userId={userInfo.id}
-                  goal={currentGoal}
-                  orderRender={orderRender}
-                />
+                <div id="curtain">
+                  <GoalDetail
+                    userId={userInfo.id}
+                    goal={currentGoal}
+                    orderRender={orderRender}
+                    nextGoal={nextGoal}
+                    prevGoal={prevGoal}
+                    exit={exitGoal}
+                  />
+                </div>
               </>
             ) : (
-              <div className="row">
-                <div className="col s12 goal-page-overview">
-                  <h3>Fitness Goals</h3>
-                  <div className="goal-page-subheader">
-                    {/* <ul className="goal-tabs">
-                      {renderGoalsForCategory("Travel")}
-                    </ul> */}
-                  </div>
-                </div>
-              </div>
+              <>
+                {userInfo ? (
+                  <GoalOverview
+                    userId={userInfo.id}
+                    category="Travel"
+                    renderGoalDetail={renderGoalDetail}
+                    renderGoalsForCategory={renderGoalsForCategory}
+                  />
+                ) : (
+                  ""
+                )}
+              </>
             )}
           </div>
         </div>
