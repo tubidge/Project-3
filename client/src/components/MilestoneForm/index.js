@@ -74,7 +74,7 @@ function MilestoneForm(props) {
   };
   if (frequency === "Never") {
     return (
-      <div id="milestoneForm" className="modal">
+      <div href="milestoneForm" id="milestoneForm" className="modal">
         <div className="modal-content">
           <form className="col s12">
             <div className="row">
@@ -135,7 +135,7 @@ function MilestoneForm(props) {
     );
   } else {
     return (
-      <div id="milestoneForm" className="modal">
+      <div href="milestoneForm" id="milestoneForm" className="modal">
         <div className="modal-content">
           <h4 style={{ textAlign: "center" }}>
             New {props.frequency} Milestone

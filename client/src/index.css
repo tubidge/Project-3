@@ -8,6 +8,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+p {
+  font-weight: 500;
+  /* white-space: nowrap; */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -16,6 +23,12 @@ code {
 .buddyInfo {
   color: var(--darkBlue);
   font-weight: 600;
+  border-bottom: 1px dashed var(--accentGold);
+}
+
+.buddyInfoInvert {
+  color: #fff;
+  font-weight: 400;
   border-bottom: 1px dashed var(--accentGold);
 }
 

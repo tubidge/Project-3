@@ -6,6 +6,7 @@ import "./style.css";
 import API from "../../utils/API";
 import MilestoneModal from "../MilestoneModal";
 import { Modal, Button } from "react-materialize";
+import M from "materialize-css";
 
 export default class Cal extends React.Component {
   state = {
@@ -14,6 +15,7 @@ export default class Cal extends React.Component {
   };
 
   componentDidMount() {
+    M.AutoInit();
     this.getMilestones();
   }
 
@@ -35,9 +37,6 @@ export default class Cal extends React.Component {
         incompleteMilestones.push(index.milestones.incomplete);
         completeMilestones.push(index.milestones.completed);
       });
-      // console.log(incompleteGoals);
-      // console.log(incompleteMilestones);
-      // console.log(completeMilestones);
 
       const results = [];
       incompleteMilestones.forEach(event => {
@@ -48,7 +47,7 @@ export default class Cal extends React.Component {
             date: index.dueDate,
             category: index.category,
             className: "modal-trigger",
-            dataTarget: "milestoneModal"
+            dataTarget: `milestoneModal_${index.id}`
           };
           switch (event.category) {
             case "Fitness":
@@ -75,9 +74,7 @@ export default class Cal extends React.Component {
         });
       });
       completeMilestones.forEach(event => {
-        // console.log(event);
         event.forEach(index => {
-          // console.log(results);
           let event = {
             id: index.id,
             title: index.name,
@@ -85,7 +82,6 @@ export default class Cal extends React.Component {
             category: index.category,
             className: "modal-trigger completed-milestone-cal"
           };
-          // console.log(event);
           switch (event.category) {
             case "Fitness":
               event.backgroundColor = "#34495e";
@@ -110,7 +106,6 @@ export default class Cal extends React.Component {
           }
         });
       });
-      // console.log(results);
       this.setState({
         events: results
       });
@@ -119,7 +114,6 @@ export default class Cal extends React.Component {
 
   eventClick = info => {
     info.jsEvent.preventDefault();
-    // console.log(info.event);
     this.setState({
       currentMilestoneId: info.event.id
     });

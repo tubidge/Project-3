@@ -37,7 +37,7 @@ const Profile = () => {
 
   return (
     <div>
-      <div className="container profileContainer">
+      <div className="container">
         <div className="row container-profile">
           <div className="col s2 offset-s1">
             <div className="row center-align">
@@ -55,6 +55,7 @@ const Profile = () => {
           <div className="col s8 offset-s1">
             <div className="row">
               <h3>Profile</h3>
+              <hr />
             </div>
             {!newUser ? (
               <FormStatic
@@ -76,7 +77,6 @@ const Profile = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

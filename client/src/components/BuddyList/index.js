@@ -52,15 +52,17 @@ const BuddyList = props => {
                   className="circle"
                 />
                 <span className="title">
-                  {" "}
                   <Link to={`/buddy-profile/${buddy.buddyId}`}>
                     {buddy.username}
                   </Link>
                 </span>
-                <p>
-                  <span className="buddyInfo">{buddy.buddyGoal}</span> <br />
-                  Second Line
-                </p>
+                <div id="buddyGoal">
+                  <p>
+                    <span className="buddyInfo">{buddy.buddyGoal}</span> <br />
+                    <i className="tiny material-icons">call_missed_outgoing</i>
+                    <span className="userGoal">{buddy.userGoal}</span>
+                  </p>
+                </div>
                 <Link to="#!" className="secondary-content">
                   <ChatButton
                     key={buddy.channel}

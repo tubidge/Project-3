@@ -1,6 +1,36 @@
-:root {
-  --accentGold: #d4ac0d !important;
-  --darkBlue: #1c2833;
+body {
+  background: #eeeeee !important;
+}
+
+#noBuddies {
+  background-color: white;
+  border-radius: 10px;
+  width: 100%;
+  padding: 5px 10px;
+}
+
+#findBuddies_dashboard {
+  color: var(--darkBlue);
+  font-weight: bold;
+  -moz-transition: all 0.3s ease-in-out 0s;
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  -ms-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+}
+
+#findBuddies_dashboard .material-icons {
+  position: relative;
+  top: 4px;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+#findBuddies_dashboard:hover {
+  color: var(--accentGold);
+  -moz-transition: all 0.3s ease-in-out 0s;
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  -ms-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
 }
 
 .hero-image {
@@ -43,22 +73,22 @@
     margin-left: 245px;
     margin-top: -100px;
     font-size: 80px;
-    color: #d4ac0d;
+    color: var(--accentGold);
   }
 }
 
-body {
-  background: #eeeeee !important;
-}
 .hero-image {
-  background-image: url("./pics/lighthouse.jpg") !important;
-  min-height: 300px;
-  background-repeat: no-repeat !important;
-  background-size: cover !important;
+  background: -webkit-linear-gradient(
+    -90deg,
+    rgba(16, 42, 70, 1) 0%,
+    rgba(56, 90, 124, 1) 100%
+  ); /* Chrome10-25,Safari5.1-6 */
+  /* background-image: url("./pics/lighthouse.jpg") !important; */
+  min-height: 200px;
+  /* background-repeat: no-repeat !important;
+  background-size: cover !important; */
 }
-/* .calendar {
- background-color: #34495e;
-} */
+
 .nextArrow {
   height: 200px;
   line-height: 200px;
@@ -71,7 +101,7 @@ body {
   line-height: normal;
   scale: 1;
   font-size: 60px;
-  color: #d4ac0d !important;
+  color: var(--accentGold) !important;
   -moz-transition: all 0.3s ease-in-out 0s;
   -webkit-transition: all 0.3s ease-in-out 0s;
   -ms-transition: all 0.3s ease-in-out 0s;
@@ -92,6 +122,6 @@ body {
     margin-left: 245px;
     margin-top: -100px;
     font-size: 80px;
-    color: #d4ac0d !important;
+    color: var(--accentGold) !important;
   }
 }

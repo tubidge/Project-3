@@ -1,11 +1,8 @@
-:root {
-  --accentGold: #dd8e27;
-  --darkBlue: #10355f;
-}
-
 #chatBox {
-  position: absolute;
+  position: fixed;
   right: 0;
+  bottom: 0;
+  z-index: 2;
 }
 
 #chatBox .card .card-content {
@@ -13,48 +10,54 @@
 }
 
 #chatBox .card .card-title {
-  background-color: transparent !important;
-  color: #d4ac0d;
+  background-color: var(--darkBlue) !important;
+  color: white;
   border-bottom: none;
+  position: fixed;
+  padding: 5px 10px;
+  margin-left: -34px;
+  margin-top: -25px;
+  width: 400px;
+  z-index: 1;
 }
-
 #chatBox .card .card-title .material-icons {
   cursor: pointer;
 }
 
 #chatBox .card {
-  background-color: #eee;
-  min-height: 350px;
+  background-color: rgb(226, 226, 226);
+  max-height: 350px;
+  overflow: scroll;
   min-width: 400px;
-  z-index: 2;
-  margin: 0 5px 0px 0;
+  margin: 0px 20px -20px 0;
   padding: 0 10px 0 10px;
 }
-
 #chatBox .material-icons {
-  color: var(--accentGold);
+  color: white;
 }
 
 #chatBox .card .card-action {
   background-color: inherit;
   border-top: 1px solid rgba(160, 160, 160, 0.2);
   position: relative;
-  padding: 14px 0px;
+  padding: 8px 0px 3px 0;
 }
 
 #sendMessage {
   cursor: pointer;
+  background: var(--darkBlue);
 }
 
 textarea.materialize-textarea {
   margin-top: 10px !important;
   background: white !important;
   border-radius: 5px !important;
-  line-height: normal;
+  line-height: 20px !important;
   overflow-y: hidden;
-  padding: 0.8rem 0 0.8rem 0;
+  padding: 5px !important;
   resize: none;
-  min-height: 4rem !important;
+  height: 60px !important;
+  min-height: 50px !important;
   box-sizing: border-box;
   border: 1px solid var(--accentGold) !important;
 }

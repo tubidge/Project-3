@@ -7,6 +7,7 @@
   border-radius: 50%;
   height: 100%;
   width: 100%;
+  border: 2px solid var(--accentGold);
 }
 
 .profile-container {
@@ -17,12 +18,8 @@
   height: 80px;
 }
 
-#button {
-  float: right;
-}
 .save-changes {
-  background-color: #34495e !important;
-  color: #d4ac0d !important;
+  background-color: var(--darkBlue) !important;
   margin-bottom: 20px;
 }
 .switch label input[type="checkbox"]:checked + .lever:after {

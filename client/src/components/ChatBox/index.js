@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./style.css";
 import ChatMessage from "../ChatMessage";
 // This chatbox should render a card that takes in props for the current channel and sends those props to a hook that then populates the card
 // and allows for new messages to be sent
 
 function ChatBox(props) {
-  console.log(props.messages);
+  const [buddyUsername, setBuddyUsername] = useState("");
 
   useEffect(() => {
     document.getElementById("testing").scrollIntoView(true);
@@ -13,6 +13,7 @@ function ChatBox(props) {
   }, [props.messages.length]);
 
   useEffect(() => {
+    findBuddyUsername();
     document
       .getElementById("messageField")
       .addEventListener("keydown", function(event) {
@@ -23,12 +24,24 @@ function ChatBox(props) {
       });
   }, []);
 
+  const findBuddyUsername = () => {
+    props.buddies.filter(buddy => {
+      props.messages.filter(message => {
+        if (message._sender.userId === buddy.email) {
+          console.log(buddy.username);
+          return buddy.username;
+        }
+      });
+    });
+  };
+
   return (
     <div id="chatBox">
       <div className="card">
         <div className="card-content">
           <span className="card-title">
-            <i className="material-icons" onClick={props.exit}>
+            Chat with your <span className="buddyInfoInvert">Buddy</span>
+            <i className="material-icons right" onClick={props.exit}>
               close
             </i>
           </span>
@@ -36,13 +49,16 @@ function ChatBox(props) {
         <div className="messageContent">
           {props.messages.map(index => {
             return (
-              <ChatMessage
-                all={props.messages}
-                key={index.messageId}
-                userId={props.userId}
-                sender={index._sender.userId}
-                message={index.message}
-              />
+              <>
+                <ChatMessage
+                  buddies={props.buddies}
+                  all={props.messages}
+                  key={index.messageId}
+                  userId={props.userId}
+                  sender={index._sender.userId}
+                  message={index.message}
+                />
+              </>
             );
           })}
           <div id="testing" style={{ float: "right" }} />
@@ -52,6 +68,7 @@ function ChatBox(props) {
             <div className="input-field">
               <label htmlFor="messageField" />
               <textarea
+                placeholder="Motivate your Buddy..."
                 className="materialize-textarea"
                 name="messageBody"
                 id="messageField"

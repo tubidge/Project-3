@@ -8,6 +8,10 @@
   opacity: 0.7;
 }
 
+.card-panel {
+  padding: 15px !important;
+}
+
 .goal-card-name {
   text-align: left;
 }
@@ -31,14 +35,9 @@
   overflow: auto;
 }
 
-/* .goalCard .card-panel > .truncate:hover {
-  cursor: pointer;
-  opacity: 0.7;
-} */
-
 .goal-card-name {
   text-align: left;
-  color: #1a5276;
+  color: var(--darkBlue);
 }
 
 .goal-due-alert {
@@ -47,15 +46,16 @@
   margin: 0;
 }
 
-.card-content {
-  background-color: #34495e;
+.goalCard .card-content {
+  background-color: var(--blue);
+  padding: 0px 20px 10px 20px !important;
 }
 
 .card-title {
-  background-color: #34495e;
+  background-color: var(--blue);
   color: #e5e8e8;
   border-bottom: thin solid;
-  border-bottom-color: #d4ac0d;
+  border-bottom-color: var(--accentGold);
   min-height: 45px;
 }
 .category-title {
@@ -69,4 +69,11 @@
 .goal-card-header {
   display: flex;
   justify-content: space-between;
+}
+
+#categoryIcon {
+  position: relative;
+  top: 2px;
+  left: 5px;
+  color: var(--accentGold);
 }

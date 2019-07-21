@@ -42,11 +42,11 @@ const Buddies = props => {
     M.AutoInit();
     // Get all goals from all users
     let results = [];
-    let currentUser = props.location.state.user;
-    console.log(currentUser);
+    // let currentUser = props.location.state.user;
+    // console.log(currentUser);
     API.getAllUsers().then(res => {
       const removedCurrentUser = res.data.filter(
-        user => user.email !== currentUser
+        index => index.email !== user.email
       );
       setCurrentUserRemoved(removedCurrentUser);
       removedCurrentUser.map(user => {
@@ -83,7 +83,8 @@ const Buddies = props => {
       setUsers(res.data);
       console.log(results);
       setBuddyGoals(results);
-      getUserGoals(props.location.state.user);
+      getUserGoals(user.email);
+      // getUserGoals(props.location.state.user);
     });
   }, []);
 
@@ -289,7 +290,7 @@ const Buddies = props => {
                   </p>
                   <div className="card-action">
                     <button className="btn findBuddy" onClick={findBuddy}>
-                      Click here to begin search
+                      Click here to begin
                     </button>
                   </div>
                 </div>
@@ -341,7 +342,6 @@ const Buddies = props => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

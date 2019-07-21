@@ -1,3 +1,43 @@
+:root {
+  --accentGold: #daae37;
+  --darkBlue: #102a46;
+  --blue: #224366;
+  --lightBlue: #2867aa;
+}
+/* Scrollbar styles */
+::-webkit-scrollbar {
+  width: 18px;
+  height: 18px;
+}
+
+::-webkit-scrollbar-track {
+  border-left: 1px dashed var(--accentGold);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accentGold);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b18c25;
+}
+
+a {
+  color: var(--lightBlue);
+  -moz-transition: all 0.1s ease-in-out 0s;
+  -webkit-transition: all 0.1s ease-in-out 0s;
+  -ms-transition: all 0.1s ease-in-out 0s;
+  transition: all 0.1s ease-in-out 0s;
+}
+
+a:hover {
+  color: var(--accentGold);
+  -moz-transition: all 0.1s ease-in-out 0s;
+  -webkit-transition: all 0.1s ease-in-out 0s;
+  -ms-transition: all 0.1s ease-in-out 0s;
+  transition: all 0.1s ease-in-out 0s;
+}
+
 .nav-user-profile {
   width: 75px;
   border-radius: 50%;
@@ -16,12 +56,6 @@
   margin-bottom: 3rem;
 }
 
-@media (max-width: 768px) {
-  .next-steps .col-md-5 {
-    margin-bottom: 0;
-  }
-}
-
 .spinner {
   position: absolute;
   display: flex;
@@ -36,5 +70,62 @@
 }
 
 hr {
-  border: 1px solid #ffc107;
+  border: none;
+  height: 2px;
+  background-color: var(--accentGold) !important;
+  border-color: var(--accentGold) !important;
+}
+
+.toast {
+  background-color: #bd8c07 !important;
+}
+
+input:focus {
+  border-bottom: 1px solid var(--accentGold) !important;
+  box-shadow: 0 1px 0 0 var(--accentGold) !important;
+}
+
+/* Removes the clear button from date inputs */
+input[type="date"]::-webkit-clear-button {
+  display: none;
+}
+
+/* Removes the spin button */
+input[type="date"]::-webkit-inner-spin-button {
+  display: none;
+}
+
+/* Always display the drop down caret */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  color: #2c3e50;
+}
+
+/* A few custom styles for date inputs */
+input[type="date"] {
+  appearance: none;
+  -webkit-appearance: none;
+  color: #95a5a6;
+  border: 1px solid #ecf0f1;
+  background: #ecf0f1;
+  padding: 5px;
+  display: inline-block !important;
+  visibility: visible !important;
+}
+
+input[type="date"],
+focus {
+  color: var(--darkBlue);
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+}
+
+@media (max-width: 768px) {
+  .next-steps .col-md-5 {
+    margin-bottom: 0;
+  }
+  #goalCardModal .modal,
+  #joinGoalModa .modal {
+    width: 100%;
+  }
 }

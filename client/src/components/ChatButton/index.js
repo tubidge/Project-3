@@ -13,7 +13,9 @@ function ChatButton(props) {
           props.openChannel(props.channel);
         }}
       >
-        <i className="material-icons">message</i>
+        <i id="chatIcon" className="material-icons">
+          message
+        </i>
       </Link>
     </>
   );

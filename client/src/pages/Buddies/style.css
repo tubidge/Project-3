@@ -1,8 +1,3 @@
-:root {
-  --accentGold: #d4ac0d !important;
-  --darkBlueTwo: #34495e !important;
-}
-
 p {
   font-weight: 500;
   /* white-space: nowrap; */
@@ -12,11 +7,11 @@ p {
 
 #buddiesPage h1 {
   font-family: Anton, sans-serif;
-  color: var(--darkBlueTwo);
+  color: var(--darkBlue);
 }
 .match-button {
   color: var(--accentGold) !important;
-  background-color: var(--darkBlueTwo) !important;
+  background-color: var(--darkBlue) !important;
 }
 
 #buddiesPage input:focus {
@@ -25,7 +20,7 @@ p {
 }
 
 #buddiesPage label.active {
-  color: #212121;
+  color: var(--darkBlue);
 }
 
 #search {
@@ -41,6 +36,7 @@ p {
 
 #buddiesPage .card .card-content,
 #buddiesPage .card .card-title {
+  color: var(--darkBlue);
   background: none;
   border: none;
 }
