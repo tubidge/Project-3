@@ -16,7 +16,7 @@ const Navbar = () => {
 
   useEffect(() => {
     M.AutoInit();
-    if (userInfo) {
+    if (userInfo.username) {
       API.getUserByEmail(user.email).then(resp => {
         setUserInfo(resp.data);
       });
@@ -55,7 +55,7 @@ const Navbar = () => {
                       Dashboard
                     </NavLink>
                   </li>
-                  {userInfo.username ? (
+                  {userInfo ? (
                     <>
                       <li>
                         <NavLink
@@ -75,7 +75,7 @@ const Navbar = () => {
                     </>
                   ) : null}
                   <li>
-                    {userInfo.username ? (
+                    {userInfo ? (
                       <NavLink to="/profile">Profile</NavLink>
                     ) : (
                       <Link
