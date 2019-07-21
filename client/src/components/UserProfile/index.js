@@ -7,6 +7,10 @@ import goldTravelBadge from "../../assets/badges/gold_travel.svg";
 import "./style.css";
 
 const UserProfile = props => {
+  // this works! Just creat a function to make it cleaner
+  const [fitnessGoals, setFitnessGoals] = useState("");
+  const [educationGoals, setEducationGoals] = useState("");
+
   const fade = useSpring({
     from: {
       opacity: 0
@@ -14,10 +18,24 @@ const UserProfile = props => {
     opacity: 1
   });
 
+  useEffect(() => {
+    if (props.completeGoals) {
+      let tempFitnessGoals = props.completeGoals.filter(
+        goal => goal.category === "Fitness"
+      );
+      setFitnessGoals(tempFitnessGoals);
+
+      let tempEducationGoals = props.completeGoals.filter(
+        goal => goal.category === "Education"
+      );
+      setEducationGoals(tempEducationGoals);
+    }
+  }, []);
+
   return (
     <animated.div style={fade}>
       <div className="profileSummary">
-        <div className="row center-align" style={{ marginBottom: "15px" }}>
+        <div className="row center-align" style={{ marginBottom: "13px" }}>
           <div className="profileImageContainer">
             <img
               className="circle responsive-img z-depth-3"
@@ -32,27 +50,45 @@ const UserProfile = props => {
             </span>
           </div>
         </div>
-        <div className="row center-align" style={{ marginBottom: "15px" }}>
+        <div className="row center-align" style={{ marginBottom: "10px" }}>
           <div className="badges">
-            <img src={bronzeFitnessBadge} alt="Fitness" />
-            <img src={silverEducationBadge} alt="Education" />
-            <img src={goldTravelBadge} alt="Travel" />
+            {props.completeGoals && (
+              <>
+                {fitnessGoals.length > 0 ? (
+                  <img src={bronzeFitnessBadge} alt="Fitness" />
+                ) : null}
+                {educationGoals.length > 0 ? (
+                  <img src={silverEducationBadge} alt="Education" />
+                ) : null}
+              </>
+            )}
           </div>
           <div className="col s6">
-            <span className="mb10">Goals</span>
+            <span style={{ fontSize: "1.2em" }} className="buddyInfo">
+              Goals
+            </span>
             <br />
-            <span>{props.incompleteGoals.length}</span>
+            <span style={{ fontSize: "1.1em" }}>
+              {props.incompleteGoals.length}
+            </span>
           </div>
           <div className="col s6">
-            <span className="mb10">Buddies</span>
+            <span style={{ fontSize: "1.2em" }} className="buddyInfo">
+              Buddies
+            </span>
             <br />
-            <span>{props.buddies ? props.buddies.length : "0"}</span>
+            <span style={{ fontSize: "1.1em" }}>
+              {props.buddies ? props.buddies.length : "0"}
+            </span>
           </div>
         </div>
-        <hr style={{ width: "100%" }} />
-        <div className="row center-align">
-          <span>Completed 15/20 goals</span>
+        <div className="row center-align" style={{ marginBottom: "10px" }}>
+          <span className="buddyInfo">
+            Completed {props.completeGoals ? props.completeGoals.length : 0}/
+            {props.incompleteGoals.length} goals
+          </span>
         </div>
+        <hr style={{ marginTop: "0", margin: "3px", width: "100%" }} />
       </div>
     </animated.div>
   );

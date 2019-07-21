@@ -18,6 +18,7 @@ const Dashboard = () => {
   const [userInfo, setUserInfo] = useState({});
   const [, setGoalInfo] = useState({});
   const [incompleteGoals, setIncompleteGoals] = useState([]);
+  const [completeGoals, setCompleteGoals] = useState([]);
   const [categories, setCategories] = useState([]);
   const [active, setActive] = useState([]);
   const [allBuddies, setAllBuddies] = useState();
@@ -68,6 +69,7 @@ const Dashboard = () => {
           setMyBuddies(userData.buddies.myBuddies);
         }
         setIncompleteGoals(goalData.currentGoals.incomplete);
+        setCompleteGoals(goalData.currentGoals.complete);
         setCategories([
           "Fitness",
           "Education",
@@ -142,6 +144,7 @@ const Dashboard = () => {
             username={userInfo.username}
             email={userInfo.email}
             incompleteGoals={incompleteGoals}
+            completeGoals={completeGoals}
             buddies={allBuddies ? getUnique(allBuddies, "username") : null}
           />
           <div>
