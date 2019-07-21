@@ -10,6 +10,7 @@
 }
 
 #chatBox .card .card-title {
+  position: relative;
   background-color: var(--darkBlue) !important;
   color: white;
   border-bottom: none;

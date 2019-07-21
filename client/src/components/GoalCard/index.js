@@ -222,39 +222,37 @@ const GoalCard = props => {
   };
 
   return (
-    <>
-      <div className="col l4 s12">
-        <div className="card goalCard">
-          <div className="card-title">
-            <span className="category-title">
-              {props.category}
-              <i id="categoryIcon" className="material-icons">
-                {generateIcon()}
-              </i>
-            </span>
-            <Modal
-              className="goalCardModal material-icons modal-trigger right tooltipped"
-              btnName={"add_circle"}
-              header="Add a New Goal"
-              dataTarget={`newGoalFromCard_${makeid(5)}`}
-              action="Add"
-              userID={props.userID}
-              goalCategory={props.category}
-              orderRender={orderRender}
-              dataPosition="top"
-              dataTooltip="Add a goal to this category"
-            />
-          </div>
-          <div className="card-content card-scrollable-content">
-            {goals.incomplete ? (
-              <ul>{renderGoalsForCategories(props.category)}</ul>
-            ) : (
-              <ul>{renderPropsForCategories(props.category)}</ul>
-            )}
-          </div>
+    <div className="col l4 s12">
+      <div className="card goalCard">
+        <div className="card-title">
+          <span className="category-title">
+            {props.category}
+            <i id="categoryIcon" className="material-icons">
+              {generateIcon()}
+            </i>
+          </span>
+          <Modal
+            className="goalCardModal material-icons modal-trigger right tooltipped"
+            btnName={"add_circle"}
+            header="Add a New Goal"
+            dataTarget={`newGoalFromCard_${makeid(5)}`}
+            action="Add"
+            userID={props.userID}
+            goalCategory={props.category}
+            orderRender={orderRender}
+            dataPosition="top"
+            dataTooltip="Add a goal to this category"
+          />
+        </div>
+        <div className="card-content card-scrollable-content">
+          {goals.incomplete ? (
+            <ul>{renderGoalsForCategories(props.category)}</ul>
+          ) : (
+            <ul>{renderPropsForCategories(props.category)}</ul>
+          )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

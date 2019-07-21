@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useSpring, animated } from "react-spring";
 import { Link } from "react-router-dom";
 import "./style.css";
 
 const UserProfile = props => {
+  const fade = useSpring({
+    from: {
+      opacity: 0
+    },
+    opacity: 1
+  });
+
   return (
-    <>
+    <animated.div style={fade}>
       <div className="profileSummary">
         <div className="row center-align">
           <div className="profileImageContainer">
@@ -38,7 +46,7 @@ const UserProfile = props => {
           <span>Completed 15/20 goals</span>
         </div>
       </div>
-    </>
+    </animated.div>
   );
 };
 

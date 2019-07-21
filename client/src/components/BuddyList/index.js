@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSpring, animated } from "react-spring";
 import { Link } from "react-router-dom";
 import API from "../../utils/API";
 import "./style.css";
@@ -6,6 +7,12 @@ import ChatButton from "../ChatButton";
 
 const BuddyList = props => {
   const [buddies, setBuddies] = useState(props.buddies);
+  const fade = useSpring({
+    from: {
+      opacity: 0
+    },
+    opacity: 1
+  });
 
   useEffect(() => {
     getBuddyGoalData();
@@ -40,7 +47,7 @@ const BuddyList = props => {
   };
 
   return (
-    <>
+    <animated.div style={fade}>
       <section id="buddiesList">
         <ul className="collection">
           {buddies &&
@@ -77,7 +84,7 @@ const BuddyList = props => {
           {!props.buddies && null}
         </ul>
       </section>
-    </>
+    </animated.div>
   );
 };
 

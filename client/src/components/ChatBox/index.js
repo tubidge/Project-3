@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSpring, animated } from "react-spring";
 import "./style.css";
 import ChatMessage from "../ChatMessage";
 // This chatbox should render a card that takes in props for the current channel and sends those props to a hook that then populates the card
@@ -6,7 +7,6 @@ import ChatMessage from "../ChatMessage";
 
 function ChatBox(props) {
   const [buddyUsername, setBuddyUsername] = useState("");
-
   useEffect(() => {
     document.getElementById("testing").scrollIntoView(true);
     console.log("messages changes");
