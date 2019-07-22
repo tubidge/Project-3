@@ -5,10 +5,10 @@
   color: black;
 }
 .tabs .tab a:hover {
-  color: #34495e;
+  color: var(--darkBlue);
 }
 .tabs .tab a:focus.active {
-  color: #34495e;
+  color: var(--blue);
   background-color: #ddf0ff;
   border-top-left-radius: 2ch;
   border-top-right-radius: 2ch;
@@ -16,7 +16,7 @@
 .tabs .tab a:hover,
 .tabs .tab a.active {
   background-color: transparent;
-  color: #34495e;
+  color: var(--blue);
 }
 .tabs .tab:hover {
   background-color: #ddf0ff;
@@ -63,7 +63,7 @@
   border-right: 1px rgb(177, 174, 174) solid;
 }
 .light-blue.accent-4:hover {
-  background-color: #34495e !important;
+  background-color: var(--lightBlue) !important;
 }
 .goalDetail-container {
   display: flex;
@@ -85,4 +85,111 @@
   z-index: 100;
   width: 75%;
   top: 15%;
+}
+
+.addGoal_GoalPage {
+  margin: 10px 0 0 10px;
+  color: var(--accentGold);
+  font-size: 40px;
+}
+
+.date_GoalPage {
+  font-weight: 500;
+  margin: 10px 10px 0 0;
+  color: var(--blue);
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px dashed var(--blue);
+}
+
+.goalCategory_GoalPage {
+  color: var(--darkBlue);
+  border-bottom: 1px dashed var(--accentGold);
+  position: relative;
+}
+
+.goal-overview-card h3 {
+  margin: 0;
+}
+
+.arrows_GoalPage {
+  font-size: 4rem;
+  cursor: pointer;
+  color: #d4ac0d;
+  margin-top: 180%;
+}
+
+.delete_GoalPage {
+  color: white;
+  cursor: pointer;
+  margin: 10px 10px 0 0;
+  font-size: 30px;
+}
+
+.viewGoalDetail_GoalPage {
+  color: white;
+  cursor: pointer;
+  margin: 20px 0 0 0;
+  font-size: 40px;
+}
+
+.overview-goal .card-content {
+  margin: 0;
+  padding: 12px !important;
+  height: 90% !important;
+}
+
+.goalName_GoalPage {
+  padding-bottom: 0 !important;
+  border-bottom: 1px dashed var(--accentGold) !important;
+}
+
+.dueDate_GoalPage {
+  color: var(--blue);
+  margin-bottom: 15px !important;
+}
+
+.dueDate_GoalPage span {
+  background-color: white;
+  padding: 10px 5px;
+}
+
+.categoryIcon_GoalPage {
+  color: var(--accentGold);
+  font-size: 45px;
+  padding: 10px 0 0 10px;
+}
+
+.tabs .col {
+  width: 20% !important;
+}
+
+.tabsDiv_GoalPage {
+  position: relative;
+  top: 45px;
+}
+
+.tabs .tab a {
+  background-color: var(--blue);
+  color: white !important;
+}
+.tabs .tab a:hover {
+  background-color: var(--darkBlue) !important;
+}
+
+.tabs .tab a.active,
+.tabs .tab a:focus {
+  background-color: var(--accentGold) !important;
+}
+
+.tabs .tab a:focus.active {
+  color: var(--blue);
+  background-color: #ddf0ff;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}
+
+.tabs .indicator {
+  height: 3px !important;
+  background-color: var(--blue) !important;
 }

@@ -24,17 +24,17 @@
 }
 
 .overview-goal {
-  background-color: #10355f !important;
+  background-color: var(--blue) !important;
 }
 
 .overview-goal .card-content {
   height: 18rem;
   width: 16rem;
-  background-color: #10355f;
+  background-color: var(--blue) !important;
   text-align: center;
 }
 .overview-goal .card-title {
-  background-color: #10355f;
+  background-color: var(--blue) !important;
   border: none;
   text-align: center;
 }
@@ -43,5 +43,20 @@
   margin-bottom: 2rem !important;
 }
 
-.new-goal-button {
+.searchGoalBtn,
+.searchDatesBtn {
+  background-color: var(--blue) !important;
+}
+
+.input-field label.active {
+  color: #9e9e9e !important;
+}
+
+#pastGoal-row .card {
+  opacity: 0.95 !important;
+}
+
+input:focus {
+  border-bottom: 1px solid var(--accentGold) !important;
+  box-shadow: 0 1px 0 0 var(--accentGold) !important;
 }
