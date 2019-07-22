@@ -80,9 +80,12 @@ const JoinGoalModal = props => {
               <span className="buddyInfo">{props.buddyName}</span> will become
               buddies for the duration you choose.
             </p>
-            <div className="col s10 offset-s1" style={{ marginTop: "20px" }}>
+            <div
+              className="col l10 offset-l1 s12"
+              style={{ marginTop: "20px" }}
+            >
               <form onSubmit={handleSubmit}>
-                <div className="input-field col s12 left-align validate">
+                <div className="input-field col s12 left-align">
                   <span className="labelForSelect">Your Goals</span>
                   <Select
                     theme={theme => ({
@@ -121,8 +124,7 @@ const JoinGoalModal = props => {
                       { label: "1 week", value: 1 },
                       { label: "2 weeks", value: 2 },
                       { label: "3 weeks", value: 3 },
-                      { label: "1 month", value: 4 },
-                      { label: "Goal due date", value: 5 }
+                      { label: "4 weeks", value: 4 }
                     ]}
                     value={selectedDuration}
                     onChange={handleDurationChange}
@@ -146,7 +148,7 @@ const JoinGoalModal = props => {
                     }
                     type="submit"
                   >
-                    Submit
+                    Add Buddy
                     <i className="material-icons right">send</i>
                   </button>
                 </div>

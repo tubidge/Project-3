@@ -42,11 +42,11 @@ const Buddies = props => {
     M.AutoInit();
     // Get all goals from all users
     let results = [];
-    let currentUser = props.location.state.user;
-    console.log(currentUser);
+    // let currentUser = props.location.state.user;
+    // console.log(currentUser);
     API.getAllUsers().then(res => {
       const removedCurrentUser = res.data.filter(
-        user => user.email !== currentUser
+        index => index.email !== user.email
       );
       setCurrentUserRemoved(removedCurrentUser);
       removedCurrentUser.map(user => {
@@ -83,7 +83,8 @@ const Buddies = props => {
       setUsers(res.data);
       console.log(results);
       setBuddyGoals(results);
-      getUserGoals(props.location.state.user);
+      getUserGoals(user.email);
+      // getUserGoals(props.location.state.user);
     });
   }, []);
 
@@ -195,6 +196,9 @@ const Buddies = props => {
       <div id="buddiesPage">
         <div className="container">
           <h1 className="text-center">Find Buddies</h1>
+          {matchesFound.length > 0 ? (
+            <a href="#buddyMatches">View your matches!</a>
+          ) : null}
           <div className="row">
             <div className="col s12">
               <form>
@@ -283,13 +287,16 @@ const Buddies = props => {
             <div className="col s6">
               <div className="card">
                 <div className="card-content">
-                  <span className="card-title">Get Paired with a Buddy</span>
+                  <span className="card-title">
+                    <span className="buddyInfo">Get Paired with a Buddy</span>
+                  </span>
                   <p>
                     Find someone with similar goals, so you can help each other!
                   </p>
                   <div className="card-action">
                     <button className="btn findBuddy" onClick={findBuddy}>
-                      Click here to begin search
+                      Begin Search
+                      <i className="material-icons right">group_add</i>
                     </button>
                   </div>
                 </div>
@@ -341,7 +348,6 @@ const Buddies = props => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import M from "materialize-css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome } from "@fortawesome/free-solid-svg-icons";
-
 import API from "../../utils/API";
 import { useAuth0 } from "../../react-auth0-spa";
 import "./style.css";
 
 const Navbar = () => {
   const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
-  const [, setUserInfo] = useState({});
+  const [userInfo, setUserInfo] = useState({});
 
   const logoutWithRedirect = () =>
     logout({
@@ -19,7 +16,7 @@ const Navbar = () => {
 
   useEffect(() => {
     M.AutoInit();
-    if (user) {
+    if (userInfo.username) {
       API.getUserByEmail(user.email).then(resp => {
         setUserInfo(resp.data);
       });
@@ -36,6 +33,15 @@ const Navbar = () => {
                 <NavLink to="/dashboard" className="brand-logo">
                   Goal<span>Den</span>
                 </NavLink>
+                {userInfo.username ? (
+                  <span id="welcomeMessage">
+                    <span style={{ color: "lightgrey" }}>
+                      {" "}
+                      Welcome the the Den,
+                    </span>{" "}
+                    {userInfo.username}
+                  </span>
+                ) : null}
                 <NavLink
                   to="#"
                   data-target="mobile-demo"
@@ -49,24 +55,37 @@ const Navbar = () => {
                       Dashboard
                     </NavLink>
                   </li>
+                  {userInfo ? (
+                    <>
+                      <li>
+                        <NavLink
+                          to={{
+                            pathname: "/buddies",
+                            state: {
+                              user: user.email
+                            }
+                          }}
+                        >
+                          Find Buddies
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink to="/goals">Goals</NavLink>
+                      </li>
+                    </>
+                  ) : null}
                   <li>
-                    {/* <Link to="/buddies">Find Buddies</Link> */}
-                    <NavLink
-                      to={{
-                        pathname: "/buddies",
-                        state: {
-                          user: user.email
-                        }
-                      }}
-                    >
-                      Find Buddies
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="/goals">Goals</NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="/profile">Profile</NavLink>
+                    {userInfo ? (
+                      <NavLink to="/profile">Profile</NavLink>
+                    ) : (
+                      <Link
+                        to="/profile"
+                        className="pulse"
+                        id="completeProfileAlert"
+                      >
+                        Complete Profile
+                      </Link>
+                    )}
                   </li>
                   {!isAuthenticated && (
                     <li>

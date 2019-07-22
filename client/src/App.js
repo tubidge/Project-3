@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
 import PrivateRoute from "./components/PrivateRoutes";
 import Loading from "./components/Loading";
 import Navbar from "./components/Navbar";
@@ -11,6 +10,7 @@ import Profile from "./pages/Profile";
 import Buddies from "./pages/Buddies";
 import BuddyProfile from "./pages/BuddyProfile";
 import Goals from "./pages/Goals";
+import API from "./utils/API";
 import { useAuth0 } from "./react-auth0-spa";
 import "materialize-css/dist/css/materialize.min.css";
 import "./App.css";

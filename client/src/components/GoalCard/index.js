@@ -17,6 +17,23 @@ const GoalCard = props => {
     });
   }, [reRender]);
 
+  const generateIcon = () => {
+    switch (props.category) {
+      case "Fitness":
+        return "fitness_center";
+      case "Education":
+        return "school";
+      case "Wellness":
+        return "favorite_border";
+      case "Financial":
+        return "attach_money";
+      case "Travel":
+        return "airplanemode_active";
+      default:
+        return null;
+    }
+  };
+
   const makeid = l => {
     let text = "";
     let char_list =
@@ -42,8 +59,6 @@ const GoalCard = props => {
       colName: "complete",
       info: true
     };
-    // console.log(id);
-    // console.log("running");
     API.editGoal(id, data).then(resp => {
       // console.log(resp);
       setreRender(!reRender);
@@ -55,24 +70,16 @@ const GoalCard = props => {
     const due = moment()
       .add(3, "days")
       .format("YYYY-MM-DD");
-    // console.log(props.incompleteGoals);
     const result = props.incompleteGoals.filter(
       goal => goal.category === category
     );
-
-    // console.log(result);
     result.sort(sortDates);
-    // console.log(result);
 
     return result.map(goal => {
-      // console.log(goal);
-      // console.log(due);
       let total =
         goal.milestones.completed.length + goal.milestones.incomplete.length;
-      // console.log(total);
       let progress = goal.milestones.completed.length;
       let percentage = progress / total;
-      // console.log(percentage);
       if (moment(goal.dueDate).isAfter(due)) {
         return (
           <li key={goal.id}>
@@ -143,20 +150,13 @@ const GoalCard = props => {
       .format("YYYY-MM-DD");
 
     const result = goals.incomplete.filter(goal => goal.category === category);
-
-    // console.log(result);
     result.sort(sortDates);
-    // console.log(result);
 
     return result.map(goal => {
-      // console.log(goal);
-      // console.log(due);
       let total =
         goal.milestones.completed.length + goal.milestones.incomplete.length;
-      // console.log(total);
       let progress = goal.milestones.completed.length;
       let percentage = progress / total;
-      // console.log(percentage);
       if (moment(goal.dueDate).isAfter(due)) {
         return (
           <li key={goal.id}>
@@ -222,41 +222,37 @@ const GoalCard = props => {
   };
 
   return (
-    <>
-      <div className="col l4 s12">
-        <div className="card goalCard">
-          <div className="card-title">
-            <span className="category-title">{props.category}</span>
-            <Modal
-              style={{
-                marginRight: "5px",
-                marginTop: "5px",
-                color: "#d4ac0d",
-                fontSize: "35px"
-              }}
-              className="material-icons modal-trigger right tooltipped"
-              btnName={"add_circle"}
-              header="AddNew"
-              text="Complete this form"
-              dataTarget={`newGoalFromCard_${makeid(5)}`}
-              action="Add"
-              userID={props.userID}
-              goalCategory={props.category}
-              orderRender={orderRender}
-              dataPosition="top"
-              dataTooltip="Add a goal to this category"
-            />
-          </div>
-          <div className="card-content card-scrollable-content">
-            {goals.incomplete ? (
-              <ul>{renderGoalsForCategories(props.category)}</ul>
-            ) : (
-              <ul>{renderPropsForCategories(props.category)}</ul>
-            )}
-          </div>
+    <div className="col l4 s12">
+      <div className="card goalCard">
+        <div className="card-title">
+          <span className="category-title">
+            {props.category}
+            <i id="categoryIcon" className="material-icons">
+              {generateIcon()}
+            </i>
+          </span>
+          <Modal
+            className="goalCardModal material-icons modal-trigger right tooltipped"
+            btnName={"add_circle"}
+            header="Add a New Goal"
+            dataTarget={`newGoalFromCard_${makeid(5)}`}
+            action="Add"
+            userID={props.userID}
+            goalCategory={props.category}
+            orderRender={orderRender}
+            dataPosition="top"
+            dataTooltip="Add a goal to this category"
+          />
+        </div>
+        <div className="card-content card-scrollable-content">
+          {goals.incomplete ? (
+            <ul>{renderGoalsForCategories(props.category)}</ul>
+          ) : (
+            <ul>{renderPropsForCategories(props.category)}</ul>
+          )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
