@@ -11,13 +11,16 @@ import M from "materialize-css";
 function GoalOverview(props) {
   console.log(props);
   const [currentGoals, setCurrentGoals] = useState();
-  const [pastGoals, setPastGoals] = useState();
-  const [pastView, setPastView] = useState();
+  //   const [pastGoals, setPastGoals] = useState(props.pastGoals);
+  const [pastView, setPastView] = useState([]);
   const [selectedGoal, setSelectedGoal] = useState();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentView, setCurrentView] = useState();
   const [modalOpen, setmodalOpen] = useState(false);
   const [reRender, setreRender] = useState(false);
+  const [search, setSearch] = useState();
+  const [start, setStart] = useState();
+  const [end, setEnd] = useState();
 
   useEffect(() => {
     M.AutoInit();
@@ -35,7 +38,6 @@ function GoalOverview(props) {
     console.log(props);
     API.getGoalCategory(props.userId, props.category).then(resp => {
       setCurrentGoals(resp.data.currentGoals);
-      setPastGoals(resp.data.pastGoals);
 
       if (resp.data.currentGoals.length > 3) {
         let arr = [];
@@ -60,9 +62,9 @@ function GoalOverview(props) {
       } else {
         setCurrentView(false);
       }
-
-      if (resp.data.pastGoals.length > 0) {
-        setPastView(resp.data.pastGoals);
+      console.log(props.pastGoals.length);
+      if (props.pastGoals.length > 0) {
+        setPastView(props.pastGoals);
       } else {
         setPastView(false);
       }
@@ -140,6 +142,36 @@ function GoalOverview(props) {
     setreRender(!reRender);
   };
 
+  const searchDateRange = event => {
+    event.preventDefault();
+    let results = [];
+
+    props.pastGoals.forEach(index => {
+      if (
+        moment(index.dueDate).isBefore(end) &&
+        moment(index.dueDate).isAfter(start)
+      ) {
+        results.push(index);
+      } else {
+        return false;
+      }
+    });
+    setPastView(results);
+  };
+
+  const searchGoal = event => {
+    event.preventDefault();
+    if (search && search !== "") {
+      API.getGoalSearch(props.userId, search).then(resp => {
+        console.log(resp);
+        setPastView(resp.data);
+        document.getElementsByClassName("searchGoalBtn").value = "";
+      });
+    } else {
+      console.log("show toast for validation");
+    }
+  };
+
   const makeid = l => {
     let text = "";
     let char_list =
@@ -148,6 +180,23 @@ function GoalOverview(props) {
       text += char_list.charAt(Math.floor(Math.random() * char_list.length));
     }
     return text;
+  };
+
+  const handleInput = event => {
+    let name = event.target.name;
+    let value = event.target.value;
+
+    switch (name) {
+      case "search":
+        setSearch(value);
+        break;
+      case "startDate":
+        setStart(value);
+        break;
+      case "endDate":
+        setEnd(value);
+        break;
+    }
   };
 
   if (currentGoals) {
@@ -200,7 +249,7 @@ function GoalOverview(props) {
               <div className="card-content">
                 <div className="row">
                   <h3 style={{ textAlign: "center", margin: "0px" }}>
-                    Current Goals
+                    {props.category} Goals
                   </h3>
                 </div>
 
@@ -319,7 +368,9 @@ function GoalOverview(props) {
                       );
                     })
                   ) : (
-                    <h4>You have no current goals</h4>
+                    <h4>
+                      You have no current {props.category.toLowerCase()} goals
+                    </h4>
                   )}
                   <div>
                     {currentGoals.length > 3 ? (
@@ -354,11 +405,11 @@ function GoalOverview(props) {
                     <div className="col s8 l4">
                       <div className="input-field">
                         <input
-                          placeholder={`Search for past ${
-                            props.category
-                          } goals`}
-                          id="search"
+                          placeholder={`Search for past goals`}
+                          id="searchGoals"
                           type="search"
+                          name="search"
+                          onChange={handleInput}
                         />
                         <i className="material-icons">close</i>
                       </div>{" "}
@@ -368,8 +419,9 @@ function GoalOverview(props) {
                         <div className="input-group-append">
                           <button
                             style={{ marginTop: "10px" }}
-                            className="btn searchBtn"
+                            className="btn searchGoalBtn"
                             type="submit"
+                            onClick={searchGoal}
                           >
                             Search
                           </button>
@@ -380,28 +432,33 @@ function GoalOverview(props) {
                       <div>
                         <div className="input-field col s5">
                           <input
+                            id="goalStart"
                             name="startDate"
                             type="date"
                             className="validate"
                             placeholder=""
+                            onChange={handleInput}
                           />
-                          <label htmlFor="milestoneStart">Start Date</label>
+                          <label htmlFor="goalStart">Start Date</label>
                         </div>
 
                         <div className="input-field col s5">
                           <input
+                            id="goalEnd"
                             name="endDate"
                             type="date"
                             className="validate"
+                            onChange={handleInput}
                           />
-                          <label htmlFor="milestoneEnd">End Date</label>
+                          <label htmlFor="goalEnd">End Date</label>
                         </div>
                         <div className="input-field col s2">
                           <div className="input-group-append">
                             <button
                               style={{ marginTop: "10px" }}
-                              className="btn searchBtn"
+                              className="btn searchDatesBtn"
                               type="submit"
+                              onClick={searchDateRange}
                             >
                               Search
                             </button>
@@ -412,7 +469,7 @@ function GoalOverview(props) {
                   </form>
                 </div>
                 <div id="pastGoal-row">
-                  {pastView ? (
+                  {pastView.length ? (
                     pastView.map(goal => {
                       return (
                         <div className="card overview-goal">
@@ -469,7 +526,7 @@ function GoalOverview(props) {
                             >
                               {goal.dueDate}
                             </p>
-                            <ProgressBar
+                            {/* <ProgressBar
                               style={{
                                 marginBottom: "2rem",
                                 marginTop: "2rem"
@@ -486,7 +543,7 @@ function GoalOverview(props) {
                                     goal.milestones.incomplete.length
                                 ]
                               }
-                            />
+                            /> */}
 
                             <i
                               className="material-icons"
@@ -509,7 +566,7 @@ function GoalOverview(props) {
                     <div>
                       {" "}
                       <h4 style={{ textAlign: "center", marginTop: "5rem" }}>
-                        You have no past goals
+                        {search ? "No Results" : "You have no past goals"}
                       </h4>{" "}
                     </div>
                   )}

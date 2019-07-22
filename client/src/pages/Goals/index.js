@@ -44,7 +44,7 @@ const Goals = props => {
     API.getGoalPageInfo(user.email).then(resp => {
       console.log(resp);
       let userData = resp.data;
-      setUserInfo(userData);
+
       setGoalInfo(userData.activeGoals);
       if (userData.buddies) {
         setAllBuddies(userData.buddies.allBuddies);
@@ -55,8 +55,17 @@ const Goals = props => {
       current.push(userData.activeGoals.incomplete);
       current.push(userData.activeGoals.completed);
       let past = [];
-      past.push(userData.pastGoals.incomplete);
-      past.push(userData.pastGoals.completed);
+      userData.pastGoals.incomplete.forEach(index => {
+        if (index.name) {
+          past.push(index);
+        }
+      });
+      userData.pastGoals.completed.forEach(index => {
+        if (index.name) {
+          past.push(index);
+        }
+      });
+
       console.log(current);
       console.log(past);
       setCurrentGoals(current);
@@ -71,6 +80,7 @@ const Goals = props => {
             []
           )
       );
+      setUserInfo(userData);
       setIsLoading(false);
     });
   };
@@ -159,10 +169,6 @@ const Goals = props => {
     console.log("goal page render");
     setreRender(!reRender);
   };
-
-  // if (isLoading) {
-  //   return <Loading />;
-  // }
 
   return (
     <>
@@ -277,6 +283,7 @@ const Goals = props => {
                     category="Fitness"
                     renderGoalDetail={renderGoalDetail}
                     renderGoalsForCategory={renderGoalsForCategory}
+                    pastGoals={pastGoals}
                   />
                 ) : (
                   ""
@@ -362,6 +369,7 @@ const Goals = props => {
                     userId={userInfo.id}
                     category="Wellness"
                     renderGoalDetail={renderGoalDetail}
+                    pastGoals={pastGoals}
                     renderGoalsForCategory={renderGoalsForCategory}
                   />
                 ) : (
@@ -447,6 +455,7 @@ const Goals = props => {
                   <GoalOverview
                     userId={userInfo.id}
                     category="Financial"
+                    pastGoals={pastGoals}
                     renderGoalDetail={renderGoalDetail}
                     renderGoalsForCategory={renderGoalsForCategory}
                   />
@@ -532,6 +541,7 @@ const Goals = props => {
                 {userInfo ? (
                   <GoalOverview
                     userId={userInfo.id}
+                    pastGoals={pastGoals}
                     category="Education"
                     renderGoalDetail={renderGoalDetail}
                     renderGoalsForCategory={renderGoalsForCategory}
@@ -618,6 +628,7 @@ const Goals = props => {
                 {userInfo ? (
                   <GoalOverview
                     userId={userInfo.id}
+                    pastGoals={pastGoals}
                     category="Travel"
                     renderGoalDetail={renderGoalDetail}
                     renderGoalsForCategory={renderGoalsForCategory}
