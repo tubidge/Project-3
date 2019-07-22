@@ -1,12 +1,29 @@
-:root {
-  --accentGold: #d4ac0d !important;
-  --darkBlue: #1c2833;
-}
-
 .userMessage {
   width: 50%;
   float: right;
   margin-right: 10px;
+}
+
+#meIndicator {
+  padding: 5px 13px 2px 0;
+  margin: 0px;
+  font-size: 12px;
+  color: gray;
+  font-style: italic;
+  position: relative;
+  top: 0px;
+  z-index: inherit;
+}
+
+#buddyIndicator {
+  padding: 5px 0 2px 13px;
+  margin: 0px;
+  font-size: 12px;
+  color: gray;
+  font-style: italic;
+  position: relative;
+  top: 0px;
+  z-index: inherit;
 }
 
 .buddyMessage {
@@ -23,7 +40,8 @@
 }
 
 .buddyMessage p {
-  background-color: lightgray;
+  background-color: var(--darkBlue);
+  color: white;
   border-radius: 17px;
   padding: 5px 8px;
   height: 34px;

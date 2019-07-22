@@ -1,8 +1,18 @@
 import React from "react";
+import { useSpring, animated } from "react-spring";
 import JoinGoalModal from "../JoinGoalModal";
 import "./style.css";
 
 const BuddyGoalCard = props => {
+  const slideDown = useSpring({
+    from: {
+      marginTop: -1000
+    },
+    to: {
+      marginTop: 0
+    }
+  });
+
   const makeid = l => {
     let text = "";
     let char_list =
@@ -14,7 +24,7 @@ const BuddyGoalCard = props => {
   };
 
   return (
-    <>
+    <animated.div style={slideDown}>
       {props.incompleteGoals.map(goal => (
         <div id="buddyGoalCard" key={goal.id} className="col l4 s12">
           <div className="card rounded">
@@ -40,7 +50,7 @@ const BuddyGoalCard = props => {
           </div>
         </div>
       ))}
-    </>
+    </animated.div>
   );
 };
 

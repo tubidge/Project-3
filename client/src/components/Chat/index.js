@@ -15,6 +15,7 @@ class Chat extends Component {
 
   // Fetch the list on first mount
   componentDidMount() {
+    console.log(this.props.buddies);
     this.chatSetup();
   }
 
@@ -144,6 +145,7 @@ class Chat extends Component {
               submitNewMessage={this.submitNewMessage}
               messages={this.state.currentChannel.messages}
               userId={this.props.userInfo.email}
+              buddies={this.props.buddiesUsername}
             />
           ) : null}
         </div>

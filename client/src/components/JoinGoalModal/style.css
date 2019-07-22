@@ -1,11 +1,7 @@
-:root {
-  --accentGold: #d4ac0d !important;
-  --darkBlue: #1c2833;
-}
-
 #joinGoalModal .modal {
-  width: 50%;
+  width: 60%;
   height: 100%;
+  border: 3px solid var(--accentGold);
 }
 
 #joinGoalModal .modal .modal-footer {
@@ -26,14 +22,3 @@
   border-radius: 5px;
   margin-bottom: 10px;
 }
-
-.toast {
-  background-color: #bd8c07 !important;
-}
-
-/* #toast-container {
-  top: auto !important;
-  right: auto !important;
-  bottom: 10%;
-  left: 40%;
-} */

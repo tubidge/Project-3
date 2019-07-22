@@ -4,6 +4,7 @@ import { confirmAlert } from "react-confirm-alert";
 import FileUpload from "../FileUpload";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import "./style.css";
+
 const axios = require("axios");
 const Form = props => {
   const [username, setUsername] = useState("");
@@ -11,6 +12,7 @@ const Form = props => {
   const [lastName, setLastName] = useState("");
   const email = props.email;
   const [, setDisabled] = useState(false);
+
   const handleSumbit = e => {
     e.preventDefault();
     const image = props.image;
@@ -106,7 +108,7 @@ const Form = props => {
               />
             </div>
           </div>
-          <div className="row center-align">
+          {/* <div className="row center-align">
             <b>Notifications</b>
             <hr />
             <div className="form-group">
@@ -159,10 +161,10 @@ const Form = props => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
-      <button className="btn left" onClick={handleSumbit}>
+      <button id="completeProfile" className="btn left" onClick={handleSumbit}>
         Complete Profile
       </button>
     </form>

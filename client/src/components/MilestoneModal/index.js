@@ -22,7 +22,6 @@ function MilestoneModal(props) {
         notes: data.data.notes,
         GoalId: data.data.goalId
       };
-      console.log(newMilestone);
       setMilestone(newMilestone);
       console.log(data.data.goalId);
       API.getBasicGoal(data.data.goalId).then(resp => {
@@ -43,13 +42,13 @@ function MilestoneModal(props) {
     M.AutoInit();
     let modals = document.querySelectorAll(".modal");
     let options = {
-      dismissible: true,
+      dismissible: false,
       inDuration: 200,
       outDuration: 400
     };
     M.Modal.init(modals, options);
     var Modalelem = document.querySelector("#milestoneModal");
-    var instance = M.Modal.init(Modalelem);
+    var instance = M.Modal.init(Modalelem, options);
     instance.open();
   }, []);
 

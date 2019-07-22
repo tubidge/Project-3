@@ -1,8 +1,3 @@
-:root {
-  --accentGold: #d4ac0d !important;
-  --darkBlue: #1c2833 !important;
-}
-
 nav {
   background-color: var(--darkBlue) !important;
   box-shadow: none !important;
@@ -15,6 +10,31 @@ nav {
   -webkit-transition: all 0.2s ease-in-out 0s;
   -ms-transition: all 0.2s ease-in-out 0s;
   transition: all 0.2s ease-in-out 0s;
+}
+
+nav .nav-wrapper {
+  cursor: auto !important;
+}
+
+#welcomeMessage {
+  margin-left: 9%;
+}
+
+#completeProfileAlert {
+  border-radius: 10px;
+  position: relative;
+  top: 6px;
+  color: var(--darkBlue);
+  font-weight: 500;
+  height: 50px;
+  line-height: 50px;
+  background-color: var(--accentGold) !important;
+  /* padding: 0 10px 10px 10px !important; */
+  margin-right: 10px;
+}
+
+#completeProfileAlert:hover {
+  transform: rotate(0);
 }
 
 nav ul a:hover {
@@ -51,7 +71,7 @@ nav .brand-logo {
 }
 
 nav .brand-logo:hover {
-  transform: scale(1.1) rotate(-4deg);
+  transform: scale(1.1);
   -moz-transition: all 0.1s ease-in-out 0s;
   -webkit-transition: all 0.1s ease-in-out 0s;
   -ms-transition: all 0.1s ease-in-out 0s;
@@ -76,10 +96,6 @@ nav .brand-logo svg:hover {
 }
 
 nav .brand-logo span {
-  color: var(--accentGold);
-}
-
-nav .brand-logo span:hover {
   color: var(--accentGold);
 }
 

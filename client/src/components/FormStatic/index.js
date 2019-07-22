@@ -110,7 +110,7 @@ const FormStatic = props => {
                 />
               </div>
             </div>
-            <div className="row center-align">
+            {/* <div className="row center-align">
               <b>Notifications</b>
               <hr />
               <div className="form-group">
@@ -163,7 +163,7 @@ const FormStatic = props => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
         <button className="save-changes btn left" onClick={editUser}>

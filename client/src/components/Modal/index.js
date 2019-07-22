@@ -5,6 +5,7 @@ import M from "materialize-css";
 import API from "../../utils/API";
 import "./style.css";
 
+const moment = require("moment");
 const axios = require("axios");
 
 const Modal = props => {
@@ -39,17 +40,37 @@ const Modal = props => {
   }, []);
 
   const handleSubmit = e => {
-    switch (props.header) {
-      case "AddNew":
-        return addGoal(e);
-      case "Delete":
-        return deleteGoal(e);
-      case "Edit":
-        return editGoal(e);
-      case "Complete":
-        return completeGoal(e);
-      default:
-        return addGoal(e);
+    e.preventDefault();
+    let now = moment().format("YYYY-MM-DD");
+    if (dueDate < now) {
+      M.toast({
+        html: `<i class="material-icons left">error</i>Hmm... your Due Date shouldn't be in the past.`,
+        displayLength: 3500
+      });
+    }
+    if (category === "" || name === "" || dueDate === "") {
+      M.toast({
+        html: `<i class="material-icons left">error</i>You didn't complete all the requried fields.`,
+        displayLength: 2000
+      });
+    } else {
+      setCategory("");
+      setName("");
+      setDueDate("");
+      setSelectedOption(null);
+      setCategory(null);
+      switch (props.header) {
+        case "Add a New Goal":
+          return addGoal(e);
+        case "Delete":
+          return deleteGoal(e);
+        case "Edit":
+          return editGoal(e);
+        case "Complete":
+          return completeGoal(e);
+        default:
+          return addGoal(e);
+      }
     }
   };
 
@@ -151,92 +172,122 @@ const Modal = props => {
       >
         {props.btnName}
       </Link>
-
-      <div id={dataTarget} className="modal">
-        <div className="modal-content">
-          <h4>{props.header}</h4>
-          <p>{props.text}</p>
-          <form onSubmit={handleSubmit}>
-            {props.header === "AddNew" && (
-              <>
-                <div className="input-field col s12">
-                  <Select
-                    placeholder={props.header === "Edit" ? category : ""}
-                    value={selectedOption}
-                    options={categories}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="input-field col s12">
-                  <input
-                    type="text"
-                    className="validate"
-                    value={name}
-                    onChange={e => setName(e.target.value)}
-                  />
-                  {props.header !== "Edit" && (
-                    <label htmlFor="name">Name</label>
-                  )}
-                </div>
-                <div className="input-field col s12">
-                  <input
-                    type="date"
-                    className="validate"
-                    value={dueDate}
-                    onChange={e => setDueDate(e.target.value)}
-                  />
-                  {props.header !== "Edit" && (
-                    <label htmlFor="dueDate">Due Date</label>
-                  )}
-                </div>
-              </>
-            )}
-            {props.header === "Edit" && (
-              <>
-                <div className="input-field col s12">
-                  <Select
-                    placeholder={props.header === "Edit" ? category : ""}
-                    value={selectedOption}
-                    options={categories}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="input-field col s12">
-                  <input
-                    type="text"
-                    className="validate"
-                    value={name}
-                    onChange={e => setName(e.target.value)}
-                  />
-                  {props.header !== "Edit" && (
-                    <label htmlFor="name">Name</label>
-                  )}
-                </div>
-                <div className="input-field col s12">
-                  <input
-                    type="date"
-                    className="validate"
-                    value={dueDate}
-                    onChange={e => setDueDate(e.target.value)}
-                  />
-                  {props.header !== "Edit" && (
-                    <label htmlFor="dueDate">Due Date</label>
-                  )}
-                </div>
-              </>
-            )}
-            <input
-              className="new-goal-modal btn modal-close"
-              type="submit"
-              value={props.action}
-            />
-          </form>
-          <button
-            onClick={handleCancel}
-            className="new-goal-modal btn modal-close"
-          >
-            Cancel
-          </button>
+      <div id="goalCardModal">
+        <div id={dataTarget} className="modal">
+          <div className="modal-content">
+            <h5>{props.header}</h5>
+            <form onSubmit={handleSubmit}>
+              {props.header === "Add a New Goal" && (
+                <>
+                  <div
+                    className="input-field col s8 offset-s2 left-align"
+                    style={{ marginTop: "20px" }}
+                  >
+                    <span className="labelForSelect">Choose a Category</span>
+                    <Select
+                      theme={theme => ({
+                        ...theme,
+                        borderRadius: 5,
+                        colors: {
+                          ...theme.colors,
+                          primary25: "#ccc",
+                          primary: "#daae37"
+                        }
+                      })}
+                      placeholder={props.header === "Edit" ? category : ""}
+                      value={selectedOption}
+                      options={categories}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className="input-field col s8 offset-s2 left-align">
+                    {props.header !== "Edit" && (
+                      <span className="labelForSelect">Goal Name</span>
+                    )}
+                    <input
+                      type="text"
+                      value={name}
+                      onChange={e => setName(e.target.value)}
+                    />
+                  </div>
+                  <div className="input-field col s8 offset-s2 left-align">
+                    {props.header !== "Edit" && (
+                      <span className="labelForSelect">Due Date</span>
+                    )}
+                    <input
+                      type="date"
+                      value={dueDate}
+                      onChange={e => setDueDate(e.target.value)}
+                    />
+                  </div>
+                </>
+              )}
+              {props.header === "Edit" && (
+                <>
+                  <div className="input-field col s12">
+                    <Select
+                      theme={theme => ({
+                        ...theme,
+                        borderRadius: 5,
+                        colors: {
+                          ...theme.colors,
+                          primary25: "#ccc",
+                          primary: "#daae37"
+                        }
+                      })}
+                      placeholder={props.header === "Edit" ? category : ""}
+                      value={selectedOption}
+                      options={categories}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className="input-field col s12">
+                    <input
+                      type="text"
+                      className="validate"
+                      value={name}
+                      onChange={e => setName(e.target.value)}
+                    />
+                    {props.header !== "Edit" && (
+                      <label htmlFor="name">Name</label>
+                    )}
+                  </div>
+                  <div className="input-field col s12">
+                    <input
+                      type="date"
+                      className="validate"
+                      value={dueDate}
+                      onChange={e => setDueDate(e.target.value)}
+                    />
+                    {props.header !== "Edit" && (
+                      <label htmlFor="dueDate">Due Date</label>
+                    )}
+                  </div>
+                </>
+              )}
+              <div className="modal-footer col s12">
+                <span
+                  onClick={handleCancel}
+                  className="btn modal-close grey"
+                  style={{ marginRight: "10px" }}
+                >
+                  Cancel
+                  <i className="material-icons right">cancel</i>
+                </span>
+                <button
+                  className={
+                    category !== "" && name !== "" && dueDate !== ""
+                      ? "btn submit modal-close"
+                      : "btn submit"
+                  }
+                  type="submit"
+                >
+                  {props.action}
+                  <i className="material-icons right">send</i>
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </>

@@ -1,9 +1,43 @@
-:root {
-  --accentGold: #d4ac0d !important;
-  --darkBlueTwo: #34495e !important;
+.goalCardModal {
+  margin: 5px 5px 0 0;
+  color: var(--accentGold);
+  font-size: 35px;
 }
 
-.new-goal-modal {
-  background-color: var(--darkBlueTwo) !important;
-  color: var(--accentGold) !important;
+#goalCardModal .modal {
+  width: 60%;
+  height: 100%;
+  border: 3px solid var(--accentGold);
+}
+
+#goalCardModal .modal .modal-content h5 {
+  color: var(--darkBlue);
+  text-align: center;
+}
+
+#goalCardModal .modal .modal-footer {
+  padding: 5px 10px;
+}
+
+#goalCardModal .modal .modal-footer .submit {
+  background-color: var(--darkBlue) !important;
+}
+
+#goalCardModal .modal-content .labelForSelect {
+  font-size: 15px;
+  position: relative;
+  bottom: 7px;
+  color: white;
+  padding: 5px 10px;
+  background-color: #1c2833;
+  background-color: var(--darkBlue);
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.css-182gzek-menu,
+.css-luccc91-singleValue,
+.css-2b097c-container {
+  font-size: 15px;
+  color: var(--darkBlue);
 }

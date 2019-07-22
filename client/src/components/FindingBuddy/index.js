@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useSpring, animated } from "react-spring";
+import magnify from "../../assets/Magnify-1s-200px.svg";
+import Fade from "../Fade";
 
 const FindingBuddy = () => {
-  const [current, setCurrent] = useState(0);
+  const [rand, setRand] = useState(Math.random());
+  const [mount, setMount] = useState(true);
 
   const words = [
     "Finding you a buddy...",
@@ -11,22 +13,14 @@ const FindingBuddy = () => {
   ];
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (current === words.length - 1) {
-        setCurrent(0);
-      } else {
-        setCurrent(current + 1);
-      }
-    }, 2000);
-    return () => {
-      clearInterval(interval);
-    };
-  });
+    setInterval(() => setMount(mount => !mount), 800);
+  }, []);
 
   return (
     <div className="container">
       <div className="center-align">
-        <h1>{words[current]}</h1>
+        <Fade>{mount ? <h1>{words[0]}</h1> : null}</Fade>
+        <img src={magnify} alt="Loading" />
       </div>
     </div>
   );
