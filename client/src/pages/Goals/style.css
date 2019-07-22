@@ -2,8 +2,9 @@
   padding: 80px 0 0 0;
 }
 .tabs .tab a {
-  color: black;
+  color: #34495e !important;
 }
+
 .tabs .tab a:hover {
   color: #34495e;
 }
@@ -19,12 +20,10 @@
   color: #34495e;
 }
 .tabs .tab:hover {
-  background-color: #ddf0ff;
-  border-top-left-radius: 2ch;
-  border-top-right-radius: 2ch;
+  background-color: #d4ac0d;
 }
 .tabs .indicator {
-  background-color: #34495e;
+  background-color: #34495e !important;
 }
 .goal-tabs {
   margin: 50px 0 0 0;
@@ -70,7 +69,12 @@
   justify-content: center;
 }
 .goal-page-overview {
+  margin-top: 10px;
   text-align: center;
+}
+.goal-page-titles {
+  font-size: 50px;
+  font-weight: bold;
 }
 #backdrop {
   position: absolute;

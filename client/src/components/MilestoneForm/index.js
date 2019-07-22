@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import M from "materialize-css";
 import API from "../../utils/API";
+import "./style.css";
 function MilestoneForm(props) {
   //   const [milestone, setMilestone] = useState({});
   const [title, setTitle] = useState();
@@ -76,7 +77,7 @@ function MilestoneForm(props) {
     return (
       <div id="milestoneForm" className="modal">
         <div className="modal-content">
-          <form className="col s12">
+          <form className="milestone-add-modal col s12">
             <div className="row">
               <div className="input-field col s10">
                 <input

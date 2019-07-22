@@ -13,6 +13,7 @@ import M from "materialize-css";
 import "./style.css";
 import API from "../../utils/API";
 import Loading from "../../components/Loading";
+import Footer from "../../components/Footer";
 
 const Goals = props => {
   const { loading, user } = useAuth0();
@@ -167,10 +168,7 @@ const Goals = props => {
     <>
       <div className="row">
         <div className="col s12">
-          <ul
-            className="tabs"
-            style={{ backgroundColor: "rgb(246, 246, 246)" }}
-          >
+          <ul className="tabs" style={{ backgroundColor: "#f5f5f5" }}>
             <li className="tab col s2 offset-s2">
               <a href="#Fitness" onClick={handleClick}>
                 Fitness
@@ -232,7 +230,7 @@ const Goals = props => {
               <>
                 <div className="row">
                   <div className="col s12 goal-page-overview">
-                    <h3>Fitness Goals</h3>
+                    <div className="goal-page-titles">Fitness Goals</div>
                     <div className="goal-page-subheader">
                       {/* <ul className="goal-tabs">
                         {renderGoalsForCategory("Fitness")}
@@ -282,7 +280,7 @@ const Goals = props => {
               <>
                 <div className="row">
                   <div className="col s12 goal-page-overview">
-                    <h3>Fitness Goals</h3>
+                    <div className="goal-page-titles">Fitness Goals</div>
                     <div className="goal-page-subheader" />
                   </div>
                 </div>
@@ -334,7 +332,7 @@ const Goals = props => {
               <>
                 <div className="row">
                   <div className="col s12 goal-page-overview">
-                    <h3>Wellness Goals</h3>
+                    <div className="goal-page-titles">Wellness Goals</div>
                     <div className="goal-page-subheader">
                       {/* <ul className="goal-tabs">
                         {renderGoalsForCategory("Wellness")}
@@ -352,7 +350,7 @@ const Goals = props => {
             ) : (
               <div className="row">
                 <div className="col s12 goal-page-overview">
-                  <h3>Wellness Goals</h3>
+                  <div className="goal-page-titles">Wellness Goals</div>
                   <div className="goal-page-subheader">
                     {/* <ul className="goal-tabs">
                       {renderGoalsForCategory("wellness")}
@@ -397,7 +395,7 @@ const Goals = props => {
               <>
                 <div className="row">
                   <div className="col s12 goal-page-overview">
-                    <h3>Financial Goals</h3>
+                    <div className="goal-page-titles">Financial Goals</div>
                     <div className="goal-page-subheader">
                       {/* <ul className="goal-tabs">
                         {renderGoalsForCategory("Financial")}
@@ -415,7 +413,7 @@ const Goals = props => {
             ) : (
               <div className="row">
                 <div className="col s12 goal-page-overview">
-                  <h3>Financial Goals</h3>
+                  <div className="goal-page-titles">Financial Goals</div>
                   <div className="goal-page-subheader">
                     {/* <ul className="goal-tabs">
                       {renderGoalsForCategory("Financial")}
@@ -478,7 +476,7 @@ const Goals = props => {
             ) : (
               <div className="row">
                 <div className="col s12 goal-page-overview">
-                  <h3>Education Goals</h3>
+                  <div className="goal-page-titles">Education Goals</div>
                   <div className="goal-page-subheader">
                     {/* <ul className="goal-tabs">
                       {renderGoalsForCategory("Education")}
@@ -541,7 +539,7 @@ const Goals = props => {
             ) : (
               <div className="row">
                 <div className="col s12 goal-page-overview">
-                  <h3>Fitness Goals</h3>
+                  <div className="goal-page-titles">Fitness Goals</div>
                   <div className="goal-page-subheader">
                     {/* <ul className="goal-tabs">
                       {renderGoalsForCategory("Travel")}
@@ -553,6 +551,7 @@ const Goals = props => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

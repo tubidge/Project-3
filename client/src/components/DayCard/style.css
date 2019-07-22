@@ -3,6 +3,7 @@
   width: 18rem;
   padding: 0px;
 }
+
 .day-card-cardTitle {
   background-color: white;
   color: black;
@@ -15,7 +16,7 @@
 .day-card-date {
   font-size: 1rem;
   text-align: center;
-  border-bottom: 3px solid #1a237e;
+  border-bottom: 2px solid d4ac0d;
 }
 .day-card-add {
   text-align: right;
@@ -23,15 +24,16 @@
   padding: 0px;
 }
 .day-card-icon {
-  color: #e2e77d;
+  color: #d4ac0d;
 }
 .day-card-icon:hover {
   cursor: pointer;
   transform: scale(1.1);
 }
 .day-card-buttons {
-  display: flex;
-  justify-content: space-between;
+  /* display: flex; */
+  text-align: center;
+  /* justify-content: space-between; */
 }
 .day-card-button:hover {
   transform: scale(1.1);

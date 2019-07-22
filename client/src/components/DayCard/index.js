@@ -122,13 +122,20 @@ function DayCard(props) {
         <div className="card-title day-card-cardTitle">
           <p className="day-card-date">{date}</p>
           <div className="day-card-buttons">
-            <p style={{ fontSize: "15px", marginLeft: "5px" }}>Todo</p>
+            <p
+              style={{
+                fontSize: "15px",
+                marginLeft: "5px"
+              }}
+            >
+              To do:
+            </p>
             {milestoneSelected ? (
               <div>
                 <i
                   className="material-icons day-card-button"
                   onClick={completeTask}
-                  style={{ color: "#e2e77d", cursor: "pointer" }}
+                  style={{ color: "#d4ac0d", cursor: "pointer" }}
                 >
                   check_box
                 </i>

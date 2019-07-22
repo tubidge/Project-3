@@ -9,7 +9,7 @@ import UserProfile from "../../components/UserProfile";
 import GoalCard from "../../components/GoalCard";
 import Chat from "../../components/Chat";
 import Cal from "../../components/Calendar";
-
+import Footer from "../../components/Footer";
 import "./style.css";
 
 const Dashboard = () => {
@@ -190,6 +190,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

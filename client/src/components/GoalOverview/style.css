@@ -2,17 +2,29 @@
   display: flex;
   justify-content: space-evenly;
 }
-.goal-overview-card .card-content {
-  background-color: whitesmoke;
+
+.goal-overview-card .current-goal-container {
+  background-color: #f5f5f5;
   height: 500px;
 }
-.overview-goal .card-content {
+.overview-goal {
   height: 18rem;
   width: 16rem;
-  background-color: #10355f;
+  background-color: #34495e !important;
+  box-shadow: 2px 2px 3px 3px rgb(172, 172, 172) !important;
+}
+.past-goals-container {
+  background-color: #f5f5f5 !important;
 }
 .overview-goal .card-title {
-  background-color: #10355f;
+  background-color: #34495e;
   border: none;
   text-align: center;
+}
+.current-goal-card {
+  background-color: #34495e;
+}
+.view-goal {
+  background-color: #d4ac0d !important;
+  color: #34495e !important;
 }

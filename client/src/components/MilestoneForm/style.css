@@ -1,0 +1,24 @@
+.modal-close {
+  background-color: #34495e !important;
+  color: #d4ac0d !important;
+  margin-bottom: 15px;
+}
+
+.input-field input[type="text"]:focus + label,
+.materialize-textarea:focus:not([readonly]) + label {
+  color: #d4ac0d !important;
+}
+.input-field input[type="text"]:focus,
+.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #d4ac0d !important;
+  box-shadow: 0 1px 0 0 #d4ac0d !important;
+}
+.input-field input[type="date"]:focus + label,
+.materialize-textarea:focus:not([readonly]) + label {
+  color: #d4ac0d !important;
+}
+.input-field input[type="date"]:focus,
+.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #d4ac0d !important;
+  box-shadow: 0 1px 0 0 #d4ac0d !important;
+}

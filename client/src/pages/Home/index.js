@@ -31,10 +31,10 @@ const Home = () => {
               <div className="container">
                 <div className="row">
                   <div className="col s4" />
-                  <div className="col s4">
+                  <div className="col s6">
                     <hr className="hr" />
                   </div>
-                  <div className="col s4" />
+                  <div className="col s2" />
                 </div>
                 <div className="row">
                   <div className="center" id="title">

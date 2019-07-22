@@ -25,18 +25,18 @@ function GoalOverview(props) {
       <div className="row">
         <div className="col s12">
           <div className="card goal-overview-card">
-            <div className="card-content">
+            <div className="current-goal-container card-content">
               <h3 style={{ textAlign: "center" }}>Current Goals</h3>
               <div id="currentGoal-row">
                 {currentGoals
                   ? currentGoals.map(goal => {
                       return (
                         <div className="card overview-goal">
-                          <div className="card-content">
+                          <div className="current-goal-card card-content">
                             <div className="card-title">{goal.name}</div>
-                            <div>
+                            <div className="center-align">
                               <a
-                                className=" btn"
+                                className="view-goal btn"
                                 onClick={() => props.renderGoalDetail(goal.id)}
                               >
                                 View Goal
@@ -55,7 +55,7 @@ function GoalOverview(props) {
       <div className="row">
         <div className="col s12">
           <div className="card goal-overview-card">
-            <div className="card-content">
+            <div className="past-goals-container card-content">
               <h3 style={{ textAlign: "center" }}>Past Goals</h3>
               <div id="pastGoal-row">
                 {pastGoals

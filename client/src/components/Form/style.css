@@ -2,3 +2,8 @@
   background-color: #e9ecef;
   opacity: 1;
 }
+.complete-profile-button {
+  background-color: #34495e !important;
+  color: #d4ac0d !important;
+  margin-bottom: 15px;
+}

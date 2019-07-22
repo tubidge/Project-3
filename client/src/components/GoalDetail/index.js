@@ -236,7 +236,7 @@ function GoalDetail(props) {
           <FontAwesomeIcon icon={faChevronLeft} onClick={props.prevGoal} />
         </span>
       </div>
-      <div className="col s10">
+      <div className="goal-page-card col s10">
         <div id="goalCard" className="card z-depth-5">
           <div className="row">
             <div
@@ -246,7 +246,7 @@ function GoalDetail(props) {
               <i
                 className="material-icons"
                 style={{
-                  color: "white",
+                  color: "#34495e",
                   cursor: "pointer",
                   fontSize: "3rem"
                 }}
@@ -260,7 +260,7 @@ function GoalDetail(props) {
             <div className="card-title goal-page-cardTitle">
               <div className="goal-page-sub-header">
                 <div className="switch">
-                  <p className="goal-page-privacy white-text">
+                  <p className="goal-page-privacy black-text">
                     {currentGoal.private ? "Private" : "Public"}
                   </p>
                   <div className="goal-privacy-checkbox">
@@ -275,11 +275,11 @@ function GoalDetail(props) {
                     </label>
                   </div>
                 </div>
-                <p className="goal-page-dueDate white-text">
+                <p className="goal-page-dueDate black-text">
                   Due: {currentGoal.dueDate}
                 </p>
               </div>
-              <h3 className="goal-page-title white-text">{currentGoal.name}</h3>
+              <h3 className="goal-page-title black-text">{currentGoal.name}</h3>
             </div>
             <div className="row">
               <div className="col s6 offset-s3">
@@ -344,7 +344,7 @@ function GoalDetail(props) {
                     class="material-icons day-card-controls"
                     onClick={lastFive}
                     style={{
-                      color: "white",
+                      color: "#34495e",
                       fontSize: "3rem",
                       cursor: "pointer"
                     }}
@@ -355,7 +355,7 @@ function GoalDetail(props) {
                     class="material-icons day-card-controls"
                     onClick={getToday}
                     style={{
-                      color: "white",
+                      color: "#34495e",
                       fontSize: "3rem",
                       cursor: "pointer",
                       marginLeft: "2rem"
@@ -368,7 +368,7 @@ function GoalDetail(props) {
                   onClick={nextFive}
                   class="material-icons day-card-controls"
                   style={{
-                    color: "white",
+                    color: "#34495e",
                     fontSize: "3rem",
                     cursor: "pointer"
                   }}

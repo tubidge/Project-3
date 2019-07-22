@@ -223,7 +223,7 @@ const GoalCard = props => {
 
   return (
     <>
-      <div className="col l4 s12">
+      <div className="goal-cards-dashboard col l4 s12">
         <div className="card goalCard">
           <div className="card-title">
             <span className="category-title">{props.category}</span>

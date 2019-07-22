@@ -100,3 +100,21 @@ hr {
   background-color: #d4ac0d;
   color: #d4ac0d;
 }
+.input-field input[type="text"]:focus + label,
+.materialize-textarea:focus:not([readonly]) + label {
+  color: #d4ac0d !important;
+}
+.input-field input[type="text"]:focus,
+.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #d4ac0d !important;
+  box-shadow: 0 1px 0 0 #d4ac0d !important;
+}
+.input-field input[type="email"]:focus + label,
+.materialize-textarea:focus:not([readonly]) + label {
+  color: #d4ac0d !important;
+}
+.input-field input[type="email"]:focus,
+.materialize-textarea:focus:not([readonly]) {
+  border-bottom: 1px solid #d4ac0d !important;
+  box-shadow: 0 1px 0 0 #d4ac0d !important;
+}

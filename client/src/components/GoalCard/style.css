@@ -49,6 +49,8 @@
 
 .card-content {
   background-color: #34495e;
+  min-height: 11rem;
+  margin-bottom: 35px;
 }
 
 .card-title {

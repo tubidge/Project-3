@@ -162,7 +162,10 @@ const Form = props => {
           </div>
         </div>
       </div>
-      <button className="btn left" onClick={handleSumbit}>
+      <button
+        className="complete-profile-button btn left"
+        onClick={handleSumbit}
+      >
         Complete Profile
       </button>
     </form>

@@ -282,7 +282,7 @@ const Buddies = props => {
             </div>
             <div className="col s6">
               <div className="card">
-                <div className="card-content">
+                <div className="buddy-pair card-content">
                   <span className="card-title">Get Paired with a Buddy</span>
                   <p>
                     Find someone with similar goals, so you can help each other!
