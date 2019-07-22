@@ -11,3 +11,22 @@
   width: 50px;
   margin: 5px;
 }
+
+span .badgeContainer {
+  position: relative;
+}
+
+span.badge {
+  position: relative !important;
+  left: 0px !important;
+  bottom: 0px !important;
+  border-radius: 50%;
+  background-color: var(--blue) !important;
+  min-width: 1rem !important;
+  min-height: 1rem !important;
+  margin-left: 14px;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 20px !important;
+  color: white !important;
+}
