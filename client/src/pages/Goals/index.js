@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { useAuth0 } from "../../react-auth0-spa";
 import GoalDetail from "../../components/GoalDetail";
 import GoalOverview from "../../components/GoalOverview";
 import UserProfile from "../../components/UserProfile";
-import BuddyList from "../../components/BuddyList";
-import MilestoneColumn from "../../components/MilestoneColumn";
-import Milestone from "../../components/Milestone";
-import Buddy from "../../components/Buddy";
-import BuddyColumn from "../../components/BuddyColumn";
 import M from "materialize-css";
 import "./style.css";
 import API from "../../utils/API";
@@ -172,55 +166,19 @@ const Goals = props => {
 
   return (
     <>
+      <div className="hero-image" />
       <div className="row">
-        <div className="col s12">
-          <ul
-            className="tabs"
-            style={{ backgroundColor: "rgb(246, 246, 246)" }}
-          >
-            <li className="tab col s2 offset-s2">
-              <a href="#Fitness" onClick={handleClick}>
-                Fitness
-              </a>
-            </li>
-            <li className="tab col s2">
-              <a href="#Wellness" onClick={handleClick}>
-                Wellness
-              </a>
-            </li>
-            <li className="tab col s2">
-              <a href="#Financial" onClick={handleClick}>
-                Financial
-              </a>
-            </li>
-            <li className="tab col s2">
-              <a href="#Education" onClick={handleClick}>
-                Education
-              </a>
-            </li>
-            <li className="tab col s2">
-              <a href="#Travel" onClick={handleClick}>
-                Travel
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <div id="Fitness">
-          <div className="col s3">
-            {userInfo ? (
-              <>
-                {" "}
-                <UserProfile
-                  userPicture={userInfo.image ? userInfo.image : user.picture}
-                  username={userInfo.username}
-                  email={userInfo.email}
-                  incompleteGoals={incompleteGoals}
-                  buddies={
-                    allBuddies ? getUnique(allBuddies, "username") : null
-                  }
-                />
-                {/* <BuddyList
+        <div style={{ marginTop: "-130px" }} className="col s3">
+          {userInfo ? (
+            <>
+              <UserProfile
+                userPicture={userInfo.image ? userInfo.image : user.picture}
+                username={userInfo.username}
+                email={userInfo.email}
+                incompleteGoals={incompleteGoals}
+                buddies={allBuddies ? getUnique(allBuddies, "username") : null}
+              />
+              {/* <BuddyList
                   myBuddies={myBuddies}
                   userEmail={userInfo.email}
                   userID={userInfo.id}
@@ -229,11 +187,42 @@ const Goals = props => {
                     allBuddies ? getUnique(allBuddies, "username") : null
                   }
                 />{" "} */}
-              </>
-            ) : (
-              ""
-            )}
-          </div>
+            </>
+          ) : (
+            ""
+          )}
+        </div>
+        <div className="col s9 tabsDiv_GoalPage">
+          <ul className="tabs">
+            <li className="tab col">
+              <a href="#Fitness" onClick={handleClick}>
+                Fitness
+              </a>
+            </li>
+            <li className="tab col">
+              <a href="#Wellness" onClick={handleClick}>
+                Wellness
+              </a>
+            </li>
+            <li className="tab col">
+              <a href="#Financial" onClick={handleClick}>
+                Financial
+              </a>
+            </li>
+            <li className="tab col">
+              <a href="#Education" onClick={handleClick}>
+                Education
+              </a>
+            </li>
+            <li className="tab col">
+              <a href="#Travel" onClick={handleClick}>
+                Travel
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div id="Fitness">
           <div className="col s9">
             {currentGoal ? (
               <>
@@ -294,33 +283,6 @@ const Goals = props => {
         </div>
 
         <div id="Wellness">
-          <div className="col s3">
-            {userInfo ? (
-              <>
-                {" "}
-                <UserProfile
-                  userPicture={userInfo.image ? userInfo.image : user.picture}
-                  username={userInfo.username}
-                  email={userInfo.email}
-                  incompleteGoals={incompleteGoals}
-                  buddies={
-                    allBuddies ? getUnique(allBuddies, "username") : null
-                  }
-                />
-                {/* <BuddyList
-                  myBuddies={myBuddies}
-                  userEmail={userInfo.email}
-                  userID={userInfo.id}
-                  makeid={makeid}
-                  buddies={
-                    allBuddies ? getUnique(allBuddies, "username") : null
-                  }
-                />{" "} */}
-              </>
-            ) : (
-              ""
-            )}
-          </div>
           <div className="col s9">
             {currentGoal ? (
               <>
@@ -381,33 +343,6 @@ const Goals = props => {
         </div>
 
         <div id="Financial">
-          <div className="col s3">
-            {userInfo ? (
-              <>
-                {" "}
-                <UserProfile
-                  userPicture={userInfo.image ? userInfo.image : user.picture}
-                  username={userInfo.username}
-                  email={userInfo.email}
-                  incompleteGoals={incompleteGoals}
-                  buddies={
-                    allBuddies ? getUnique(allBuddies, "username") : null
-                  }
-                />
-                {/* <BuddyList
-                  myBuddies={myBuddies}
-                  userEmail={userInfo.email}
-                  userID={userInfo.id}
-                  makeid={makeid}
-                  buddies={
-                    allBuddies ? getUnique(allBuddies, "username") : null
-                  }
-                />{" "} */}
-              </>
-            ) : (
-              ""
-            )}
-          </div>
           <div className="col s9">
             {currentGoal ? (
               <>
@@ -468,33 +403,6 @@ const Goals = props => {
         </div>
 
         <div id="Education">
-          <div className="col s3">
-            {userInfo ? (
-              <>
-                {" "}
-                <UserProfile
-                  userPicture={userInfo.image ? userInfo.image : user.picture}
-                  username={userInfo.username}
-                  email={userInfo.email}
-                  incompleteGoals={incompleteGoals}
-                  buddies={
-                    allBuddies ? getUnique(allBuddies, "username") : null
-                  }
-                />
-                {/* <BuddyList
-                  myBuddies={myBuddies}
-                  userEmail={userInfo.email}
-                  userID={userInfo.id}
-                  makeid={makeid}
-                  buddies={
-                    allBuddies ? getUnique(allBuddies, "username") : null
-                  }
-                />{" "} */}
-              </>
-            ) : (
-              ""
-            )}
-          </div>
           <div className="col s9">
             {currentGoal ? (
               <>
@@ -555,33 +463,6 @@ const Goals = props => {
         </div>
 
         <div id="Travel">
-          <div className="col s3">
-            {userInfo ? (
-              <>
-                {" "}
-                <UserProfile
-                  userPicture={userInfo.image ? userInfo.image : user.picture}
-                  username={userInfo.username}
-                  email={userInfo.email}
-                  incompleteGoals={incompleteGoals}
-                  buddies={
-                    allBuddies ? getUnique(allBuddies, "username") : null
-                  }
-                />
-                {/* <BuddyList
-                  myBuddies={myBuddies}
-                  userEmail={userInfo.email}
-                  userID={userInfo.id}
-                  makeid={makeid}
-                  buddies={
-                    allBuddies ? getUnique(allBuddies, "username") : null
-                  }
-                />{" "} */}
-              </>
-            ) : (
-              ""
-            )}
-          </div>
           <div className="col s9">
             {currentGoal ? (
               <>

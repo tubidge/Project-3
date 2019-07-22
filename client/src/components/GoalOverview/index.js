@@ -254,6 +254,23 @@ function GoalOverview(props) {
     }
   };
 
+  const generateIcon = () => {
+    switch (props.category) {
+      case "Fitness":
+        return "fitness_center";
+      case "Education":
+        return "school";
+      case "Wellness":
+        return "favorite_border";
+      case "Financial":
+        return "attach_money";
+      case "Travel":
+        return "airplanemode_active";
+      default:
+        return null;
+    }
+  };
+
   if (currentGoals) {
     console.log(currentView);
     return (
@@ -270,16 +287,10 @@ function GoalOverview(props) {
         )}
         <div className="row">
           <div className="col s12">
-            <div className="card goal-overview-card">
+            <div id="goalOverview" className="card goal-overview-card">
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <Modal
-                  style={{
-                    marginLeft: "10px",
-                    marginTop: "20px",
-                    color: "#d4ac0d",
-                    fontSize: "35px"
-                  }}
-                  className="material-icons modal-trigger right tooltipped"
+                  className="addGoal_GoalPage material-icons modal-trigger right tooltipped"
                   btnName={"add_circle"}
                   header="AddNew"
                   text="Complete this form"
@@ -292,19 +303,19 @@ function GoalOverview(props) {
                   dataTooltip="Add a goal to this category"
                 />
 
-                <p
-                  style={{
-                    marginRight: "10px",
-                    fontSize: "1.5rem"
-                  }}
-                >
-                  {moment().format("MM-DD-YYYY")}
-                </p>
+                <span className="date_GoalPage">
+                  {moment().format("MM/DD/YYYY")}
+                </span>
               </div>
               <div className="card-content">
                 <div className="row">
-                  <h3 style={{ textAlign: "center", margin: "0px" }}>
-                    {props.category} Goals
+                  <h3 className="center-align">
+                    <span
+                      style={{ top: "-20px" }}
+                      className="goalCategory_GoalPage"
+                    >
+                      {props.category} Goals
+                    </span>
                   </h3>
                 </div>
 
@@ -312,84 +323,51 @@ function GoalOverview(props) {
                   <div>
                     {currentGoals.length > 3 ? (
                       <i
-                        className="material-icons"
-                        style={{
-                          fontSize: "4rem",
-                          cursor: "pointer",
-                          color: "#d4ac0d ",
-                          marginTop: "180%"
-                        }}
+                        className="material-icons arrows_GoalPage"
                         onClick={prev}
                       >
                         arrow_back
                       </i>
-                    ) : (
-                      ""
-                    )}
+                    ) : null}
                   </div>
                   {currentView ? (
                     currentView.map(goal => {
                       return (
                         <>
-                          <div className="card overview-goal">
+                          <div className="white-text card overview-goal">
                             <div className="row">
+                              <div className="col s6">
+                                <i className="material-icons categoryIcon_GoalPage">
+                                  {generateIcon()}
+                                </i>
+                              </div>
                               <div
-                                className="col s12"
+                                className="col s6"
                                 style={{
                                   display: "flex",
-                                  justifyContent: "flex-end",
-                                  marginRight: "3px",
-                                  marginTop: "3px"
+                                  justifyContent: "flex-end"
                                 }}
                               >
                                 <i
-                                  className="material-icons"
+                                  className="material-icons delete_GoalPage"
                                   data-id={goal.id}
                                   onClick={() => deleteGoal(goal.id)}
-                                  style={{
-                                    color: "white",
-                                    fontSize: "2rem",
-                                    cursor: "pointer"
-                                  }}
                                 >
                                   delete_forever
                                 </i>
                               </div>
                             </div>
-                            <div
-                              className="card-content"
-                              style={{ marginBottom: "25px" }}
-                            >
-                              <div
-                                className="card-title"
-                                style={{ marginBottom: "0px" }}
-                              >
+                            <div className="card-content">
+                              <div className="card-title goalName_GoalPage">
                                 {goal.name}
                               </div>
-                              <p
-                                style={{
-                                  textAlign: "center",
-                                  color: "white",
-                                  fontSize: "1.25rem"
-                                }}
-                              >
-                                by
-                              </p>
-                              <p
-                                className="goal-overview-p"
-                                style={{
-                                  color: "white",
-                                  textAlign: "center",
-                                  fontSize: "1.25rem"
-                                }}
-                              >
-                                {goal.dueDate}
+                              <p style={{ marginBottom: "4px" }}>Due</p>
+                              <p className="dueDate_GoalPage">
+                                <span>
+                                  {moment(goal.dueDate).format("MM/DD/YYYY")}
+                                </span>
                               </p>
                               <ProgressBar
-                                style={{
-                                  marginBottom: "2rem",
-                                  marginTop: "2rem"
-                                }}
                                 header="goal-card"
                                 total={
                                   goal.milestones.completed.length +
@@ -405,14 +383,7 @@ function GoalOverview(props) {
                               />
 
                               <i
-                                className="material-icons"
-                                style={{
-                                  color: "white",
-                                  textAlign: "center",
-                                  fontSize: "3.25rem",
-                                  marginTop: "2rem",
-                                  cursor: "pointer"
-                                }}
+                                className="material-icons viewGoalDetail_GoalPage"
                                 onClick={() => props.renderGoalDetail(goal.id)}
                               >
                                 exit_to_app
@@ -430,20 +401,12 @@ function GoalOverview(props) {
                   <div>
                     {currentGoals.length > 3 ? (
                       <i
-                        className="material-icons"
-                        style={{
-                          fontSize: "4rem",
-                          cursor: "pointer",
-                          color: "#d4ac0d ",
-                          marginTop: "180%"
-                        }}
+                        className="material-icons arrows_GoalPage"
                         onClick={next}
                       >
                         arrow_forward
                       </i>
-                    ) : (
-                      ""
-                    )}
+                    ) : null}
                   </div>
                 </div>
               </div>
@@ -454,13 +417,18 @@ function GoalOverview(props) {
           <div className="col s12">
             <div className="card past-overview-card">
               <div className="card-content">
-                <h3 style={{ textAlign: "center" }}>Past Goals</h3>
+                <h3
+                  style={{ marginTop: "10px", marginBottom: "20px" }}
+                  className="center-align"
+                >
+                  <span className="goalCategory_GoalPage">Past Goals</span>
+                </h3>
                 <div className="row">
                   <form>
                     <div className="col s8 l4">
                       <div className="input-field">
                         <input
-                          placeholder={`Search for past goals`}
+                          placeholder={`Search your previous goals`}
                           id="searchGoals"
                           type="search"
                           name="search"
@@ -473,7 +441,6 @@ function GoalOverview(props) {
                       <div className="input-field">
                         <div className="input-group-append">
                           <button
-                            style={{ marginTop: "10px" }}
                             className="btn searchGoalBtn"
                             type="submit"
                             onClick={searchGoal}
@@ -483,7 +450,7 @@ function GoalOverview(props) {
                         </div>
                       </div>
                     </div>
-                    <div className="col s8 l5 offset-l2">
+                    <div className="col s6 offset-s1">
                       <div>
                         <div className="input-field col s5">
                           <input
@@ -510,7 +477,6 @@ function GoalOverview(props) {
                         <div className="input-field col s2">
                           <div className="input-group-append">
                             <button
-                              style={{ marginTop: "10px" }}
                               className="btn searchDatesBtn"
                               type="submit"
                               onClick={searchDateRange}
@@ -527,13 +493,8 @@ function GoalOverview(props) {
                   <div>
                     {props.pastGoals.length > 3 ? (
                       <i
-                        className="material-icons"
-                        style={{
-                          fontSize: "4rem",
-                          cursor: "pointer",
-                          color: "#d4ac0d ",
-                          marginTop: "180%"
-                        }}
+                        style={{ color: "#bbb" }}
+                        className="material-icons arrows_GoalPage"
                         onClick={pastPrev}
                       >
                         arrow_back
@@ -545,84 +506,69 @@ function GoalOverview(props) {
                   {pastView.length ? (
                     pastView.map(goal => {
                       return (
-                        <div className="card overview-goal">
+                        <div className="card overview-goal white-text">
                           <div className="row">
+                            <div className="col s6">
+                              <i
+                                style={{ color: "#bbb" }}
+                                className="material-icons categoryIcon_GoalPage"
+                              >
+                                {generateIcon()}
+                              </i>
+                            </div>
                             <div
-                              className="col s12"
+                              className="col s6"
                               style={{
                                 display: "flex",
-                                justifyContent: "flex-end",
-                                marginRight: "3px",
-                                marginTop: "3px"
+                                justifyContent: "flex-end"
                               }}
                             >
                               <i
-                                className="material-icons"
+                                style={{ color: "#bbb" }}
+                                className="material-icons delete_GoalPage"
                                 data-id={goal.id}
                                 onClick={() => deleteGoal(goal.id)}
-                                style={{
-                                  color: "white",
-                                  fontSize: "2rem",
-                                  cursor: "pointer"
-                                }}
                               >
                                 delete_forever
                               </i>
                             </div>
                           </div>
-                          <div
-                            className="card-content"
-                            style={{ marginBottom: "25px" }}
-                          >
+                          <div className="card-content">
                             <div
+                              style={{ borderBottom: "1px dashed #bbb" }}
                               className="card-title"
-                              style={{ marginBottom: "0px" }}
                             >
                               {goal.name}
                             </div>
-
-                            <p
-                              className="goal-overview-p"
-                              style={{
-                                color: "white",
-                                textAlign: "center",
-                                fontSize: "1.25rem"
-                              }}
-                            >
-                              {goal.dueDate}
+                            <p style={{ marginBottom: "4px" }}>
+                              Original Due Date
                             </p>
-
-                            <p
-                              style={{
-                                textAlign: "center",
-                                color: "white",
-                                fontSize: "1.25rem"
-                              }}
-                            >
-                              {goal.complete ? "completed" : "incomplete"}
+                            <p className="dueDate_GoalPage">
+                              <span
+                                style={{
+                                  background: "#bbb"
+                                }}
+                              >
+                                {moment(goal.dueDate).format("MM/DD/YYYY")}
+                              </span>
                             </p>
+                            <p>{goal.complete ? "completed" : "incomplete"}</p>
                           </div>
                         </div>
                       );
                     })
                   ) : (
                     <div>
-                      {" "}
-                      <h4 style={{ textAlign: "center", marginTop: "5rem" }}>
+                      <h4>
                         {search ? "No Results" : "You have no past goals"}
-                      </h4>{" "}
+                      </h4>
                     </div>
                   )}
                   <div>
                     {props.pastGoals.length > 3 ? (
                       <i
-                        className="material-icons"
-                        style={{
-                          fontSize: "4rem",
-                          cursor: "pointer",
-                          color: "#d4ac0d ",
-                          marginTop: "180%"
-                        }}
+                        style={{ color: "#bbb" }}
+                        className="material-icons arrows_GoalPage"
                         onClick={pastNext}
                       >
                         arrow_forward
