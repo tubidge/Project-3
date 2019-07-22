@@ -13,6 +13,7 @@ function GoalOverview(props) {
   const [currentGoals, setCurrentGoals] = useState();
   //   const [pastGoals, setPastGoals] = useState(props.pastGoals);
   const [pastView, setPastView] = useState([]);
+  const [pastIndex, setPastIndex] = useState(0);
   const [selectedGoal, setSelectedGoal] = useState();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentView, setCurrentView] = useState();
@@ -24,15 +25,9 @@ function GoalOverview(props) {
 
   useEffect(() => {
     M.AutoInit();
-    let modals = document.querySelectorAll(".modal");
-    let options = {
-      dismissible: false,
-      inDuration: 200,
-      outDuration: 400
-    };
-    var instances = M.Modal.init(modals, options);
+
     getData();
-  }, [currentIndex, reRender, props.category]);
+  }, [currentIndex, reRender, props.category, pastIndex]);
 
   const getData = () => {
     console.log(props);
@@ -63,7 +58,25 @@ function GoalOverview(props) {
         setCurrentView(false);
       }
       console.log(props.pastGoals);
-      if (props.pastGoals.length > 0) {
+      if (props.pastGoals.length > 3) {
+        let arr = [];
+        for (var i = pastIndex; i < [pastIndex + 3]; i++) {
+          console.log(i);
+          if (i < 0) {
+            console.log("first");
+            let num = props.pastGoals.length - 1;
+            arr.push(props.pastGoals[num]);
+          } else if (i > props.pastGoals.length - 1) {
+            console.log("second");
+            arr.push(props.pastGoals[i - props.pastGoals.length]);
+          } else {
+            console.log("third");
+            arr.push(props.pastGoals[i]);
+          }
+        }
+        console.log(arr);
+        setPastView(arr);
+      } else if (props.pastGoals.length) {
         setPastView(props.pastGoals);
       } else {
         setPastView(false);
@@ -113,6 +126,47 @@ function GoalOverview(props) {
     }
     console.log(sub);
     setCurrentIndex(sub);
+  };
+
+  const pastNext = () => {
+    let add;
+
+    let max = props.pastGoals.length - 1;
+
+    // console.log(max);
+    if (pastIndex < 0) {
+      add = props.pastGoals.length - 2;
+    } else {
+      add = pastIndex - 1;
+    }
+
+    if (add > max) {
+      console.log("running");
+      add = 0;
+    }
+    console.log(add);
+    setPastIndex(add);
+  };
+
+  const pastPrev = () => {
+    let sub;
+    console.log(currentIndex);
+    console.log(props.pastGoals.length);
+
+    let max = props.pastGoals.length - 1;
+    console.log(max);
+    if (pastIndex < 0) {
+      sub = props.pastGoals.length - 1;
+    } else {
+      sub = pastIndex + 1;
+    }
+
+    if (sub > max) {
+      console.log("running");
+      sub = 0;
+    }
+    console.log(sub);
+    setPastIndex(sub);
   };
 
   const deleteGoal = id => {
@@ -470,6 +524,24 @@ function GoalOverview(props) {
                   </form>
                 </div>
                 <div id="pastGoal-row">
+                  <div>
+                    {props.pastGoals.length > 3 ? (
+                      <i
+                        className="material-icons"
+                        style={{
+                          fontSize: "4rem",
+                          cursor: "pointer",
+                          color: "#d4ac0d ",
+                          marginTop: "180%"
+                        }}
+                        onClick={pastPrev}
+                      >
+                        arrow_back
+                      </i>
+                    ) : (
+                      ""
+                    )}
+                  </div>
                   {pastView.length ? (
                     pastView.map(goal => {
                       return (
@@ -541,6 +613,24 @@ function GoalOverview(props) {
                       </h4>{" "}
                     </div>
                   )}
+                  <div>
+                    {props.pastGoals.length > 3 ? (
+                      <i
+                        className="material-icons"
+                        style={{
+                          fontSize: "4rem",
+                          cursor: "pointer",
+                          color: "#d4ac0d ",
+                          marginTop: "180%"
+                        }}
+                        onClick={pastNext}
+                      >
+                        arrow_forward
+                      </i>
+                    ) : (
+                      ""
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
