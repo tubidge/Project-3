@@ -73,6 +73,10 @@ export default {
   getGoalCategory: (id, category) => {
     return axios.get("/goal/category/" + id + "/" + category);
   },
+
+  getGoalSearch: (id, search) => {
+    return axios.get("/goal/search/" + id + "/" + search);
+  },
   // This method will add a goal to the database
   // The data object being passed in needs to have name, category, dueDate, and UserId
   addGoal: data => {

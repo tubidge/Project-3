@@ -29,6 +29,17 @@ module.exports = app => {
       });
   });
 
+  app.get("/goal/search/:id/:search", (req, res) => {
+    goal
+      .searchGoalName(req.params.id, req.params.search)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
+
   // This route will return a single goal based on the goal id
   app.get("/goal/:id", (req, res) => {
     console.log("running");

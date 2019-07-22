@@ -56,9 +56,10 @@ function MilestonesCard(props) {
   const close = header => {
     if (header !== "cancel") {
       setreRender(!reRender);
+      setmodalOpen(false);
       props.reRender();
     } else {
-      setreRender(!reRender);
+      // setreRender(!reRender);
       setmodalOpen(false);
       setNewMilestone(false);
       setmilestoneSelected(false);
@@ -110,8 +111,8 @@ function MilestonesCard(props) {
             })}
           </div>
           <div className="card-action milestones-card-footer">
-            <a
-              className="waves-effect waves-light btn milestones-card-button"
+            <button
+              className="btn milestones-card-button"
               style={{ backgroundColor: "#10355f", color: "#e2e77d" }}
               onClick={() => openNewMilestone(props.frequency)}
             >
@@ -119,18 +120,15 @@ function MilestonesCard(props) {
                 add_to_photos
               </i>
               New {props.frequency}
-            </a>
+            </button>
             {milestoneSelected ? (
-              <a
-                className="waves-effect waves-light btn milestones-card-button"
+              <button
+                className="btn milestones-card-button"
                 style={{ backgroundColor: "#10355f", color: "#e2e77d" }}
                 onClick={openConfirmModal}
               >
-                {/* <i className="material-icons right" style={{ color: "#e2e77d" }}>
-                            add_to_photos
-              </i> */}
                 Delete
-              </a>
+              </button>
             ) : (
               ""
             )}

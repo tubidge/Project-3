@@ -1,5 +1,7 @@
 const db = require("../models");
 const moment = require("moment");
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 
 module.exports = {
   // This method will add a goal to the database. The goal parameter is an object that will be constructed
@@ -134,6 +136,39 @@ module.exports = {
         });
     });
   },
+
+  searchGoalName: (id, search) => {
+    return new Promise((resolve, reject) => {
+      db.Goals.findAll({
+        where: {
+          UserId: id,
+          name: {
+            [Op.substring]: search
+          }
+        },
+        include: [db.Milestones]
+      })
+        .then(resp => {
+          console.log(resp);
+          const results = [];
+          let now = moment().format("YYYY-MM-DD");
+          resp.forEach(index => {
+            if (moment(index.dueDate).isBefore(now)) {
+              results.push(index);
+            } else {
+              return false;
+            }
+          });
+
+          resolve(results);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  },
+
+ 
 
   getCategoryGoals: (id, category) => {
     return new Promise((resolve, reject) => {

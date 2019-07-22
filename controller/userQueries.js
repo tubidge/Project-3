@@ -1,8 +1,8 @@
 const db = require("../models");
 const helper = require("../utils/helperFunctions");
 const buddy = require("../controller/buddyQueries");
-const goalQuery = require("./goalQueries");
 const moment = require("moment");
+const goalQuery = require("./goalQueries");
 
 module.exports = {
   // This method will create a new user
@@ -1155,7 +1155,9 @@ module.exports = {
                           channel: event.channel,
                           endDate: event.endDate,
                           buddyId: resp[0].dataValues.id,
+
                           image: resp[0].dataValues.image,
+
                           buddyGoal: userGoal,
                           userGoal: goalName
                         };
