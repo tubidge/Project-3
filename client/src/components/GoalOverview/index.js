@@ -49,7 +49,7 @@ function GoalOverview(props) {
             arr.push(resp.data.currentGoals[num]);
           } else if (i > resp.data.currentGoals.length - 1) {
             console.log("second");
-            arr.push(resp.data.currentGoals[0]);
+            arr.push(resp.data.currentGoals[i - resp.data.currentGoals.length]);
           } else {
             console.log("third");
             arr.push(resp.data.currentGoals[i]);
@@ -62,7 +62,7 @@ function GoalOverview(props) {
       } else {
         setCurrentView(false);
       }
-      console.log(props.pastGoals.length);
+      console.log(props.pastGoals);
       if (props.pastGoals.length > 0) {
         setPastView(props.pastGoals);
       } else {
@@ -75,15 +75,14 @@ function GoalOverview(props) {
 
   const next = () => {
     let add;
-    console.log(currentIndex);
-    console.log(currentGoals.length);
-    let max = currentGoals.length - 2;
+
+    let max = currentGoals.length - 1;
     let num = currentGoals.length - 1;
-    console.log(max);
-    if (currentIndex > num) {
-      add = 1;
+    // console.log(max);
+    if (currentIndex < 0) {
+      add = currentGoals.length - 2;
     } else {
-      add = currentIndex + 1;
+      add = currentIndex - 1;
     }
 
     if (add > max) {
@@ -97,18 +96,20 @@ function GoalOverview(props) {
 
   const prev = () => {
     let sub;
+    console.log(currentIndex);
+    console.log(currentGoals.length);
 
-    let max = currentGoals.length - 2;
+    let max = currentGoals.length - 1;
     console.log(max);
     if (currentIndex < 0) {
       sub = currentGoals.length - 1;
     } else {
-      sub = currentIndex - 1;
+      sub = currentIndex + 1;
     }
 
     if (sub > max) {
       console.log("running");
-      sub = 1;
+      sub = 0;
     }
     console.log(sub);
     setCurrentIndex(sub);
@@ -507,15 +508,7 @@ function GoalOverview(props) {
                             >
                               {goal.name}
                             </div>
-                            <p
-                              style={{
-                                textAlign: "center",
-                                color: "white",
-                                fontSize: "1.25rem"
-                              }}
-                            >
-                              by
-                            </p>
+
                             <p
                               className="goal-overview-p"
                               style={{
@@ -526,38 +519,16 @@ function GoalOverview(props) {
                             >
                               {goal.dueDate}
                             </p>
-                            {/* <ProgressBar
-                              style={{
-                                marginBottom: "2rem",
-                                marginTop: "2rem"
-                              }}
-                              header="goal-card"
-                              total={
-                                goal.milestones.completed.length +
-                                goal.milestones.incomplete.length
-                              }
-                              percentage={
-                                goal.milestones.completed.length /
-                                [
-                                  goal.milestones.completed.length +
-                                    goal.milestones.incomplete.length
-                                ]
-                              }
-                            /> */}
 
-                            <i
-                              className="material-icons"
+                            <p
                               style={{
-                                color: "white",
                                 textAlign: "center",
-                                fontSize: "3.25rem",
-                                marginTop: "2rem",
-                                cursor: "pointer"
+                                color: "white",
+                                fontSize: "1.25rem"
                               }}
-                              onClick={() => props.renderGoalDetail(goal.id)}
                             >
-                              exit_to_app
-                            </i>
+                              {goal.complete ? "completed" : "incomplete"}
+                            </p>
                           </div>
                         </div>
                       );
