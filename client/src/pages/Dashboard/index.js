@@ -163,7 +163,7 @@ const Dashboard = () => {
               </h5>
             </Link>
           </div>
-          {!userInfo.buddies || userInfo.buddies.allBuddies.length === 0 ? (
+          {!userInfo.buddies ? (
             <div id="noBuddies">
               <p>You don't have any Buddies... yet!</p>
               <p>
