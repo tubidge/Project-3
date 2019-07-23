@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useSpring, animated } from "react-spring";
 import "./style.css";
 import ChatMessage from "../ChatMessage";
 // This chatbox should render a card that takes in props for the current channel and sends those props to a hook that then populates the card

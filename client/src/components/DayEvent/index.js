@@ -8,8 +8,8 @@ function DayEvent(props) {
     let options = {
       enterDelay: 800
     };
-    var elems = document.querySelectorAll(".tooltipped");
-    var instances = M.Tooltip.init(elems, options);
+    // var elems = document.querySelectorAll(".tooltipped");
+    // var instances = M.Tooltip.init(elems, options);
   }, []);
   return (
     <li

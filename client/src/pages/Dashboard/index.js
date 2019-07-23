@@ -186,11 +186,11 @@ const Dashboard = () => {
                 >
                   click here
                 </Link>
-                to generate some matches based on your goals!
+                to generate some matches based on your goals.
               </p>
               <p>
-                So if you haven't added any goals, you may want to do that
-                first!
+                So if you haven't added any goals, you may want to do that first
+                to get the best matches.
               </p>
             </div>
           )}
