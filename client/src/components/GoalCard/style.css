@@ -24,6 +24,7 @@
 
 .goalCard {
   max-height: 200px;
+  color: black !important;
 }
 
 .card-scrollable-content {

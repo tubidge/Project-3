@@ -10,7 +10,7 @@
 }
 .tabs .tab a:focus.active {
   color: #34495e;
-  background-color: #ddf0ff;
+  background-color: #e5e8e8 !important;
   border-top-left-radius: 2ch;
   border-top-right-radius: 2ch;
 }
@@ -33,7 +33,7 @@
   margin-bottom: 25px;
 }
 .goal-tab:hover {
-  background-color: #ddf0ff;
+  background-color: #e5e8e8 !important;
   border-radius: 1ch;
 }
 .goal-detail {
@@ -83,9 +83,15 @@
 }
 #backdrop .row {
   width: 100%;
+  background-color: #eeeeee !important;
 }
 #curtain {
   position: absolute;
   z-index: 100;
   width: 75%;
+  background-color: transparent !important;
+}
+
+.background-goals-page {
+  background-color: #eeeeee !important;
 }

@@ -125,12 +125,12 @@ const Navbar = () => {
             )}
             {isAuthenticated && (
               <li>
-                <span
+                <a
                   className="logoutMobile"
                   onClick={() => logoutWithRedirect()}
                 >
                   Logout
-                </span>
+                </a>
               </li>
             )}
           </ul>

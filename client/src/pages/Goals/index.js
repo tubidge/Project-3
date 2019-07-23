@@ -240,7 +240,7 @@ const Goals = props => {
                 </div>
                 <div id="backdrop">
                   <>
-                    <div className="row">
+                    <div className="row background-goals-page">
                       <div className="col s12">
                         <div className="card goal-overview-card">
                           <div className="card-content">
