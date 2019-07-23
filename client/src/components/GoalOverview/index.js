@@ -22,59 +22,58 @@ function GoalOverview(props) {
   const [search, setSearch] = useState();
   const [start, setStart] = useState();
   const [end, setEnd] = useState();
+  const [confirmMessage, setConfirmMessage] = useState();
+  const [confirmType, setConfirmType] = useState();
 
   useEffect(() => {
     M.AutoInit();
 
     getData();
-  }, [currentIndex, reRender, props.category, pastIndex]);
+  }, [
+    currentIndex,
+    reRender,
+    props.category,
+    pastIndex,
+    props.pastGoals.length
+  ]);
 
   const getData = () => {
-    console.log(props);
     API.getGoalCategory(props.userId, props.category).then(resp => {
       setCurrentGoals(resp.data.currentGoals);
 
       if (resp.data.currentGoals.length > 3) {
         let arr = [];
         for (var i = currentIndex; i < [currentIndex + 3]; i++) {
-          console.log(i);
           if (i < 0) {
-            console.log("first");
             let num = resp.data.currentGoals.length - 1;
             arr.push(resp.data.currentGoals[num]);
           } else if (i > resp.data.currentGoals.length - 1) {
-            console.log("second");
             arr.push(resp.data.currentGoals[i - resp.data.currentGoals.length]);
           } else {
-            console.log("third");
             arr.push(resp.data.currentGoals[i]);
           }
         }
-        console.log(arr);
+
         setCurrentView(arr);
       } else if (resp.data.currentGoals.length > 0) {
         setCurrentView(resp.data.currentGoals);
       } else {
         setCurrentView(false);
       }
-      console.log(props.pastGoals);
+
       if (props.pastGoals.length > 3) {
         let arr = [];
         for (var i = pastIndex; i < [pastIndex + 3]; i++) {
-          console.log(i);
           if (i < 0) {
-            console.log("first");
             let num = props.pastGoals.length - 1;
             arr.push(props.pastGoals[num]);
           } else if (i > props.pastGoals.length - 1) {
-            console.log("second");
             arr.push(props.pastGoals[i - props.pastGoals.length]);
           } else {
-            console.log("third");
             arr.push(props.pastGoals[i]);
           }
         }
-        console.log(arr);
+
         setPastView(arr);
       } else if (props.pastGoals.length) {
         setPastView(props.pastGoals);
@@ -82,7 +81,11 @@ function GoalOverview(props) {
         setPastView(false);
       }
 
-      props.renderGoalsForCategory(props.category, resp.data.currentGoals);
+      //   console.log(">>>>>>>>>>>>>>>");
+      //   console.log(props.category);
+      //   console.log(resp.data.currentGoals);
+
+      //   props.renderGoalsForCategory(props.category, resp.data.currentGoals);
     });
   };
 
@@ -91,7 +94,7 @@ function GoalOverview(props) {
 
     let max = currentGoals.length - 1;
     let num = currentGoals.length - 1;
-    // console.log(max);
+
     if (currentIndex < 0) {
       add = currentGoals.length - 2;
     } else {
@@ -99,21 +102,17 @@ function GoalOverview(props) {
     }
 
     if (add > max) {
-      console.log("running");
       add = 0;
     }
-    console.log(add);
 
     setCurrentIndex(add);
   };
 
   const prev = () => {
     let sub;
-    console.log(currentIndex);
-    console.log(currentGoals.length);
 
     let max = currentGoals.length - 1;
-    console.log(max);
+
     if (currentIndex < 0) {
       sub = currentGoals.length - 1;
     } else {
@@ -121,10 +120,9 @@ function GoalOverview(props) {
     }
 
     if (sub > max) {
-      console.log("running");
       sub = 0;
     }
-    console.log(sub);
+
     setCurrentIndex(sub);
   };
 
@@ -133,7 +131,6 @@ function GoalOverview(props) {
 
     let max = props.pastGoals.length - 1;
 
-    // console.log(max);
     if (pastIndex < 0) {
       add = props.pastGoals.length - 2;
     } else {
@@ -141,20 +138,17 @@ function GoalOverview(props) {
     }
 
     if (add > max) {
-      console.log("running");
       add = 0;
     }
-    console.log(add);
+
     setPastIndex(add);
   };
 
   const pastPrev = () => {
     let sub;
-    console.log(currentIndex);
-    console.log(props.pastGoals.length);
 
     let max = props.pastGoals.length - 1;
-    console.log(max);
+
     if (pastIndex < 0) {
       sub = props.pastGoals.length - 1;
     } else {
@@ -162,22 +156,20 @@ function GoalOverview(props) {
     }
 
     if (sub > max) {
-      console.log("running");
       sub = 0;
     }
-    console.log(sub);
+
     setPastIndex(sub);
   };
 
   const deleteGoal = id => {
-    console.log(id);
     setSelectedGoal(id);
+    setConfirmMessage("This will delete your goal and any of its milestones");
+    setConfirmType("Delete Goal");
     openConfirmModal();
   };
 
   const openConfirmModal = () => {
-    console.log("modal opening");
-
     setmodalOpen(true);
   };
 
@@ -185,6 +177,7 @@ function GoalOverview(props) {
     if (header !== "cancel") {
       setmodalOpen(false);
       setreRender(!reRender);
+      props.orderRender();
     } else {
       // setreRender(!reRender);
       setmodalOpen(false);
@@ -218,7 +211,6 @@ function GoalOverview(props) {
     event.preventDefault();
     if (search && search !== "") {
       API.getGoalSearch(props.userId, search).then(resp => {
-        console.log(resp);
         setPastView(resp.data);
         document.getElementsByClassName("searchGoalBtn").value = "";
       });
@@ -254,6 +246,13 @@ function GoalOverview(props) {
     }
   };
 
+  const completeGoal = (id, name) => {
+    setSelectedGoal(id);
+    setConfirmMessage(`This will complete your goal journey for ${name}`);
+    setConfirmType("Complete");
+    openConfirmModal();
+  };
+
   const generateIcon = () => {
     switch (props.category) {
       case "Fitness":
@@ -272,14 +271,13 @@ function GoalOverview(props) {
   };
 
   if (currentGoals) {
-    console.log(currentView);
     return (
       <>
         {modalOpen ? (
           <ConfirmModal
             goalId={selectedGoal}
-            message="This will delete your goal and any of its milestones"
-            type="Delete Goal"
+            message={confirmMessage}
+            type={confirmType}
             render={close}
           />
         ) : (
@@ -292,7 +290,7 @@ function GoalOverview(props) {
                 <Modal
                   className="addGoal_GoalPage material-icons modal-trigger right tooltipped"
                   btnName={"add_circle"}
-                  header="AddNew"
+                  header="Add a New Goal"
                   text="Complete this form"
                   dataTarget={`newGoalFromCard_${makeid(5)}`}
                   action="Add"
@@ -388,6 +386,21 @@ function GoalOverview(props) {
                               >
                                 exit_to_app
                               </i>
+                              <div>
+                                <i
+                                  class="material-icons"
+                                  style={{
+                                    color: "#d4ac0d",
+                                    cursor: "pointer",
+                                    transform: "scale(1.1)"
+                                  }}
+                                  onClick={() =>
+                                    completeGoal(goal.id, goal.name)
+                                  }
+                                >
+                                  check_box
+                                </i>
+                              </div>
                             </div>
                           </div>
                         </>

@@ -32,9 +32,6 @@ const Goals = props => {
   }, [currentGoal, reRender]);
 
   const getAllData = () => {
-    console.log("function running");
-    console.log(user.email);
-
     API.getGoalPageInfo(user.email).then(resp => {
       console.log(resp);
       let userData = resp.data;
@@ -60,8 +57,6 @@ const Goals = props => {
         }
       });
 
-      console.log(current);
-      console.log(past);
       setCurrentGoals(current);
       setPastGoals(past);
       setIncompleteGoals(userData.activeGoals.incomplete);
@@ -114,16 +109,14 @@ const Goals = props => {
   const renderGoalDetail = id => {
     setStartIndex(id);
     const result = incompleteGoals.filter(goal => goal.id === id);
-    console.log(result);
+
+    renderGoalsForCategory(result[0].category, incompleteGoals);
 
     setCurrentGoal(result[0]);
   };
 
   const nextGoal = () => {
-    console.log(goalArr);
-    console.log(startIndex);
     let num = goalArr.indexOf(startIndex);
-    console.log(num);
 
     let id = goalArr[num + 1];
     if (!id) {
@@ -273,6 +266,7 @@ const Goals = props => {
                     renderGoalDetail={renderGoalDetail}
                     renderGoalsForCategory={renderGoalsForCategory}
                     pastGoals={pastGoals}
+                    orderRender={orderRender}
                   />
                 ) : (
                   ""
@@ -333,6 +327,7 @@ const Goals = props => {
                     renderGoalDetail={renderGoalDetail}
                     pastGoals={pastGoals}
                     renderGoalsForCategory={renderGoalsForCategory}
+                    orderRender={orderRender}
                   />
                 ) : (
                   ""
@@ -393,6 +388,7 @@ const Goals = props => {
                     pastGoals={pastGoals}
                     renderGoalDetail={renderGoalDetail}
                     renderGoalsForCategory={renderGoalsForCategory}
+                    orderRender={orderRender}
                   />
                 ) : (
                   ""
@@ -453,6 +449,7 @@ const Goals = props => {
                     category="Education"
                     renderGoalDetail={renderGoalDetail}
                     renderGoalsForCategory={renderGoalsForCategory}
+                    orderRender={orderRender}
                   />
                 ) : (
                   ""
@@ -513,6 +510,7 @@ const Goals = props => {
                     category="Travel"
                     renderGoalDetail={renderGoalDetail}
                     renderGoalsForCategory={renderGoalsForCategory}
+                    orderRender={orderRender}
                   />
                 ) : (
                   ""

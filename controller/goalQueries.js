@@ -168,8 +168,6 @@ module.exports = {
     });
   },
 
- 
-
   getCategoryGoals: (id, category) => {
     return new Promise((resolve, reject) => {
       db.Goals.findAll({
@@ -315,6 +313,14 @@ module.exports = {
               goals.pastGoals.push(goal);
             }
           });
+          let arr = [];
+          goals.currentGoals.forEach(index => {
+            if (!index.complete) {
+              arr.push(index);
+            }
+          });
+
+          goals.currentGoals = arr;
 
           resolve(goals);
         })

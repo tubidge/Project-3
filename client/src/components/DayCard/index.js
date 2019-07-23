@@ -39,7 +39,6 @@ function DayCard(props) {
     });
   }, [milestoneSelected]);
   const getData = () => {
-    console.log(props.date);
     setIsLoading(false);
   };
   const openMilestoneForm = event => {
@@ -59,16 +58,12 @@ function DayCard(props) {
     });
   };
   const showMilestones = () => {
-    console.log("====================");
-    console.log(milestones);
-    console.log(props);
     return props.date.incompleteMilestone.map(index => {
       return <DayEvent clickMilestone={clickMilestone} milestone={index} />;
     });
   };
   const deleteTask = () => {
     API.deleteMilestone(milestoneSelected).then(data => {
-      console.log(data);
       setmilestoneSelected(false);
       props.orderProgressRender();
       props.getMilestoneRender();
@@ -80,11 +75,10 @@ function DayCard(props) {
   };
   const cancel = header => {
     console.log(header);
-
     setmodalOpen(false);
+    setreRender(!reRender);
     props.orderProgressRender();
     props.reRender();
-    setreRender(!reRender);
   };
   if (isLoading) {
     return <Loading />;

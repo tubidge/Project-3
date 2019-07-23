@@ -323,6 +323,11 @@ module.exports = {
                     }
                   })
                   .then(() => {
+                    user.activeGoals.completed.forEach(index => {
+                      user.pastGoals.completed.push(index);
+                    });
+                    user.activeGoals.completed = [];
+
                     resolve(user);
                   });
               });

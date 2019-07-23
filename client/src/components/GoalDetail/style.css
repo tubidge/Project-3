@@ -1,17 +1,14 @@
 .goal-page-card {
-  background-color: #f5f5f5 !important;
-  color: var(--darkBlue);
+  background-color: #10355f;
 }
 .goal-page-cardTitle {
-  background-color: #f5f5f5 !important;
+  background-color: #10355f;
 }
-
 .goal-page-title {
   text-align: center;
 }
 .goal-page-dueDate {
   text-align: left;
-  color: black !important;
 }
 .goal-page-privacy {
   display: inline-block;
@@ -38,7 +35,7 @@
   justify-content: center;
 } */
 .switch label input[type="checkbox"]:checked + .lever {
-  background-color: #d4ac0d !important;
+  background-color: #e2e77d !important;
 }
 .switch label input[type="checkbox"]:checked + .lever::after {
   background-color: white !important;
@@ -52,18 +49,13 @@
   margin-top: 3%;
   width: 100%;
   display: inline-block;
-  background-color: #f5f5f5 !important;
-}
-
-.goal-page-card {
-  background-color: #f5f5f5 !important;
+  background-color: #10355f;
 }
 .nextGoalArrow {
   height: 200px;
   line-height: 200px;
   text-align: center;
   margin-top: 20%;
-  background-color: #eeeeee !important;
 }
 .nextGoalArrow > span {
   display: inline-block;
@@ -72,8 +64,28 @@
   scale: 1;
   font-size: 60px;
   color: #d4ac0d !important;
-  background-color: #eeeeee !important;
 }
 .day-card-controls:hover {
   transform: scale(1.05);
+}
+
+.followers-body {
+  overflow: scroll;
+  height: 100px;
+  max-height: 150px;
+}
+
+.follower-link {
+  text-decoration: none;
+  color: var(--blue);
+}
+
+.follower-link:hover {
+  color: var(--darkBlue);
+}
+
+.goal-edit-button {
+  margin-left: "3px";
+  cursor: "pointer";
+  color: "#d4ac0d";
 }

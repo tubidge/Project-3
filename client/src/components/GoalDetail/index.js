@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./style.css";
+import { Link } from "react-router-dom";
 import ProgressBar from "../ProgressBar";
 import moment from "moment";
 import Loading from "../../components/Loading";
 import DayCard from "../DayCard";
 import MilestonesCard from "../MilestonesCard";
+import Modal from "../Modal";
 import API from "../../utils/API";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
@@ -20,17 +22,27 @@ function GoalDetail(props) {
   const [percentage, setPercentage] = useState();
   const [goalStatus, setGoalStatus] = useState(false);
   const [currentDay, setCurrentDay] = useState();
-  const frequencies = ["Daily", "Weekly", "Monthly"];
   const [followers, setFollowers] = useState();
+  const frequencies = ["Daily", "Weekly", "Monthly"];
 
   useEffect(() => {
-    let options = { fullWidth: true };
-    var elems = document.querySelectorAll(".collapsible");
-    var instances = M.Collapsible.init(elems, options);
+    document.addEventListener("click", function() {
+      let options = { fullWidth: true };
+      var elems = document.querySelectorAll(".collapsible");
+      var instances = M.Collapsible.init(elems, options);
+    });
+
+    let modals = document.querySelectorAll(".modal");
+    let options = {
+      dismissible: true,
+      inDuration: 200,
+      outDuration: 400
+    };
+    M.Modal.init(modals, options);
 
     getData();
-    console.log(props.goal);
   }, [props.goal.id, reRender]);
+
   const getData = () => {
     API.getFollowers(props.goal.id)
       .then(data => {
@@ -38,7 +50,6 @@ function GoalDetail(props) {
       })
       .then(() => {
         API.getGoal(props.goal.id).then(resp => {
-          console.log(resp.data);
           setCurrentGoal(resp.data);
           let total =
             resp.data.milestones.complete.length +
@@ -46,22 +57,26 @@ function GoalDetail(props) {
           setTotal(total);
           let progress = resp.data.milestones.complete.length;
           let percentage = progress / total;
-          console.log(percentage);
+
           setPercentage(percentage);
           configureDays(resp.data);
         });
       });
   };
+
   const getMilestoneRender = () => {
     getData();
   };
+
   // useEffect(() => {
   //   API.getGoal(props.goal.id).then(resp => {
   //     console.log(resp.data);
   //     setCurrentGoal(resp.data);
+
   //     let total =
   //       resp.data.milestones.complete.length +
   //       resp.data.milestones.incomplete.length;
+
   //     setTotal(total);
   //     let progress = resp.data.milestones.complete.length;
   //     let percentage = progress / total;
@@ -69,13 +84,16 @@ function GoalDetail(props) {
   //     setPercentage(percentage);
   //   });
   // }, [goalStatus]);
+
   // useEffect(() => {
   //   console.log(renderDays);
   //   configureDays();
   // }, [renderDays]);
+
   const orderProgressRender = () => {
     setGoalStatus(!goalStatus);
   };
+
   // useEffect(() => {
   //   if (goal.milestones) {
   //     let total =
@@ -88,11 +106,13 @@ function GoalDetail(props) {
   //     setPercentage(percentage);
   //   }
   // }, []);
+
   const orderRender = () => {
     console.log("running good");
     props.orderRender();
     setreRender(!reRender);
   };
+
   const configureDays = goal => {
     let arrDays = [];
     let now;
@@ -107,8 +127,10 @@ function GoalDetail(props) {
       let day = moment(now)
         .add(`${i}`, "days")
         .format("YYYY-MM-DD");
+
       arrDays.push(day);
     }
+
     let configDays = [];
     // let data = data;
     arrDays.forEach(index => {
@@ -120,34 +142,38 @@ function GoalDetail(props) {
       goal.milestones.incomplete.forEach(index => {
         if (index.dueDate === day.date) {
           day.incompleteMilestone.push(index);
-          console.log(day);
         }
       });
+
       goal.milestones.complete.forEach(index => {
         if (index.dueDate === day.date) {
           day.completedMilestone.push(index);
-          console.log(day);
         }
       });
+
       configDays.push(day);
     });
-    console.log(configDays);
+
     setDays(configDays);
     setIsLoading(false);
   };
+
   const nextFive = () => {
     let arrDays = [];
     let now = moment(currentDay)
       .add("5", "days")
       .format("YYYY-MM-DD");
+
     setCurrentDay(now);
     for (var i = 0; i < 5; i++) {
       // let num = [i + 1];
       let day = moment(now)
         .add(`${i}`, "days")
         .format("YYYY-MM-DD");
+
       arrDays.push(day);
     }
+
     let configDays = [];
     // let data = data;
     arrDays.forEach(index => {
@@ -159,33 +185,47 @@ function GoalDetail(props) {
       currentGoal.milestones.incomplete.forEach(index => {
         if (index.dueDate === day.date) {
           day.incompleteMilestone.push(index);
-          console.log(day);
         }
       });
+
       currentGoal.milestones.complete.forEach(index => {
         if (index.dueDate === day.date) {
           day.completedMilestone.push(index);
-          console.log(day);
         }
       });
+
       configDays.push(day);
     });
-    console.log(configDays);
+
     setDays(configDays);
   };
+
+  const makeid = l => {
+    let text = "";
+    let char_list =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    for (let i = 0; i < l; i++) {
+      text += char_list.charAt(Math.floor(Math.random() * char_list.length));
+    }
+    return text;
+  };
+
   const lastFive = () => {
     let arrDays = [];
     let now = moment(currentDay)
       .subtract("5", "days")
       .format("YYYY-MM-DD");
+
     setCurrentDay(now);
     for (var i = 0; i < 5; i++) {
       // let num = [i + 1];
       let day = moment(now)
         .add(`${i}`, "days")
         .format("YYYY-MM-DD");
+
       arrDays.push(day);
     }
+
     let configDays = [];
     // let data = data;
     arrDays.forEach(index => {
@@ -197,29 +237,34 @@ function GoalDetail(props) {
       currentGoal.milestones.incomplete.forEach(index => {
         if (index.dueDate === day.date) {
           day.incompleteMilestone.push(index);
-          console.log(day);
         }
       });
+
       currentGoal.milestones.complete.forEach(index => {
         if (index.dueDate === day.date) {
           day.completedMilestone.push(index);
-          console.log(day);
         }
       });
+
       configDays.push(day);
     });
-    console.log(configDays);
+
     setDays(configDays);
   };
+
+  const oderEditRender = () => {
+    setreRender(!reRender);
+  };
+
   const getToday = () => {
     setCurrentDay(false);
     setreRender(!reRender);
   };
+
   const handleInput = event => {
     let value = event.target.value;
     let name = event.target.name;
-    console.log(value);
-    console.log(name);
+
     switch (name) {
       case "private":
         let privacy = !currentGoal.private;
@@ -229,14 +274,16 @@ function GoalDetail(props) {
         };
         API.editGoal(currentGoal.id, data).then(resp => {
           console.log(resp);
-          setGoalStatus(!goalStatus);
+          setreRender(!reRender);
         });
         break;
     }
   };
+
   if (isLoading) {
     return <Loading />;
   }
+
   return (
     <div className="row">
       <div className="col s1 nextGoalArrow">
@@ -268,7 +315,7 @@ function GoalDetail(props) {
             <div className="card-title goal-page-cardTitle">
               <div className="goal-page-sub-header">
                 <div className="switch">
-                  <p className="goal-page-privacy">
+                  <p className="goal-page-privacy white-text">
                     {currentGoal.private ? "Private" : "Public"}
                   </p>
                   <div className="goal-privacy-checkbox">
@@ -283,9 +330,24 @@ function GoalDetail(props) {
                     </label>
                   </div>
                 </div>
-                <p className="goal-page-dueDate">Due: {currentGoal.dueDate}</p>
+                <p className="goal-page-dueDate white-text">
+                  Due: {currentGoal.dueDate}
+                </p>
               </div>
-              <h3 className="goal-page-title">{currentGoal.name}</h3>
+              <h3 className="goal-page-title white-text">
+                {currentGoal.name}{" "}
+                <Modal
+                  className="material-icons goal-edit-button modal-trigger"
+                  header="Edit This Goal"
+                  btnName="edit"
+                  action="Edit"
+                  goalId={currentGoal.id}
+                  name={currentGoal.name}
+                  dueDate={currentGoal.dueDate}
+                  orderRender={oderEditRender}
+                  dataTarget={`editGoal_${makeid(5)}`}
+                />
+              </h3>
             </div>
             <div className="row">
               <div className="col s6 offset-s3">
@@ -347,7 +409,13 @@ function GoalDetail(props) {
                                     : "https://image.flaticon.com/icons/png/128/57/57117.png"
                                 }
                               />
-                              {index.username}
+
+                              <Link
+                                to={`/buddy-profile/${index.id}`}
+                                className="follower-link"
+                              >
+                                {index.username}
+                              </Link>
                             </div>
                           );
                         })}
@@ -377,6 +445,7 @@ function GoalDetail(props) {
                   >
                     fast_rewind
                   </i>
+
                   <i
                     class="material-icons day-card-controls"
                     onClick={getToday}
@@ -424,11 +493,12 @@ function GoalDetail(props) {
         </div>
       </div>
       <div className="col s1 nextGoalArrow">
-        <span>
+        <span className="tooltipped" data-position="top">
           <FontAwesomeIcon icon={faChevronRight} onClick={props.nextGoal} />
         </span>
       </div>
     </div>
   );
 }
+
 export default GoalDetail;
