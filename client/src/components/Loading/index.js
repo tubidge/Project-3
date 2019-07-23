@@ -1,7 +1,6 @@
 import React from "react";
 import loading from "../../assets/loading.svg";
 import ripple from "../../assets/Ripple-1s-200px.svg";
-import bars from "../../assets/Facebook-1s-200px.svg";
 
 const Loading = () => (
   // <div className="spinner">

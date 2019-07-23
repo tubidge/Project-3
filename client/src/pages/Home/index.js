@@ -3,12 +3,11 @@ import { Link } from "react-router-dom";
 import Footer from "../../components/Footer";
 import { useAuth0 } from "../../react-auth0-spa";
 import Dashboard from "../Dashboard";
-import image from "./pics/sea-919042_960_720.jpg";
-import image2 from "./pics/stairway-1149473_960_720.jpg";
 import josh from "./pics/Josh.jpg";
 import alex from "./pics/Alex.jpg";
 import hunter from "./pics/Hunter.jpg";
-import phil from "./pics/Labor Day Pic.jpg";
+import phil from "./pics/Phil.jpg";
+import logo from "./pics/logo.svg";
 import "./style.css";
 
 const Home = () => {
@@ -18,119 +17,83 @@ const Home = () => {
     <>
       {!isAuthenticated && (
         <>
-          <div id="index-banner" className="parallax-container">
-            <div className="section">
-              <Link to="/profile" className="login waves-effect btn right">
-                Sign Up
-              </Link>
-              <Link to="/dashboard" className=" signUp waves-effectX btn right">
+          <div id="homePage">
+            <div className="container">
+              <div className="row">
+                <div className="col s12 center-align">
+                  <span className="tagline">
+                    Share your Goals & Achieve More
+                    <br /> with
+                  </span>
+                  <h1 className="logo_HomePage">
+                    Goal<span className="logo_Den">Den</span>
+                  </h1>
+                </div>
+              </div>
+            </div>
+
+            <div className="btns_HomePage">
+              <Link to="/dashboard" className="loginBtn btn btn-large">
                 Login
               </Link>
-              <br />
-              <br />
-              <div className="container">
-                <div className="row">
-                  <div className="col s4" />
-                  <div className="col s4">
-                    <hr className="hr" />
-                  </div>
-                  <div className="col s4" />
-                </div>
-                <div className="row">
-                  <div className="center" id="title">
-                    Goal<span className="den-title">Den</span>
-                  </div>
-                  <div className="center summary">
-                    A new app that helps hold you accountable to achieve your
-                    goals.
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="parallax">
-              <img className="people" src={image} />
-              <div className="shade" />
+              <Link to="/profile" className="signUpBtn btn btn-large">
+                Sign Up
+              </Link>
             </div>
           </div>
 
-          {/* <div className="section" id="purpose">
-            <div className="container">
-              <h3 className="mb-5 font-weight-bold" id="purposeTitle">
-                Our Purpose
+          <div className="teamContainer container">
+            <div className="col">
+              <h3 className="center-align">
+                <img className="logo" src={logo} alt="Logo" />
+                <br />
+                <span className="buddyInfo">Our Team</span>
               </h3>
-              <div className="row d-flex justify-content-center mb-4 purpose">
-                <div className="col-md-6">
-                  <p className="home-text">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Quasi voluptate hic provident nulla repellat facere esse
-                    molestiae ipsa labore porro minima quam quaerat rem, natus
-                    repudiandae debitis est sit pariatur.
-                  </p>
-                  <p className="home-text">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Quasi voluptate hic provident nulla repellat facere esse
-                    molestiae ipsa labore porro minima quam quaerat rem, natus
-                    repudiandae debitis est sit pariatur. Lorem ipsum dolor sit
-                    amet, consectetur adipisicing elit. Quasi voluptate hic
-                    provident nulla repellat facere esse molestiae ipsa labore
-                    porro minima quam quaerat rem, natus repudiandae debitis est
-                    sit pariatur.
-                  </p>
+              <div className="row">
+                <div className="col s3 m3">
+                  <div className="card">
+                    <div className="card-image">
+                      <img src={alex} />
+                    </div>
+                    <div className="card-stacked">
+                      <div className="home-card-content">
+                        <p className="center">Alex</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </div> */}
-          <div className="team container">
-            <div className="section" id="team">
-              <div className="col-md-2 mb-5">
-                <h3 className="team-text mb-5 font-weight-bold">Our Team</h3>
-                <div className="row">
-                  <div className="col s3 m3">
-                    <div className="card">
-                      <div className="card-image">
-                        <img src={alex} />
-                      </div>
-                      <div className="card-stacked">
-                        <div className="home-card-content">
-                          <p className="center">Alex</p>
-                        </div>
+                <div className="col s3 m3">
+                  <div className="card">
+                    <div className="card-image">
+                      <img src={hunter} />
+                    </div>
+                    <div className="card-stacked">
+                      <div className="home-card-content">
+                        <p className="center">Hunter</p>
                       </div>
                     </div>
                   </div>
-                  <div className="col s3 m3">
-                    <div className="card">
-                      <div className="card-image">
-                        <img src={hunter} />
-                      </div>
-                      <div className="card-stacked">
-                        <div className="home-card-content">
-                          <p className="center">Hunter</p>
-                        </div>
+                </div>
+                <div className="col s3 m3">
+                  <div className="card">
+                    <div className="card-image">
+                      <img src={phil} />
+                    </div>
+                    <div className="card-stacked">
+                      <div className="home-card-content">
+                        <p className="center">Phil</p>
                       </div>
                     </div>
                   </div>
-                  <div className="col s3 m3">
-                    <div className="card">
-                      <div className="card-image">
-                        <img src={phil} />
-                      </div>
-                      <div className="card-stacked">
-                        <div className="home-card-content">
-                          <p className="center">Phil</p>
-                        </div>
-                      </div>
+                </div>
+                <div className="col s3 m3">
+                  <div className="card">
+                    <div className="card-image">
+                      <img src={josh} />
                     </div>
-                  </div>
-                  <div className="col s3 m3">
-                    <div className="card">
-                      <div className="card-image">
-                        <img src={josh} />
-                      </div>
-                      <div className="card-stacked">
-                        <div className="home-card-content">
-                          <p className="center">Josh</p>
-                        </div>
+                    <div className="card-stacked">
+                      <div className="home-card-content">
+                        <p className="center">Josh</p>
                       </div>
                     </div>
                   </div>
@@ -139,78 +102,60 @@ const Home = () => {
             </div>
           </div>
           <br />
-          <div className="parallax-container valign-wrapper">
-            <div className="row" id="quote">
-              <div className="container">
-                <div className="col m12 bold text-center white-text">
-                  <div className="text2">
-                    "I love GoalDen! I am finally able to hold myself
-                    accountable using this app. I really like that it tracks my
-                    progress and that the calendar reminds me which milestones I
-                    have that day to reach my goals." -Heather W.
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="parallax">
-              <img className="bridge" src={image2} />
-            </div>
-          </div>
-          <br />
-          <div className="container">
+          <div className="container contactContainer">
             <section id="contact">
-              <div className="col-md-4 mb-1">
-                <div className="row">
-                  <div className="contact-card col m12">
-                    <h3 className="center-align">Contact</h3>
-                    <div className="row">
-                      <form
-                        action="https://formspree.io/goal.denapp@gmail.com"
-                        method="POST"
-                        className="col m8 offset-m2 s12"
-                      >
-                        <div className="row">
-                          <div className="input-field col s12">
-                            <input
-                              id="name"
-                              type="text"
-                              name="name"
-                              placeholder="Name"
-                            />
-                          </div>
-                          <div className="input-field col s12">
-                            <input
-                              id="email"
-                              type="email"
-                              className="form-input"
-                              name="_email"
-                              placeholder="Email"
-                            />
-                          </div>
-                          <div className="input-field col s12">
-                            <textarea
-                              id="message"
-                              className="materialize-textarea"
-                              placeholder="Message"
-                              name="message"
-                            />
-                          </div>
+              <div className="row">
+                <div className="contactCard_HomePage col s12">
+                  <h3 className="center-align">
+                    <span className="buddyInfo">Contact</span>
+                  </h3>
+                  <div className="row">
+                    <form
+                      action="https://formspree.io/goal.denapp@gmail.com"
+                      method="POST"
+                      className="col m8 offset-m2 s12"
+                    >
+                      <div className="row">
+                        <div className="input-field col s12">
+                          <input
+                            id="name"
+                            type="text"
+                            name="name"
+                            placeholder="Name"
+                          />
                         </div>
-                        <div className="row">
-                          <div className="col m12">
-                            <p className="right-align">
-                              <button
-                                type="submit"
-                                className="home-buttons waves-effect btn"
-                                name="action"
-                              >
-                                Send Message
-                              </button>
-                            </p>
-                          </div>
+                        <div className="input-field col s12">
+                          <input
+                            id="email"
+                            type="email"
+                            className="form-input"
+                            name="_email"
+                            placeholder="Email"
+                          />
                         </div>
-                      </form>
-                    </div>
+                        <div className="input-field col s12">
+                          <textarea
+                            id="message"
+                            className="materialize-textarea"
+                            placeholder="Message"
+                            name="message"
+                          />
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col m12">
+                          <p className="right-align">
+                            <button
+                              type="submit"
+                              className="btn sendMessage_HomePage"
+                              name="action"
+                            >
+                              Send Message
+                            </button>
+                          </p>
+                        </div>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>

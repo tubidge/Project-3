@@ -9,6 +9,7 @@ import UserProfile from "../../components/UserProfile";
 import GoalCard from "../../components/GoalCard";
 import Chat from "../../components/Chat";
 import Cal from "../../components/Calendar";
+import defaultLionPic from "../../components/Form/lionDefaultProfilePic.jpg";
 
 import "./style.css";
 
@@ -140,7 +141,7 @@ const Dashboard = () => {
       <div className="row">
         <div className="col l3 s12" style={{ marginTop: "-130px" }}>
           <UserProfile
-            userPicture={userInfo.image ? userInfo.image : user.picture}
+            userPicture={userInfo.image ? userInfo.image : defaultLionPic}
             username={userInfo.username}
             email={userInfo.email}
             incompleteGoals={incompleteGoals}
@@ -162,18 +163,7 @@ const Dashboard = () => {
               </h5>
             </Link>
           </div>
-          {userInfo.buddies.allBuddies ? (
-            <Chat
-              userInfo={userInfo}
-              myBuddies={myBuddies}
-              buddies={allBuddies}
-              buddiesUsername={
-                allBuddies ? getUnique(allBuddies, "username") : null
-              }
-              buddiesEmail={allBuddies ? getUnique(allBuddies, "email") : null}
-              makeid={makeid}
-            />
-          ) : (
+          {!userInfo.buddies.allBuddies ? (
             <div id="noBuddies">
               <p>You don't have any Buddies... yet!</p>
               <p>
@@ -191,6 +181,17 @@ const Dashboard = () => {
                 first!
               </p>
             </div>
+          ) : (
+            <Chat
+              userInfo={userInfo}
+              myBuddies={myBuddies}
+              buddies={allBuddies}
+              buddiesUsername={
+                allBuddies ? getUnique(allBuddies, "username") : null
+              }
+              buddiesEmail={allBuddies ? getUnique(allBuddies, "email") : null}
+              makeid={makeid}
+            />
           )}
         </div>
         <div style={{ marginTop: "20px", marginBottom: "20px" }} />

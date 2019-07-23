@@ -28,6 +28,20 @@ p {
   padding: 12px 0 6px 10px;
 }
 
-#buddyGoalCard .btn-small {
+#buddyGoalCard .joinGoalBtn {
   background-color: var(--darkBlue) !important;
+}
+
+.followBtn_BuddyCard {
+  background-color: var(--accentGold) !important;
+  margin-left: 8px;
+}
+
+.buddyCardBtnDiv {
+  display: flex !important;
+  justify-content: left !important;
+}
+
+i.left {
+  margin-right: 5px !important;
 }

@@ -5,6 +5,7 @@ import FormStatic from "../../components/FormStatic";
 import API from "../../utils/API";
 import { useAuth0 } from "../../react-auth0-spa";
 import Footer from "../../components/Footer";
+import defaultLionPic from "../../components/Form/lionDefaultProfilePic.jpg";
 import "./style.css";
 
 const moment = require("moment");
@@ -42,7 +43,7 @@ const Profile = () => {
           <div className="col s2 offset-s1">
             <div className="row center-align">
               <img
-                src={userData.image ? userData.image : user.picture}
+                src={userData.image ? userData.image : defaultLionPic}
                 alt="Profile"
                 className="profile-pic center-align circle img-fluid profilePic"
               />
