@@ -292,7 +292,7 @@ function GoalDetail(props) {
         </span>
       </div>
       <div className="col s10">
-        <div id="goalCard" className="center-align card z-depth-5">
+        <div id="goalCard" className="card z-depth-5">
           <div className="row">
             <div
               className="col s12"
@@ -363,7 +363,7 @@ function GoalDetail(props) {
             <div className="row">
               {currentGoal ? (
                 <>
-                  <div className="col s5 offset-s1">
+                  <div className="col s7">
                     <ul className="collapsible">
                       <li>
                         <div className="collapsible-header milestonesListHeader">
@@ -399,14 +399,7 @@ function GoalDetail(props) {
                         <div className="collapsible-body followers-body">
                           {followers.map(index => {
                             return (
-                              <div
-                                className="chip"
-                                style={{
-                                  backgroundColor: "#d4ac0d",
-                                  color: "#10355f",
-                                  cursor: "pointer"
-                                }}
-                              >
+                              <div className="chip followerChip">
                                 <img
                                   src={
                                     index.image

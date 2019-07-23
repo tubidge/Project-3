@@ -116,9 +116,9 @@ function MilestoneForm(props) {
     return (
       <div href="milestoneForm" id="milestoneForm" className="modal">
         <div className="modal-content">
-          <form className="col s12">
+          <form className="col s10 offset-s1">
             <div className="row">
-              <div className="input-field col s10">
+              <div className="input-field col s12">
                 <input
                   type="text"
                   name="title"
@@ -131,7 +131,7 @@ function MilestoneForm(props) {
               </div>
             </div>
             <div className="row">
-              <div className="input-field col s10">
+              <div className="input-field col s12">
                 <input
                   name="dueDate"
                   type="date"
@@ -145,7 +145,7 @@ function MilestoneForm(props) {
               </div>
             </div>
             <div className="row">
-              <div className="input-field col s10">
+              <div className="input-field col s12">
                 <textarea
                   className="materialize-textarea"
                   id="milestoneNotes"
@@ -156,18 +156,24 @@ function MilestoneForm(props) {
                 <label htmlFor="milestoneNotes">Notes</label>
               </div>
             </div>
-            <button type="button" className="btn" onClick={handleSubmit}>
-              Add
-            </button>
-            <button
-              className="btn modal-close milestone-cancel-btn"
-              onClick={() => {
-                clearForm();
-                props.close("Never");
-              }}
-            >
-              Cancel
-            </button>
+            <div style={{ marginBottom: "15px" }} className="modal-footer">
+              <button
+                className="btn modal-close grey milestone-cancel-btn"
+                onClick={() => {
+                  clearForm();
+                  props.close("Never");
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="btn milestoneFormAddBtn"
+                onClick={handleSubmit}
+              >
+                Add
+              </button>
+            </div>
           </form>
         </div>
       </div>
@@ -246,7 +252,7 @@ function MilestoneForm(props) {
                 type="submit"
               >
                 Add
-                <i className="material-icons right">send</i>
+                <i className="material-icons right ">send</i>
               </button>
             </div>
           </form>

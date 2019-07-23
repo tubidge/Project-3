@@ -24,7 +24,7 @@ function DayCard(props) {
   useEffect(() => {
     setIsLoading(true);
     document.addEventListener("click", event => {
-      if (event.target.className === "day-event-item tooltipped") {
+      if (event.target.className === "day-event-item") {
         console.log(event.target);
         return false;
       } else if (milestoneSelected) {
@@ -66,9 +66,7 @@ function DayCard(props) {
         <DayEvent
           clickMilestone={clickMilestone}
           milestone={index}
-          className="day-event-item tooltipped"
-          dataPosition="top"
-          dataTooltip={index}
+          className="day-event-item"
         />
       );
     });

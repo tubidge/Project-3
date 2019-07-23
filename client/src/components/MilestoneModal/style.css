@@ -22,8 +22,7 @@
   color: var(--darkBlue);
 }
 
-.modal-milestone-card,
-.card-title {
+.modal-milestone-card {
   color: var(--darkBlue);
   background: white;
 }
@@ -79,16 +78,11 @@
   background: var(--accentGold) !important;
 }
 
+.milestoneFormAddBtn {
+  background: var(--blue) !important;
+  margin-left: 10px !important;
+}
+
 .milestone-notes-column {
   margin-top: 2.25rem;
-}
-
-.milestoneFooter {
-  margin-top: -20px !important;
-  margin-bottom: 15px !important;
-}
-
-.milestoneFormAddBtn {
-  background-color: Var(--blue) !important;
-  margin-left: 10px !important;
 }

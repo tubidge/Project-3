@@ -98,3 +98,11 @@
 .goal-page-upcomingView {
   width: 100% !important;
 }
+
+.followerChip {
+  background-color: var(--accentGold) !important;
+}
+
+.followerChip a {
+  color: white !important;
+}

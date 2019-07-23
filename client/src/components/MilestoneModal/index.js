@@ -5,12 +5,10 @@ import moment from "moment";
 import "./style.css";
 import DatePicker from "../DatePicker";
 import TimePicker from "../TimePicker";
-
 function MilestoneModal(props) {
   const [goal, setGoal] = useState("");
   const [milestone, setMilestone] = useState("");
-  const [dataTarget] = useState("milestoneModal");
-
+  const [dataTarget, setDataTarget] = useState("milestoneModal");
   useEffect(() => {
     API.getMilestone(props.id).then(data => {
       console.log(data);
@@ -38,7 +36,6 @@ function MilestoneModal(props) {
       });
     });
   }, []);
-
   useEffect(() => {
     M.AutoInit();
     let modals = document.querySelectorAll(".modal");
@@ -52,7 +49,6 @@ function MilestoneModal(props) {
     var instance = M.Modal.init(Modalelem, options);
     instance.open();
   }, []);
-
   const handleInput = event => {
     let value = event.target.value;
     let name = event.target.name;
@@ -69,11 +65,9 @@ function MilestoneModal(props) {
         data.completed = !data.completed;
         console.log(data);
         setMilestone(data);
-
         break;
     }
   };
-
   const saveMilestone = event => {
     event.preventDefault();
     console.log(milestone);
@@ -99,19 +93,15 @@ function MilestoneModal(props) {
         console.log(err);
       });
   };
-
   return (
     <>
       <div id={dataTarget} className="modal">
-        <div className="modal-content">
-          <h5>
-            <span className="buddyInfo">{goal.category} Goal</span>
-          </h5>
+        <div className="modal-content modal-milestone-content">
+          <h2 className="modal-goal-category">{goal.category} Goal</h2>
           <h4 className="left-align modal-goal-name">{goal.name}</h4>
           <h4 className="right-align modal-goal-dueDate">
             Due: {moment(goal.dueDate).format("MM/DD/YYYY")}
           </h4>
-
           <div className="card z-depth-5" style={{ border: "solid #daae37" }}>
             <div className="card-content modal-milestone-card">
               <span className="card-title" style={{ fontSize: "36px" }}>
@@ -157,7 +147,6 @@ function MilestoneModal(props) {
                         <DatePicker />
                         <TimePicker />
                       </div> */}
-
                       <div className="switch">
                         <span className="modal-milestone-complete">
                           mark as complete
@@ -196,5 +185,4 @@ function MilestoneModal(props) {
     </>
   );
 }
-
 export default MilestoneModal;

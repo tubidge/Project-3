@@ -17,8 +17,6 @@ function DayEvent(props) {
       id={props.milestone.id}
       className={props.className}
       onClick={() => props.clickMilestone(props.milestone.id)}
-      data-position={props.dataPosition}
-      data-tooltip={props.dataTooltip.name}
     >
       {props.milestone.name}
     </li>
