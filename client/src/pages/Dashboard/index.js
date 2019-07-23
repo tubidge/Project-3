@@ -163,7 +163,7 @@ const Dashboard = () => {
               </h5>
             </Link>
           </div>
-          {userInfo.buddies ? (
+          {userInfo.buddies && (
             <Chat
               userInfo={userInfo}
               myBuddies={myBuddies}
@@ -174,7 +174,8 @@ const Dashboard = () => {
               buddiesEmail={allBuddies ? getUnique(allBuddies, "email") : null}
               makeid={makeid}
             />
-          ) : (
+          )}
+          {userInfo.buddies.myBuddies.length === 0 && (
             <div id="noBuddies">
               <p>You don't have any Buddies... yet!</p>
               <p>
