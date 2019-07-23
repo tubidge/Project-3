@@ -13,12 +13,12 @@ function DayCard(props) {
   const [milestones, setMilestones] = useState(props.date.incompleteMilestone);
   const [isLoading, setIsLoading] = useState(true);
   const [reRender, setreRender] = useState(false);
-  const [total, setTotal] = useState([
-    props.date.incompleteMilestone.length + props.date.completedMilestone.length
-  ]);
-  const [complete, setComplete] = useState(
-    props.date.completedMilestone.length
-  );
+  // const [total, setTotal] = useState([
+  //   props.date.incompleteMilestone.length + props.date.completedMilestone.length
+  // ]);
+  // const [complete, setComplete] = useState(
+  //   props.date.completedMilestone.length
+  // );
   const [milestoneSelected, setmilestoneSelected] = useState(false);
 
   useEffect(() => {
@@ -126,13 +126,13 @@ function DayCard(props) {
         <div className="card-title day-card-cardTitle">
           <p className="day-card-date">{date}</p>
           <div className="day-card-buttons">
-            <p style={{ fontSize: "15px", marginLeft: "5px" }}>Todo</p>
+            <p style={{ fontSize: "15px", marginLeft: "5px" }}>To Do:</p>
             {milestoneSelected ? (
               <div>
                 <i
                   className="material-icons day-card-button"
                   onClick={completeTask}
-                  style={{ color: "#e2e77d", cursor: "pointer" }}
+                  style={{ color: "#daae37", cursor: "pointer" }}
                 >
                   check_box
                 </i>
@@ -156,8 +156,8 @@ function DayCard(props) {
             </div>
           </div>
         </div>
-        <div>
-          <p style={{ marginLeft: "5px" }}>
+        <div className="center-align">
+          <p>
             Complete: {props.date.completedMilestone.length}/{" "}
             {props.date.incompleteMilestone.length +
               props.date.completedMilestone.length}

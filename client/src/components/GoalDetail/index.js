@@ -287,12 +287,12 @@ function GoalDetail(props) {
   return (
     <div className="row">
       <div className="col s1 nextGoalArrow">
-        <span className="tooltipped" data-position="top">
+        <span>
           <FontAwesomeIcon icon={faChevronLeft} onClick={props.prevGoal} />
         </span>
       </div>
       <div className="col s10">
-        <div id="goalCard" className="card z-depth-5">
+        <div id="goalCard" className="center-align card z-depth-5">
           <div className="row">
             <div
               className="col s12"
@@ -331,7 +331,7 @@ function GoalDetail(props) {
                   </div>
                 </div>
                 <p className="goal-page-dueDate white-text">
-                  Due: {currentGoal.dueDate}
+                  Due: {moment(currentGoal.dueDate).format("MM/DD/YYYY")}
                 </p>
               </div>
               <h3 className="goal-page-title white-text">
@@ -361,71 +361,77 @@ function GoalDetail(props) {
               </div>
             </div>
             <div className="row">
-              <div className="col s5">
-                {currentGoal ? (
-                  <ul className="collapsible">
-                    <li>
-                      <div className="collapsible-header">
-                        <i className="material-icons">assignment</i>
-                        Milestones: {currentGoal.milestones.complete.length}/
-                        {currentGoal.milestones.complete.length +
-                          currentGoal.milestones.incomplete.length}
-                      </div>
-                      <div className="collapsible-body milestones-body">
-                        {frequencies.map(index => {
-                          return (
-                            <MilestonesCard
-                              frequency={index}
-                              goalId={currentGoal.id}
-                              userId={props.userId}
-                              orderProgressRender={orderProgressRender}
-                              reRender={orderRender}
-                              key={index}
-                            />
-                          );
-                        })}
-                      </div>
-                    </li>
-                    <li>
-                      <div className="collapsible-header">
-                        <i className="material-icons">directions_run</i>
-                        Followers: {followers.length}{" "}
-                      </div>
-                      <div className="collapsible-body followers-body">
-                        {followers.map(index => {
-                          return (
-                            <div
-                              className="chip"
-                              style={{
-                                backgroundColor: "#d4ac0d",
-                                color: "#10355f",
-                                cursor: "pointer"
-                              }}
-                            >
-                              <img
-                                src={
-                                  index.image
-                                    ? index.image
-                                    : "https://image.flaticon.com/icons/png/128/57/57117.png"
-                                }
+              {currentGoal ? (
+                <>
+                  <div className="col s5 offset-s1">
+                    <ul className="collapsible">
+                      <li>
+                        <div className="collapsible-header milestonesListHeader">
+                          <i className="material-icons">assignment</i>
+                          Milestones: {currentGoal.milestones.complete.length}/
+                          {currentGoal.milestones.complete.length +
+                            currentGoal.milestones.incomplete.length}
+                        </div>
+                        <div className="collapsible-body milestones-body">
+                          {frequencies.map(index => {
+                            return (
+                              <MilestonesCard
+                                frequency={index}
+                                goalId={currentGoal.id}
+                                userId={props.userId}
+                                orderProgressRender={orderProgressRender}
+                                reRender={orderRender}
+                                key={index}
                               />
-
-                              <Link
-                                to={`/buddy-profile/${index.id}`}
-                                className="follower-link"
+                            );
+                          })}
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="col s5">
+                    <ul className="collapsible">
+                      <li>
+                        <div className="collapsible-header milestonesListHeader">
+                          <i className="material-icons">directions_run</i>
+                          Followers: {followers.length}{" "}
+                        </div>
+                        <div className="collapsible-body followers-body">
+                          {followers.map(index => {
+                            return (
+                              <div
+                                className="chip"
+                                style={{
+                                  backgroundColor: "#d4ac0d",
+                                  color: "#10355f",
+                                  cursor: "pointer"
+                                }}
                               >
-                                {index.username}
-                              </Link>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </li>
-                  </ul>
-                ) : (
-                  ""
-                )}
-              </div>
+                                <img
+                                  src={
+                                    index.image
+                                      ? index.image
+                                      : "https://image.flaticon.com/icons/png/128/57/57117.png"
+                                  }
+                                />
+
+                                <Link
+                                  to={`/buddy-profile/${index.id}`}
+                                  className="follower-link"
+                                >
+                                  {index.username}
+                                </Link>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </>
+              ) : (
+                ""
+              )}
             </div>
             <div className="row">
               <div
@@ -493,7 +499,7 @@ function GoalDetail(props) {
         </div>
       </div>
       <div className="col s1 nextGoalArrow">
-        <span className="tooltipped" data-position="top">
+        <span>
           <FontAwesomeIcon icon={faChevronRight} onClick={props.nextGoal} />
         </span>
       </div>

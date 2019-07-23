@@ -27,7 +27,8 @@
 }
 
 .goalCard {
-  max-height: 200px;
+  min-height: 200px;
+  background: var(--blue) !important;
 }
 
 .card-scrollable-content {

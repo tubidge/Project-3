@@ -98,7 +98,7 @@ const GoalCard = props => {
                   <i
                     class="material-icons"
                     style={{
-                      color: "#d4ac0d",
+                      color: "#daae37",
                       cursor: "pointer",
                       transform: "scale(1.1)"
                     }}
@@ -127,7 +127,7 @@ const GoalCard = props => {
                   <i
                     class="material-icons"
                     style={{
-                      color: "#d4ac0d",
+                      color: "#daae37",
                       cursor: "pointer",
                       transform: "scale(1.1)"
                     }}
@@ -175,7 +175,7 @@ const GoalCard = props => {
                   <i
                     class="material-icons"
                     style={{
-                      color: "#d4ac0d",
+                      color: "#daae37",
                       cursor: "pointer",
                       transform: "scale(1.1)"
                     }}
@@ -204,7 +204,7 @@ const GoalCard = props => {
                   <i
                     class="material-icons"
                     style={{
-                      color: "#d4ac0d",
+                      color: "#daae37",
                       cursor: "pointer",
                       transform: "scale(1.1)"
                     }}

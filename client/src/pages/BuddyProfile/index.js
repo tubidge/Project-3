@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { useAuth0 } from "../../react-auth0-spa";
 
 import API from "../../utils/API";
@@ -22,6 +21,7 @@ const BuddyProfile = props => {
   // for the selected buddy
   const [buddyGoalInfo, setBuddyGoalInfo] = useState({});
   const [buddyIncompleteGoals, setBuddyIncompleteGoals] = useState([]);
+  const [buddyCompleteGoals, setBuddyCompleteGoals] = useState([]);
   const [buddyData, setBuddyData] = useState([]);
   const [allBuddies, setAllBuddies] = useState([]);
   const [following, setFollowing] = useState([]);
@@ -66,6 +66,7 @@ const BuddyProfile = props => {
         let goalData = res.data;
         setBuddyGoalInfo(goalData);
         setBuddyIncompleteGoals(goalData.currentGoals.incomplete);
+        setBuddyCompleteGoals(goalData.currentGoals.complete);
         setCategories(
           goalData.currentGoals.incomplete
             .map(goal => goal.category)
@@ -115,7 +116,7 @@ const BuddyProfile = props => {
       UserId: userId
     };
     API.addBuddy(data).then(res => {
-      // console.log(res.data);
+      console.log(res.data);
     });
   };
 
@@ -137,8 +138,9 @@ const BuddyProfile = props => {
             userPicture={buddyData.image ? buddyData.image : user.picture}
             username={buddyData.username}
             email={buddyData.email}
-            incompleteGoals={buddyIncompleteGoals}
-            buddies={allBuddies ? getUnique(allBuddies, "username") : null}
+            buddyIncompleteGoals={buddyIncompleteGoals}
+            buddyCompleteGoals={buddyCompleteGoals}
+            buddyBuddies={allBuddies ? getUnique(allBuddies, "username") : null}
             buddyProfile={true}
           />
         </div>
@@ -147,7 +149,6 @@ const BuddyProfile = props => {
             <BuddyGoalCard
               following={following}
               incompleteGoals={buddyIncompleteGoals}
-              addBuddy={addBuddy}
               currentUserGoals={incompleteGoals}
               addBuddy={addBuddy}
               userId={userInfo.id}

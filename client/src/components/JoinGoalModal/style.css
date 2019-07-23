@@ -12,12 +12,11 @@
   background-color: var(--darkBlue) !important;
 }
 
-#joinGoalModal .labelForSelect {
+.labelForSelect {
   position: relative;
   bottom: 7px;
   color: white;
   padding: 5px 10px;
-  background-color: #1c2833;
   background-color: var(--darkBlue);
   border-radius: 5px;
   margin-bottom: 10px;

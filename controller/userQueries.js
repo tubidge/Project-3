@@ -352,6 +352,9 @@ module.exports = {
                     }
                   })
                   .then(() => {
+                    user.activeGoals.completed.forEach(index => {
+                      user.pastGoals.completed.push(index);
+                    });
                     resolve(user);
                   });
               })

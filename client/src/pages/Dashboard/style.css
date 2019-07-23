@@ -33,11 +33,6 @@ body {
   transition: all 0.3s ease-in-out 0s;
 }
 
-.hero-image {
-  background: #34495e;
-  height: 200px;
-}
-
 .nextArrow {
   height: 200px;
   line-height: 200px;
@@ -82,11 +77,8 @@ body {
     -90deg,
     rgba(16, 42, 70, 1) 0%,
     rgba(56, 90, 124, 1) 100%
-  ); /* Chrome10-25,Safari5.1-6 */
-  /* background-image: url("./pics/lighthouse.jpg") !important; */
-  min-height: 200px;
-  /* background-repeat: no-repeat !important;
-  background-size: cover !important; */
+  );
+  min-height: 225px;
 }
 
 .nextArrow {

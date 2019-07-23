@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useAuth0 } from "../../react-auth0-spa";
 import GoalDetail from "../../components/GoalDetail";
 import GoalOverview from "../../components/GoalOverview";
 import UserProfile from "../../components/UserProfile";
+import Chat from "../../components/Chat";
 import M from "materialize-css";
 import "./style.css";
 import API from "../../utils/API";
-import Loading from "../../components/Loading";
+import defaultLionPic from "../../components/Form/lionDefaultProfilePic.jpg";
 
 const Goals = props => {
   const { loading, user } = useAuth0();
@@ -28,21 +30,17 @@ const Goals = props => {
 
   useEffect(() => {
     M.AutoInit();
-
     getAllData();
   }, [currentGoal, reRender]);
 
   const getAllData = () => {
     API.getGoalPageInfo(user.email).then(resp => {
-      console.log(resp);
       let userData = resp.data;
-
       setGoalInfo(userData.activeGoals);
       if (userData.buddies) {
         setAllBuddies(userData.buddies.allBuddies);
         setMyBuddies(userData.buddies.myBuddies);
       }
-
       let current = [];
       current.push(userData.activeGoals.incomplete);
       current.push(userData.activeGoals.completed);
@@ -57,7 +55,6 @@ const Goals = props => {
           past.push(index);
         }
       });
-
       setCurrentGoals(current);
       setPastGoals(past);
       setIncompleteGoals(userData.activeGoals.incomplete);
@@ -72,6 +69,7 @@ const Goals = props => {
           )
       );
       setUserInfo(userData);
+      console.log(userData);
       setIsLoading(false);
     });
   };
@@ -167,22 +165,46 @@ const Goals = props => {
           {userInfo ? (
             <>
               <UserProfile
-                userPicture={userInfo.image ? userInfo.image : user.picture}
+                userPicture={userInfo.image ? userInfo.image : defaultLionPic}
                 username={userInfo.username}
                 email={userInfo.email}
-                completeGoals={completeGoals}
                 incompleteGoals={incompleteGoals}
+                completeGoals={completeGoals}
                 buddies={allBuddies ? getUnique(allBuddies, "username") : null}
               />
-              {/* <BuddyList
+              {userInfo.buddies && (
+                <Chat
+                  userInfo={userInfo}
                   myBuddies={myBuddies}
-                  userEmail={userInfo.email}
-                  userID={userInfo.id}
-                  makeid={makeid}
-                  buddies={
+                  buddies={allBuddies}
+                  buddiesUsername={
                     allBuddies ? getUnique(allBuddies, "username") : null
                   }
-                />{" "} */}
+                  buddiesEmail={
+                    allBuddies ? getUnique(allBuddies, "email") : null
+                  }
+                  makeid={makeid}
+                />
+              )}
+              {!userInfo.buddies && (
+                <div id="noBuddies">
+                  <p>You don't have any Buddies... yet!</p>
+                  <p>
+                    If you are having a hard time finding Buddies, just{" "}
+                    <Link
+                      to="/buddies"
+                      style={{ borderBottom: "1px dashed #2867aa" }}
+                    >
+                      click here
+                    </Link>
+                    to generate some matches based on your goals!
+                  </p>
+                  <p>
+                    So if you haven't added any goals, you may want to do that
+                    first!
+                  </p>
+                </div>
+              )}
             </>
           ) : (
             ""

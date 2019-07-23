@@ -1,4 +1,16 @@
 .confirm-modal-footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: left;
+}
+
+#confirmModal {
+  width: 50%;
+}
+
+#confirmModal .btn {
+  margin: 0 10px 10px 10px !important;
+}
+
+#confirmModal .deleteBtn {
+  background-color: var(--blue) !important;
 }

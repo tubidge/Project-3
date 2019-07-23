@@ -6,8 +6,7 @@ import "./style.css";
 import ChatButton from "../ChatButton";
 
 const BuddyList = props => {
-  // const [buddies, setBuddies] = useState(props.buddies);
-  const [buddies, setBuddies] = useState(props.allBuddies);
+  const [buddies] = useState(props.allBuddies);
   const fade = useSpring({
     from: {
       opacity: 0
@@ -32,6 +31,18 @@ const BuddyList = props => {
     });
   };
 
+  const getJoinedGoals = username => {
+    return props.allBuddies
+      .filter(index => index.username === username)
+      .map(index => (
+        <span key={`${index.buddyId}_${props.makeid(5)}`}>
+          <span className="buddyInfo truncate">{index.buddyGoal}</span>
+          <i className="tiny material-icons">call_missed_outgoing</i>
+          <span className="userGoal">{index.userGoal}</span>
+        </span>
+      ));
+  };
+
   return (
     <animated.div style={fade}>
       <section id="buddiesList">
@@ -50,26 +61,11 @@ const BuddyList = props => {
                   </Link>
                 </span>
                 <div id="buddyGoal">
-                  <p>
-                    {props.allBuddies
-                      .filter(index => index.username === buddy.username)
-                      .map(index => (
-                        <>
-                          <li key={index.buddyId}>
-                            <span className="buddyInfo truncate">
-                              {index.buddyGoal}
-                            </span>
-                            <i className="tiny material-icons">
-                              call_missed_outgoing
-                            </i>
-                            <span className="userGoal">{index.userGoal}</span>
-                          </li>
-                        </>
-                      ))}
-                  </p>
+                  <p>{getJoinedGoals(buddy.username)}</p>
                 </div>
                 <Link to="#" className="secondary-content">
                   <ChatButton
+                    key={buddy.buddyId}
                     openChannel={props.openChannel}
                     channel={buddy.channel}
                     user={buddy.email}

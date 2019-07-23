@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useSpring, animated } from "react-spring";
 import "./style.css";
 import ChatMessage from "../ChatMessage";
 // This chatbox should render a card that takes in props for the current channel and sends those props to a hook that then populates the card
@@ -14,10 +13,10 @@ function ChatBox(props) {
   }, [props.messages.length]);
 
   useEffect(() => {
-    findBuddyUsername(
-      props.buddies,
-      props.messages[0].mentionedUsers[0].userId
-    );
+    // findBuddyUsername(
+    //   props.buddies,
+    //   props.messages[0].mentionedUsers[0].userId
+    // );
     document
       .getElementById("messageField")
       .addEventListener("keydown", function(event) {
@@ -42,8 +41,8 @@ function ChatBox(props) {
       <div className="card">
         <div className="card-content">
           <span className="card-title">
-            {/* Chat with your <span className="buddyInfoInvert">Buddy</span> */}
-            Chat with <span className="buddyInfoInvert">{buddyUsername}</span>
+            Chat with your <span className="buddyInfoInvert">Buddy</span>
+            {/* Chat with <span className="buddyInfoInvert">{buddyUsername}</span> */}
             <i className="material-icons right" onClick={props.exit}>
               close
             </i>

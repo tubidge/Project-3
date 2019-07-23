@@ -82,3 +82,13 @@
 .milestone-notes-column {
   margin-top: 2.25rem;
 }
+
+.milestoneFooter {
+  margin-top: -20px !important;
+  margin-bottom: 15px !important;
+}
+
+.milestoneFormAddBtn {
+  background-color: Var(--blue) !important;
+  margin-left: 10px !important;
+}

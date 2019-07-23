@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useSpring, animated } from "react-spring";
 import JoinGoalModal from "../JoinGoalModal";
 import M from "materialize-css";
@@ -22,8 +22,6 @@ const BuddyGoalCard = props => {
       ids.push(index.id);
       keys.push(index);
     });
-    console.log(ids);
-    console.log(keys);
 
     if (ids.includes(id)) {
       let num = ids.indexOf(id);

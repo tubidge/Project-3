@@ -9,7 +9,7 @@ import TimePicker from "../TimePicker";
 function MilestoneModal(props) {
   const [goal, setGoal] = useState("");
   const [milestone, setMilestone] = useState("");
-  const [dataTarget, setDataTarget] = useState("milestoneModal");
+  const [dataTarget] = useState("milestoneModal");
 
   useEffect(() => {
     API.getMilestone(props.id).then(data => {
@@ -103,8 +103,10 @@ function MilestoneModal(props) {
   return (
     <>
       <div id={dataTarget} className="modal">
-        <div className="modal-content modal-milestone-content">
-          <h2 className="modal-goal-category">{goal.category} Goal</h2>
+        <div className="modal-content">
+          <h5>
+            <span className="buddyInfo">{goal.category} Goal</span>
+          </h5>
           <h4 className="left-align modal-goal-name">{goal.name}</h4>
           <h4 className="right-align modal-goal-dueDate">
             Due: {moment(goal.dueDate).format("MM/DD/YYYY")}

@@ -250,7 +250,7 @@ function GoalOverview(props) {
 
   const completeGoal = (id, name) => {
     setSelectedGoal(id);
-    setConfirmMessage(`This will complete your goal journey for ${name}`);
+    setConfirmMessage(`This will complete your goal journey for '${name}'`);
     setConfirmType("Complete");
     openConfirmModal();
   };
@@ -310,10 +310,7 @@ function GoalOverview(props) {
               <div className="card-content">
                 <div className="row">
                   <h3 className="center-align">
-                    <span
-                      style={{ top: "-20px" }}
-                      className="goalCategory_GoalPage"
-                    >
+                    <span className="goalCategory_GoalPage">
                       {props.category} Goals
                     </span>
                   </h3>

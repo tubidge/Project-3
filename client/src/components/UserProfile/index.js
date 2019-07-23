@@ -29,7 +29,7 @@ const UserProfile = props => {
     },
     opacity: 1
   });
-  // this works! Just creat a function to make it cleaner
+
   const [financialGoals, setFinancialGoals] = useState("");
   const [fitnessGoals, setFitnessGoals] = useState("");
   const [travelGoals, setTravelGoals] = useState("");
@@ -170,7 +170,9 @@ const UserProfile = props => {
             </span>
             <br />
             <span style={{ fontSize: "1.1em" }}>
-              {props.incompleteGoals.length}
+              {props.buddyProfile
+                ? props.buddyIncompleteGoals.length
+                : props.incompleteGoals.length}
             </span>
           </div>
           <div className="col s6">
@@ -185,8 +187,31 @@ const UserProfile = props => {
         </div>
         <div className="row center-align" style={{ marginBottom: "10px" }}>
           <span className="buddyInfo">
-            Completed {props.completeGoals ? props.completeGoals.length : 0}/
-            {props.incompleteGoals.length + props.completeGoals.length} goals
+            {!props.buddyProfile &&
+              (props.completeGoals && (
+                <>
+                  Completed{" "}
+                  {props.completeGoals ? props.completeGoals.length : 0}/
+                  {props.incompleteGoals
+                    ? props.incompleteGoals.length + props.completeGoals.length
+                    : 0}
+                </>
+              ))}
+            {props.buddyProfile &&
+              (props.buddyCompleteGoals && (
+                <>
+                  Completed{" "}
+                  {props.buddyCompleteGoals
+                    ? props.buddyCompleteGoals.length
+                    : 0}
+                  /
+                  {props.incompleteGoals
+                    ? props.buddyIncompleteGoals.length +
+                      props.buddyCompleteGoals.length
+                    : 0}
+                </>
+              ))}{" "}
+            goals
           </span>
         </div>
         <hr style={{ marginTop: "0", margin: "3px", width: "100%" }} />

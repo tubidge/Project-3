@@ -175,13 +175,14 @@ function MilestoneForm(props) {
   } else {
     return (
       <div href="milestoneForm" id="milestoneForm" className="modal">
-        <div className="modal-content">
-          <h4 style={{ textAlign: "center" }}>
-            New {props.frequency} Milestone
-          </h4>
-          <form className="col s12">
+        <div className="modal-content center-align">
+          <h5>
+            <span className="buddyInfo">New {props.frequency} Milestone</span>
+          </h5>
+          <form className="col s10 offset-s1">
             <div className="row">
-              <div className="input-field col s10">
+              <div className="input-field col s12 left-align">
+                <span className="labelForSelect">Name</span>
                 <input
                   type="text"
                   name="title"
@@ -190,12 +191,12 @@ function MilestoneForm(props) {
                   placeholder=""
                   onChange={handleInput}
                 />
-                <label htmlFor="milestoneTitle">Title</label>
               </div>
             </div>
 
             <div className="row">
-              <div className="input-field col s10">
+              <div className="input-field col s12 left-align">
+                <span className="labelForSelect">Start Date </span>
                 <input
                   name="startDate"
                   type="date"
@@ -204,11 +205,11 @@ function MilestoneForm(props) {
                   placeholder=""
                   onChange={handleInput}
                 />
-                <label htmlFor="milestoneStart">Start Date</label>
               </div>
             </div>
             <div className="row">
-              <div className="input-field col s10">
+              <div className="input-field col s12 left-align">
+                <span className="labelForSelect">End Date </span>
                 <input
                   name="endDate"
                   type="date"
@@ -216,11 +217,11 @@ function MilestoneForm(props) {
                   id="milestoneEnd"
                   onChange={handleInput}
                 />
-                <label htmlFor="milestoneEnd">End Date</label>
               </div>
             </div>
             <div className="row">
-              <div className="input-field col s10">
+              <div className="input-field col s12 left-align">
+                <span className="labelForSelect">Notes</span>
                 <textarea
                   className="materialize-textarea"
                   id="milestoneNotes"
@@ -228,18 +229,26 @@ function MilestoneForm(props) {
                   name="notes"
                   onChange={handleInput}
                 />
-                <label htmlFor="milestoneNotes">Notes</label>
               </div>
             </div>
-            <button type="button" className="btn" onClick={handleSubmit}>
-              Add
-            </button>
-            <button
-              className="btn modal-close milestone-cancel-btn"
-              onClick={() => props.close("cancel")}
-            >
-              Cancel
-            </button>
+            <div className="milestoneFooter modal-footer">
+              <span
+                onClick={() => props.close("cancel")}
+                className="btn modal-close grey milestoneCancelBtn"
+              >
+                Cancel
+                <i className="material-icons right">cancel</i>
+              </span>
+
+              <button
+                onClick={handleSubmit}
+                className="milestoneFormAddBtn btn"
+                type="submit"
+              >
+                Add
+                <i className="material-icons right">send</i>
+              </button>
+            </div>
           </form>
         </div>
       </div>

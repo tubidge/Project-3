@@ -8,28 +8,30 @@
 }
 .milestones-card-title {
   text-align: center;
-  background-color: #10355f;
-  color: #e2e77d;
+  color: white;
 }
 .milestones-card {
-  background-color: #e2e77d;
+  background-color: var(--accentGold);
 }
 .milestones-card-body {
-  background-color: #10355f;
-  height: 15rem;
+  background-color: var(--blue);
+  min-height: 15rem;
   max-height: 15rem;
   overflow: scroll;
 }
 .milestones-card-footer {
-  background-color: #e2e77d !important;
-  color: #10355f;
+  background-color: var(--accentGold) !important;
   display: flex;
   justify-content: space-between;
 }
 .milestones-card-button {
-  background-color: #10355f;
-  color: #e2e77d;
+  background-color: var(--blue) !important;
+  color: white !important;
 }
 .chip:hover {
   transform: scale(1.05);
+}
+
+.milestonesListHeader {
+  color: var(--blue) !important;
 }

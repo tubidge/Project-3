@@ -1,6 +1,6 @@
 .day-card {
   height: 25rem;
-  width: 18rem;
+  width: 15rem;
   padding: 0px;
 }
 .day-card-cardTitle {
@@ -15,7 +15,7 @@
 .day-card-date {
   font-size: 1rem;
   text-align: center;
-  border-bottom: 3px solid #1a237e;
+  border-bottom: 3px solid var(--darkBlue);
 }
 .day-card-add {
   text-align: right;
@@ -23,7 +23,8 @@
   padding: 0px;
 }
 .day-card-icon {
-  color: #e2e77d;
+  color: var(--accentGold);
+  padding: 7px;
 }
 .day-card-icon:hover {
   cursor: pointer;

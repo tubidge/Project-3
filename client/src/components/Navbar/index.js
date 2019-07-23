@@ -30,7 +30,7 @@ const Navbar = () => {
           <div className="navbar-fixed">
             <nav>
               <div className="nav-wrapper">
-                <NavLink to="/dashboard" className="brand-logo">
+                <NavLink to="/" className="brand-logo">
                   Goal<span>Den</span>
                 </NavLink>
                 {userInfo.username ? (
@@ -51,7 +51,7 @@ const Navbar = () => {
                 </NavLink>
                 <ul className="right hide-on-med-and-down">
                   <li>
-                    <NavLink to="/dashboard" activeClassName="active">
+                    <NavLink to="/" activeClassName="active">
                       Dashboard
                     </NavLink>
                   </li>
@@ -122,7 +122,7 @@ const Navbar = () => {
               <Link to="/profile">Profile</Link>
             </li>
             <li>
-              <Link to="/dashboard">Dashboard</Link>
+              <Link to="/">Dashboard</Link>
             </li>
             <li>
               <Link to="/goals">Goals</Link>

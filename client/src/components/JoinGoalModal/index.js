@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import Select from "react-select";
 import M from "materialize-css";
 import "./style.css";
@@ -19,11 +18,6 @@ const JoinGoalModal = props => {
       outDuration: 400
     };
     M.Modal.init(modals, modalOptions);
-
-    let toasts = document.querySelectorAll(".toast");
-    let toastOptions = {
-      displayLength: 2000
-    };
   }, []);
 
   const clearFields = () => {
@@ -76,9 +70,11 @@ const JoinGoalModal = props => {
               Join <span className="buddyInfo">{props.buddyGoalName}</span>
             </h5>
             <p>
+              Select which of your goals you want to link to this goal.
+              <br />
               When you select a goal, you and{" "}
               <span className="buddyInfo">{props.buddyName}</span> will become
-              buddies for the duration you choose.
+              Buddies for the duration you choose.
             </p>
             <div
               className="col l10 offset-l1 s12"

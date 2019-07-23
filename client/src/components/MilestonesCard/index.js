@@ -88,7 +88,7 @@ function MilestonesCard(props) {
         ) : (
           ""
         )}
-        <div className="card milestones-card z-depth-5">
+        <div className="card milestones-card z-depth-3">
           <div className="card-content white-text milestones-card-body">
             <span className="card-title milestones-card-title">
               {props.frequency} Milestones
@@ -99,7 +99,6 @@ function MilestonesCard(props) {
                   selected={milestoneSelected}
                   id={index.name}
                   className="chip"
-                  style={{ color: "#10355f", cursor: "pointer" }}
                   onClick={() => clickMilestone(index.name, index.frequency)}
                 >
                   {index.name}
@@ -110,18 +109,14 @@ function MilestonesCard(props) {
           <div className="card-action milestones-card-footer">
             <button
               className="btn milestones-card-button"
-              style={{ backgroundColor: "#10355f", color: "#e2e77d" }}
               onClick={() => openNewMilestone(props.frequency)}
             >
-              <i className="material-icons right" style={{ color: "#e2e77d" }}>
-                add_to_photos
-              </i>
+              <i className="material-icons right">add_to_photos</i>
               New {props.frequency}
             </button>
             {milestoneSelected ? (
               <button
                 className="btn milestones-card-button"
-                style={{ backgroundColor: "#10355f", color: "#e2e77d" }}
                 onClick={openConfirmModal}
               >
                 Delete

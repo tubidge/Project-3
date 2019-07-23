@@ -5,10 +5,9 @@ import "./style.scss";
 import "./style.css";
 import API from "../../utils/API";
 import MilestoneModal from "../MilestoneModal";
-import { Modal, Button } from "react-materialize";
 import M from "materialize-css";
 
-export default class Cal extends React.Component {
+export default class Cal extends Component {
   state = {
     events: [],
     currentMilestoneId: null
