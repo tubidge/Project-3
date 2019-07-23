@@ -19,6 +19,7 @@ require("./routes/goalRoutes")(app);
 require("./routes/milestoneRoutes")(app);
 require("./routes/buddyRoutes")(app);
 require("./routes/messageRoutes")(app);
+require("./routes/followerRoutes")(app);
 
 const syncOptions = {
   force: false

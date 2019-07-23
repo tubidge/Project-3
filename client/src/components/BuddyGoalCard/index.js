@@ -1,6 +1,8 @@
 import React from "react";
 import { useSpring, animated } from "react-spring";
 import JoinGoalModal from "../JoinGoalModal";
+import M from "materialize-css";
+import API from "../../utils/API";
 import "./style.css";
 
 const BuddyGoalCard = props => {
@@ -12,6 +14,17 @@ const BuddyGoalCard = props => {
       marginTop: 0
     }
   });
+
+  const follow = (id, name) => {
+    API.addFollower({
+      follower: props.userId,
+      GoalId: id
+    }).then(res => {
+      if (res) {
+        M.toast({ html: `Following '${name}'` });
+      }
+    });
+  };
 
   const makeid = l => {
     let text = "";
@@ -45,6 +58,12 @@ const BuddyGoalCard = props => {
                   buddyId={props.buddyId}
                   buddyGoalId={goal.id}
                 />
+                <button
+                  onClick={() => follow(goal.id, goal.name)}
+                  className="small btn followBtn_BuddyCard"
+                >
+                  Follow
+                </button>
               </div>
             </div>
           </div>
