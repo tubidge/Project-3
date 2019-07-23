@@ -115,7 +115,7 @@ const BuddyProfile = props => {
       UserId: userId
     };
     API.addBuddy(data).then(res => {
-      // console.log(res.data);
+      console.log(res.data);
     });
   };
 

@@ -186,7 +186,7 @@ const UserProfile = props => {
         <div className="row center-align" style={{ marginBottom: "10px" }}>
           <span className="buddyInfo">
             Completed {props.completeGoals ? props.completeGoals.length : 0}/
-            {props.incompleteGoals.length + props.completeGoals.length} goals
+            {props.incompleteGoals ? props.incompleteGoals.length : 0} goals
           </span>
         </div>
         <hr style={{ marginTop: "0", margin: "3px", width: "100%" }} />
