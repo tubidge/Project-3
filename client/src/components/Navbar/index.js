@@ -30,7 +30,7 @@ const Navbar = () => {
           <div className="navbar-fixed">
             <nav>
               <div className="nav-wrapper">
-                <NavLink to="/dashboard" className="brand-logo">
+                <NavLink to="/" className="brand-logo">
                   Goal<span>Den</span>
                 </NavLink>
                 {userInfo.username ? (

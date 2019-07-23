@@ -29,6 +29,7 @@ const Dashboard = () => {
 
   let stopIndex;
   let activeCategories = [];
+  const email = user.email;
 
   useEffect(() => {
     getAllData();
@@ -58,7 +59,7 @@ const Dashboard = () => {
   };
 
   const getAllData = () => {
-    API.getUserByEmail(user.email).then(resp => {
+    API.getUserByEmail(email).then(resp => {
       let userData = resp.data;
       API.getAllGoals(userData.id).then(res => {
         let goalData = res.data;
@@ -175,7 +176,7 @@ const Dashboard = () => {
               makeid={makeid}
             />
           )}
-          {userInfo.buddies.myBuddies.length === 0 && (
+          {userInfo.buddies.length === 0 && (
             <div id="noBuddies">
               <p>You don't have any Buddies... yet!</p>
               <p>
@@ -185,7 +186,7 @@ const Dashboard = () => {
                   style={{ borderBottom: "1px dashed #2867aa" }}
                 >
                   click here
-                </Link>{" "}
+                </Link>
                 to generate some matches based on your goals!
               </p>
               <p>
