@@ -41,7 +41,7 @@ function ChatBox(props) {
       <div className="card">
         <div className="card-content">
           <span className="card-title">
-            Chat with your <span className="buddyInfoInvert">Buddy</span>
+            Chat with your Buddy
             {/* Chat with <span className="buddyInfoInvert">{buddyUsername}</span> */}
             <i className="material-icons right" onClick={props.exit}>
               close
