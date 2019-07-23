@@ -20,16 +20,18 @@ const Profile = () => {
   }, []);
 
   const getUserProfile = () => {
-    API.getUserByEmail(user.email).then(res => {
-      setUserData(res.data);
-      console.log(
-        `Account Created: ${moment(res.data.created).format("llll")}`
-      );
-      if (res.data.created !== undefined) {
-        setNew(false);
-      }
-      setIsLoading(false);
-    });
+    if (user) {
+      API.getUserByEmail(user.email).then(res => {
+        setUserData(res.data);
+        console.log(
+          `Account Created: ${moment(res.data.created).format("llll")}`
+        );
+        if (res.data.created !== undefined) {
+          setNew(false);
+        }
+        setIsLoading(false);
+      });
+    }
   };
 
   if (loading || !user) {
