@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import { confirmAlert } from "react-confirm-alert";
 import FileUpload from "../FileUpload";
+import defaultLionPic from "./lionDefaultProfilePic.jpg";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import "./style.css";
 
@@ -15,7 +16,7 @@ const Form = props => {
 
   const handleSumbit = e => {
     e.preventDefault();
-    const image = props.image;
+    const image = defaultLionPic;
     confirmAlert({
       title: "Create your account",
       message: "Is everything right?",

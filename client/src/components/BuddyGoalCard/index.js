@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSpring, animated } from "react-spring";
 import JoinGoalModal from "../JoinGoalModal";
 import M from "materialize-css";
@@ -15,6 +15,35 @@ const BuddyGoalCard = props => {
     }
   });
 
+  const renderFollowBtn = (id, name) => {
+    let ids = [];
+    props.following.forEach(index => {
+      ids.push(index.id);
+    });
+
+    if (ids.includes(id)) {
+      return (
+        <button
+          onClick={() => follow(id, name)}
+          className="btn followBtn_BuddyCard"
+        >
+          <i className="material-icons left followIcon">directions_run</i>
+          Unfollow
+        </button>
+      );
+    } else {
+      return (
+        <button
+          onClick={() => follow(id, name)}
+          className="btn followBtn_BuddyCard"
+        >
+          <i className="material-icons left followIcon">directions_run</i>
+          Follow
+        </button>
+      );
+    }
+  };
+
   const follow = (id, name) => {
     API.addFollower({
       follower: props.userId,
@@ -23,6 +52,12 @@ const BuddyGoalCard = props => {
       if (res) {
         M.toast({ html: `Following '${name}'` });
       }
+    });
+  };
+
+  const unFollow = id => {
+    API.deleteFollower(id).then(res => {
+      console.log(res);
     });
   };
 
@@ -45,11 +80,11 @@ const BuddyGoalCard = props => {
               <div className="card-title">{goal.name}</div>
               <p>Category: {goal.category}</p>
               <p>Due Date: {goal.dueDate}</p>
-              <div className="card-action">
+              <div className="card-action buddyCardBtnDiv">
                 <JoinGoalModal
-                  className="modal-trigger btn-small"
+                  className="modal-trigger joinGoalBtn btn"
                   btnName={"Join goal"}
-                  dataTarget={`joinGoal_${goal.id}}`}
+                  dataTarget={`joinGoal_${goal.id}`}
                   currentUserGoals={props.currentUserGoals}
                   addBuddy={props.addBuddy}
                   buddyName={props.buddyName}
@@ -58,12 +93,7 @@ const BuddyGoalCard = props => {
                   buddyId={props.buddyId}
                   buddyGoalId={goal.id}
                 />
-                <button
-                  onClick={() => follow(goal.id, goal.name)}
-                  className="small btn followBtn_BuddyCard"
-                >
-                  Follow
-                </button>
+                {renderFollowBtn(goal.id, goal.name)}
               </div>
             </div>
           </div>
