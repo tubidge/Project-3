@@ -204,6 +204,7 @@ function GoalOverview(props) {
         return false;
       }
     });
+
     setPastView(results);
   };
 

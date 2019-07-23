@@ -234,43 +234,39 @@ module.exports = {
               incomplete: []
             }
           };
-
-          const getBuddies = id => {
+          const getBuddies = async id => {
             console.log(`getbuddies id ${id}`);
-            helper
-              .asyncForEach(id, async event => {
-                console.log("test");
+            console.log("test");
 
-                await buddy
-                  .getAllBuddiesId(id)
-                  .then(resp => {
-                    console.log(resp);
-                    console.log("resp");
-                    if (resp.length > 0) {
-                      resp.forEach(index => {
-                        console.log("index");
-                        console.log(index);
-                        if (index.active) {
-                          const myBuddy = {};
-                          myBuddy.id = index.id;
-                          myBuddy.duration = index.duration;
-                          myBuddy.active = index.active;
-                          myBuddy.buddyId = index.buddyId;
-                          myBuddy.buddyGoal = index.buddyGoal;
-                          myBuddy.channel = index.chatChannel;
-                          myBuddy.goalId = index.goalId;
-                          myBuddy.ownerId = index.ownerId;
-                          console.log(myBuddy);
-                          user.buddies.myBuddies.push(myBuddy);
-                        } else {
-                          return false;
-                        }
-                      });
+            await buddy
+              .getAllBuddiesId(id)
+              .then(resp => {
+                console.log("where the fuck is this");
+                console.log(resp);
+                console.log("resp");
+                if (resp.length > 0) {
+                  resp.forEach(index => {
+                    console.log("index");
+                    console.log(index);
+                    if (index.active) {
+                      const myBuddy = {};
+                      myBuddy.id = index.id;
+                      myBuddy.duration = index.duration;
+                      myBuddy.active = index.active;
+                      myBuddy.endDate = index.endDate;
+                      myBuddy.buddyId = index.buddyId;
+                      myBuddy.buddyGoal = index.buddyGoal;
+                      myBuddy.channel = index.chatChannel;
+                      myBuddy.goalId = index.goalId;
+                      myBuddy.ownerId = index.ownerId;
+                      myBuddy.image = index.image;
+                      console.log(myBuddy);
+                      user.buddies.myBuddies.push(myBuddy);
+                    } else {
+                      return false;
                     }
-                  })
-                  .catch(err => {
-                    console.log(err);
                   });
+                }
               })
               .then(() => {
                 const buddyArr = [];
@@ -278,8 +274,29 @@ module.exports = {
                   .asyncForEach(user.buddies.myBuddies, async event => {
                     console.log(event);
                     console.log(typeof event.buddyId);
+                    const getGoal = id => {
+                      goalQuery.getBasicGoal(id).then(resp => {
+                        console.log("=========-------=======");
+                        console.log("BUDDY");
+                        console.log(resp);
+                        goalName = resp.name;
+                      });
+                    };
+                    const getUserGoal = id => {
+                      goalQuery.getBasicGoal(id).then(resp => {
+                        console.log("=========-------=======");
+                        console.log("USER");
+                        console.log(resp);
+                        userGoal = resp.name;
+                      });
+                    };
+
                     console.log("this is the event");
                     console.log(typeof id);
+                    let goalName;
+                    let userGoal;
+                    getUserGoal(event.goalId);
+                    getGoal(event.buddyGoal);
                     if (parseInt(id) === event.buddyId) {
                       console.log("true");
                       await db.User.findAll({
@@ -293,7 +310,14 @@ module.exports = {
                           id: event.id,
                           email: resp[0].dataValues.email,
                           username: resp[0].dataValues.username,
-                          channel: event.channel
+                          channel: event.channel,
+                          endDate: event.endDate,
+                          buddyId: resp[0].dataValues.id,
+
+                          image: resp[0].dataValues.image,
+
+                          buddyGoal: userGoal,
+                          userGoal: goalName
                         };
 
                         buddyArr.push(buddyData);
@@ -313,7 +337,12 @@ module.exports = {
                           id: event.id,
                           email: resp[0].dataValues.email,
                           username: resp[0].dataValues.username,
-                          channel: event.channel
+                          channel: event.channel,
+                          endDate: event.endDate,
+                          buddyId: resp[0].dataValues.id,
+                          image: resp[0].dataValues.image,
+                          buddyGoal: goalName,
+                          userGoal: userGoal
                         };
 
                         buddyArr.push(buddyData);
@@ -323,15 +352,110 @@ module.exports = {
                     }
                   })
                   .then(() => {
-                    user.activeGoals.completed.forEach(index => {
-                      user.pastGoals.completed.push(index);
-                    });
-                    
-
                     resolve(user);
                   });
+              })
+              .catch(err => {
+                console.log(err);
               });
           };
+
+          // const getBuddies = id => {
+          //   console.log(`getbuddies id ${id}`);
+          //   helper
+          //     .asyncForEach(id, async event => {
+          //       console.log("test");
+
+          //       await buddy
+          //         .getAllBuddiesId(id)
+          //         .then(resp => {
+          //           console.log(resp);
+          //           console.log("resp");
+          //           if (resp.length > 0) {
+          //             resp.forEach(index => {
+          //               console.log("index");
+          //               console.log(index);
+          //               if (index.active) {
+          //                 const myBuddy = {};
+          //                 myBuddy.id = index.id;
+          //                 myBuddy.duration = index.duration;
+          //                 myBuddy.active = index.active;
+          //                 myBuddy.buddyId = index.buddyId;
+          //                 myBuddy.buddyGoal = index.buddyGoal;
+          //                 myBuddy.channel = index.chatChannel;
+          //                 myBuddy.goalId = index.goalId;
+          //                 myBuddy.ownerId = index.ownerId;
+          //                 console.log(myBuddy);
+          //                 user.buddies.myBuddies.push(myBuddy);
+          //               } else {
+          //                 return false;
+          //               }
+          //             });
+          //           }
+          //         })
+          //         .catch(err => {
+          //           console.log(err);
+          //         });
+          //     })
+          //     .then(() => {
+          //       const buddyArr = [];
+          //       helper
+          //         .asyncForEach(user.buddies.myBuddies, async event => {
+          //           console.log(event);
+          //           console.log(typeof event.buddyId);
+          //           console.log("this is the event");
+          //           console.log(typeof id);
+          //           if (parseInt(id) === event.buddyId) {
+          //             console.log("true");
+          //             await db.User.findAll({
+          //               where: {
+          //                 id: event.ownerId
+          //               }
+          //             }).then(resp => {
+          //               console.log("async await");
+          //               console.log(resp);
+          //               const buddyData = {
+          //                 id: event.id,
+          //                 email: resp[0].dataValues.email,
+          //                 username: resp[0].dataValues.username,
+          //                 channel: event.channel
+          //               };
+
+          //               buddyArr.push(buddyData);
+          //               console.log(buddyArr);
+          //               user.buddies.allBuddies = buddyArr;
+          //             });
+          //           } else {
+          //             console.log("false");
+          //             await db.User.findAll({
+          //               where: {
+          //                 id: event.buddyId
+          //               }
+          //             }).then(resp => {
+          //               console.log("async await");
+          //               console.log(resp);
+          //               const buddyData = {
+          //                 id: event.id,
+          //                 email: resp[0].dataValues.email,
+          //                 username: resp[0].dataValues.username,
+          //                 channel: event.channel
+          //               };
+
+          //               buddyArr.push(buddyData);
+          //               console.log(buddyArr);
+          //               user.buddies.allBuddies = buddyArr;
+          //             });
+          //           }
+          //         })
+          //         .then(() => {
+          //           user.activeGoals.completed.forEach(index => {
+          //             user.pastGoals.completed.push(index);
+          //           });
+
+          //           resolve(user);
+          //         });
+          //     });
+          // };
 
           if (data.Goals.length > 0) {
             data.Goals.forEach(index => {

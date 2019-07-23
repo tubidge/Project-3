@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import M from "materialize-css";
 import API from "../../utils/API";
+import moment from "moment";
 import "./style.css";
 import DatePicker from "../DatePicker";
 import TimePicker from "../TimePicker";
@@ -102,29 +103,29 @@ function MilestoneModal(props) {
   return (
     <>
       <div id={dataTarget} className="modal">
-        <div className="modal-content">
-          <h2>{goal.category} Goal</h2>
+        <div className="modal-content modal-milestone-content">
+          <h2 className="modal-goal-category">{goal.category} Goal</h2>
           <h4 className="left-align modal-goal-name">{goal.name}</h4>
           <h4 className="right-align modal-goal-dueDate">
-            Due: {goal.dueDate}
+            Due: {moment(goal.dueDate).format("MM/DD/YYYY")}
           </h4>
 
-          <div className="card z-depth-5">
-            <div className="card-content">
-              <span className="card-title">{milestone.name}</span>
+          <div className="card z-depth-5" style={{ border: "solid #daae37" }}>
+            <div className="card-content modal-milestone-card">
+              <span className="card-title" style={{ fontSize: "36px" }}>
+                {milestone.name}
+              </span>
               <div className="milestone-sub-header">
                 <p className="modal-milestone-frequency">
                   Repeats: {milestone.frequency}
                 </p>
                 <p className="modal-milestone-dueDate">
-                  Due: {milestone.dueDate}
+                  Due: {moment(milestone.dueDate).format("MM/DD/YYYY")}
                 </p>
                 {milestone.completed ? (
                   <p className="modal-milestone-status">
                     Status:{" "}
-                    <span className="light-green-text text-accent-4">
-                      complete
-                    </span>
+                    <span style={{ color: "var(--accentGold" }}>complete</span>
                   </p>
                 ) : (
                   <p className="modal-milestone-status">
@@ -134,7 +135,7 @@ function MilestoneModal(props) {
                 )}
               </div>
               <div className="row">
-                <div className="col s6">
+                <div className="col s6 milestone-notes-column">
                   <h5>Notes</h5>
                   <form>
                     <textarea
@@ -149,11 +150,11 @@ function MilestoneModal(props) {
                     ""
                   ) : (
                     <>
-                      <div>
+                      {/* <div>
                         <h5>Set Reminder</h5>
                         <DatePicker />
                         <TimePicker />
-                      </div>
+                      </div> */}
 
                       <div className="switch">
                         <span className="modal-milestone-complete">
