@@ -77,9 +77,9 @@
   z-index: 1;
   width: 75%;
 }
-#backdrop .row {
+/* #backdrop .row {
   width: 100%;
-}
+} */
 #curtain {
   position: absolute;
   z-index: 100;

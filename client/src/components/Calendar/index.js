@@ -28,7 +28,8 @@ export default class Cal extends Component {
 
   getMilestones() {
     API.getAllGoals(this.props.userId).then(data => {
-      // console.log(data);
+      console.log(data);
+
       let incompleteGoals = data.data.currentGoals.incomplete;
       let incompleteMilestones = [];
       let completeMilestones = [];

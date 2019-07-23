@@ -20,24 +20,27 @@ function DayCard(props) {
   //   props.date.completedMilestone.length
   // );
   const [milestoneSelected, setmilestoneSelected] = useState(false);
+
   useEffect(() => {
     setIsLoading(true);
+    document.addEventListener("click", event => {
+      if (event.target.className === "day-event-item tooltipped") {
+        console.log(event.target);
+        return false;
+      } else if (milestoneSelected) {
+        console.log("click");
+        setmilestoneSelected(false);
+
+        console.log(milestoneSelected);
+      }
+    });
     M.AutoInit();
     getData();
-  }, [props.goalId, milestones.length]);
+  }, [props.goalId, milestones.length, reRender, milestoneSelected]);
   // useEffect(() => {
   //   setIsLoading(true);
   // }, [allRender, milestones.length]);
-  useEffect(() => {
-    document.addEventListener("click", event => {
-      if (event.target.className === "day-event-item") {
-        return false;
-      } else if (milestoneSelected) {
-        setmilestoneSelected(false);
-        setreRender(!reRender);
-      }
-    });
-  }, [milestoneSelected]);
+
   const getData = () => {
     setIsLoading(false);
   };
@@ -79,6 +82,9 @@ function DayCard(props) {
     });
   };
   const clickMilestone = id => {
+    console.log(milestoneSelected);
+    console.log(id);
+
     setmilestoneSelected(id);
   };
   const cancel = header => {

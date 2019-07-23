@@ -1,12 +1,31 @@
 .modal-goal-name {
   display: inline-block;
-
+  color: white;
   margin-right: 8rem;
+}
+.modal-goal-category {
+  color: white;
+}
+
+.modal-milestone-content {
+  background: var(--blue);
+  color: var(--accentGold);
 }
 
 .modal-goal-dueDate {
   display: inline-block;
   margin-left: 4rem;
+  color: white;
+}
+
+.modal-milestone-card {
+  color: var(--darkBlue);
+}
+
+.modal-milestone-card,
+.card-title {
+  color: var(--darkBlue);
+  background: white;
 }
 
 .modal-milestone-frequency {
@@ -37,11 +56,31 @@
   display: inline-block;
   margin-top: 1rem;
   padding-top: 1rem;
-  margin-left: 12rem;
+}
+
+.milestone-sub-header {
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 20px;
+}
+
+.checkbox-column,
+.switch {
+  text-align: right;
+  margin-top: 2.25rem;
 }
 
 .milestone-save-btn {
   margin-left: 1rem;
+  background: var(--accentGold) !important;
+}
+
+.milestone-cancel-btn {
+  background: var(--accentGold) !important;
+}
+
+.milestone-notes-column {
+  margin-top: 2.25rem;
 }
 
 .milestoneFooter {

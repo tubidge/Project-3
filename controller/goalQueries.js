@@ -378,9 +378,7 @@ module.exports = {
                 milestone.id = index.dataValues.id;
                 milestone.name = index.dataValues.name;
                 milestone.frequency = index.dataValues.frequency;
-                milestone.dueDate = moment(index.dataValues.dueDate)
-                  .add("1", "day")
-                  .format("YYYY-MM-DD");
+                milestone.dueDate = index.dataValues.dueDate
                 milestone.completed = index.dataValues.completed;
                 milestone.notes = index.dataValues.notes;
                 milestone.goalId = index.dataValues.GoalId;
@@ -438,9 +436,7 @@ module.exports = {
                 milestone.id = index.dataValues.id;
                 milestone.name = index.dataValues.id;
                 milestone.frequency = index.dataValues.frequency;
-                milestone.dueDate = moment(index.dataValues.dueDate)
-                  .add("1", "day")
-                  .format("YYYY-MM-DD");
+                milestone.dueDate = index.dataValues.dueDate;
                 milestone.completed = index.dataValues.completed;
                 milestone.notes = index.dataValues.notes;
                 milestone.goalId = index.dataValues.GoalId;
