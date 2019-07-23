@@ -2,13 +2,8 @@ const follower = require("../controller/followerQueries");
 
 module.exports = app => {
   app.post("/follower", (req, res) => {
-    let data = {
-      follower: 2,
-      GoalId: 6
-    };
-
     follower
-      .addFollower(data)
+      .addFollower(req.body.data)
       .then(data => {
         res.send(data);
       })

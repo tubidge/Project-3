@@ -9,6 +9,7 @@ import UserProfile from "../../components/UserProfile";
 import GoalCard from "../../components/GoalCard";
 import Chat from "../../components/Chat";
 import Cal from "../../components/Calendar";
+import defaultLionPic from "../../components/Form/lionDefaultProfilePic.jpg";
 
 import "./style.css";
 
@@ -140,7 +141,7 @@ const Dashboard = () => {
       <div className="row">
         <div className="col l3 s12" style={{ marginTop: "-130px" }}>
           <UserProfile
-            userPicture={userInfo.image ? userInfo.image : user.picture}
+            userPicture={userInfo.image ? userInfo.image : defaultLionPic}
             username={userInfo.username}
             email={userInfo.email}
             incompleteGoals={incompleteGoals}

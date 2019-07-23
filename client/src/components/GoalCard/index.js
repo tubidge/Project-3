@@ -4,6 +4,7 @@ import Modal from "../Modal";
 import moment from "moment";
 import API from "../../utils/API";
 import ProgressBar from "../ProgressBar";
+import M from "materialize-css";
 import "./style.css";
 
 const GoalCard = props => {
@@ -11,8 +12,13 @@ const GoalCard = props => {
   const [reRender, setreRender] = useState(false);
 
   useEffect(() => {
+    M.AutoInit();
+    let options = {
+      enterDelay: 800
+    };
+    var elems = document.querySelectorAll(".tooltipped");
+    var instances = M.Tooltip.init(elems, options);
     API.getAllGoals(props.userID).then(resp => {
-      // console.log(resp);
       setGoals(resp.data.currentGoals);
     });
   }, [reRender]);

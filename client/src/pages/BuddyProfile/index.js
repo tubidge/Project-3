@@ -23,6 +23,7 @@ const BuddyProfile = props => {
   const [buddyIncompleteGoals, setBuddyIncompleteGoals] = useState([]);
   const [buddyData, setBuddyData] = useState([]);
   const [allBuddies, setAllBuddies] = useState([]);
+  const [following, setFollowing] = useState([]);
 
   useEffect(() => {
     getBuddyData();
@@ -95,8 +96,12 @@ const BuddyProfile = props => {
               []
             )
         );
-        setIsLoading(false);
+        API.getFollowing(userData.id).then(response => {
+          let following = response.data;
+          setFollowing(following);
+        });
       });
+      setIsLoading(false);
     });
   };
 
@@ -135,6 +140,7 @@ const BuddyProfile = props => {
         <div className="row">
           <div className="col l8 s12 center-align">
             <BuddyGoalCard
+              following={following}
               incompleteGoals={buddyIncompleteGoals}
               addBuddy={addBuddy}
               currentUserGoals={incompleteGoals}
