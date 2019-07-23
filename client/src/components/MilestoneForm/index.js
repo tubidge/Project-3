@@ -14,13 +14,13 @@ function MilestoneForm(props) {
     M.AutoInit();
     let modals = document.querySelectorAll(".modal");
     let options = {
-      dismissible: true,
+      dismissible: false,
       inDuration: 200,
       outDuration: 400
     };
     M.Modal.init(modals, options);
     var Modalelem = document.querySelector("#milestoneForm");
-    var instance = M.Modal.init(Modalelem);
+    var instance = M.Modal.init(Modalelem, options);
     instance.open();
   }, []);
   useEffect(() => {}, [frequency]);
@@ -65,6 +65,7 @@ function MilestoneForm(props) {
 
   const handleSubmit = event => {
     console.log("working");
+
     if (frequency === "Never" && title) {
       let data = {
         name: title,
@@ -85,7 +86,7 @@ function MilestoneForm(props) {
         console.log(data);
         callback();
       });
-      clearForm();
+      // clearForm();
     } else if (title && end) {
       let data = {
         name: title,

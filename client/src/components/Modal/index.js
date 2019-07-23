@@ -42,17 +42,39 @@ const Modal = props => {
   const handleSubmit = e => {
     e.preventDefault();
     let now = moment().format("YYYY-MM-DD");
-    if (dueDate < now) {
-      M.toast({
-        html: `<i class="material-icons left">error</i>Hmm... your Due Date shouldn't be in the past.`,
-        displayLength: 3500
-      });
-    }
-    if (category === "" || name === "" || dueDate === "") {
-      M.toast({
-        html: `<i class="material-icons left">error</i>You didn't complete all the requried fields.`,
-        displayLength: 2000
-      });
+
+    if (props.header === "Add a New Goal") {
+      if (dueDate < now) {
+        M.toast({
+          html: `<i class="material-icons left">error</i>Hmm... your Due Date shouldn't be in the past.`,
+          displayLength: 3500
+        });
+      }
+
+      if (category === "" || name === "" || dueDate === "") {
+        M.toast({
+          html: `<i class="material-icons left">error</i>You didn't complete all the requried fields.`,
+          displayLength: 2000
+        });
+      } else {
+        setCategory("");
+        setName("");
+        setDueDate("");
+        setSelectedOption(null);
+        setCategory(null);
+        switch (props.header) {
+          case "Add a New Goal":
+            return addGoal(e);
+          case "Delete":
+            return deleteGoal(e);
+          case "Edit This Goal":
+            return editGoal(e);
+          case "Complete":
+            return completeGoal(e);
+          default:
+            return addGoal(e);
+        }
+      }
     } else {
       setCategory("");
       setName("");
@@ -64,7 +86,7 @@ const Modal = props => {
           return addGoal(e);
         case "Delete":
           return deleteGoal(e);
-        case "Edit":
+        case "Edit This Goal":
           return editGoal(e);
         case "Complete":
           return completeGoal(e);
@@ -110,22 +132,25 @@ const Modal = props => {
 
   const editGoal = e => {
     e.preventDefault();
-    let editCategory = {
-      colName: "category",
-      info: category
-    };
-    API.editGoal(props.goalId, editCategory).then(res => console.log(res));
+    let editName = {};
+    if (name !== "") {
+      editName.colName = "name";
+      editName.info = name;
+    } else {
+      editName.colName = "name";
+      editName.info = props.name;
+    }
 
-    let editName = {
-      colName: "name",
-      info: name
-    };
     API.editGoal(props.goalId, editName).then(res => console.log(res));
+    let editDueDate = {};
+    if (dueDate !== "") {
+      editDueDate.colName = "dueDate";
+      editDueDate.info = dueDate;
+    } else {
+      editDueDate.colName = "dueDate";
+      editDueDate.info = props.dueDate;
+    }
 
-    let editDueDate = {
-      colName: "dueDate",
-      info: dueDate
-    };
     API.editGoal(props.goalId, editDueDate).then(res => console.log(res));
     if (props.getAllData) {
       props.getAllData();
@@ -222,46 +247,23 @@ const Modal = props => {
                   </div>
                 </>
               )}
-              {props.header === "Edit" && (
+              {props.header === "Edit This Goal" && (
                 <>
-                  <div className="input-field col s12">
-                    <Select
-                      theme={theme => ({
-                        ...theme,
-                        borderRadius: 5,
-                        colors: {
-                          ...theme.colors,
-                          primary25: "#ccc",
-                          primary: "#daae37"
-                        }
-                      })}
-                      placeholder={props.header === "Edit" ? category : ""}
-                      value={selectedOption}
-                      options={categories}
-                      onChange={handleChange}
-                    />
-                  </div>
                   <div className="input-field col s12">
                     <input
                       type="text"
                       className="validate"
-                      value={name}
+                      value={name ? name : props.name}
                       onChange={e => setName(e.target.value)}
                     />
-                    {props.header !== "Edit" && (
-                      <label htmlFor="name">Name</label>
-                    )}
                   </div>
                   <div className="input-field col s12">
                     <input
                       type="date"
                       className="validate"
-                      value={dueDate}
+                      value={dueDate ? dueDate : props.dueDate}
                       onChange={e => setDueDate(e.target.value)}
                     />
-                    {props.header !== "Edit" && (
-                      <label htmlFor="dueDate">Due Date</label>
-                    )}
                   </div>
                 </>
               )}
@@ -274,17 +276,25 @@ const Modal = props => {
                   Cancel
                   <i className="material-icons right">cancel</i>
                 </span>
-                <button
-                  className={
-                    category !== "" && name !== "" && dueDate !== ""
-                      ? "btn submit modal-close"
-                      : "btn submit"
-                  }
-                  type="submit"
-                >
-                  {props.action}
-                  <i className="material-icons right">send</i>
-                </button>
+                {props.header === "Add a New Goal" && (
+                  <button
+                    className={
+                      category !== "" && name !== "" && dueDate !== ""
+                        ? "btn submit modal-close"
+                        : "btn submit"
+                    }
+                    type="submit"
+                  >
+                    {props.action}
+                    <i className="material-icons right">send</i>
+                  </button>
+                )}
+                {props.header === "Edit This Goal" && (
+                  <button className={"btn submit modal-close"} type="submit">
+                    {props.action}
+                    <i className="material-icons right">send</i>
+                  </button>
+                )}
               </div>
             </form>
           </div>

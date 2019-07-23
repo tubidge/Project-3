@@ -30,6 +30,17 @@ function ConfirmModal(props) {
     });
   };
 
+  const completeGoal = () => {
+    let data = {
+      colName: "complete",
+      info: true
+    };
+    API.editGoal(props.goalId, data).then(resp => {
+      console.log(resp);
+      props.render(props.action);
+    });
+  };
+
   const delGoal = () => {
     API.deleteGoal(props.goalId).then(resp => {
       props.render(props.action);
@@ -43,6 +54,9 @@ function ConfirmModal(props) {
         break;
       case "Delete Goal":
         delGoal();
+        break;
+      case "Complete":
+        completeGoal();
         break;
     }
   };
