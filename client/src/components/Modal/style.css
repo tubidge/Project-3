@@ -15,8 +15,12 @@
   text-align: center;
 }
 
+#goalCardModal .modal .modal-content {
+  padding: 10px 20px 10px 20px !important;
+}
+
 #goalCardModal .modal .modal-footer {
-  padding: 5px 10px;
+  padding: 0px 20px;
 }
 
 #goalCardModal .modal .modal-footer .submit {

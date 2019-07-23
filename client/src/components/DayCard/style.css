@@ -1,6 +1,6 @@
 .day-card {
   height: 25rem;
-  width: 18rem;
+  width: 15rem;
   padding: 0px;
 }
 .day-card-cardTitle {
@@ -24,6 +24,7 @@
 }
 .day-card-icon {
   color: var(--accentGold);
+  padding: 7px;
 }
 .day-card-icon:hover {
   cursor: pointer;
