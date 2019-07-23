@@ -29,7 +29,6 @@ const Dashboard = () => {
 
   let stopIndex;
   let activeCategories = [];
-  const email = user.email;
 
   useEffect(() => {
     getAllData();
@@ -59,7 +58,7 @@ const Dashboard = () => {
   };
 
   const getAllData = () => {
-    API.getUserByEmail(email).then(resp => {
+    API.getUserByEmail(user.email).then(resp => {
       let userData = resp.data;
       API.getAllGoals(userData.id).then(res => {
         let goalData = res.data;
@@ -176,7 +175,7 @@ const Dashboard = () => {
               makeid={makeid}
             />
           )}
-          {userInfo.buddies.length === 0 && (
+          {!userInfo.buddies && (
             <div id="noBuddies">
               <p>You don't have any Buddies... yet!</p>
               <p>
