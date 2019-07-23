@@ -22,7 +22,7 @@ const Dashboard = () => {
   const [completeGoals, setCompleteGoals] = useState([]);
   const [categories, setCategories] = useState([]);
   const [active, setActive] = useState([]);
-  const [allBuddies, setAllBuddies] = useState();
+  const [allBuddies, setAllBuddies] = useState([]);
   const [myBuddies, setMyBuddies] = useState();
   const [reRender, setreRender] = useState(false);
   const [calRender, setCalRender] = useState(false);
@@ -163,39 +163,36 @@ const Dashboard = () => {
               </h5>
             </Link>
           </div>
-          {user &&
-            (!userInfo.buddies ? (
-              <div id="noBuddies">
-                <p>You don't have any Buddies... yet!</p>
-                <p>
-                  If you are having a hard time finding Buddies, just{" "}
-                  <Link
-                    to="/buddies"
-                    style={{ borderBottom: "1px dashed #2867aa" }}
-                  >
-                    click here
-                  </Link>{" "}
-                  to generate some matches based on your goals!
-                </p>
-                <p>
-                  So if you haven't added any goals, you may want to do that
-                  first!
-                </p>
-              </div>
-            ) : (
-              <Chat
-                userInfo={userInfo}
-                myBuddies={myBuddies}
-                buddies={allBuddies}
-                buddiesUsername={
-                  allBuddies ? getUnique(allBuddies, "username") : null
-                }
-                buddiesEmail={
-                  allBuddies ? getUnique(allBuddies, "email") : null
-                }
-                makeid={makeid}
-              />
-            ))}
+          {!allBuddies || allBuddies.length === 0 ? (
+            <div id="noBuddies">
+              <p>You don't have any Buddies... yet!</p>
+              <p>
+                If you are having a hard time finding Buddies, just{" "}
+                <Link
+                  to="/buddies"
+                  style={{ borderBottom: "1px dashed #2867aa" }}
+                >
+                  click here
+                </Link>{" "}
+                to generate some matches based on your goals!
+              </p>
+              <p>
+                So if you haven't added any goals, you may want to do that
+                first!
+              </p>
+            </div>
+          ) : (
+            <Chat
+              userInfo={userInfo}
+              myBuddies={myBuddies}
+              buddies={allBuddies}
+              buddiesUsername={
+                allBuddies ? getUnique(allBuddies, "username") : null
+              }
+              buddiesEmail={allBuddies ? getUnique(allBuddies, "email") : null}
+              makeid={makeid}
+            />
+          )}
         </div>
         <div style={{ marginTop: "20px", marginBottom: "20px" }} />
         <div className="col l8 s12">{renderGoalCards()}</div>
