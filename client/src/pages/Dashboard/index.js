@@ -192,7 +192,7 @@ const Dashboard = () => {
                 buddiesEmail={allBuddies ? getUnique(allBuddies, "email") : null}
                 makeid={makeid}
               />
-            ) :
+            )
           }
         </div>
         <div style={{ marginTop: "20px", marginBottom: "20px" }} />
