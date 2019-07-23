@@ -5,7 +5,6 @@ import API from "../../utils/API";
 import ConfirmModal from "../ConfirmModal";
 import MilestoneForm from "../MilestoneForm";
 function MilestonesCard(props) {
-  console.log(props);
   const [milestones, setMilestones] = useState(false);
   const [reRender, setreRender] = useState(false);
   const [milestoneSelected, setmilestoneSelected] = useState(false);
@@ -43,8 +42,6 @@ function MilestonesCard(props) {
     setmilestoneSelected({ name: name, frequency: frequency });
   };
   const openConfirmModal = event => {
-    console.log("modal opening");
-    console.log(milestoneSelected);
     setCurrentMilestone(milestoneSelected);
     event.preventDefault();
     setmodalOpen(true);
