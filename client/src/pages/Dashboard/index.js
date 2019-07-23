@@ -163,7 +163,18 @@ const Dashboard = () => {
               </h5>
             </Link>
           </div>
-          {!userInfo.buddies ? (
+          {userInfo.buddies ? (
+            <Chat
+              userInfo={userInfo}
+              myBuddies={myBuddies}
+              buddies={allBuddies}
+              buddiesUsername={
+                allBuddies ? getUnique(allBuddies, "username") : null
+              }
+              buddiesEmail={allBuddies ? getUnique(allBuddies, "email") : null}
+              makeid={makeid}
+            />
+          ) : (
             <div id="noBuddies">
               <p>You don't have any Buddies... yet!</p>
               <p>
@@ -181,17 +192,6 @@ const Dashboard = () => {
                 first!
               </p>
             </div>
-          ) : (
-            <Chat
-              userInfo={userInfo}
-              myBuddies={myBuddies}
-              buddies={allBuddies}
-              buddiesUsername={
-                allBuddies ? getUnique(allBuddies, "username") : null
-              }
-              buddiesEmail={allBuddies ? getUnique(allBuddies, "email") : null}
-              makeid={makeid}
-            />
           )}
         </div>
         <div style={{ marginTop: "20px", marginBottom: "20px" }} />
