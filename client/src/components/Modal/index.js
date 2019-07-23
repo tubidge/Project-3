@@ -22,13 +22,13 @@ const Modal = props => {
   ];
 
   useEffect(() => {
+    M.AutoInit();
     if (props.header === "Edit") {
       setCategory(props.goalCategory);
       setName(props.goalName);
       setDueDate(props.goalDueDate);
     }
     setDataTarget(props.dataTarget);
-    M.AutoInit();
     let modals = document.querySelectorAll(".modal");
     let options = {
       dismissible: true,
@@ -36,6 +36,11 @@ const Modal = props => {
       outDuration: 400
     };
     M.Modal.init(modals, options);
+
+    let toasts = document.querySelectorAll(".toast");
+    let toastOptions = {
+      displayLength: 2000
+    };
   }, []);
 
   const handleSubmit = e => {

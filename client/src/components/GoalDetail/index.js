@@ -21,7 +21,7 @@ function GoalDetail(props) {
   const [currentDay, setCurrentDay] = useState();
   const frequencies = ["Daily", "Weekly", "Monthly"];
   useEffect(() => {
-    document.addEventListener("click", function() {
+    document.addEventListener("click", function () {
       let options = { fullWidth: true };
       var elems = document.querySelectorAll(".collapsible");
       var instances = M.Collapsible.init(elems, options);
@@ -232,7 +232,7 @@ function GoalDetail(props) {
   return (
     <div className="row">
       <div className="col s1 nextGoalArrow">
-        <span className="tooltipped" data-position="top">
+        <span>
           <FontAwesomeIcon icon={faChevronLeft} onClick={props.prevGoal} />
         </span>
       </div>
@@ -329,8 +329,8 @@ function GoalDetail(props) {
                     </li>
                   </ul>
                 ) : (
-                  ""
-                )}
+                    ""
+                  )}
               </div>
             </div>
             <div className="row">
@@ -398,7 +398,7 @@ function GoalDetail(props) {
         </div>
       </div>
       <div className="col s1 nextGoalArrow">
-        <span className="tooltipped" data-position="top">
+        <span>
           <FontAwesomeIcon icon={faChevronRight} onClick={props.nextGoal} />
         </span>
       </div>

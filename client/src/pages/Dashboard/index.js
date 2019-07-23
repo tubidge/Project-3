@@ -9,6 +9,7 @@ import UserProfile from "../../components/UserProfile";
 import GoalCard from "../../components/GoalCard";
 import Chat from "../../components/Chat";
 import Cal from "../../components/Calendar";
+import M from "materialize-css";
 
 import "./style.css";
 
@@ -29,6 +30,13 @@ const Dashboard = () => {
   let activeCategories = [];
 
   useEffect(() => {
+    M.AutoInit();
+    let options = {
+      enterDelay: 800
+    }
+    var elems = document.querySelectorAll('.tooltipped');
+    var instances = M.Tooltip.init(elems, options);
+
     getAllData();
   }, [reRender]);
 

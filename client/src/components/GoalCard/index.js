@@ -5,6 +5,7 @@ import moment from "moment";
 import API from "../../utils/API";
 import ProgressBar from "../ProgressBar";
 import "./style.css";
+import M from "materialize-css";
 
 const GoalCard = props => {
   const [goals, setGoals] = useState([]);
@@ -16,6 +17,16 @@ const GoalCard = props => {
       setGoals(resp.data.currentGoals);
     });
   }, [reRender]);
+
+  useEffect(() => {
+    M.AutoInit();
+    let options = {
+      enterDelay: 800
+    }
+    var elems = document.querySelectorAll('.tooltipped');
+    var instances = M.Tooltip.init(elems, options);
+
+  }, [])
 
   const makeid = l => {
     let text = "";
@@ -94,8 +105,8 @@ const GoalCard = props => {
                     check_box
                   </i>
                 ) : (
-                  ""
-                )}
+                    ""
+                  )}
               </div>
               <p>Due: {goal.dueDate}</p>
               <ProgressBar total={total} percentage={percentage} />
@@ -123,8 +134,8 @@ const GoalCard = props => {
                     check_box
                   </i>
                 ) : (
-                  ""
-                )}
+                    ""
+                  )}
               </div>
               <p>
                 Due: <span className="alert-goal-dueDate">{goal.dueDate}</span>
@@ -178,8 +189,8 @@ const GoalCard = props => {
                     check_box
                   </i>
                 ) : (
-                  ""
-                )}
+                    ""
+                  )}
               </div>
               <p>Due: {goal.dueDate}</p>
               <ProgressBar total={total} percentage={percentage} />
@@ -207,8 +218,8 @@ const GoalCard = props => {
                     check_box
                   </i>
                 ) : (
-                  ""
-                )}
+                    ""
+                  )}
               </div>
               <p>
                 Due: <span className="alert-goal-dueDate">{goal.dueDate}</span>
@@ -251,8 +262,8 @@ const GoalCard = props => {
             {goals.incomplete ? (
               <ul>{renderGoalsForCategories(props.category)}</ul>
             ) : (
-              <ul>{renderPropsForCategories(props.category)}</ul>
-            )}
+                <ul>{renderPropsForCategories(props.category)}</ul>
+              )}
           </div>
         </div>
       </div>
