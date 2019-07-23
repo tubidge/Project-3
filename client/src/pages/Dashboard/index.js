@@ -22,7 +22,7 @@ const Dashboard = () => {
   const [completeGoals, setCompleteGoals] = useState([]);
   const [categories, setCategories] = useState([]);
   const [active, setActive] = useState([]);
-  const [allBuddies, setAllBuddies] = useState();
+  const [allBuddies, setAllBuddies] = useState([]);
   const [myBuddies, setMyBuddies] = useState();
   const [reRender, setreRender] = useState(false);
   const [calRender, setCalRender] = useState(false);
@@ -163,7 +163,7 @@ const Dashboard = () => {
               </h5>
             </Link>
           </div>
-          {!userInfo.buddies.allBuddies ? (
+          {!userData.buddies || userData.buddies.allBuddies.length === 0 ? (
             <div id="noBuddies">
               <p>You don't have any Buddies... yet!</p>
               <p>
