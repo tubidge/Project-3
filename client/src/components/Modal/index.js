@@ -200,7 +200,9 @@ const Modal = props => {
       <div id="goalCardModal">
         <div id={dataTarget} className="modal">
           <div className="modal-content">
-            <h5>{props.header}</h5>
+            <h5>
+              <span className="buddyInfo">{props.header}</span>
+            </h5>
             <form onSubmit={handleSubmit}>
               {props.header === "Add a New Goal" && (
                 <>

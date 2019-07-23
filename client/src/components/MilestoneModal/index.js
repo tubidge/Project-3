@@ -103,7 +103,9 @@ function MilestoneModal(props) {
     <>
       <div id={dataTarget} className="modal">
         <div className="modal-content">
-          <h2>{goal.category} Goal</h2>
+          <h5>
+            <span className="buddyInfo">{goal.category} Goal</span>
+          </h5>
           <h4 className="left-align modal-goal-name">{goal.name}</h4>
           <h4 className="right-align modal-goal-dueDate">
             Due: {goal.dueDate}

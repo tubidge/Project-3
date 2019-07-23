@@ -47,8 +47,9 @@
   border-radius: 0;
 }
 #goalCard {
+  text-align: center;
   margin-top: 3%;
-  width: 100%;
+  width: 95%;
   display: inline-block;
   background-color: var(--blue);
 }
@@ -92,4 +93,8 @@
   cursor: "pointer";
   font-size: 33px;
   color: var(--accentGold);
+}
+
+.goal-page-upcomingView {
+  width: 100% !important;
 }

@@ -292,7 +292,7 @@ function GoalDetail(props) {
         </span>
       </div>
       <div className="col s10">
-        <div id="goalCard" className="card z-depth-5">
+        <div id="goalCard" className="center-align card z-depth-5">
           <div className="row">
             <div
               className="col s12"
