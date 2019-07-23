@@ -63,7 +63,15 @@ function DayCard(props) {
     console.log(milestones);
     console.log(props);
     return props.date.incompleteMilestone.map(index => {
-      return <DayEvent clickMilestone={clickMilestone} milestone={index} />;
+      return (
+        <DayEvent
+          clickMilestone={clickMilestone}
+          milestone={index}
+          className="day-event-item tooltipped"
+          dataPosition="top"
+          dataTooltip={index}
+        />
+      );
     });
   };
   const deleteTask = () => {
