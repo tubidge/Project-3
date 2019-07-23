@@ -68,12 +68,20 @@ function ConfirmModal(props) {
         <p>{props.message}</p>
       </div>
       <div className="modal-footer confirm-modal-footer">
-        <a className="modal-close btn" onClick={takeAction}>
+        <button onClick={takeAction} className="btn modal-close deleteBtn">
           {props.type}
-        </a>
-        <a className="modal-close btn" onClick={() => props.render("cancel")}>
+          <i className="material-icons right">
+            {props.type === "Complete" ? "done" : "delete_forever"}
+          </i>
+        </button>
+
+        <button
+          onClick={() => props.render("cancel")}
+          className="btn modal-close grey"
+        >
           Cancel
-        </a>
+          <i className="material-icons right">cancel</i>
+        </button>
       </div>
     </div>
   );

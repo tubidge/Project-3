@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import API from "../../utils/API";
 import Sendbird from "../../utils/Sendbird";
 import OpenChat from "../../components/OpenChat";
 import ChatBox from "../../components/ChatBox";

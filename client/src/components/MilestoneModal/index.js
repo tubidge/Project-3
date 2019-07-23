@@ -8,7 +8,7 @@ import TimePicker from "../TimePicker";
 function MilestoneModal(props) {
   const [goal, setGoal] = useState("");
   const [milestone, setMilestone] = useState("");
-  const [dataTarget, setDataTarget] = useState("milestoneModal");
+  const [dataTarget] = useState("milestoneModal");
 
   useEffect(() => {
     API.getMilestone(props.id).then(data => {

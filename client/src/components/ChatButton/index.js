@@ -1,11 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 function ChatButton(props) {
   return (
     <>
-      <Link
-        to="#"
+      <span
         key={props.channel}
         id={props.channel}
         onClick={event => {
@@ -16,7 +14,7 @@ function ChatButton(props) {
         <i id="chatIcon" className="material-icons">
           message
         </i>
-      </Link>
+      </span>
     </>
   );
 }

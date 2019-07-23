@@ -13,12 +13,12 @@ function DayCard(props) {
   const [milestones, setMilestones] = useState(props.date.incompleteMilestone);
   const [isLoading, setIsLoading] = useState(true);
   const [reRender, setreRender] = useState(false);
-  const [total, setTotal] = useState([
-    props.date.incompleteMilestone.length + props.date.completedMilestone.length
-  ]);
-  const [complete, setComplete] = useState(
-    props.date.completedMilestone.length
-  );
+  // const [total, setTotal] = useState([
+  //   props.date.incompleteMilestone.length + props.date.completedMilestone.length
+  // ]);
+  // const [complete, setComplete] = useState(
+  //   props.date.completedMilestone.length
+  // );
   const [milestoneSelected, setmilestoneSelected] = useState(false);
   useEffect(() => {
     setIsLoading(true);

@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import M from "materialize-css";
-import moment from "moment";
 
 function TimePicker(props) {
   useEffect(() => {

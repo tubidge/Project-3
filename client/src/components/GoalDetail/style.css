@@ -1,11 +1,12 @@
 .goal-page-card {
-  background-color: #10355f;
+  background-color: var(--blue);
 }
 .goal-page-cardTitle {
-  background-color: #10355f;
+  background-color: var(--blue);
 }
 .goal-page-title {
   text-align: center;
+  margin: 10px 0 0 0 !important;
 }
 .goal-page-dueDate {
   text-align: left;
@@ -35,7 +36,7 @@
   justify-content: center;
 } */
 .switch label input[type="checkbox"]:checked + .lever {
-  background-color: #e2e77d !important;
+  background-color: var(--accentGold) !important;
 }
 .switch label input[type="checkbox"]:checked + .lever::after {
   background-color: white !important;
@@ -49,21 +50,23 @@
   margin-top: 3%;
   width: 100%;
   display: inline-block;
-  background-color: #10355f;
+  background-color: var(--blue);
 }
 .nextGoalArrow {
   height: 200px;
   line-height: 200px;
   text-align: center;
   margin-top: 20%;
+  cursor: pointer;
 }
 .nextGoalArrow > span {
+  cursor: pointer;
   display: inline-block;
   vertical-align: middle;
   line-height: normal;
   scale: 1;
   font-size: 60px;
-  color: #d4ac0d !important;
+  color: var(--accentGold) !important;
 }
 .day-card-controls:hover {
   transform: scale(1.05);
@@ -87,5 +90,6 @@
 .goal-edit-button {
   margin-left: "3px";
   cursor: "pointer";
-  color: "#d4ac0d";
+  font-size: 33px;
+  color: var(--accentGold);
 }
