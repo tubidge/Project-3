@@ -82,11 +82,10 @@ function DayCard(props) {
     setmilestoneSelected(id);
   };
   const cancel = header => {
-    console.log(header);
-    setmodalOpen(false);
     setreRender(!reRender);
     props.orderProgressRender();
     props.reRender();
+    setmodalOpen(false);
   };
   if (isLoading) {
     return <Loading />;

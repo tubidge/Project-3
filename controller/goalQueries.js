@@ -142,6 +142,7 @@ module.exports = {
       db.Goals.findAll({
         where: {
           UserId: id,
+          complete: 1,
           name: {
             [Op.substring]: search
           }
@@ -150,17 +151,8 @@ module.exports = {
       })
         .then(resp => {
           console.log(resp);
-          const results = [];
-          let now = moment().format("YYYY-MM-DD");
-          resp.forEach(index => {
-            if (moment(index.dueDate).isBefore(now)) {
-              results.push(index);
-            } else {
-              return false;
-            }
-          });
 
-          resolve(results);
+          resolve(resp);
         })
         .catch(err => {
           reject(err);

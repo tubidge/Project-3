@@ -24,6 +24,7 @@ const Goals = props => {
   const [pastGoals, setPastGoals] = useState();
   const [goalArr, setGoalArr] = useState();
   const [startIndex, setStartIndex] = useState();
+  const [completeGoals, setCompleteGoals] = useState();
 
   useEffect(() => {
     M.AutoInit();
@@ -60,6 +61,7 @@ const Goals = props => {
       setCurrentGoals(current);
       setPastGoals(past);
       setIncompleteGoals(userData.activeGoals.incomplete);
+      setCompleteGoals(userData.activeGoals.completed);
       setCategories(
         userData.activeGoals.incomplete
           .map(goal => goal.category)
@@ -168,6 +170,7 @@ const Goals = props => {
                 userPicture={userInfo.image ? userInfo.image : user.picture}
                 username={userInfo.username}
                 email={userInfo.email}
+                completeGoals={completeGoals}
                 incompleteGoals={incompleteGoals}
                 buddies={allBuddies ? getUnique(allBuddies, "username") : null}
               />

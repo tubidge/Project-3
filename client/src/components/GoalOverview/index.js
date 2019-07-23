@@ -211,6 +211,7 @@ function GoalOverview(props) {
     event.preventDefault();
     if (search && search !== "") {
       API.getGoalSearch(props.userId, search).then(resp => {
+        console.log(resp.data);
         setPastView(resp.data);
         document.getElementsByClassName("searchGoalBtn").value = "";
       });
