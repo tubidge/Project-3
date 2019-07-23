@@ -17,14 +17,21 @@ const BuddyGoalCard = props => {
 
   const renderFollowBtn = (id, name) => {
     let ids = [];
+    let keys = [];
     props.following.forEach(index => {
       ids.push(index.id);
+      keys.push(index);
     });
+    console.log(ids);
+    console.log(keys);
 
     if (ids.includes(id)) {
+      let num = ids.indexOf(id);
+      let follower = keys[num];
+      console.log(follower);
       return (
         <button
-          onClick={() => follow(id, name)}
+          onClick={() => unFollow(follower.rowId, follower.name)}
           className="btn followBtn_BuddyCard"
         >
           <i className="material-icons left followIcon">directions_run</i>
@@ -49,15 +56,25 @@ const BuddyGoalCard = props => {
       follower: props.userId,
       GoalId: id
     }).then(res => {
-      if (res) {
+      console.log(res);
+      if (res.status === 200) {
         M.toast({ html: `Following '${name}'` });
+        props.orderRender();
+      } else {
+        M.toast({ html: "Oops. Something went wrong" });
       }
     });
   };
 
-  const unFollow = id => {
+  const unFollow = (id, name) => {
+    console.log("function firing");
     API.deleteFollower(id).then(res => {
-      console.log(res);
+      if (res.data === "Success") {
+        M.toast({ html: `Unfollowed '${name}'` });
+        props.orderRender();
+      } else {
+        M.toast({ html: "Oops. Something went wrong" });
+      }
     });
   };
 

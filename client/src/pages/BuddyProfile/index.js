@@ -12,6 +12,7 @@ const BuddyProfile = props => {
   const [isLoading, setIsLoading] = useState(true);
 
   const [categories, setCategories] = useState([]);
+  const [reRender, setReRender] = useState(false);
 
   // for the current user
   const [goalInfo, setGoalInfo] = useState({});
@@ -28,7 +29,7 @@ const BuddyProfile = props => {
   useEffect(() => {
     getBuddyData();
     getUserData();
-  }, []);
+  }, [reRender]);
 
   const getUnique = (arr, comp) => {
     const unique = arr
@@ -118,6 +119,10 @@ const BuddyProfile = props => {
     });
   };
 
+  const orderRender = () => {
+    setReRender(!reRender);
+  };
+
   if (loading || !buddyData || isLoading) {
     return <Loading />;
   }
@@ -148,6 +153,7 @@ const BuddyProfile = props => {
               userId={userInfo.id}
               buddyId={buddyData.id}
               buddyName={buddyData.username}
+              orderRender={orderRender}
             />
           </div>
         </div>

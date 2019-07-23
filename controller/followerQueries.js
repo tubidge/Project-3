@@ -60,6 +60,7 @@ module.exports = {
             .asyncForEach(resp, async index => {
               await Goal.getBasicGoal(index.GoalId).then(resp => {
                 let goal = resp;
+                resp.rowId = index.id;
                 goals.push(goal);
               });
             })
@@ -105,7 +106,14 @@ module.exports = {
       })
         .then(resp => {
           console.log(resp);
-          resolve(resp);
+          let message;
+          if (resp === 1) {
+            message = "Success";
+          } else {
+            message = "Error";
+          }
+
+          resolve(message);
         })
         .catch(err => {
           reject(err);
