@@ -31,6 +31,7 @@ const Dashboard = () => {
   let activeCategories = [];
 
   useEffect(() => {
+    window.location.replace("https://begoalden.herokuapp.com/");
     getAllData();
   }, [reRender]);
 
