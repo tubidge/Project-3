@@ -190,5 +190,29 @@ export default {
   // This method will delete a buddy relationship from the database
   deleteBuddy: id => {
     return axios.delete("/buddy/" + id);
+  },
+
+  // Follower Methods
+
+  addFollower: data => {
+    return axios.post("/follower", {
+      data
+    });
+  },
+
+  getFollowers: id => {
+    return axios.get("/followers/" + id);
+  },
+
+  getFollowing: id => {
+    return axios.get("/following/" + id);
+  },
+
+  editFollower: (id, data) => {
+    return axios.put("/followers/" + id, { data });
+  },
+
+  deleteFollower: id => {
+    return axios.delete("/follower/" + id);
   }
 };

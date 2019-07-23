@@ -1,14 +1,17 @@
 .goal-page-card {
-  background-color: var(--blue);
+  background-color: #f5f5f5 !important;
+  color: var(--darkBlue);
 }
 .goal-page-cardTitle {
-  background-color: var(--blue);
+  background-color: #f5f5f5 !important;
 }
+
 .goal-page-title {
   text-align: center;
 }
 .goal-page-dueDate {
   text-align: left;
+  color: black !important;
 }
 .goal-page-privacy {
   display: inline-block;
@@ -35,7 +38,7 @@
   justify-content: center;
 } */
 .switch label input[type="checkbox"]:checked + .lever {
-  background-color: var(--accentGold) !important;
+  background-color: #d4ac0d !important;
 }
 .switch label input[type="checkbox"]:checked + .lever::after {
   background-color: white !important;
@@ -49,13 +52,18 @@
   margin-top: 3%;
   width: 100%;
   display: inline-block;
-  background-color: var(--blue);
+  background-color: #f5f5f5 !important;
+}
+
+.goal-page-card {
+  background-color: #f5f5f5 !important;
 }
 .nextGoalArrow {
   height: 200px;
   line-height: 200px;
   text-align: center;
   margin-top: 20%;
+  background-color: #eeeeee !important;
 }
 .nextGoalArrow > span {
   display: inline-block;
@@ -63,7 +71,8 @@
   line-height: normal;
   scale: 1;
   font-size: 60px;
-  color: var(--accentGold) !important;
+  color: #d4ac0d !important;
+  background-color: #eeeeee !important;
 }
 .day-card-controls:hover {
   transform: scale(1.05);

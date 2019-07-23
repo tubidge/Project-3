@@ -55,6 +55,9 @@ module.exports = function(sequelize, DataTypes) {
     Goal.hasMany(model.Buddy, {
       onDelete: "cascade"
     });
+    Goal.hasMany(model.Followers, {
+      onDelete: "cascade"
+    });
   };
   return Goal;
 };

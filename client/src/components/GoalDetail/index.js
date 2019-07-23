@@ -21,6 +21,8 @@ function GoalDetail(props) {
   const [goalStatus, setGoalStatus] = useState(false);
   const [currentDay, setCurrentDay] = useState();
   const frequencies = ["Daily", "Weekly", "Monthly"];
+  const [followers, setFollowers] = useState();
+
   useEffect(() => {
     let options = { fullWidth: true };
     var elems = document.querySelectorAll(".collapsible");
@@ -30,19 +32,25 @@ function GoalDetail(props) {
     console.log(props.goal);
   }, [props.goal.id, reRender]);
   const getData = () => {
-    API.getGoal(props.goal.id).then(resp => {
-      console.log(resp.data);
-      setCurrentGoal(resp.data);
-      let total =
-        resp.data.milestones.complete.length +
-        resp.data.milestones.incomplete.length;
-      setTotal(total);
-      let progress = resp.data.milestones.complete.length;
-      let percentage = progress / total;
-      console.log(percentage);
-      setPercentage(percentage);
-      configureDays(resp.data);
-    });
+    API.getFollowers(props.goal.id)
+      .then(data => {
+        setFollowers(data.data);
+      })
+      .then(() => {
+        API.getGoal(props.goal.id).then(resp => {
+          console.log(resp.data);
+          setCurrentGoal(resp.data);
+          let total =
+            resp.data.milestones.complete.length +
+            resp.data.milestones.incomplete.length;
+          setTotal(total);
+          let progress = resp.data.milestones.complete.length;
+          let percentage = progress / total;
+          console.log(percentage);
+          setPercentage(percentage);
+          configureDays(resp.data);
+        });
+      });
   };
   const getMilestoneRender = () => {
     getData();
@@ -260,7 +268,7 @@ function GoalDetail(props) {
             <div className="card-title goal-page-cardTitle">
               <div className="goal-page-sub-header">
                 <div className="switch">
-                  <p className="goal-page-privacy white-text">
+                  <p className="goal-page-privacy">
                     {currentGoal.private ? "Private" : "Public"}
                   </p>
                   <div className="goal-privacy-checkbox">
@@ -275,11 +283,9 @@ function GoalDetail(props) {
                     </label>
                   </div>
                 </div>
-                <p className="goal-page-dueDate white-text">
-                  Due: {currentGoal.dueDate}
-                </p>
+                <p className="goal-page-dueDate">Due: {currentGoal.dueDate}</p>
               </div>
-              <h3 className="goal-page-title white-text">{currentGoal.name}</h3>
+              <h3 className="goal-page-title">{currentGoal.name}</h3>
             </div>
             <div className="row">
               <div className="col s6 offset-s3">
@@ -321,10 +327,30 @@ function GoalDetail(props) {
                     <li>
                       <div className="collapsible-header">
                         <i className="material-icons">directions_run</i>
-                        Followers: {currentGoal.buddies.current.length}{" "}
+                        Followers: {followers.length}{" "}
                       </div>
                       <div className="collapsible-body followers-body">
-                        <span>Lorem ipsum dolor sit amet.</span>
+                        {followers.map(index => {
+                          return (
+                            <div
+                              className="chip"
+                              style={{
+                                backgroundColor: "#d4ac0d",
+                                color: "#10355f",
+                                cursor: "pointer"
+                              }}
+                            >
+                              <img
+                                src={
+                                  index.image
+                                    ? index.image
+                                    : "https://image.flaticon.com/icons/png/128/57/57117.png"
+                                }
+                              />
+                              {index.username}
+                            </div>
+                          );
+                        })}
                       </div>
                     </li>
                   </ul>
@@ -398,7 +424,7 @@ function GoalDetail(props) {
         </div>
       </div>
       <div className="col s1 nextGoalArrow">
-        <span className="tooltipped" data-position="top">
+        <span>
           <FontAwesomeIcon icon={faChevronRight} onClick={props.nextGoal} />
         </span>
       </div>
