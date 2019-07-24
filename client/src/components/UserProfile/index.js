@@ -66,7 +66,7 @@ const UserProfile = props => {
   }, []);
 
   const renderBadge = (array, category) => {
-    if (array.length > 9) {
+    if (array.length > 7) {
       switch (category) {
         case "Financial":
           return (
@@ -85,7 +85,7 @@ const UserProfile = props => {
           return <img src={goldEducationBadge} alt={category} />;
       }
     }
-    if (array.length < 10 && array.length > 3) {
+    if (array.length < 8 && array.length > 3) {
       switch (category) {
         case "Financial":
           return <img src={silverFinancialBadge} alt={category} />;

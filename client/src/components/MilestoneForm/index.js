@@ -64,6 +64,7 @@ function MilestoneForm(props) {
   };
 
   const handleSubmit = event => {
+    event.preventDefault();
     console.log("working");
 
     if (frequency === "Never" && title) {

@@ -7,6 +7,7 @@ import M from "materialize-css";
 import { useAuth0 } from "../../react-auth0-spa";
 import Fuse from "fuse.js";
 import Footer from "../../components/Footer";
+import defaultLionPic from "./lionDefaultProfilePic.jpg";
 
 import "./style.css";
 
@@ -244,7 +245,11 @@ const Buddies = props => {
                         key={result.item.id}
                       >
                         <img
-                          src={result.item.image}
+                          src={
+                            result.item.image
+                              ? result.item.image
+                              : defaultLionPic
+                          }
                           alt={result.item.username}
                           className="circle responsive-img"
                         />
@@ -269,7 +274,7 @@ const Buddies = props => {
                     {currentUserRemoved.map(user => (
                       <li key={user.id} className="collection-item avatar">
                         <img
-                          src={user.image}
+                          src={user.image ? user.image : defaultLionPic}
                           alt={user.username}
                           className="circle responsive-img"
                         />
