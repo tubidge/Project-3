@@ -3,8 +3,13 @@
   opacity: 1;
 }
 
-#completeProfile {
-  background-color: var(--darkBlue);
+.modalTitle {
+  color: var(--darkBlue);
+  border-bottom: 1px dashed var(--accentGold);
+}
+
+.completeProfileBtn {
+  background-color: var(--blue) !important;
 }
 
 .container-profile {
