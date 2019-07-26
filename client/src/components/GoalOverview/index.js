@@ -281,7 +281,7 @@ function GoalOverview(props) {
   if (currentGoals) {
     return (
       <>
-        {modalOpen ? (
+        {/* {modalOpen ? (
           <ConfirmModal
             goalId={selectedGoal}
             message={confirmMessage}
@@ -290,7 +290,7 @@ function GoalOverview(props) {
           />
         ) : (
           ""
-        )}
+        )} */}
         <div className="row">
           <div className="col s12">
             <div id="goalOverview" className="card goal-overview-card">
@@ -392,7 +392,7 @@ function GoalOverview(props) {
                                 exit_to_app
                               </i>
                               <div>
-                                <i
+                                {/* <i
                                   class="material-icons"
                                   style={{
                                     color: "#d4ac0d",
@@ -404,7 +404,19 @@ function GoalOverview(props) {
                                   }
                                 >
                                   check_box
-                                </i>
+                                </i> */}
+                                <ConfirmModal
+                                  className="addGoal_GoalPage material-icons modal-trigger right tooltipped"
+                                  btnName={"check_box"}
+                                  dataTarget={`newGoalFromCard_${makeid(5)}`}
+                                  goalId={goal.id}
+                                  message={`This will complete your goal journey for '${
+                                    goal.name
+                                  }'`}
+                                  type="Complete"
+                                  render={close}
+                                  orderRender={orderRender}
+                                />
                               </div>
                             </div>
                           </div>
