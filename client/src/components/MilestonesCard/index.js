@@ -7,11 +7,12 @@ import MilestoneForm from "../MilestoneForm";
 import moment from "moment";
 
 function MilestonesCard(props) {
+  console.log(props);
   const [milestones, setMilestones] = useState(false);
   const [reRender, setreRender] = useState(false);
   const [milestoneSelected, setmilestoneSelected] = useState(false);
   const [currentMilestone, setCurrentMilestone] = useState();
-  const [modalOpen, setmodalOpen] = useState(false);
+  // const [modalOpen, setmodalOpen] = useState(false);
   const [frequency, setFrequency] = useState();
 
   const now = moment().format("YYYY-MM-DD");
@@ -20,22 +21,22 @@ function MilestonesCard(props) {
     getData();
   }, [reRender, props.goalId]);
   useEffect(() => {
-    document.addEventListener("click", event => {
-      if (
-        event.target.className === "chip" ||
-        event.target.className === "milestones-card-button"
-      ) {
-        return false;
-      } else if (
-        event.target.className === "milestones-card-button" &&
-        milestoneSelected
-      ) {
-        return false;
-      } else if (!modalOpen && milestoneSelected) {
-      }
-      setmilestoneSelected(false);
-      setreRender(!reRender);
-    });
+    // document.addEventListener("click", event => {
+    //   if (
+    //     event.target.className === "chip" ||
+    //     event.target.className === "milestones-card-button"
+    //   ) {
+    //     return false;
+    //   } else if (
+    //     event.target.className === "milestones-card-button" &&
+    //     milestoneSelected
+    //   ) {
+    //     return false;
+    //   } else if (milestoneSelected) {
+    //   }
+    //   setmilestoneSelected(false);
+    //   setreRender(!reRender);
+    // });
   }, [milestoneSelected]);
   const getData = () => {
     API.getMilestoneFreq(props.goalId, props.frequency).then(data => {
@@ -44,12 +45,6 @@ function MilestonesCard(props) {
   };
   const clickMilestone = (name, frequency) => {
     setmilestoneSelected({ name: name, frequency: frequency });
-  };
-  const openConfirmModal = event => {
-    event.preventDefault();
-    console.log("delete button clicked");
-    setCurrentMilestone(milestoneSelected);
-    setmodalOpen(true);
   };
 
   const makeid = l => {
@@ -63,34 +58,15 @@ function MilestonesCard(props) {
   };
 
   const close = header => {
-    if (header !== "cancel") {
-      setreRender(!reRender);
-      setmodalOpen(false);
-      props.reRender();
-    } else {
-      // setreRender(!reRender);
-      setmodalOpen(false);
-
-      setmilestoneSelected(false);
-      props.orderProgressRender();
-    }
+    setmilestoneSelected(false);
+    setreRender(!reRender);
+    props.reRender();
+    props.orderProgressRender();
   };
+
   if (milestones) {
     return (
       <>
-        {modalOpen ? (
-          <ConfirmModal
-            message="This will delete all repeating instances for this milestone"
-            type="Delete"
-            goalId={props.goalId}
-            milestone={currentMilestone}
-            render={close}
-            action="Delete"
-          />
-        ) : (
-          ""
-        )}
-
         <div className="card milestones-card z-depth-3">
           <div className="card-content white-text milestones-card-body">
             <span className="card-title milestones-card-title">
@@ -122,12 +98,16 @@ function MilestonesCard(props) {
             />
 
             {milestoneSelected ? (
-              <button
-                className="btn milestones-card-button"
-                onClick={openConfirmModal}
-              >
-                Delete
-              </button>
+              <ConfirmModal
+                className="btn milestones-card-button  modal-trigger right "
+                btnName="Delete"
+                dataTarget={`newGoalFromCard_${makeid(5)}`}
+                goalId={props.goalId}
+                message="This will delete every instance of this milestone"
+                type="Delete"
+                milestone={milestoneSelected}
+                render={close}
+              />
             ) : (
               ""
             )}

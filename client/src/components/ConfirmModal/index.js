@@ -5,6 +5,7 @@ import API from "../../utils/API";
 import "./style.css";
 
 function ConfirmModal(props) {
+  console.log("Confirm modal opening");
   const [dataTarget, setDataTarget] = useState();
 
   useEffect(() => {

@@ -110,6 +110,7 @@ const Goals = props => {
     setStartIndex(id);
     const result = incompleteGoals.filter(goal => goal.id === id);
 
+    console.log(result);
     renderGoalsForCategory(result[0].category, incompleteGoals);
 
     setCurrentGoal(result[0]);
