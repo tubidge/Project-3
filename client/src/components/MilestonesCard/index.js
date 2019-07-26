@@ -4,6 +4,8 @@ import Loading from "../../components/Loading";
 import API from "../../utils/API";
 import ConfirmModal from "../ConfirmModal";
 import MilestoneForm from "../MilestoneForm";
+import moment from "moment";
+
 function MilestonesCard(props) {
   const [milestones, setMilestones] = useState(false);
   const [reRender, setreRender] = useState(false);
@@ -11,7 +13,9 @@ function MilestonesCard(props) {
   const [currentMilestone, setCurrentMilestone] = useState();
   const [modalOpen, setmodalOpen] = useState(false);
   const [frequency, setFrequency] = useState();
-  const [newMilestone, setNewMilestone] = useState(false);
+
+  const now = moment().format("YYYY-MM-DD");
+
   useEffect(() => {
     getData();
   }, [reRender, props.goalId]);
@@ -42,14 +46,22 @@ function MilestonesCard(props) {
     setmilestoneSelected({ name: name, frequency: frequency });
   };
   const openConfirmModal = event => {
-    setCurrentMilestone(milestoneSelected);
     event.preventDefault();
+    console.log("delete button clicked");
+    setCurrentMilestone(milestoneSelected);
     setmodalOpen(true);
   };
-  const openNewMilestone = header => {
-    setFrequency(header);
-    setNewMilestone(true);
+
+  const makeid = l => {
+    let text = "";
+    let char_list =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    for (let i = 0; i < l; i++) {
+      text += char_list.charAt(Math.floor(Math.random() * char_list.length));
+    }
+    return text;
   };
+
   const close = header => {
     if (header !== "cancel") {
       setreRender(!reRender);
@@ -58,7 +70,7 @@ function MilestonesCard(props) {
     } else {
       // setreRender(!reRender);
       setmodalOpen(false);
-      setNewMilestone(false);
+
       setmilestoneSelected(false);
       props.orderProgressRender();
     }
@@ -78,16 +90,7 @@ function MilestonesCard(props) {
         ) : (
           ""
         )}
-        {newMilestone ? (
-          <MilestoneForm
-            goalId={props.goalId}
-            userId={props.userId}
-            frequency={frequency}
-            close={close}
-          />
-        ) : (
-          ""
-        )}
+
         <div className="card milestones-card z-depth-3">
           <div className="card-content white-text milestones-card-body">
             <span className="card-title milestones-card-title">
@@ -107,13 +110,17 @@ function MilestonesCard(props) {
             })}
           </div>
           <div className="card-action milestones-card-footer">
-            <button
-              className="btn milestones-card-button"
-              onClick={() => openNewMilestone(props.frequency)}
-            >
-              <i className="material-icons right">add_to_photos</i>
-              New {props.frequency}
-            </button>
+            <MilestoneForm
+              goalId={props.goalId}
+              userId={props.userId}
+              frequency={props.frequency}
+              dataTarget={`newGoalFromCard_${makeid(5)}`}
+              close={close}
+              dueDate={now}
+              className="btn milestones-card-button modal-trigger"
+              btnName={`New ${props.frequency}`}
+            />
+
             {milestoneSelected ? (
               <button
                 className="btn milestones-card-button"

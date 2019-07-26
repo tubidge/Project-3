@@ -4,6 +4,7 @@ import API from "../../utils/API";
 import "./style.css";
 
 function ConfirmModal(props) {
+  console.log(props);
   useEffect(() => {
     M.AutoInit();
     let modals = document.querySelectorAll(".modal");

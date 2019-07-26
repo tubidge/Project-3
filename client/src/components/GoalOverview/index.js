@@ -43,24 +43,28 @@ function GoalOverview(props) {
       console.log("()()()()()()()()()()()()");
       console.log(resp.data);
 
-      if (resp.data.currentGoals.length > 3) {
-        let arr = [];
-        for (var i = currentIndex; i < [currentIndex + 3]; i++) {
-          if (i < 0) {
-            let num = resp.data.currentGoals.length - 1;
-            arr.push(resp.data.currentGoals[num]);
-          } else if (i > resp.data.currentGoals.length - 1) {
-            arr.push(resp.data.currentGoals[i - resp.data.currentGoals.length]);
-          } else {
-            arr.push(resp.data.currentGoals[i]);
+      if (resp.data.currentGoals) {
+        if (resp.data.currentGoals.length > 3) {
+          let arr = [];
+          for (var i = currentIndex; i < [currentIndex + 3]; i++) {
+            if (i < 0) {
+              let num = resp.data.currentGoals.length - 1;
+              arr.push(resp.data.currentGoals[num]);
+            } else if (i > resp.data.currentGoals.length - 1) {
+              arr.push(
+                resp.data.currentGoals[i - resp.data.currentGoals.length]
+              );
+            } else {
+              arr.push(resp.data.currentGoals[i]);
+            }
           }
-        }
 
-        setCurrentView(arr);
-      } else if (resp.data.currentGoals.length > 0) {
-        setCurrentView(resp.data.currentGoals);
-      } else {
-        setCurrentView(false);
+          setCurrentView(arr);
+        } else if (resp.data.currentGoals.length > 0) {
+          setCurrentView(resp.data.currentGoals);
+        } else {
+          setCurrentView(false);
+        }
       }
 
       if (props.pastGoals.length > 3) {

@@ -34,7 +34,7 @@ const Milestone = {
         range(milestone.startDate),
         range(milestone.endDate)
       );
-
+      console.log(milestone);
       if (milestone.frequency === "Never") {
         Milestone.addMilestone(milestone).then(data => {
           resolve(data);
