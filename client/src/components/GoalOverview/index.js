@@ -40,6 +40,8 @@ function GoalOverview(props) {
   const getData = () => {
     API.getGoalCategory(props.userId, props.category).then(resp => {
       setCurrentGoals(resp.data.currentGoals);
+      console.log("()()()()()()()()()()()()");
+      console.log(resp.data);
 
       if (resp.data.currentGoals.length > 3) {
         let arr = [];
