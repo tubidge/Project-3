@@ -7,7 +7,7 @@ import josh from "./pics/Josh.jpg";
 import alex from "./pics/Alex.jpg";
 import hunter from "./pics/Hunter.jpg";
 import phil from "./pics/Phil.jpg";
-import logo from "./pics/logo.svg";
+import logo from "../../assets/logo.png";
 import "./style.css";
 
 const Home = () => {
