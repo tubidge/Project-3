@@ -17,13 +17,13 @@ function GoalOverview(props) {
   const [selectedGoal, setSelectedGoal] = useState();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentView, setCurrentView] = useState();
-  const [modalOpen, setmodalOpen] = useState(false);
+
   const [reRender, setreRender] = useState(false);
   const [search, setSearch] = useState();
   const [start, setStart] = useState();
   const [end, setEnd] = useState();
-  const [confirmMessage, setConfirmMessage] = useState();
-  const [confirmType, setConfirmType] = useState();
+  // const [confirmMessage, setConfirmMessage] = useState();
+  // const [confirmType, setConfirmType] = useState();
 
   useEffect(() => {
     M.AutoInit();
@@ -168,25 +168,12 @@ function GoalOverview(props) {
     setPastIndex(sub);
   };
 
-  const deleteGoal = id => {
-    setSelectedGoal(id);
-    setConfirmMessage("This will delete your goal and any of its milestones");
-    setConfirmType("Delete Goal");
-    openConfirmModal();
-  };
-
-  const openConfirmModal = () => {
-    setmodalOpen(true);
-  };
-
   const close = header => {
     if (header !== "cancel") {
-      setmodalOpen(false);
       setreRender(!reRender);
       props.orderRender();
     } else {
       // setreRender(!reRender);
-      setmodalOpen(false);
 
       setSelectedGoal(false);
     }
@@ -254,12 +241,12 @@ function GoalOverview(props) {
     }
   };
 
-  const completeGoal = (id, name) => {
-    setSelectedGoal(id);
-    setConfirmMessage(`This will complete your goal journey for '${name}'`);
-    setConfirmType("Complete");
-    openConfirmModal();
-  };
+  // const completeGoal = (id, name) => {
+  //   setSelectedGoal(id);
+  //   setConfirmMessage(`This will complete your goal journey for '${name}'`);
+  //   setConfirmType("Complete");
+  //   openConfirmModal();
+  // };
 
   const generateIcon = () => {
     switch (props.category) {
@@ -351,13 +338,26 @@ function GoalOverview(props) {
                                   justifyContent: "flex-end"
                                 }}
                               >
-                                <i
+                                {/* <i
                                   className="material-icons delete_GoalPage"
                                   data-id={goal.id}
                                   onClick={() => deleteGoal(goal.id)}
                                 >
                                   delete_forever
-                                </i>
+                                </i> */}
+
+                                <ConfirmModal
+                                  className="delete_GoalPage material-icons modal-trigger right tooltipped"
+                                  btnName={"delete_forever"}
+                                  dataTarget={`newGoalFromCard_${makeid(5)}`}
+                                  goalId={goal.id}
+                                  message={`This will delete ${
+                                    goal.name
+                                  } and any of it's milestones`}
+                                  type="Delete Goal"
+                                  render={close}
+                                  orderRender={orderRender}
+                                />
                               </div>
                             </div>
                             <div className="card-content">
@@ -392,19 +392,6 @@ function GoalOverview(props) {
                                 exit_to_app
                               </i>
                               <div>
-                                {/* <i
-                                  class="material-icons"
-                                  style={{
-                                    color: "#d4ac0d",
-                                    cursor: "pointer",
-                                    transform: "scale(1.1)"
-                                  }}
-                                  onClick={() =>
-                                    completeGoal(goal.id, goal.name)
-                                  }
-                                >
-                                  check_box
-                                </i> */}
                                 <ConfirmModal
                                   className="addGoal_GoalPage material-icons modal-trigger right tooltipped"
                                   btnName={"check_box"}
@@ -553,14 +540,27 @@ function GoalOverview(props) {
                                 justifyContent: "flex-end"
                               }}
                             >
-                              <i
+                              {/* <i
                                 style={{ color: "#bbb" }}
                                 className="material-icons delete_GoalPage"
                                 data-id={goal.id}
                                 onClick={() => deleteGoal(goal.id)}
                               >
                                 delete_forever
-                              </i>
+                              </i> */}
+
+                              <ConfirmModal
+                                className="delete_GoalPage material-icons modal-trigger right tooltipped"
+                                btnName={"delete_forever"}
+                                dataTarget={`newGoalFromCard_${makeid(5)}`}
+                                goalId={goal.id}
+                                message={`This will delete ${
+                                  goal.name
+                                } and any of it's milestones`}
+                                type="Delete Goal"
+                                render={close}
+                                orderRender={orderRender}
+                              />
                             </div>
                           </div>
                           <div className="card-content">
