@@ -20,23 +20,29 @@ function MilestonesCard(props) {
   useEffect(() => {
     getData();
   }, [reRender, props.goalId]);
+
   useEffect(() => {
-    // document.addEventListener("click", event => {
-    //   if (
-    //     event.target.className === "chip" ||
-    //     event.target.className === "milestones-card-button"
-    //   ) {
-    //     return false;
-    //   } else if (
-    //     event.target.className === "milestones-card-button" &&
-    //     milestoneSelected
-    //   ) {
-    //     return false;
-    //   } else if (milestoneSelected) {
-    //   }
-    //   setmilestoneSelected(false);
-    //   setreRender(!reRender);
-    // });
+    document.addEventListener("click", event => {
+      if (
+        event.target.className === "chip" ||
+        event.target.className === "milestones-card-button"
+      ) {
+        return false;
+      } else if (
+        event.target.className === "milestones-card-button" &&
+        milestoneSelected
+      ) {
+        return false;
+      } else if (
+        event.target.className ===
+        "btn milestones-card-button modal-trigger right"
+      ) {
+        return false;
+      } else if (milestoneSelected) {
+        setmilestoneSelected(false);
+        // setreRender(!reRender);
+      }
+    });
   }, [milestoneSelected]);
   const getData = () => {
     API.getMilestoneFreq(props.goalId, props.frequency).then(data => {
@@ -99,7 +105,7 @@ function MilestonesCard(props) {
 
             {milestoneSelected ? (
               <ConfirmModal
-                className="btn milestones-card-button  modal-trigger right "
+                className="btn milestones-card-button modal-trigger right"
                 btnName="Delete"
                 dataTarget={`newGoalFromCard_${makeid(5)}`}
                 goalId={props.goalId}
