@@ -1,0 +1,9 @@
+.icon_Chat:hover {
+  transform: scale(1.1);
+  font-size: 2.4em;
+  color: var(--darkBlue) !important;
+  -moz-transition: all 0.2s ease-in-out 0s;
+  -webkit-transition: all 0.2s ease-in-out 0s;
+  -ms-transition: all 0.2s ease-in-out 0s;
+  transition: all 0.2s ease-in-out 0s;
+}

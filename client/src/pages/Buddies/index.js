@@ -6,9 +6,8 @@ import API from "../../utils/API";
 import M from "materialize-css";
 import { useAuth0 } from "../../react-auth0-spa";
 import Fuse from "fuse.js";
-import Footer from "../../components/Footer";
-import defaultLionPic from "./lionDefaultProfilePic.jpg";
 
+import defaultLionPic from "./lionDefaultProfilePic.jpg";
 import "./style.css";
 
 const Buddies = props => {
@@ -293,7 +292,7 @@ const Buddies = props => {
               <div className="card">
                 <div className="card-content">
                   <span className="card-title">
-                    <span className="buddyInfo">Get Paired with a Buddy</span>
+                    <span className="brandedText">Get Paired with a Buddy</span>
                   </span>
                   <p>
                     Find someone with similar goals, so you can help each other!

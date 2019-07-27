@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import "./style.scss";
-import "./style.css";
 import API from "../../utils/API";
 import MilestoneModal from "../MilestoneModal";
 import M from "materialize-css";
+import "./style.scss";
+import "./style.css";
 
 export default class Cal extends Component {
   state = {
@@ -19,17 +19,13 @@ export default class Cal extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    // console.log("component working");
     if (this.props.render !== prevProps.render) {
-      // console.log("rerendering cal");
       this.getMilestones();
     }
   }
 
   getMilestones() {
     API.getAllGoals(this.props.userId).then(data => {
-      console.log(data);
-
       let incompleteGoals = data.data.currentGoals.incomplete;
       let incompleteMilestones = [];
       let completeMilestones = [];
@@ -55,7 +51,7 @@ export default class Cal extends Component {
               results.push(event);
               break;
             case "Education":
-              event.backgroundColor = "#BDBDBD";
+              event.backgroundColor = "#aaa";
               results.push(event);
               break;
             case "Financial":
@@ -88,7 +84,7 @@ export default class Cal extends Component {
               results.push(event);
               break;
             case "Education":
-              event.backgroundColor = "#bdbdbd";
+              event.backgroundColor = "#aaa";
               results.push(event);
               break;
             case "Financial":

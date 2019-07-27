@@ -1,9 +1,4 @@
-#buddiesList .material-icons {
-  font-size: 2.4em;
-  color: var(--accentGold);
-}
-
-#buddiesList .material-icons {
+.buddyList .material-icons {
   font-size: 2.4em;
   color: var(--accentGold);
   -moz-transition: all 0.2s ease-in-out 0s;
@@ -12,30 +7,16 @@
   transition: all 0.2s ease-in-out 0s;
 }
 
-#buddiesList #chatIcon:hover {
-  transform: scale(1.1);
-  font-size: 2.4em;
-  color: var(--darkBlue);
-  -moz-transition: all 0.2s ease-in-out 0s;
-  -webkit-transition: all 0.2s ease-in-out 0s;
-  -ms-transition: all 0.2s ease-in-out 0s;
-  transition: all 0.2s ease-in-out 0s;
+.buddyList .connectingArrow {
+  transform: rotate(45deg) !important;
 }
 
-#buddiesList .link {
-  color: var(--accentGold);
-}
-
-#buddyGoal {
+.buddyList .buddyGoal {
   width: 85%;
 }
 
-#buddyGoal i {
-  transform: rotate(45deg);
-}
-
-#buddyGoal .userGoal {
+.buddyList .userGoal {
   position: relative;
-  font-weight: normal;
   top: -8px;
+  font-weight: normal;
 }

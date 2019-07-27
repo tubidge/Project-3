@@ -9,7 +9,7 @@ import UserProfile from "../../components/UserProfile";
 import GoalCard from "../../components/GoalCard";
 import Chat from "../../components/Chat";
 import Cal from "../../components/Calendar";
-import defaultLionPic from "../../components/Form/lionDefaultProfilePic.jpg";
+import defaultLionPic from "../../assets/images/lionDefaultProfilePic.jpg";
 
 import "./style.css";
 
@@ -136,84 +136,87 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="profileSummaryBg" />
       <div className="hero-image" />
-      <div className="row">
-        <div className="col l3 s12" style={{ marginTop: "-130px" }}>
-          <UserProfile
-            userPicture={userInfo.image ? userInfo.image : defaultLionPic}
-            username={userInfo.username}
-            email={userInfo.email}
-            incompleteGoals={incompleteGoals}
-            completeGoals={completeGoals}
-            buddies={allBuddies ? getUnique(allBuddies, "username") : null}
-          />
-          <div>
-            <Link
-              to={{
-                pathname: "/buddies",
-                state: {
-                  user: user.email
-                }
-              }}
-              className="link"
-            >
-              <h5 id="findBuddies_dashboard">
-                Find Buddies <i className="material-icons">person_add</i>
-              </h5>
-            </Link>
-          </div>
-          {userInfo.buddies && (
-            <Chat
-              userInfo={userInfo}
-              myBuddies={myBuddies}
-              buddies={allBuddies}
-              buddiesUsername={
-                allBuddies ? getUnique(allBuddies, "username") : null
-              }
-              buddiesEmail={allBuddies ? getUnique(allBuddies, "email") : null}
-              makeid={makeid}
-            />
-          )}
-          {!userInfo.buddies && (
-            <div id="noBuddies">
-              <p>You don't have any Buddies... yet!</p>
-              <p>
-                If you are having a hard time finding Buddies, just{" "}
-                <Link
-                  to="/buddies"
-                  style={{ borderBottom: "1px dashed #2867aa" }}
-                >
-                  click here
-                </Link>
-                to generate some matches based on your goals.
-              </p>
-              <p>
-                So if you haven't added any goals, you may want to do that first
-                to get the best matches.
-              </p>
-            </div>
-          )}
-        </div>
-        <div style={{ marginTop: "20px", marginBottom: "20px" }} />
-        <div className="col l8 s12">{renderGoalCards()}</div>
-        <div className="col s1 nextArrow">
-          {activeCategories.length >= 3 && (
-            <span
-              className="tooltipped"
-              data-position="top"
-              data-tooltip="More categories"
-            >
-              <FontAwesomeIcon
-                onClick={() => cycleCategories()}
-                icon={faChevronRight}
-              />
-            </span>
-          )}
-        </div>
+      <div className="dashboardContainer">
         <div className="row">
-          <div className="calendar col l8 s12 center-align">
-            {renderCalendar()}
+          <div className="col l3 s12" style={{ marginTop: "-130px" }}>
+            <UserProfile
+              userPicture={userInfo.image ? userInfo.image : defaultLionPic}
+              username={userInfo.username}
+              email={userInfo.email}
+              incompleteGoals={incompleteGoals}
+              completeGoals={completeGoals}
+              buddies={allBuddies ? getUnique(allBuddies, "username") : null}
+            />
+            <div>
+              <Link
+                to={{
+                  pathname: "/buddies",
+                  state: {
+                    user: user.email
+                  }
+                }}
+                className="link"
+              >
+                <h5 className="findBuddies_Dashboard">
+                  Find Buddies <i className="material-icons">person_add</i>
+                </h5>
+              </Link>
+            </div>
+            {userInfo.buddies && (
+              <Chat
+                userInfo={userInfo}
+                myBuddies={myBuddies}
+                buddies={allBuddies}
+                buddiesUsername={
+                  allBuddies ? getUnique(allBuddies, "username") : null
+                }
+                buddiesEmail={
+                  allBuddies ? getUnique(allBuddies, "email") : null
+                }
+                makeid={makeid}
+              />
+            )}
+            {!userInfo.buddies && (
+              <div className="noBuddies">
+                <p>You don't have any Buddies... yet!</p>
+                <p>
+                  If you are having a hard time finding Buddies, just{" "}
+                  <Link
+                    to="/buddies"
+                    style={{ borderBottom: "1px dashed #2867aa" }}
+                  >
+                    click here
+                  </Link>
+                  to generate some matches based on your goals.
+                </p>
+                <p>
+                  So if you haven't added any goals, you may want to do that
+                  first to get the best matches.
+                </p>
+              </div>
+            )}
+          </div>
+          <div style={{ marginTop: "20px", marginBottom: "20px" }} />
+          <div className="col l8 s12">{renderGoalCards()}</div>
+          <div className="nextArrow">
+            {activeCategories.length >= 3 && (
+              <span
+                className="tooltipped"
+                data-position="top"
+                data-tooltip="More categories"
+              >
+                <FontAwesomeIcon
+                  onClick={() => cycleCategories()}
+                  icon={faChevronRight}
+                />
+              </span>
+            )}
+          </div>
+          <div className="row">
+            <div className="calendar col l9 s12 center-align">
+              {renderCalendar()}
+            </div>
           </div>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import "./style.css";
 
 function ChatButton(props) {
   return (
@@ -11,9 +12,7 @@ function ChatButton(props) {
           props.openChannel(props.channel);
         }}
       >
-        <i id="chatIcon" className="material-icons">
-          message
-        </i>
+        <i className="material-icons icon_Chat">message</i>
       </span>
     </>
   );

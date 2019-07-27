@@ -3,10 +3,9 @@ import { Link } from "react-router-dom";
 import Select from "react-select";
 import M from "materialize-css";
 import API from "../../utils/API";
+import moment from "moment";
+import axios from "axios";
 import "./style.css";
-
-const moment = require("moment");
-const axios = require("axios");
 
 const Modal = props => {
   const [dataTarget, setDataTarget] = useState("");
@@ -200,9 +199,9 @@ const Modal = props => {
       <div id="goalCardModal">
         <div id={dataTarget} className="modal">
           <div className="modal-content">
-            <h5>
-              <span className="buddyInfo">{props.header}</span>
-            </h5>
+            <h4>
+              <span className="modalTitle">{props.header}</span>
+            </h4>
             <form onSubmit={handleSubmit}>
               {props.header === "Add a New Goal" && (
                 <>

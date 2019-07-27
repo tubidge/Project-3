@@ -52,7 +52,7 @@ export default class FileUpload extends Component {
   render() {
     return (
       <>
-        <div className="FileUpload">
+        <div className="fileUpload">
           <Dropzone
             onDrop={this.onImageDrop.bind(this)}
             accept="image/*"

@@ -30,7 +30,7 @@ function ProgressBar(props) {
   } else {
     let percentage = props.percentage * 100;
     return (
-      <div className="progress-bar">
+      <div className="progressBar">
         <ProgressFiller percentage={percentage} />
       </div>
     );
