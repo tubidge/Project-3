@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 import ConfirmSignupModal from "../ConfirmSignupModal";
-import defaultLionPic from "./lionDefaultProfilePic.jpg";
-import "./style.css";
+import defaultLionPic from "../../assets/images/lionDefaultProfilePic.jpg";
 
 const Form = props => {
   const [username, setUsername] = useState("");
@@ -93,7 +92,7 @@ const Form = props => {
       </form>{" "}
       <ConfirmSignupModal
         btnName="Complete Profile"
-        className="btn modal-trigger completeProfileBtn"
+        className="btn modal-trigger btn-blueO"
         dataTarget={`completeProfile_${makeid(5)}`}
         information={{ firstName, lastName, username, email, image }}
       />

@@ -230,12 +230,10 @@ const GoalCard = props => {
   return (
     <div className="col l4 s12">
       <div className="card goalCard">
-        <div className="card-title">
+        <div className="card-title goalCardTitle">
           <span className="category-title">
             {props.category}
-            <i id="categoryIcon" className="material-icons">
-              {generateIcon()}
-            </i>
+            <i className="material-icons categoryIcon">{generateIcon()}</i>
           </span>
           <Modal
             className="goalCardModal material-icons modal-trigger right tooltipped"

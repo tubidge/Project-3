@@ -184,7 +184,7 @@ function MilestoneForm(props) {
       <div href="milestoneForm" id="milestoneForm" className="modal">
         <div className="modal-content center-align">
           <h5>
-            <span className="buddyInfo">New {props.frequency} Milestone</span>
+            <span className="brandedText">New {props.frequency} Milestone</span>
           </h5>
           <form className="col s10 offset-s1">
             <div className="row">

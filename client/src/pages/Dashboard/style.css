@@ -1,15 +1,17 @@
-body {
-  background: #eeeeee !important;
+.dashboardContainer {
+  width: 100%;
+  padding: 0 15px;
+  margin: 0 auto;
 }
 
-#noBuddies {
+.noBuddies {
   background-color: white;
   border-radius: 10px;
   width: 100%;
   padding: 5px 10px;
 }
 
-#findBuddies_dashboard {
+.findBuddies_Dashboard {
   color: var(--darkBlue);
   font-weight: bold;
   -moz-transition: all 0.3s ease-in-out 0s;
@@ -18,14 +20,14 @@ body {
   transition: all 0.3s ease-in-out 0s;
 }
 
-#findBuddies_dashboard .material-icons {
+.findBuddies_dashboard .material-icons {
   position: relative;
   top: 4px;
   font-size: 1.2em;
   font-weight: bold;
 }
 
-#findBuddies_dashboard:hover {
+.findBuddies_Dashboard:hover {
   color: var(--accentGold);
   -moz-transition: all 0.3s ease-in-out 0s;
   -webkit-transition: all 0.3s ease-in-out 0s;
@@ -38,82 +40,22 @@ body {
   line-height: 200px;
   text-align: center;
 }
-.nextArrow > span {
+
+.nextArrow span {
   padding-right: 30px;
   display: inline-block;
   vertical-align: middle;
   line-height: normal;
   scale: 1;
   font-size: 60px;
-  color: var(--accentGold) !important;
-  -moz-transition: all 0.3s ease-in-out 0s;
-  -webkit-transition: all 0.3s ease-in-out 0s;
-  -ms-transition: all 0.3s ease-in-out 0s;
-  transition: all 0.3s ease-in-out 0s;
+  color: var(--accentGold);
 }
 
-.nextArrow > span:hover {
+.nextArrow span:hover {
   cursor: pointer;
-  color: #212121;
-  -moz-transition: all 0.3s ease-in-out 0s;
-  -webkit-transition: all 0.3s ease-in-out 0s;
-  -ms-transition: all 0.3s ease-in-out 0s;
-  transition: all 0.3s ease-in-out 0s;
-}
-
-@media only screen and (max-width: 600px) {
-  .nextArrow > span {
-    -webkit-transform: rotate(90deg);
-    transform: rotate(90deg);
-    margin-left: 245px;
-    margin-top: -100px;
-    font-size: 80px;
-    color: var(--accentGold);
-  }
-}
-
-.hero-image {
-  background: -webkit-linear-gradient(
-    -90deg,
-    rgba(16, 42, 70, 1) 0%,
-    rgba(56, 90, 124, 1) 100%
-  );
-  min-height: 225px;
-}
-
-.nextArrow {
-  height: 200px;
-  line-height: 200px;
-  text-align: center;
-}
-.nextArrow > span {
-  padding-right: 30px;
-  display: inline-block;
-  vertical-align: middle;
-  line-height: normal;
-  scale: 1;
-  font-size: 60px;
-  color: var(--accentGold) !important;
-  -moz-transition: all 0.3s ease-in-out 0s;
-  -webkit-transition: all 0.3s ease-in-out 0s;
-  -ms-transition: all 0.3s ease-in-out 0s;
-  transition: all 0.3s ease-in-out 0s;
-}
-.nextArrow > span:hover {
-  cursor: pointer;
-  color: #212121;
-  -moz-transition: all 0.3s ease-in-out 0s;
-  -webkit-transition: all 0.3s ease-in-out 0s;
-  -ms-transition: all 0.3s ease-in-out 0s;
-  transition: all 0.3s ease-in-out 0s;
-}
-@media only screen and (max-width: 600px) {
-  .nextArrow > span {
-    -webkit-transform: rotate(90deg);
-    transform: rotate(90deg);
-    margin-left: 245px;
-    margin-top: -100px;
-    font-size: 80px;
-    color: var(--accentGold) !important;
-  }
+  color: var(--blue) !important;
+  -moz-transition: all 0.1s ease-in-out 0s;
+  -webkit-transition: all 0.1s ease-in-out 0s;
+  -ms-transition: all 0.1s ease-in-out 0s;
+  transition: all 0.1s ease-in-out 0s;
 }
