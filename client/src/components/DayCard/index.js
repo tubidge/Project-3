@@ -10,7 +10,7 @@ import M from "materialize-css";
 function DayCard(props) {
   const date = moment(props.date.date).format("dddd, MMM Do");
   const [modalOpen, setmodalOpen] = useState(false);
-  const [milestones, setMilestones] = useState(props.date.incompleteMilestone);
+  const [milestones] = useState(props.date.incompleteMilestone);
   const [isLoading, setIsLoading] = useState(true);
   const [reRender, setreRender] = useState(false);
   // const [total, setTotal] = useState([

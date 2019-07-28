@@ -5,9 +5,9 @@ import "./style.css";
 
 const JoinGoalModal = props => {
   const [selectedGoal, setSelectedGoal] = useState("");
-  const [goal, setGoal] = useState("");
+  const [, setGoal] = useState("");
   const [selectedDuration, setSelectedDuration] = useState("");
-  const [duration, setDuration] = useState("");
+  const [, setDuration] = useState("");
 
   useEffect(() => {
     M.AutoInit();

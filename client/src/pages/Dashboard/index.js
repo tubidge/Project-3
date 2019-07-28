@@ -10,21 +10,20 @@ import GoalCard from "../../components/GoalCard";
 import Chat from "../../components/Chat";
 import Cal from "../../components/Calendar";
 import defaultLionPic from "../../assets/images/lionDefaultProfilePic.jpg";
-
 import "./style.css";
 
 const Dashboard = () => {
   const { loading, user } = useAuth0();
   const [isLoading, setIsLoading] = useState(true);
   const [userInfo, setUserInfo] = useState({});
-  const [, setGoalInfo] = useState({});
+  const [goalInfo, setGoalInfo] = useState({});
   const [incompleteGoals, setIncompleteGoals] = useState([]);
   const [completeGoals, setCompleteGoals] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [active, setActive] = useState([]);
+  const [, setActive] = useState([]);
   const [allBuddies, setAllBuddies] = useState();
   const [myBuddies, setMyBuddies] = useState();
-  const [reRender, setreRender] = useState(false);
+  const [reRender] = useState(false);
   const [calRender, setCalRender] = useState(false);
 
   let stopIndex;
@@ -37,9 +36,7 @@ const Dashboard = () => {
   const getUnique = (arr, comp) => {
     const unique = arr
       .map(e => e[comp])
-      // store the keys of the unique objects
       .map((e, i, final) => final.indexOf(e) === i && i)
-      // eliminate the dead keys & store unique objects
       .filter(e => arr[e])
       .map(e => arr[e]);
     return unique;
@@ -64,7 +61,6 @@ const Dashboard = () => {
         let goalData = res.data;
         setGoalInfo(goalData);
         setUserInfo(userData);
-        console.log(userData);
         if (userData.buddies) {
           setAllBuddies(userData.buddies.allBuddies);
           setMyBuddies(userData.buddies.myBuddies);
@@ -96,16 +92,14 @@ const Dashboard = () => {
         category={category}
         userID={userInfo.id}
         incompleteGoals={incompleteGoals}
-        getAllData={getAllData}
+        goals={goalInfo}
         renderCal={renderCal}
       />
     ));
   };
 
-  // Cycle through categories on arrow click
   const cycleCategories = () => {
     activeCategories = [];
-    // categories.push(categories.shift());
     categories.push(categories.shift());
     for (let i = 0; i < stopIndex; i++) {
       activeCategories.push(categories[i]);
@@ -126,7 +120,12 @@ const Dashboard = () => {
 
   const renderCalendar = () => {
     return (
-      <Cal userId={userInfo.id} orderRender={orderRender} render={calRender} />
+      <Cal
+        userId={userInfo.id}
+        goals={goalInfo}
+        orderRender={orderRender}
+        render={calRender}
+      />
     );
   };
 

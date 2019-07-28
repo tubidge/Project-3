@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import API from "../../utils/API";
 import MilestoneModal from "../MilestoneModal";
 import M from "materialize-css";
 import "./style.scss";
@@ -25,86 +24,88 @@ export default class Cal extends Component {
   }
 
   getMilestones() {
-    API.getAllGoals(this.props.userId).then(data => {
-      let incompleteGoals = data.data.currentGoals.incomplete;
-      let incompleteMilestones = [];
-      let completeMilestones = [];
-      incompleteGoals.forEach(index => {
-        incompleteMilestones.push(index.milestones.incomplete);
-        completeMilestones.push(index.milestones.completed);
-      });
+    let incompleteGoals = this.props.goals.currentGoals.incomplete;
+    let incompleteMilestones = [];
+    let completeMilestones = [];
+    incompleteGoals.forEach(index => {
+      incompleteMilestones.push(index.milestones.incomplete);
+      completeMilestones.push(index.milestones.completed);
+    });
 
-      const results = [];
-      incompleteMilestones.forEach(event => {
-        event.forEach(index => {
-          let event = {
-            id: index.id,
-            title: index.name,
-            date: index.dueDate,
-            category: index.category,
-            className: "modal-trigger",
-            dataTarget: `milestoneModal_${index.id}`
-          };
-          switch (event.category) {
-            case "Fitness":
-              event.backgroundColor = "#34495e";
-              results.push(event);
-              break;
-            case "Education":
-              event.backgroundColor = "#aaa";
-              results.push(event);
-              break;
-            case "Financial":
-              event.backgroundColor = "#d4ac0d";
-              results.push(event);
-              break;
-            case "Wellness":
-              event.backgroundColor = "#1A5276";
-              results.push(event);
-              break;
-            case "Travel":
-              event.backgroundColor = "#FFD54F";
-              results.push(event);
-              break;
-          }
-        });
+    const results = [];
+    incompleteMilestones.forEach(event => {
+      event.forEach(index => {
+        let event = {
+          id: index.id,
+          title: index.name,
+          date: index.dueDate,
+          category: index.category,
+          className: "modal-trigger",
+          dataTarget: `milestoneModal_${index.id}`
+        };
+        switch (event.category) {
+          case "Fitness":
+            event.backgroundColor = "#34495e";
+            results.push(event);
+            break;
+          case "Education":
+            event.backgroundColor = "#aaa";
+            results.push(event);
+            break;
+          case "Financial":
+            event.backgroundColor = "#d4ac0d";
+            results.push(event);
+            break;
+          case "Wellness":
+            event.backgroundColor = "#1A5276";
+            results.push(event);
+            break;
+          case "Travel":
+            event.backgroundColor = "#FFD54F";
+            results.push(event);
+            break;
+          default:
+            break;
+        }
       });
-      completeMilestones.forEach(event => {
-        event.forEach(index => {
-          let event = {
-            id: index.id,
-            title: index.name,
-            date: index.dueDate,
-            category: index.category,
-            className: "modal-trigger completed-milestone-cal"
-          };
-          switch (event.category) {
-            case "Fitness":
-              event.backgroundColor = "#34495e";
-              results.push(event);
-              break;
-            case "Education":
-              event.backgroundColor = "#aaa";
-              results.push(event);
-              break;
-            case "Financial":
-              event.backgroundColor = "#d4ac0d";
-              results.push(event);
-              break;
-            case "Wellness":
-              event.backgroundColor = "#1A5276";
-              results.push(event);
-              break;
-            case "Travel":
-              event.backgroundColor = "#FFD54F";
-              results.push(event);
-              break;
-          }
-        });
+    });
+    completeMilestones.forEach(event => {
+      event.forEach(index => {
+        let event = {
+          id: index.id,
+          title: index.name,
+          date: index.dueDate,
+          category: index.category,
+          className: "modal-trigger completed-milestone-cal"
+        };
+        switch (event.category) {
+          case "Fitness":
+            event.backgroundColor = "#34495e";
+            results.push(event);
+            break;
+          case "Education":
+            event.backgroundColor = "#aaa";
+            results.push(event);
+            break;
+          case "Financial":
+            event.backgroundColor = "#d4ac0d";
+            results.push(event);
+            break;
+          case "Wellness":
+            event.backgroundColor = "#1A5276";
+            results.push(event);
+            break;
+          case "Travel":
+            event.backgroundColor = "#FFD54F";
+            results.push(event);
+            break;
+          default:
+            break;
+        }
       });
-      this.setState({
-        events: results
-      });
+    });
+    this.setState({
+      events: results
     });
   }
 
@@ -136,7 +137,6 @@ export default class Cal extends Component {
             dateClick={this.handleDateClick}
             plugins={[dayGridPlugin]}
             defaultView="dayGridMonth"
-            plugins={[dayGridPlugin]}
             events={this.state.events}
             eventClick={this.eventClick}
           />

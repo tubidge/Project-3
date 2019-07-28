@@ -25,6 +25,7 @@
 .goalCard {
   min-height: 200px;
   background: var(--blue) !important;
+  border-radius: 0px !important;
 }
 
 .goalCard .card-content {
@@ -37,8 +38,7 @@
   color: #fff;
   letter-spacing: 1px;
   background-color: var(--blue);
-  border-bottom: thin solid;
-  border-bottom-color: var(--accentGold);
+  border-bottom: solid 1px var(--accentGold);
   min-height: 45px;
 }
 

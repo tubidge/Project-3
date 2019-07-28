@@ -12,7 +12,7 @@ const Modal = props => {
   const [category, setCategory] = useState("");
   const [name, setName] = useState("");
   const [dueDate, setDueDate] = useState("");
-  const [selectedOption, setSelectedOption] = useState("Choose category");
+  const [selectedOption, setSelectedOption] = useState("");
   const categories = [
     { label: "Fitness", value: 1 },
     { label: "Wellness", value: 2 },
@@ -37,6 +37,10 @@ const Modal = props => {
     };
     M.Modal.init(modals, options);
   }, []);
+
+  useEffect(() => {
+    setCategory(props.goalCategory);
+  });
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -221,7 +225,7 @@ const Modal = props => {
                         }
                       })}
                       placeholder={props.header === "Edit" ? category : ""}
-                      value={selectedOption}
+                      defaultValue={{ label: props.goalCategory, value: 0 }}
                       options={categories}
                       onChange={handleChange}
                     />

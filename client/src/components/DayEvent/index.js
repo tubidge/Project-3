@@ -5,11 +5,6 @@ import M from "materialize-css";
 function DayEvent(props) {
   useEffect(() => {
     M.AutoInit();
-    let options = {
-      enterDelay: 800
-    };
-    // var elems = document.querySelectorAll(".tooltipped");
-    // var instances = M.Tooltip.init(elems, options);
   }, []);
   return (
     <li

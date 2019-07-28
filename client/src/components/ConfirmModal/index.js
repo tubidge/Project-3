@@ -58,6 +58,8 @@ function ConfirmModal(props) {
       case "Complete":
         completeGoal();
         break;
+      default:
+        break;
     }
   };
 

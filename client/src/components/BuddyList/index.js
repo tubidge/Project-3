@@ -2,10 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useSpring, animated } from "react-spring";
 import { Link } from "react-router-dom";
 import ChatButton from "../ChatButton";
+import Loading from "../Loading";
 import "./style.css";
 
 const BuddyList = props => {
   const [buddies] = useState(props.allBuddies);
+  const [isLoading, setLoading] = useState(true);
+
   const fade = useSpring({
     from: {
       opacity: 0
@@ -15,6 +18,7 @@ const BuddyList = props => {
 
   useEffect(() => {
     configChannels();
+    setLoading(false);
   }, []);
 
   const configChannels = () => {
@@ -43,6 +47,8 @@ const BuddyList = props => {
         </span>
       ));
   };
+
+  if (isLoading) return <Loading />;
 
   return (
     <animated.div style={fade}>

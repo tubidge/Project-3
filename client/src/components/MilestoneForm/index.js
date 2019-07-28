@@ -48,6 +48,8 @@ function MilestoneForm(props) {
       case "notes":
         setNotes(value);
         break;
+      default:
+        break;
     }
   };
 

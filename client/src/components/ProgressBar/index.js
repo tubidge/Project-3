@@ -3,7 +3,7 @@ import "./style.css";
 import ProgressFiller from "../ProgressFiller";
 
 function ProgressBar(props) {
-  if (props.total == 0) {
+  if (props.total === 0) {
     if (props.header === "goal-page") {
       return (
         <div>
@@ -23,7 +23,7 @@ function ProgressBar(props) {
     } else {
       return (
         <div>
-          <p>Status: N/A</p>
+          <p style={{ color: "grey" }}>No milestones</p>
         </div>
       );
     }

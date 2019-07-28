@@ -8,8 +8,8 @@ function ChatMessage(props) {
     props.buddies.filter(buddy => {
       if (buddy.email === props.sender) {
         setBuddyUsername(buddy.username);
-        return buddy.username;
       }
+      return buddy.username;
     });
   }, []);
 

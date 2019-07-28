@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./style.css";
-import Loading from "../../components/Loading";
 import API from "../../utils/API";
 import ConfirmModal from "../ConfirmModal";
 import MilestoneForm from "../MilestoneForm";

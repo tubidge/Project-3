@@ -7,7 +7,6 @@ import "./style.css";
 
 const Navbar = () => {
   const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
-  const [hasErrors, setErrors] = useState(false);
   const [userInfo, setUserInfo] = useState({});
 
   const logoutWithRedirect = () =>
@@ -21,7 +20,7 @@ const Navbar = () => {
         .then(res => {
           setUserInfo(res.data);
         })
-        .catch(err => setErrors(err));
+        .catch(err => console.log(err));
     }
   }
 

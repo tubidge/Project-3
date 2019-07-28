@@ -11,18 +11,18 @@ import API from "../../utils/API";
 import defaultLionPic from "../../components/Form/lionDefaultProfilePic.jpg";
 
 const Goals = props => {
-  const { loading, user } = useAuth0();
+  const { user } = useAuth0();
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [, setIsLoading] = useState(true);
   const [incompleteGoals, setIncompleteGoals] = useState([]);
   const [userInfo, setUserInfo] = useState();
-  const [goalInfo, setGoalInfo] = useState({});
-  const [categories, setCategories] = useState([]);
+  const [, setGoalInfo] = useState({});
+  const [, setCategories] = useState([]);
   const [allBuddies, setAllBuddies] = useState();
   const [myBuddies, setMyBuddies] = useState();
   const [currentGoal, setCurrentGoal] = useState(false);
   const [reRender, setreRender] = useState(false);
-  const [currentGoals, setCurrentGoals] = useState();
+  const [, setCurrentGoals] = useState();
   const [pastGoals, setPastGoals] = useState();
   const [goalArr, setGoalArr] = useState();
   const [startIndex, setStartIndex] = useState();
@@ -100,7 +100,7 @@ const Goals = props => {
     console.log(results);
     let res = [];
     results.map(goal => {
-      res.push(goal.id);
+      return res.push(goal.id);
     });
     console.log(res);
     setGoalArr(res);
