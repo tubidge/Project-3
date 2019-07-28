@@ -47,7 +47,7 @@ const Home = () => {
               <h3 className="center-align">
                 <img className="logo" src={logo} alt="Logo" />
                 <br />
-                <span className="buddyInfo">Our Team</span>
+                <span className="brandedText">Our Team</span>
               </h3>
               <div className="row">
                 <div className="col s3 m3">
@@ -107,7 +107,7 @@ const Home = () => {
               <div className="row">
                 <div className="contactCard_HomePage col s12">
                   <h3 className="center-align">
-                    <span className="buddyInfo">Contact</span>
+                    <span className="brandedText">Contact</span>
                   </h3>
                   <div className="row">
                     <form

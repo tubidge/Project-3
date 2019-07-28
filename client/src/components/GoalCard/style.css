@@ -3,17 +3,13 @@
   overflow: auto;
 }
 
-.card-panel > .truncate:hover {
+.card-panel .truncate:hover {
   cursor: pointer;
   opacity: 0.7;
 }
 
 .card-panel {
   padding: 15px !important;
-}
-
-.goal-card-name {
-  text-align: left;
 }
 
 .goal-due-alert {
@@ -31,48 +27,28 @@
   background: var(--blue) !important;
 }
 
-.card-scrollable-content {
-  max-height: 150px;
-  overflow: auto;
-}
-
-.goal-card-name {
-  text-align: left;
-  color: var(--darkBlue);
-}
-
-.goal-due-alert {
-  text-align: right;
-  color: red;
-  margin: 0;
-}
-
 .goalCard .card-content {
   background-color: var(--blue);
   padding: 0px 20px 10px 20px !important;
 }
 
-.card-title {
+.goalCardTitle {
+  font-family: "Voces", sans-serif;
+  color: #fff;
+  letter-spacing: 1px;
   background-color: var(--blue);
-  color: #e5e8e8;
   border-bottom: thin solid;
   border-bottom-color: var(--accentGold);
   min-height: 45px;
 }
+
 .category-title {
-  margin-left: 23px;
-  vertical-align: middle;
-}
-.card-panel {
-  background-color: #e5e8e8 !important;
+  position: relative;
+  top: 6px;
+  left: 20px;
 }
 
-.goal-card-header {
-  display: flex;
-  justify-content: space-between;
-}
-
-#categoryIcon {
+.categoryIcon {
   position: relative;
   top: 2px;
   left: 5px;

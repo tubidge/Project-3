@@ -3,7 +3,7 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 import M from "materialize-css";
 import API from "../../utils/API";
 import FileUpload from "../FileUpload";
-import "./style.css";
+
 const FormStatic = props => {
   const [username_db, setUsername_db] = useState(props.username);
   const [firstName_db, setFirstName_db] = useState(props.firstName);
@@ -41,7 +41,7 @@ const FormStatic = props => {
     <>
       <form>
         <div className="row">
-          <div className="col s5">
+          <div className="col l5 s12">
             <div className="row">
               <div className="form-group">
                 <b>Username</b>
@@ -70,18 +70,8 @@ const FormStatic = props => {
                 />
               </div>
             </div>
-            <div className="row">
-              <div className="form-group">
-                <b>Update Profile Picture</b>
-                <FileUpload
-                  userID={props.userID}
-                  getUserProfile={props.getUserProfile}
-                />
-                {props.image && <img src={props.image} alt="Profile" />}
-              </div>
-            </div>
           </div>
-          <div className="col s5 offset-s1">
+          <div className="col l5 offset-l1">
             <div className="row">
               <div className="form-group">
                 <b>First Name</b>
@@ -166,7 +156,19 @@ const FormStatic = props => {
             </div> */}
           </div>
         </div>
-        <button className="save-changes btn left" onClick={editUser}>
+        <div className="row">
+          <div className="col l6 s12">
+            <div className="form-group">
+              <b>Update Profile Picture</b>
+              <FileUpload
+                userID={props.userID}
+                getUserProfile={props.getUserProfile}
+              />
+              {props.image && <img src={props.image} alt="Profile" />}
+            </div>
+          </div>
+        </div>
+        <button className="btn btn-blue right" onClick={editUser}>
           Save Changes
         </button>
       </form>

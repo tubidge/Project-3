@@ -20,13 +20,13 @@ code {
     monospace;
 }
 
-.buddyInfo {
+.brandedText {
   color: var(--darkBlue);
   font-weight: 600;
   border-bottom: 1px dashed var(--accentGold);
 }
 
-.buddyInfoInvert {
+.brandedTextInvert {
   color: #fff;
   font-weight: 400;
   border-bottom: 1px dashed var(--accentGold);
