@@ -285,18 +285,14 @@ module.exports = {
             };
 
             results.push(buddy);
-            console.log(results);
           });
-          console.log(results);
+
           db.Buddy.findAll({
             where: {
               UserId: id,
               active: 1
             }
           }).then(data => {
-            console.log(data);
-            console.log(results);
-
             data.forEach(index => {
               let buddy = {
                 id: index.dataValues.id,
@@ -311,7 +307,6 @@ module.exports = {
               };
 
               results.push(buddy);
-              console.log(results);
             });
             resolve(results);
           });

@@ -145,9 +145,6 @@ const Milestone = {
 
           helper
             .asyncForEach(results.completed, async index => {
-              console.log("this is the response i am looking for");
-
-              console.log(index);
               await goal
                 .getBasicGoal(index.goalId)
                 .then(resp => {
@@ -166,6 +163,75 @@ const Milestone = {
                     .getBasicGoal(index.goalId)
                     .then(resp => {
                       console.log(resp);
+                      let category = resp.category;
+                      index.category = category;
+                    })
+                    .catch(err => {
+                      console.log(err);
+                    });
+                })
+                .then(() => {
+                  resolve(results);
+                });
+            });
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  },
+
+  getMilestonesByGoal: goalId => {
+    return new Promise((resolve, reject) => {
+      db.Milestones.findAll({
+        where: {
+          GoalId: goalId
+        }
+      })
+        .then(resp => {
+          const results = {
+            completed: [],
+            incomplete: []
+          };
+
+          resp.forEach(index => {
+            const milestone = {};
+            milestone.id = index.dataValues.id;
+            milestone.name = index.dataValues.name;
+            milestone.frequency = index.dataValues.frequency;
+            milestone.dueDate = index.dataValues.dueDate;
+            milestone.startDate = index.dataValues.startDate;
+            milestone.endDate = index.dataValues.endDate;
+            milestone.completed = index.dataValues.completed;
+            milestone.notes = index.dataValues.notes;
+            milestone.goalId = index.dataValues.GoalId;
+            milestone.userId = index.dataValues.UserId;
+
+            if (milestone.completed) {
+              results.completed.push(milestone);
+            } else {
+              results.incomplete.push(milestone);
+            }
+          });
+
+          helper
+            .asyncForEach(results.completed, async index => {
+              await goal
+                .getBasicGoal(index.goalId)
+                .then(resp => {
+                  let category = resp.category;
+                  index.category = category;
+                })
+                .catch(err => {
+                  console.log(err);
+                });
+            })
+            .then(() => {
+              helper
+                .asyncForEach(results.incomplete, async index => {
+                  await goal
+                    .getBasicGoal(index.goalId)
+                    .then(resp => {
                       let category = resp.category;
                       index.category = category;
                     })

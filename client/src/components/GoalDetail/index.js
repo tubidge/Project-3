@@ -94,22 +94,9 @@ function GoalDetail(props) {
     setGoalStatus(!goalStatus);
   };
 
-  // useEffect(() => {
-  //   if (goal.milestones) {
-  //     let total =
-  //       goal.milestones.completed.length + goal.milestones.incomplete.length;
-  //     console.log(total);
-  //     setTotal(total);
-  //     let progress = goal.milestones.completed.length;
-  //     let percentage = progress / total;
-  //     console.log(percentage);
-  //     setPercentage(percentage);
-  //   }
-  // }, []);
-
   const orderRender = () => {
     console.log("running good");
-    props.orderRender();
+    // props.orderRender();
     setreRender(!reRender);
   };
 

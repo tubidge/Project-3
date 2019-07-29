@@ -1,6 +1,7 @@
 const db = require("../models");
 const helper = require("../utils/helperFunctions");
 const buddy = require("../controller/buddyQueries");
+const milestoneQuery = require("./milestoneQueries");
 const moment = require("moment");
 const goalQuery = require("./goalQueries");
 
@@ -363,102 +364,7 @@ module.exports = {
               });
           };
 
-          // const getBuddies = id => {
-          //   console.log(`getbuddies id ${id}`);
-          //   helper
-          //     .asyncForEach(id, async event => {
-          //       console.log("test");
-
-          //       await buddy
-          //         .getAllBuddiesId(id)
-          //         .then(resp => {
-          //           console.log(resp);
-          //           console.log("resp");
-          //           if (resp.length > 0) {
-          //             resp.forEach(index => {
-          //               console.log("index");
-          //               console.log(index);
-          //               if (index.active) {
-          //                 const myBuddy = {};
-          //                 myBuddy.id = index.id;
-          //                 myBuddy.duration = index.duration;
-          //                 myBuddy.active = index.active;
-          //                 myBuddy.buddyId = index.buddyId;
-          //                 myBuddy.buddyGoal = index.buddyGoal;
-          //                 myBuddy.channel = index.chatChannel;
-          //                 myBuddy.goalId = index.goalId;
-          //                 myBuddy.ownerId = index.ownerId;
-          //                 console.log(myBuddy);
-          //                 user.buddies.myBuddies.push(myBuddy);
-          //               } else {
-          //                 return false;
-          //               }
-          //             });
-          //           }
-          //         })
-          //         .catch(err => {
-          //           console.log(err);
-          //         });
-          //     })
-          //     .then(() => {
-          //       const buddyArr = [];
-          //       helper
-          //         .asyncForEach(user.buddies.myBuddies, async event => {
-          //           console.log(event);
-          //           console.log(typeof event.buddyId);
-          //           console.log("this is the event");
-          //           console.log(typeof id);
-          //           if (parseInt(id) === event.buddyId) {
-          //             console.log("true");
-          //             await db.User.findAll({
-          //               where: {
-          //                 id: event.ownerId
-          //               }
-          //             }).then(resp => {
-          //               console.log("async await");
-          //               console.log(resp);
-          //               const buddyData = {
-          //                 id: event.id,
-          //                 email: resp[0].dataValues.email,
-          //                 username: resp[0].dataValues.username,
-          //                 channel: event.channel
-          //               };
-
-          //               buddyArr.push(buddyData);
-          //               console.log(buddyArr);
-          //               user.buddies.allBuddies = buddyArr;
-          //             });
-          //           } else {
-          //             console.log("false");
-          //             await db.User.findAll({
-          //               where: {
-          //                 id: event.buddyId
-          //               }
-          //             }).then(resp => {
-          //               console.log("async await");
-          //               console.log(resp);
-          //               const buddyData = {
-          //                 id: event.id,
-          //                 email: resp[0].dataValues.email,
-          //                 username: resp[0].dataValues.username,
-          //                 channel: event.channel
-          //               };
-
-          //               buddyArr.push(buddyData);
-          //               console.log(buddyArr);
-          //               user.buddies.allBuddies = buddyArr;
-          //             });
-          //           }
-          //         })
-          //         .then(() => {
-          //           user.activeGoals.completed.forEach(index => {
-          //             user.pastGoals.completed.push(index);
-          //           });
-
-          //           resolve(user);
-          //         });
-          //     });
-          // };
+          
 
           if (data.Goals.length > 0) {
             data.Goals.forEach(index => {
@@ -1209,19 +1115,11 @@ module.exports = {
           };
 
           const getBuddies = async id => {
-            console.log(`getbuddies id ${id}`);
-            console.log("test");
-
             await buddy
               .getAllBuddiesId(id)
               .then(resp => {
-                console.log("where the fuck is this");
-                console.log(resp);
-                console.log("resp");
                 if (resp.length > 0) {
                   resp.forEach(index => {
-                    console.log("index");
-                    console.log(index);
                     if (index.active) {
                       const myBuddy = {};
                       myBuddy.id = index.id;
@@ -1246,27 +1144,17 @@ module.exports = {
                 const buddyArr = [];
                 helper
                   .asyncForEach(user.buddies.myBuddies, async event => {
-                    console.log(event);
-                    console.log(typeof event.buddyId);
                     const getGoal = id => {
                       goalQuery.getBasicGoal(id).then(resp => {
-                        console.log("=========-------=======");
-                        console.log("BUDDY");
-                        console.log(resp);
                         goalName = resp.name;
                       });
                     };
                     const getUserGoal = id => {
                       goalQuery.getBasicGoal(id).then(resp => {
-                        console.log("=========-------=======");
-                        console.log("USER");
-                        console.log(resp);
                         userGoal = resp.name;
                       });
                     };
 
-                    console.log("this is the event");
-                    console.log(typeof id);
                     let goalName;
                     let userGoal;
                     getUserGoal(event.goalId);
@@ -1278,8 +1166,6 @@ module.exports = {
                           id: event.ownerId
                         }
                       }).then(resp => {
-                        console.log("async await");
-                        console.log(resp);
                         const buddyData = {
                           id: event.id,
                           email: resp[0].dataValues.email,
@@ -1295,18 +1181,15 @@ module.exports = {
                         };
 
                         buddyArr.push(buddyData);
-                        console.log(buddyArr);
+
                         user.buddies.allBuddies = buddyArr;
                       });
                     } else {
-                      console.log("false");
                       await db.User.findAll({
                         where: {
                           id: event.buddyId
                         }
                       }).then(resp => {
-                        console.log("async await");
-                        console.log(resp);
                         const buddyData = {
                           id: event.id,
                           email: resp[0].dataValues.email,
@@ -1320,7 +1203,7 @@ module.exports = {
                         };
 
                         buddyArr.push(buddyData);
-                        console.log(buddyArr);
+
                         user.buddies.allBuddies = buddyArr;
                       });
                     }
@@ -1334,91 +1217,7 @@ module.exports = {
               });
           };
 
-          // const assignBuddies = goalId => {
-          //   helper
-          //     .asyncForEach(goalId, async event => {
-          //       console.log(goalId);
-          //       console.log(event);
-          //       await buddy
-          //         .getByGoal(event)
-          //         .then(resp => {
-          //           console.log("issue");
-          //           console.log(resp);
-          //           const myBuddy = {
-          //             id: resp[0].id,
-          //             duration: resp[0].duration,
-          //             active: resp[0].active,
-          //             buddyId: resp[0].buddyId,
-          //             channel: resp[0].chatChannel,
-          //             goalId: resp[0].goalId,
-          //             ownerId: resp[0].ownerId
-          //           };
-          //           console.log(myBuddy);
-          //           user.buddies.buddiesWith.push(myBuddy);
-          //         })
-          //         .catch(err => {
-          //           console.log(err);
-          //         });
-          //     })
-          //     .then(() => {
-          //       const buddyArr = [];
-          //       helper
-          //         .asyncForEach(user.buddies.myBuddies, async event => {
-          //           console.log(event);
-          //           console.log("this is the event");
-          //           await db.User.findAll({
-          //             where: {
-          //               id: event.ownerId
-          //             }
-          //           }).then(resp => {
-          //             console.log("async await");
-          //             console.log(resp);
-          //             const buddyData = {
-          //               id: event.id,
-          //               email: resp[0].dataValues.email,
-          //               channel: event.channel
-          //             };
-
-          //             buddyArr.push(buddyData);
-          //             console.log(buddyArr);
-          //           });
-          //         })
-          //         .then(() => {
-          //           helper
-          //             .asyncForEach(user.buddies.buddiesWith, async event => {
-          //               console.log("and this");
-          //               console.log(event);
-          //               await db.User.findAll({
-          //                 where: {
-          //                   id: event.buddyId
-          //                 }
-          //               }).then(resp => {
-          //                 console.log("find this");
-          //                 console.log(resp);
-          //                 for (var i = 0; i < buddyArr.length; i++) {
-          //                   console.log(buddyArr[i].email);
-          //                   if (
-          //                     !buddyArr[i].email === resp[0].dataValues.email
-          //                   ) {
-          //                     const buddyData = {
-          //                       id: event.id,
-          //                       email: resp[0].dataValues.email,
-          //                       channel: resp[0].dataValues.chatChannel
-          //                     };
-          //                     buddyArr.push(buddyData);
-          //                   }
-          //                 }
-          //                 console.log(buddyArr);
-          //                 user.buddies.allBuddies = buddyArr;
-          //               });
-          //             })
-          //             .then(() => {
-          //               resolve(user);
-          //             });
-          //         });
-          //     });
-          // };
-
+          console.log("[][][][][][][][][][][][][][]");
           if (data.Goals.length > 0) {
             data.Goals.forEach(index => {
               goalIds.push(index.dataValues.id);
@@ -1438,9 +1237,12 @@ module.exports = {
                 goal.private = index.dataValues.private;
                 goal.complete = index.dataValues.complete;
                 goal.userId = index.dataValues.UserId;
+               
                 if (goal.complete) {
+                 
                   user.activeGoals.completed.push(goal);
                 } else {
+              
                   user.activeGoals.incomplete.push(goal);
                 }
               } else {

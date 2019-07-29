@@ -63,7 +63,7 @@ function MilestoneForm(props) {
   const clearForm = () => {
     console.log("clearform running");
     setTitle("");
-    setFrequency("");
+
     setDue("");
     setStart(null);
     setEnd(null);
