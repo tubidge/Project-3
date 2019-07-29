@@ -13,12 +13,8 @@ const GoalCard = props => {
 
   useEffect(() => {
     M.AutoInit();
-    let options = {
-      enterDelay: 800
-    };
-    var elems = document.querySelectorAll(".tooltipped");
-    var instances = M.Tooltip.init(elems, options);
     API.getAllGoals(props.userID).then(resp => {
+      console.log(resp.data);
       setGoals(resp.data.currentGoals);
     });
   }, [reRender]);
@@ -66,7 +62,6 @@ const GoalCard = props => {
       info: true
     };
     API.editGoal(id, data).then(resp => {
-      // console.log(resp);
       setreRender(!reRender);
       props.renderCal();
     });
@@ -75,7 +70,7 @@ const GoalCard = props => {
   const renderPropsForCategories = category => {
     const due = moment()
       .add(3, "days")
-      .format("YYYY-MM-DD");
+      .format("MM/DD/YYYY");
     const result = props.incompleteGoals.filter(
       goal => goal.category === category
     );
@@ -110,7 +105,7 @@ const GoalCard = props => {
                   ""
                 )}
               </div>
-              <p>Due: {goal.dueDate}</p>
+              <p>Due: {moment(goal.dueDate).format("MM/DD/YYYY")}</p>
               <ProgressBar total={total} percentage={percentage} />
             </div>
           </li>
@@ -167,10 +162,22 @@ const GoalCard = props => {
         return (
           <li key={goal.id}>
             <div className="card-panel grey lighten-4 dark-text">
+              {goal.buddy.current.length > 0
+                ? goal.buddy.current.map(buddy => (
+                    <i
+                      key={buddy}
+                      style={{ color: "var(--blue)", marginTop: "5px" }}
+                      className="material-icons right"
+                    >
+                      person_pin
+                    </i>
+                  ))
+                : null}
               <div className="goal-card-header">
                 <Link to="/goals" className="truncate goal-card-name">
                   {goal.name}
                 </Link>
+
                 {percentage === 1 ? (
                   <i
                     class="material-icons"
@@ -187,7 +194,7 @@ const GoalCard = props => {
                   ""
                 )}
               </div>
-              <p>Due: {goal.dueDate}</p>
+              <p>Due: {moment(goal.dueDate).format("MM/DD/YYYY")}</p>
               <ProgressBar total={total} percentage={percentage} />
             </div>
           </li>

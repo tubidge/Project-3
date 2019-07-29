@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Footer from "../../components/Footer";
 import { useAuth0 } from "../../react-auth0-spa";
 import Dashboard from "../Dashboard";
 import josh from "./pics/Josh.jpg";
@@ -53,7 +52,7 @@ const Home = () => {
                 <div className="col s3 m3">
                   <div className="card">
                     <div className="card-image">
-                      <img src={alex} />
+                      <img src={alex} alt="Alex" />
                     </div>
                     <div className="card-stacked">
                       <div className="home-card-content">
@@ -65,7 +64,7 @@ const Home = () => {
                 <div className="col s3 m3">
                   <div className="card">
                     <div className="card-image">
-                      <img src={hunter} />
+                      <img src={hunter} alt="Hunter" />
                     </div>
                     <div className="card-stacked">
                       <div className="home-card-content">
@@ -77,7 +76,7 @@ const Home = () => {
                 <div className="col s3 m3">
                   <div className="card">
                     <div className="card-image">
-                      <img src={phil} />
+                      <img src={phil} alt="Phil" />
                     </div>
                     <div className="card-stacked">
                       <div className="home-card-content">
@@ -89,7 +88,7 @@ const Home = () => {
                 <div className="col s3 m3">
                   <div className="card">
                     <div className="card-image">
-                      <img src={josh} />
+                      <img src={josh} alt="Josh" />
                     </div>
                     <div className="card-stacked">
                       <div className="home-card-content">

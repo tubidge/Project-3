@@ -5,8 +5,6 @@ import Form from "../../components/Form";
 import FormStatic from "../../components/FormStatic";
 import API from "../../utils/API";
 import defaultLionPic from "../../components/Form/lionDefaultProfilePic.jpg";
-import lionBackground from "../../pages/Home/pics/lionCrowdSurfing.jpg";
-import moment from "moment";
 import "./style.css";
 
 const Profile = () => {
@@ -14,6 +12,7 @@ const Profile = () => {
   const [, setIsLoading] = useState(true);
   const [newUser, setNew] = useState(true);
   const [userData, setUserData] = useState({});
+
   useEffect(() => {
     getUserProfile();
   }, []);
@@ -22,9 +21,6 @@ const Profile = () => {
     if (user) {
       API.getUserByEmail(user.email).then(res => {
         setUserData(res.data);
-        console.log(
-          `Account Created: ${moment(res.data.created).format("llll")}`
-        );
         if (res.data.created !== undefined) {
           setNew(false);
         }

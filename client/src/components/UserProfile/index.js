@@ -83,6 +83,8 @@ const UserProfile = props => {
           return <img src={goldTravelBadge} alt={category} />;
         case "Education":
           return <img src={goldEducationBadge} alt={category} />;
+        default:
+          break;
       }
     }
     if (array.length < 8 && array.length > 3) {
@@ -97,29 +99,24 @@ const UserProfile = props => {
           return <img src={silverTravelBadge} alt={category} />;
         case "Education":
           return <img src={silverEducationBadge} alt={category} />;
+        default:
+          break;
       }
     }
     if (array.length < 4) {
       switch (category) {
         case "Financial":
-          return (
-            <>
-              {/* <span className="badge">1</span> */}
-              <img src={bronzeFinancialBadge} alt={category} />
-            </>
-          );
+          return <img src={bronzeFinancialBadge} alt={category} />;
         case "Fitness":
-          return (
-            <>
-              <img src={bronzeFitnessBadge} alt={category} />
-            </>
-          );
+          return <img src={bronzeFitnessBadge} alt={category} />;
         case "Wellness":
           return <img src={bronzeWellnessBadge} alt={category} />;
         case "Travel":
           return <img src={bronzeTravelBadge} alt={category} />;
         case "Education":
           return <img src={bronzeEducationBadge} alt={category} />;
+        default:
+          break;
       }
     }
   };
