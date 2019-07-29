@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Voces&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Anton|Voces&display=swap");
 
 :root {
   --accentGold: #daae37;
@@ -114,7 +114,7 @@ focus {
 
 .brandedText {
   color: var(--darkBlue);
-  font-weight: 600;
+  font-weight: 500;
   border-bottom: 1px dashed var(--accentGold);
 }
 
@@ -129,8 +129,8 @@ focus {
 }
 
 .btn-gold {
-  background-color: var(--accentGold);
-  color: #fff;
+  background-color: var(--accentGold) !important;
+  color: #fff !important;
 }
 
 .btn-blueO {
@@ -161,6 +161,33 @@ focus {
 }
 
 @media (max-width: 768px) {
+  .navBtnDiv {
+    padding: 15px;
+    text-align: center;
+  }
+
+  .navBtnDiv .btn {
+    margin: 5px;
+  }
+
+  .title_homePage {
+    position: relative;
+    bottom: 80px;
+  }
+
+  .teamContainer,
+  .contactContainer {
+    position: relative;
+    width: 100%;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    margin: -60px auto 0 auto;
+  }
+
+  .teamContainer {
+    margin: 0 !important;
+  }
+
   .profileContainer {
     width: 100%;
     background: none;
