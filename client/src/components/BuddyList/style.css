@@ -20,3 +20,21 @@
   top: -8px;
   font-weight: normal;
 }
+
+.buddyList .buddyProfileImg {
+  max-width: 90% !important;
+}
+
+.buddyList .username {
+  position: relative;
+  top: 15px;
+}
+
+.buddyList .chatBtn {
+  position: relative;
+  top: 5px;
+}
+
+.buddyList .collapsible-body {
+  background-color: #f5f5f5 !important;
+}
