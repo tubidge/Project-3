@@ -8,25 +8,29 @@ import "./style.css";
 const Navbar = () => {
   const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
   const [userInfo, setUserInfo] = useState({});
+  const [isNew, setNew] = useState(false);
 
   const logoutWithRedirect = () =>
     logout({
       returnTo: window.location.origin
     });
 
-  async function getUserData() {
-    if (user) {
-      API.getUserByEmail(user.email)
-        .then(res => {
-          setUserInfo(res.data);
-        })
-        .catch(err => console.log(err));
-    }
-  }
+  const getUserProfile = () => {
+    API.getUserByEmail(user.email).then(res => {
+      setUserInfo(res.data);
+      if (res.data.created === undefined) {
+        setNew(true);
+      } else {
+        setNew(false);
+      }
+    });
+  };
 
   useEffect(() => {
     M.AutoInit();
-    getUserData();
+    if (user) {
+      getUserProfile(user.email);
+    }
   }, []);
 
   return (
@@ -39,9 +43,6 @@ const Navbar = () => {
                 <NavLink to="/" className="brand-logo">
                   Goal<span>Den</span>
                 </NavLink>
-                <span className="welcomeMessage">
-                  Welcome, {userInfo.firstName}
-                </span>
                 <NavLink
                   to="#"
                   data-target="mobile-demo"
@@ -50,11 +51,11 @@ const Navbar = () => {
                   <i className="material-icons">menu</i>
                 </NavLink>
                 <ul className="right hide-on-med-and-down">
-                  <li>
-                    <NavLink to="/dashboard">Dashboard</NavLink>
-                  </li>
-                  {userInfo ? (
+                  {!isNew ? (
                     <>
+                      <li>
+                        <NavLink to="/dashboard">Dashboard</NavLink>
+                      </li>
                       <li>
                         <NavLink to="/buddies">Find Buddies</NavLink>
                       </li>
