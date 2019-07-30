@@ -9,16 +9,9 @@ import M from "materialize-css";
 // This needs to use an api call and find milestones based on the date so that it can dynamically rerender without having the whole section rerender
 function DayCard(props) {
   const date = moment(props.date.date).format("dddd, MMM Do");
-  const [modalOpen, setmodalOpen] = useState(false);
-  const [milestones] = useState(props.date.incompleteMilestone);
+  const [milestones, setMilestones] = useState(props.date.incompleteMilestone);
   const [isLoading, setIsLoading] = useState(true);
   const [reRender, setreRender] = useState(false);
-  // const [total, setTotal] = useState([
-  //   props.date.incompleteMilestone.length + props.date.completedMilestone.length
-  // ]);
-  // const [complete, setComplete] = useState(
-  //   props.date.completedMilestone.length
-  // );
   const [milestoneSelected, setmilestoneSelected] = useState(false);
 
   useEffect(() => {
@@ -44,10 +37,7 @@ function DayCard(props) {
   const getData = () => {
     setIsLoading(false);
   };
-  const openMilestoneForm = event => {
-    event.preventDefault();
-    setmodalOpen(true);
-  };
+
   const completeTask = () => {
     let data = {
       colName: "completed",
@@ -71,6 +61,17 @@ function DayCard(props) {
       );
     });
   };
+
+  const makeid = l => {
+    let text = "";
+    let char_list =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    for (let i = 0; i < l; i++) {
+      text += char_list.charAt(Math.floor(Math.random() * char_list.length));
+    }
+    return text;
+  };
+
   const deleteTask = () => {
     API.deleteMilestone(milestoneSelected).then(data => {
       setmilestoneSelected(false);
@@ -89,37 +90,27 @@ function DayCard(props) {
     setreRender(!reRender);
     props.orderProgressRender();
     props.reRender();
-    setmodalOpen(false);
   };
   if (isLoading) {
     return <Loading />;
   }
   return (
     <>
-      {modalOpen ? (
-        <MilestoneForm
-          date={props.date.date}
-          userId={props.userId}
-          goalId={props.goalId}
-          close={cancel}
-          frequency="Never"
-        />
-      ) : (
-        ""
-      )}
       <div className="card day-card z-depth-2">
         <div className="day-card-add">
           {" "}
-          <i
-            className="material-icons day-card-icon tooltipped"
+          <MilestoneForm
+            className="material-icons modal-trigger day-card-icon tooltipped"
+            btnName="add_circle"
             data-position="top"
             data-tooltip="Add a milestone"
-            onClick={event => {
-              openMilestoneForm(event);
-            }}
-          >
-            add_circle
-          </i>
+            dataTarget={`newGoalFromCard_${makeid(5)}`}
+            frequency="Never"
+            dueDate={props.date.date}
+            goalId={props.goalId}
+            userId={props.userId}
+            close={cancel}
+          />
         </div>
         <div className="card-title day-card-cardTitle">
           <p className="day-card-date">{date}</p>

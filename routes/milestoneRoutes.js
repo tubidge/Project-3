@@ -5,7 +5,7 @@ module.exports = app => {
   // The req.body object needs to contain name, frequency, dueDate, GoalId, and UserId
   // It can also include notes, and a completed boolean (we shouldn't ever send a completed boolean tho)
   app.post("/add/milestone", (req, res) => {
-    console.log(req.body);
+    console.log(req.body.data);
     const userMilestone = req.body.data;
     // let userMilestone = {
     //   name: "2 hour workout",

@@ -16,13 +16,13 @@ function GoalOverview(props) {
   const [selectedGoal, setSelectedGoal] = useState();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentView, setCurrentView] = useState();
-  const [modalOpen, setmodalOpen] = useState(false);
+
   const [reRender, setreRender] = useState(false);
   const [search, setSearch] = useState();
   const [start, setStart] = useState();
   const [end, setEnd] = useState();
-  const [confirmMessage, setConfirmMessage] = useState();
-  const [confirmType, setConfirmType] = useState();
+  // const [confirmMessage, setConfirmMessage] = useState();
+  // const [confirmType, setConfirmType] = useState();
 
   useEffect(() => {
     M.AutoInit();
@@ -39,25 +39,31 @@ function GoalOverview(props) {
   const getData = () => {
     API.getGoalCategory(props.userId, props.category).then(resp => {
       setCurrentGoals(resp.data.currentGoals);
+      console.log("()()()()()()()()()()()()");
+      console.log(resp.data);
 
-      if (resp.data.currentGoals.length > 3) {
-        let arr = [];
-        for (var i = currentIndex; i < [currentIndex + 3]; i++) {
-          if (i < 0) {
-            let num = resp.data.currentGoals.length - 1;
-            arr.push(resp.data.currentGoals[num]);
-          } else if (i > resp.data.currentGoals.length - 1) {
-            arr.push(resp.data.currentGoals[i - resp.data.currentGoals.length]);
-          } else {
-            arr.push(resp.data.currentGoals[i]);
+      if (resp.data.currentGoals) {
+        if (resp.data.currentGoals.length > 3) {
+          let arr = [];
+          for (var i = currentIndex; i < [currentIndex + 3]; i++) {
+            if (i < 0) {
+              let num = resp.data.currentGoals.length - 1;
+              arr.push(resp.data.currentGoals[num]);
+            } else if (i > resp.data.currentGoals.length - 1) {
+              arr.push(
+                resp.data.currentGoals[i - resp.data.currentGoals.length]
+              );
+            } else {
+              arr.push(resp.data.currentGoals[i]);
+            }
           }
-        }
 
-        setCurrentView(arr);
-      } else if (resp.data.currentGoals.length > 0) {
-        setCurrentView(resp.data.currentGoals);
-      } else {
-        setCurrentView(false);
+          setCurrentView(arr);
+        } else if (resp.data.currentGoals.length > 0) {
+          setCurrentView(resp.data.currentGoals);
+        } else {
+          setCurrentView(false);
+        }
       }
 
       if (props.pastGoals.length > 3) {
@@ -160,25 +166,12 @@ function GoalOverview(props) {
     setPastIndex(sub);
   };
 
-  const deleteGoal = id => {
-    setSelectedGoal(id);
-    setConfirmMessage("This will delete your goal and any of its milestones");
-    setConfirmType("Delete Goal");
-    openConfirmModal();
-  };
-
-  const openConfirmModal = () => {
-    setmodalOpen(true);
-  };
-
   const close = header => {
     if (header !== "cancel") {
-      setmodalOpen(false);
       setreRender(!reRender);
       props.orderRender();
     } else {
       // setreRender(!reRender);
-      setmodalOpen(false);
 
       setSelectedGoal(false);
     }
@@ -248,12 +241,12 @@ function GoalOverview(props) {
     }
   };
 
-  const completeGoal = (id, name) => {
-    setSelectedGoal(id);
-    setConfirmMessage(`This will complete your goal journey for '${name}'`);
-    setConfirmType("Complete");
-    openConfirmModal();
-  };
+  // const completeGoal = (id, name) => {
+  //   setSelectedGoal(id);
+  //   setConfirmMessage(`This will complete your goal journey for '${name}'`);
+  //   setConfirmType("Complete");
+  //   openConfirmModal();
+  // };
 
   const generateIcon = () => {
     switch (props.category) {
@@ -275,7 +268,7 @@ function GoalOverview(props) {
   if (currentGoals) {
     return (
       <>
-        {modalOpen ? (
+        {/* {modalOpen ? (
           <ConfirmModal
             goalId={selectedGoal}
             message={confirmMessage}
@@ -284,7 +277,7 @@ function GoalOverview(props) {
           />
         ) : (
           ""
-        )}
+        )} */}
         <div className="row">
           <div className="col s12">
             <div id="goalOverview" className="card goal-overview-card">
@@ -345,13 +338,26 @@ function GoalOverview(props) {
                                   justifyContent: "flex-end"
                                 }}
                               >
-                                <i
+                                {/* <i
                                   className="material-icons delete_GoalPage"
                                   data-id={goal.id}
                                   onClick={() => deleteGoal(goal.id)}
                                 >
                                   delete_forever
-                                </i>
+                                </i> */}
+
+                                <ConfirmModal
+                                  className="delete_GoalPage material-icons modal-trigger right tooltipped"
+                                  btnName={"delete_forever"}
+                                  dataTarget={`newGoalFromCard_${makeid(5)}`}
+                                  goalId={goal.id}
+                                  message={`This will delete ${
+                                    goal.name
+                                  } and any of it's milestones`}
+                                  type="Delete Goal"
+                                  render={close}
+                                  orderRender={orderRender}
+                                />
                               </div>
                             </div>
                             <div className="card-content">
@@ -386,19 +392,18 @@ function GoalOverview(props) {
                                 exit_to_app
                               </i>
                               <div>
-                                <i
-                                  class="material-icons"
-                                  style={{
-                                    color: "#d4ac0d",
-                                    cursor: "pointer",
-                                    transform: "scale(1.1)"
-                                  }}
-                                  onClick={() =>
-                                    completeGoal(goal.id, goal.name)
-                                  }
-                                >
-                                  check_box
-                                </i>
+                                <ConfirmModal
+                                  className="addGoal_GoalPage material-icons modal-trigger right tooltipped"
+                                  btnName={"check_box"}
+                                  dataTarget={`newGoalFromCard_${makeid(5)}`}
+                                  goalId={goal.id}
+                                  message={`This will complete your goal journey for '${
+                                    goal.name
+                                  }'`}
+                                  type="Complete"
+                                  render={close}
+                                  orderRender={orderRender}
+                                />
                               </div>
                             </div>
                           </div>
@@ -535,14 +540,27 @@ function GoalOverview(props) {
                                 justifyContent: "flex-end"
                               }}
                             >
-                              <i
+                              {/* <i
                                 style={{ color: "#bbb" }}
                                 className="material-icons delete_GoalPage"
                                 data-id={goal.id}
                                 onClick={() => deleteGoal(goal.id)}
                               >
                                 delete_forever
-                              </i>
+                              </i> */}
+
+                              <ConfirmModal
+                                className="delete_GoalPage material-icons modal-trigger right tooltipped"
+                                btnName={"delete_forever"}
+                                dataTarget={`newGoalFromCard_${makeid(5)}`}
+                                goalId={goal.id}
+                                message={`This will delete ${
+                                  goal.name
+                                } and any of it's milestones`}
+                                type="Delete Goal"
+                                render={close}
+                                orderRender={orderRender}
+                              />
                             </div>
                           </div>
                           <div className="card-content">

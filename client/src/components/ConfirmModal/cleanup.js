@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import M from "materialize-css";
-import { Link } from "react-router-dom";
 import API from "../../utils/API";
 import "./style.css";
 
 function ConfirmModal(props) {
-  console.log("Confirm modal opening");
   const [dataTarget, setDataTarget] = useState();
 
   useEffect(() => {
@@ -37,8 +35,6 @@ function ConfirmModal(props) {
   };
 
   const completeGoal = () => {
-    console.log("complete goal firing");
-    console.log(props.goalId);
     let data = {
       colName: "complete",
       info: true
@@ -51,13 +47,11 @@ function ConfirmModal(props) {
 
   const delGoal = () => {
     API.deleteGoal(props.goalId).then(resp => {
-      console.log(resp);
       props.render(props.action);
     });
   };
 
-  const takeAction = event => {
-    event.preventDefault();
+  const takeAction = () => {
     switch (props.type) {
       case "Delete":
         del();
@@ -67,8 +61,6 @@ function ConfirmModal(props) {
         break;
       case "Complete":
         completeGoal();
-        break;
-      default:
         break;
     }
   };
@@ -91,7 +83,7 @@ function ConfirmModal(props) {
             <p>{props.message}</p>
           </div>
           <div className="modal-footer confirm-modal-footer">
-            <button onClick={takeAction} className="btn  deleteBtn">
+            <button onClick={takeAction} className="btn modal-close deleteBtn">
               {props.type}
               <i className="material-icons right">
                 {props.type === "Complete" ? "done" : "delete_forever"}

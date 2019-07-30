@@ -86,3 +86,8 @@
 .milestone-notes-column {
   margin-top: 2.25rem;
 }
+
+.modal-milestone-content-subheader {
+  display: flex;
+  justify-content: space-around;
+}
