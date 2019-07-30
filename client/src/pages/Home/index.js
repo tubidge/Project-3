@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Redirect } from "react-router";
 import { useAuth0 } from "../../react-auth0-spa";
 import Profile from "../Profile";
 import API from "../../utils/API";
@@ -35,6 +36,7 @@ const Home = () => {
     <>
       <div className="wrapper">
         <div className="navBtnDiv">
+          {isAuthenticated && <Redirect to="/dashboard" />}
           {!isAuthenticated && (
             <>
               <span
