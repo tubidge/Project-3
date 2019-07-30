@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth0 } from "../../react-auth0-spa";
+import Profile from "../Profile";
 import API from "../../utils/API";
 import josh from "./pics/Josh.jpg";
 import alex from "./pics/Alex.jpg";
@@ -10,11 +11,12 @@ import "./style.css";
 
 const Home = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
+  const [redirect, setRedirect] = useState(false);
 
   const getUserProfile = () => {
     API.getUserByEmail(user.email).then(res => {
       if (res.data.created === undefined) {
-        window.location.replace(window.location.origin + "/profile");
+        setRedirect(true);
       }
     });
   };
@@ -24,6 +26,10 @@ const Home = () => {
       getUserProfile(user.email);
     }
   });
+
+  if (redirect) {
+    return <Profile />;
+  }
 
   return (
     <>
