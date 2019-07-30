@@ -15,7 +15,7 @@ const BuddyList = props => {
   useEffect(() => {
     getJoinedGoals();
     setLoading(false);
-  });
+  }, []);
 
   useEffect(() => {
     configChannels();
@@ -25,7 +25,7 @@ const BuddyList = props => {
     M.AutoInit();
     let collapsible = document.querySelectorAll(".collapsible");
     M.Collapsible.init(collapsible);
-  });
+  }, []);
 
   const configChannels = () => {
     props.channels.forEach(index => {
