@@ -13,6 +13,10 @@
   height: 500px;
 }
 
+.past-overview-card {
+  background-color: whitesmoke !important;
+}
+
 .past-overview-card .card-content {
   background-color: whitesmoke;
   height: 625px;
@@ -28,8 +32,10 @@
 }
 
 .overview-goal .card-content {
-  height: 18rem;
-  width: 16rem;
+  height: 20rem;
+  max-height: 20rem;
+
+  width: 18rem;
   background-color: var(--blue) !important;
   text-align: center;
 }
@@ -59,4 +65,54 @@
 input:focus {
   border-bottom: 1px solid var(--accentGold) !important;
   box-shadow: 0 1px 0 0 var(--accentGold) !important;
+}
+
+.delete-goal-overview {
+  color: white;
+  text-align: end;
+  cursor: pointer;
+  margin-top: 0.75rem;
+  margin-right: 0.75rem;
+  font-size: 1.85rem;
+}
+
+.delete-goal-overview:hover {
+  color: white;
+  transform: scale(1.05);
+}
+
+.completeGoal-button-overview {
+  color: var(--accentGold);
+  cursor: pointer;
+  font-size: 1.85rem;
+}
+
+.completeGoal-button-overview:hover {
+  transform: scale(1.05);
+}
+
+#confirmModal {
+  padding: 0px;
+  width: 0px;
+  margin: 0px;
+}
+
+.viewGoalDetail_GoalPage:hover {
+  transform: scale(1.05);
+}
+
+.delete_GoalPage:hover {
+  transform: scale(1.05);
+  color: white;
+}
+
+.pastView-home-button {
+  color: var(--blue);
+  font-size: 2.95rem;
+  cursor: pointer;
+  margin: 10px 0px 0px 10px;
+}
+
+.pastView-home-button:hover {
+  transform: scale(1.05);
 }

@@ -50,11 +50,11 @@ const Goals = props => {
           current.push(index);
         }
       });
-      userData.activeGoals.completed.forEach(index => {
-        if (index.name) {
-          past.push(index);
-        }
-      });
+      // userData.activeGoals.completed.forEach(index => {
+      //   if (index.name) {
+      //     past.push(index);
+      //   }
+      // });
 
       userData.pastGoals.incomplete.forEach(index => {
         if (index.name) {
@@ -67,7 +67,7 @@ const Goals = props => {
         }
       });
       console.log("//////////////");
-      console.log(current);
+
       setCurrentGoals(current);
       setPastGoals(past);
       setIncompleteGoals(userData.activeGoals.incomplete);

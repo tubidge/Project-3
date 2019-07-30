@@ -364,8 +364,6 @@ module.exports = {
               });
           };
 
-          
-
           if (data.Goals.length > 0) {
             data.Goals.forEach(index => {
               goalIds.push(index.dataValues.id);
@@ -385,6 +383,9 @@ module.exports = {
                 goal.private = index.dataValues.private;
                 goal.complete = index.dataValues.complete;
                 goal.userId = index.dataValues.UserId;
+                goal.completedOn = moment(index.dataValues.updatedAt).format(
+                  "YYYY-MM-DD"
+                );
                 if (goal.complete) {
                   user.activeGoals.completed.push(goal);
                 } else {
@@ -402,6 +403,9 @@ module.exports = {
                 goal.private = index.dataValues.private;
                 goal.complete = index.dataValues.complete;
                 goal.userId = index.dataValues.UserId;
+                goal.completedOn = moment(index.dataValues.updatedAt).format(
+                  "YYYY-MM-DD"
+                );
                 if (goal.complete) {
                   user.pastGoals.completed.push(goal);
                 } else {
@@ -1237,12 +1241,10 @@ module.exports = {
                 goal.private = index.dataValues.private;
                 goal.complete = index.dataValues.complete;
                 goal.userId = index.dataValues.UserId;
-               
+
                 if (goal.complete) {
-                 
                   user.activeGoals.completed.push(goal);
                 } else {
-              
                   user.activeGoals.incomplete.push(goal);
                 }
               } else {

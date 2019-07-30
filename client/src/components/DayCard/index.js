@@ -100,7 +100,7 @@ function DayCard(props) {
         <div className="day-card-add">
           {" "}
           <MilestoneForm
-            className="material-icons modal-trigger day-card-icon tooltipped"
+            className="material-icons modal-trigger day-card-icon"
             btnName="add_circle"
             data-position="top"
             data-tooltip="Add a milestone"

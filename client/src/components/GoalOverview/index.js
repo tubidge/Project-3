@@ -86,12 +86,6 @@ function GoalOverview(props) {
       } else {
         setPastView(false);
       }
-
-      //   console.log(">>>>>>>>>>>>>>>");
-      //   console.log(props.category);
-      //   console.log(resp.data.currentGoals);
-
-      //   props.renderGoalsForCategory(props.category, resp.data.currentGoals);
     });
   };
 
@@ -248,8 +242,8 @@ function GoalOverview(props) {
   //   openConfirmModal();
   // };
 
-  const generateIcon = () => {
-    switch (props.category) {
+  const generateIcon = category => {
+    switch (category) {
       case "Fitness":
         return "fitness_center";
       case "Education":
@@ -328,7 +322,7 @@ function GoalOverview(props) {
                             <div className="row">
                               <div className="col s6">
                                 <i className="material-icons categoryIcon_GoalPage">
-                                  {generateIcon()}
+                                  {generateIcon(goal.category)}
                                 </i>
                               </div>
                               <div
@@ -338,22 +332,14 @@ function GoalOverview(props) {
                                   justifyContent: "flex-end"
                                 }}
                               >
-                                {/* <i
-                                  className="material-icons delete_GoalPage"
-                                  data-id={goal.id}
-                                  onClick={() => deleteGoal(goal.id)}
-                                >
-                                  delete_forever
-                                </i> */}
-
                                 <ConfirmModal
-                                  className="delete_GoalPage material-icons modal-trigger right tooltipped"
+                                  className="delete-goal-overview material-icons modal-trigger"
                                   btnName={"delete_forever"}
                                   dataTarget={`newGoalFromCard_${makeid(5)}`}
                                   goalId={goal.id}
                                   message={`This will delete ${
                                     goal.name
-                                  } and any of it's milestones`}
+                                  } and any of its milestones`}
                                   type="Delete Goal"
                                   render={close}
                                   orderRender={orderRender}
@@ -393,7 +379,7 @@ function GoalOverview(props) {
                               </i>
                               <div>
                                 <ConfirmModal
-                                  className="addGoal_GoalPage material-icons modal-trigger right tooltipped"
+                                  className="completeGoal-button-overview material-icons modal-trigger"
                                   btnName={"check_box"}
                                   dataTarget={`newGoalFromCard_${makeid(5)}`}
                                   goalId={goal.id}
@@ -433,6 +419,12 @@ function GoalOverview(props) {
         <div className="row">
           <div className="col s12">
             <div className="card past-overview-card">
+              <i
+                className="material-icons pastView-home-button"
+                onClick={getData}
+              >
+                home
+              </i>
               <div className="card-content">
                 <h3
                   style={{ marginTop: "10px", marginBottom: "20px" }}
@@ -530,7 +522,7 @@ function GoalOverview(props) {
                                 style={{ color: "#bbb" }}
                                 className="material-icons categoryIcon_GoalPage"
                               >
-                                {generateIcon()}
+                                {generateIcon(goal.category)}
                               </i>
                             </div>
                             <div
@@ -540,17 +532,8 @@ function GoalOverview(props) {
                                 justifyContent: "flex-end"
                               }}
                             >
-                              {/* <i
-                                style={{ color: "#bbb" }}
-                                className="material-icons delete_GoalPage"
-                                data-id={goal.id}
-                                onClick={() => deleteGoal(goal.id)}
-                              >
-                                delete_forever
-                              </i> */}
-
                               <ConfirmModal
-                                className="delete_GoalPage material-icons modal-trigger right tooltipped"
+                                className="delete_GoalPage material-icons modal-trigger"
                                 btnName={"delete_forever"}
                                 dataTarget={`newGoalFromCard_${makeid(5)}`}
                                 goalId={goal.id}
@@ -582,7 +565,24 @@ function GoalOverview(props) {
                                 {moment(goal.dueDate).format("MM/DD/YYYY")}
                               </span>
                             </p>
-                            <p>{goal.complete ? "completed" : "incomplete"}</p>
+                            <p style={{ marginBottom: "4px" }}>
+                              {goal.complete ? "completed on \n" : "incomplete"}
+                            </p>
+                            {goal.complete ? (
+                              <p className="dueDate_GoalPage">
+                                <span
+                                  style={{
+                                    background: "#bbb"
+                                  }}
+                                >
+                                  {moment(goal.completedOn).format(
+                                    "MM/DD/YYYY"
+                                  )}
+                                </span>
+                              </p>
+                            ) : (
+                              ""
+                            )}
                           </div>
                         </div>
                       );
