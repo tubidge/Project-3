@@ -57,8 +57,6 @@ function MilestoneForm(props) {
       case "notes":
         setNotes(value);
         break;
-      default:
-        break;
     }
   };
 
@@ -125,94 +123,6 @@ function MilestoneForm(props) {
       return false;
     }
   };
-
-  if (frequency === "Never") {
-    return (
-      <div href="milestoneForm" id="milestoneForm" className="modal">
-        <div className="modal-content">
-          <form className="col s10 offset-s1">
-            <div className="row">
-              <div className="input-field col s12">
-                <input
-                  type="text"
-                  name="title"
-                  className="validate"
-                  id="milestoneTitle"
-                  placeholder=""
-                  onChange={handleInput}
-                />
-                <label htmlFor="milestoneTitle">Title</label>
-              </div>
-            </div>
-            <div className="row">
-              <div className="input-field col s12">
-                <input
-                  name="dueDate"
-                  type="date"
-                  className="validate"
-                  id="milestoneDueDate"
-                  placeholder=""
-                  value={props.date ? props.date : ""}
-                  onChange={handleInput}
-                />
-                <label htmlFor="milestoneDueDate">Due Date</label>
-              </div>
-            </div>
-            <div className="row">
-              <div className="input-field col s12">
-                <textarea
-                  className="materialize-textarea"
-                  id="milestoneNotes"
-                  rows="3"
-                  name="notes"
-                  onChange={handleInput}
-                />
-                <label htmlFor="milestoneNotes">Notes</label>
-              </div>
-            </div>
-            <div style={{ marginBottom: "15px" }} className="modal-footer">
-              <button
-                className="btn modal-close grey milestone-cancel-btn"
-                onClick={() => {
-                  clearForm();
-                  props.close("Never");
-                }}
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                className="btn milestoneFormAddBtn"
-                onClick={handleSubmit}
-              >
-                Add
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    );
-  } else {
-    return (
-      <div href="milestoneForm" id="milestoneForm" className="modal">
-        <div className="modal-content center-align">
-          <h5>
-            <span className="brandedText">New {props.frequency} Milestone</span>
-          </h5>
-          <form className="col s10 offset-s1">
-            <div className="row">
-              <div className="input-field col s12 left-align">
-                <span className="labelForSelect">Name</span>
-                <input
-                  type="text"
-                  name="title"
-                  className="validate"
-                  id="milestoneTitle"
-                  placeholder=""
-                  onChange={handleInput}
-                />
-              </div>
-            </div>
 
   return (
     <>
