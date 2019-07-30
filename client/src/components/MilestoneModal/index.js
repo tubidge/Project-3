@@ -97,11 +97,13 @@ function MilestoneModal(props) {
     <>
       <div id={dataTarget} className="modal">
         <div className="modal-content modal-milestone-content">
-          <h2 className="modal-goal-category">{goal.category} Goal</h2>
-          <h4 className="left-align modal-goal-name">{goal.name}</h4>
-          <h4 className="right-align modal-goal-dueDate">
-            Due: {moment(goal.dueDate).format("MM/DD/YYYY")}
-          </h4>
+          <h2 className="modal-goal-category">{goal.name}</h2>
+          <div className="modal-milestone-content-subheader">
+            <h4 className="left-align modal-goal-name">{goal.category} Goal</h4>
+            <h4 className="right-align modal-goal-dueDate">
+              Due: {moment(goal.dueDate).format("MM/DD/YYYY")}
+            </h4>
+          </div>
           <div className="card z-depth-5" style={{ border: "solid #daae37" }}>
             <div className="card-content modal-milestone-card">
               <span className="card-title" style={{ fontSize: "36px" }}>

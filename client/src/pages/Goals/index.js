@@ -8,6 +8,7 @@ import Chat from "../../components/Chat";
 import M from "materialize-css";
 import "./style.css";
 import API from "../../utils/API";
+import Loading from "../../components/Loading";
 import defaultLionPic from "../../components/Form/lionDefaultProfilePic.jpg";
 
 const Goals = props => {
@@ -43,6 +44,7 @@ const Goals = props => {
         setMyBuddies(userData.buddies.myBuddies);
       }
       let current = [];
+      let past = [];
       userData.activeGoals.incomplete.forEach(index => {
         if (index.name) {
           current.push(index);
@@ -54,7 +56,6 @@ const Goals = props => {
         }
       });
 
-      let past = [];
       userData.pastGoals.incomplete.forEach(index => {
         if (index.name) {
           past.push(index);
@@ -82,9 +83,13 @@ const Goals = props => {
       );
       setUserInfo(userData);
       console.log(userData);
-      setIsLoading(false);
+     stopLoading()
     });
   };
+
+  const stopLoading = () => {
+ setIsLoading(false);
+  }
 
   const getUnique = (arr, comp) => {
     const unique = arr
@@ -168,6 +173,10 @@ const Goals = props => {
     console.log("goal page render");
     setreRender(!reRender);
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>
