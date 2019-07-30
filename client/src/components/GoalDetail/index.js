@@ -393,6 +393,7 @@ function GoalDetail(props) {
                                       ? index.image
                                       : "https://image.flaticon.com/icons/png/128/57/57117.png"
                                   }
+                                  alt="Follower"
                                 />
 
                                 <Link

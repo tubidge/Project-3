@@ -1,4 +1,5 @@
 nav {
+  font-family: "Voces", sans-serif;
   background-color: var(--darkBlue) !important;
   box-shadow: none !important;
   background-color: none;
@@ -16,31 +17,19 @@ nav .nav-wrapper {
   cursor: auto !important;
 }
 
-#welcomeMessage {
-  margin-left: 9%;
-}
-
-#completeProfileAlert {
-  border-radius: 10px;
+.welcomeMessage {
+  padding: 0 10px 5px 10px;
+  background-color: var(--darkBlue);
   position: relative;
-  top: 6px;
-  color: var(--darkBlue);
-  font-weight: 500;
-  height: 50px;
-  line-height: 50px;
-  background-color: var(--accentGold) !important;
-  /* padding: 0 10px 10px 10px !important; */
-  margin-right: 10px;
-}
-
-#completeProfileAlert:hover {
-  transform: rotate(0);
+  color: white;
+  top: 28px;
+  left: 0px;
+  border-bottom: 1px solid var(--accentGold);
 }
 
 nav ul a:hover {
   background: none !important;
   cursor: pointer;
-  color: white;
   transform: scale(1.1) rotate(-4deg);
   -moz-transition: all 0.1s ease-in-out 0s;
   -webkit-transition: all 0.1s ease-in-out 0s;
@@ -61,13 +50,15 @@ nav .btn {
 }
 
 nav .brand-logo {
-  font-family: Anton, sans-serif;
-  letter-spacing: 1px;
   margin-left: 10px;
   -moz-transition: all 0.1s ease-in-out 0s;
   -webkit-transition: all 0.1s ease-in-out 0s;
   -ms-transition: all 0.1s ease-in-out 0s;
   transition: all 0.1s ease-in-out 0s;
+}
+
+nav .brand-logo span {
+  color: var(--accentGold);
 }
 
 nav .brand-logo:hover {
@@ -76,27 +67,6 @@ nav .brand-logo:hover {
   -webkit-transition: all 0.1s ease-in-out 0s;
   -ms-transition: all 0.1s ease-in-out 0s;
   transition: all 0.1s ease-in-out 0s;
-}
-
-nav .brand-logo svg {
-  margin-left: 10px;
-  color: var(--accentGold) !important;
-  -moz-transition: all 0.2s ease-in-out 0s;
-  -webkit-transition: all 0.2s ease-in-out 0s;
-  -ms-transition: all 0.2s ease-in-out 0s;
-  transition: all 0.2s ease-in-out 0s;
-}
-
-nav .brand-logo svg:hover {
-  color: white;
-  -moz-transition: all 0.2s ease-in-out 0s;
-  -webkit-transition: all 0.2s ease-in-out 0s;
-  -ms-transition: all 0.2s ease-in-out 0s;
-  transition: all 0.2s ease-in-out 0s;
-}
-
-nav .brand-logo span {
-  color: var(--accentGold);
 }
 
 nav .logout,

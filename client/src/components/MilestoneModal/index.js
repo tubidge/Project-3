@@ -3,15 +3,12 @@ import M from "materialize-css";
 import API from "../../utils/API";
 import moment from "moment";
 import "./style.css";
-import DatePicker from "../DatePicker";
-import TimePicker from "../TimePicker";
 function MilestoneModal(props) {
   const [goal, setGoal] = useState("");
   const [milestone, setMilestone] = useState("");
-  const [dataTarget, setDataTarget] = useState("milestoneModal");
+  const [dataTarget] = useState("milestoneModal");
   useEffect(() => {
     API.getMilestone(props.id).then(data => {
-      console.log(data);
       let newMilestone = {
         id: data.data.id,
         name: data.data.name,
@@ -22,16 +19,13 @@ function MilestoneModal(props) {
         GoalId: data.data.goalId
       };
       setMilestone(newMilestone);
-      console.log(data.data.goalId);
       API.getBasicGoal(data.data.goalId).then(resp => {
-        console.log(resp);
         let goal = {
           id: resp.data.id,
           name: resp.data.name,
           category: resp.data.category,
           dueDate: resp.data.dueDate
         };
-        console.log(goal);
         setGoal(goal);
       });
     });
@@ -65,6 +59,8 @@ function MilestoneModal(props) {
         data.completed = !data.completed;
         console.log(data);
         setMilestone(data);
+        break;
+      default:
         break;
     }
   };

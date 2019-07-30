@@ -1,10 +1,13 @@
+@import url("https://fonts.googleapis.com/css?family=Anton|Voces&display=swap");
+
 :root {
   --accentGold: #daae37;
+  --darkGold: #b18c25;
   --darkBlue: #102a46;
   --blue: #224366;
   --lightBlue: #2867aa;
 }
-/* Scrollbar styles */
+
 ::-webkit-scrollbar {
   width: 18px;
   height: 18px;
@@ -19,65 +22,28 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #b18c25;
+  background: var(--darkGold);
+}
+
+html,
+body {
+  background: #eeeeee !important;
 }
 
 a {
   color: var(--lightBlue);
-  -moz-transition: all 0.1s ease-in-out 0s;
-  -webkit-transition: all 0.1s ease-in-out 0s;
-  -ms-transition: all 0.1s ease-in-out 0s;
   transition: all 0.1s ease-in-out 0s;
 }
 
 a:hover {
   color: var(--accentGold);
-  -moz-transition: all 0.1s ease-in-out 0s;
-  -webkit-transition: all 0.1s ease-in-out 0s;
-  -ms-transition: all 0.1s ease-in-out 0s;
   transition: all 0.1s ease-in-out 0s;
 }
 
-.nav-user-profile {
-  width: 75px;
-  border-radius: 50%;
-}
-
-.next-steps .fa-link {
-  margin-right: 5px;
-}
-
-/* Fix for use only flexbox in content area */
-.next-steps .row {
-  margin-bottom: 0;
-}
-
-.next-steps .col-md-5 {
-  margin-bottom: 3rem;
-}
-
-.spinner {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  height: 100vh;
-  width: 100vw;
-  background-color: white;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
 hr {
-  border: none;
   height: 2px;
   background-color: var(--accentGold) !important;
   border-color: var(--accentGold) !important;
-}
-
-.toast {
-  background-color: #bd8c07 !important;
 }
 
 input:focus {
@@ -97,7 +63,7 @@ input[type="date"]::-webkit-inner-spin-button {
 
 /* Always display the drop down caret */
 input[type="date"]::-webkit-calendar-picker-indicator {
-  color: #2c3e50;
+  color: var(--darkBlue);
 }
 
 /* A few custom styles for date inputs */
@@ -120,18 +86,128 @@ focus {
   -moz-box-shadow: none;
 }
 
-.buddyInfo {
+.loading {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: white;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.toast {
+  background-color: var(--darkGold) !important;
+}
+
+.hero-image {
+  background: -webkit-linear-gradient(
+    -90deg,
+    rgba(16, 42, 70, 1) 0%,
+    rgba(56, 90, 124, 1) 100%
+  );
+  min-height: 225px;
+}
+
+.brandedText {
   color: var(--darkBlue);
-  font-weight: 600;
+  font-weight: 500;
+  border-bottom: 1px dashed var(--accentGold);
+}
+
+.btn-blue {
+  background-color: var(--blue) !important;
+  color: #fff !important;
+}
+
+.btn-darkBlue {
+  background-color: var(--darkBlue);
+  color: #fff;
+}
+
+.btn-gold {
+  background-color: var(--accentGold) !important;
+  color: #fff !important;
+}
+
+.btn-blueO {
+  background-color: transparent !important;
+  color: var(--blue) !important;
+  border: 1px solid var(--blue) !important;
+}
+
+.btn-darkBlueO {
+  background-color: transparent !important;
+  color: var(--darkBlue);
+  border: 1px solid var(--darkBlue);
+}
+
+.btn-goldO {
+  background-color: transparent;
+  color: var(--darkGold);
+  border: 1px solid var(--accentGold);
+}
+
+.modal-content h4 {
+  text-align: center;
+}
+
+.modalTitle {
+  color: var(--darkBlue);
   border-bottom: 1px dashed var(--accentGold);
 }
 
 @media (max-width: 768px) {
-  .next-steps .col-md-5 {
-    margin-bottom: 0;
+  .navBtnDiv {
+    padding: 15px;
+    text-align: center;
   }
-  #goalCardModal .modal,
-  #joinGoalModa .modal {
+
+  .navBtnDiv .btn {
+    margin: 5px;
+  }
+
+  .title_homePage {
+    position: relative;
+    bottom: 80px;
+  }
+
+  .teamContainer,
+  .contactContainer {
+    position: relative;
     width: 100%;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    margin: -60px auto 0 auto;
+  }
+
+  .teamContainer {
+    margin: 0 !important;
+  }
+
+  .profileContainer {
+    width: 100%;
+    background: none;
+  }
+  .welcomeMessage {
+    top: 45%;
+    left: 20%;
+  }
+
+  .nextArrow {
+    height: 95px;
+  }
+
+  .nextArrow > span {
+    position: relative;
+    bottom: 50px;
+    left: 125px;
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    font-size: 80px;
+    color: var(--accentGold) !important;
   }
 }

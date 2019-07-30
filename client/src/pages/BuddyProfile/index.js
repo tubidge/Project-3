@@ -10,16 +10,16 @@ const BuddyProfile = props => {
   const { loading, user } = useAuth0();
   const [isLoading, setIsLoading] = useState(true);
 
-  const [categories, setCategories] = useState([]);
+  const [, setCategories] = useState([]);
   const [reRender, setReRender] = useState(false);
 
   // for the current user
-  const [goalInfo, setGoalInfo] = useState({});
+  const [, setGoalInfo] = useState({});
   const [incompleteGoals, setIncompleteGoals] = useState([]);
   const [userInfo, setUserInfo] = useState([]);
 
   // for the selected buddy
-  const [buddyGoalInfo, setBuddyGoalInfo] = useState({});
+  const [, setBuddyGoalInfo] = useState({});
   const [buddyIncompleteGoals, setBuddyIncompleteGoals] = useState([]);
   const [buddyCompleteGoals, setBuddyCompleteGoals] = useState([]);
   const [buddyData, setBuddyData] = useState([]);

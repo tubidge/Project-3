@@ -12,7 +12,7 @@ export default function FadeTransition(props) {
     enter: TO_STYLE,
     leave: FROM_STYLE,
     config: {
-      duration: 800
+      duration: 500
     }
   });
 

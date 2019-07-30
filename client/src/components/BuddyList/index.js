@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useSpring, animated } from "react-spring";
 import { Link } from "react-router-dom";
-import API from "../../utils/API";
-import "./style.css";
 import ChatButton from "../ChatButton";
+import Loading from "../Loading";
+import "./style.css";
 
 const BuddyList = props => {
   const [buddies] = useState(props.allBuddies);
+  const [isLoading, setLoading] = useState(true);
+
   const fade = useSpring({
     from: {
       opacity: 0
@@ -16,13 +18,12 @@ const BuddyList = props => {
 
   useEffect(() => {
     configChannels();
-    // console.log(props.channels);
+    setLoading(false);
   }, []);
 
   const configChannels = () => {
     props.channels.forEach(index => {
       let channel = index;
-      // console.log(channel);
       buddies.forEach(index => {
         if (index.email === channel.user) {
           return index.channel === channel;
@@ -36,16 +37,22 @@ const BuddyList = props => {
       .filter(index => index.username === username)
       .map(index => (
         <span key={`${index.buddyId}_${props.makeid(5)}`}>
-          <span className="buddyInfo truncate">{index.buddyGoal}</span>
-          <i className="tiny material-icons">call_missed_outgoing</i>
+          <span className="truncate brandedText buddyGoal">
+            {index.buddyGoal}
+          </span>
+          <i className="tiny material-icons connectingArrow">
+            call_missed_outgoing
+          </i>
           <span className="userGoal">{index.userGoal}</span>
         </span>
       ));
   };
 
+  if (isLoading) return <Loading />;
+
   return (
     <animated.div style={fade}>
-      <section id="buddiesList">
+      <section className="buddyList">
         <ul className="collection">
           {buddies &&
             props.buddies.map(buddy => (
@@ -55,12 +62,12 @@ const BuddyList = props => {
                   alt={buddy.username}
                   className="circle"
                 />
-                <span className="title">
+                <span>
                   <Link to={`/buddy-profile/${buddy.buddyId}`}>
                     {buddy.username}
                   </Link>
                 </span>
-                <div id="buddyGoal">
+                <div>
                   <p>{getJoinedGoals(buddy.username)}</p>
                 </div>
                 <Link to="#" className="secondary-content">

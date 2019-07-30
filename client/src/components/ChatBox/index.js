@@ -1,22 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./style.css";
 import ChatMessage from "../ChatMessage";
 // This chatbox should render a card that takes in props for the current channel and sends those props to a hook that then populates the card
 // and allows for new messages to be sent
 
 function ChatBox(props) {
-  const [buddyUsername, setBuddyUsername] = useState("");
-
   useEffect(() => {
     document.getElementById("testing").scrollIntoView(true);
     console.log("messages changes");
   }, [props.messages.length]);
 
   useEffect(() => {
-    // findBuddyUsername(
-    //   props.buddies,
-    //   props.messages[0].mentionedUsers[0].userId
-    // );
     document
       .getElementById("messageField")
       .addEventListener("keydown", function(event) {
@@ -27,22 +21,12 @@ function ChatBox(props) {
       });
   }, []);
 
-  const findBuddyUsername = (buddies, userFromMessage) => {
-    buddies.filter(buddy => {
-      if (buddy.email === userFromMessage) {
-        setBuddyUsername(buddy.username);
-        return buddy.username;
-      }
-    });
-  };
-
   return (
     <div id="chatBox">
       <div className="card">
         <div className="card-content">
           <span className="card-title">
             Chat with your Buddy
-            {/* Chat with <span className="buddyInfoInvert">{buddyUsername}</span> */}
             <i className="material-icons right" onClick={props.exit}>
               close
             </i>

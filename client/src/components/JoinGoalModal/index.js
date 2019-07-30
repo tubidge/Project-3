@@ -5,9 +5,9 @@ import "./style.css";
 
 const JoinGoalModal = props => {
   const [selectedGoal, setSelectedGoal] = useState("");
-  const [goal, setGoal] = useState("");
+  const [, setGoal] = useState("");
   const [selectedDuration, setSelectedDuration] = useState("");
-  const [duration, setDuration] = useState("");
+  const [, setDuration] = useState("");
 
   useEffect(() => {
     M.AutoInit();
@@ -67,13 +67,13 @@ const JoinGoalModal = props => {
         <div id={props.dataTarget} className="modal">
           <div className="modal-content">
             <h5>
-              Join <span className="buddyInfo">{props.buddyGoalName}</span>
+              Join <span className="brandedText">{props.buddyGoalName}</span>
             </h5>
             <p>
               Select which of your goals you want to link to this goal.
               <br />
               When you select a goal, you and{" "}
-              <span className="buddyInfo">{props.buddyName}</span> will become
+              <span className="brandedText">{props.buddyName}</span> will become
               Buddies for the duration you choose.
             </p>
             <div

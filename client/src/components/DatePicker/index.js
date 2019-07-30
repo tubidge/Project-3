@@ -1,10 +1,7 @@
 import React, { useEffect } from "react";
-import M from "materialize-css";
 import moment from "moment";
 
 function DatePicker(props) {
-  let instance;
-
   useEffect(() => {
     let now = moment();
     document.addEventListener("DOMContentLoaded", function() {
@@ -13,9 +10,6 @@ function DatePicker(props) {
         default: now,
         setDefaultDate: true
       };
-      console.log(options);
-      var elems = document.querySelectorAll(".datepicker");
-      instance = M.Datepicker.init(elems, options);
     });
   }, []);
 

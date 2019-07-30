@@ -46,9 +46,7 @@
 .tabs {
   background-color: rgb(246, 246, 246);
 }
-.card-title {
-  font-weight: 600 !important;
-}
+
 .card {
   border-radius: 2ch;
 }

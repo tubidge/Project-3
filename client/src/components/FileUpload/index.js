@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import Dropzone from "react-dropzone";
 import request from "superagent";
 import API from "../../utils/API";
@@ -8,7 +8,7 @@ import "./style.css";
 const CLOUDINARY_UPLOAD_PRESET = "mrptyjwx";
 const CLOUDINARY_UPLOAD_URL = "https://api.cloudinary.com/v1_1/goalden/upload";
 
-export default class FileUpload extends React.Component {
+export default class FileUpload extends Component {
   state = {
     uploadedFile: null,
     uploadedFileCloudinaryUrl: ""
@@ -52,7 +52,7 @@ export default class FileUpload extends React.Component {
   render() {
     return (
       <>
-        <div className="FileUpload">
+        <div className="fileUpload">
           <Dropzone
             onDrop={this.onImageDrop.bind(this)}
             accept="image/*"

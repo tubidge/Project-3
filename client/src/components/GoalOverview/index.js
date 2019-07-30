@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./style.css";
 import ProgressBar from "../ProgressBar";
 import moment from "moment";
-import Loading from "../../components/Loading";
 import API from "../../utils/API";
 import ConfirmModal from "../ConfirmModal";
 import Modal from "../Modal";
@@ -69,14 +68,14 @@ function GoalOverview(props) {
 
       if (props.pastGoals.length > 3) {
         let arr = [];
-        for (var i = pastIndex; i < [pastIndex + 3]; i++) {
-          if (i < 0) {
+        for (var j = pastIndex; j < [pastIndex + 3]; j++) {
+          if (j < 0) {
             let num = props.pastGoals.length - 1;
             arr.push(props.pastGoals[num]);
-          } else if (i > props.pastGoals.length - 1) {
-            arr.push(props.pastGoals[i - props.pastGoals.length]);
+          } else if (j > props.pastGoals.length - 1) {
+            arr.push(props.pastGoals[j - props.pastGoals.length]);
           } else {
-            arr.push(props.pastGoals[i]);
+            arr.push(props.pastGoals[j]);
           }
         }
 
@@ -99,7 +98,6 @@ function GoalOverview(props) {
     let add;
 
     let max = currentGoals.length - 1;
-    let num = currentGoals.length - 1;
 
     if (currentIndex < 0) {
       add = currentGoals.length - 2;
@@ -237,6 +235,8 @@ function GoalOverview(props) {
         break;
       case "endDate":
         setEnd(value);
+        break;
+      default:
         break;
     }
   };

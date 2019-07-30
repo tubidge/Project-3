@@ -1,16 +1,74 @@
+.calendar {
+  background-color: #f5f5f5;
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12),
+    0 2px 4px -1px rgba(0, 0, 0, 0.3);
+}
+
 .completed-milestone-cal {
   text-decoration: line-through;
 }
+
+.calendar th {
+  font-weight: normal !important;
+}
+
+.calendar td .fc-day-number {
+  font-family: "Voces", sans-serif;
+}
+
+.fc-toolbar.fc-header-toolbar {
+  margin-bottom: 0.5em;
+}
+
+.fc-toolbar h2 {
+  font-family: "Voces", sans-serif;
+  color: var(--darkBlue);
+  border-bottom: 1px dashed var(--accentGold);
+  padding: 3px 0 0 0;
+}
+
 .fc-left {
-  font-weight: bold;
   font-size: 24px;
 }
 
-.calendar {
-  background-color: #f5f5f5;
-  box-shadow: 2px 2px 3px 3px rgb(202, 201, 201);
+.fc-right .fc-today-button {
+  background-color: var(--blue);
+  border-color: white;
 }
+
+.fc-button-primary {
+  background-color: var(--accentGold);
+  border-color: white;
+  transition: all 0.1s ease-in-out 0s;
+}
+
+.fc-button-primary:hover,
+.fc-button-primary:focus {
+  background-color: var(--darkBlue);
+  transition: all 0.1s ease-in-out 0s;
+}
+
 .fc-event {
   color: white;
   word-wrap: break-word;
+  border: none;
+  padding: 2px 0 2px 2px;
+}
+
+.fc-head {
+  background: -webkit-linear-gradient(
+    -90deg,
+    rgba(16, 42, 70, 1) 0%,
+    rgba(56, 90, 124, 1) 100%
+  );
+  color: white;
+}
+
+.fc-day-header .fc-widget-header {
+  font-family: "Voces", sans-serif;
+  color: var(--blue) !important;
+}
+
+.fc-unthemed td.fc-today {
+  background: rgb(203, 219, 233);
 }

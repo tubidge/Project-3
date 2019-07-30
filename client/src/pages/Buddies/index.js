@@ -6,9 +6,8 @@ import API from "../../utils/API";
 import M from "materialize-css";
 import { useAuth0 } from "../../react-auth0-spa";
 import Fuse from "fuse.js";
-import Footer from "../../components/Footer";
-import defaultLionPic from "./lionDefaultProfilePic.jpg";
 
+import defaultLionPic from "./lionDefaultProfilePic.jpg";
 import "./style.css";
 
 const Buddies = props => {
@@ -41,10 +40,7 @@ const Buddies = props => {
 
   useEffect(() => {
     M.AutoInit();
-    // Get all goals from all users
     let results = [];
-    // let currentUser = props.location.state.user;
-    // console.log(currentUser);
     API.getAllUsers().then(res => {
       const removedCurrentUser = res.data.filter(
         index => index.email !== user.email
@@ -82,10 +78,8 @@ const Buddies = props => {
         return results;
       });
       setUsers(res.data);
-      console.log(results);
       setBuddyGoals(results);
       getUserGoals(user.email);
-      // getUserGoals(props.location.state.user);
     });
   }, []);
 
@@ -108,7 +102,7 @@ const Buddies = props => {
         return a - b;
       });
     searchMatches.map(match => {
-      searchResults.push(match);
+      return searchResults.push(match);
     });
     if (searchResults.length === 0) {
       if (search) {
@@ -118,7 +112,6 @@ const Buddies = props => {
         });
       }
     }
-    console.log(searchResults);
     setSearchMatchFound(searchResults);
   };
 
@@ -137,16 +130,14 @@ const Buddies = props => {
     const goalMatches = goals.map(goal => {
       return fuse.search(goal.name);
     });
-    console.log(goalMatches);
     goalMatches
       .map(match => match.score)
       .sort(function(a, b) {
         return a - b;
       });
-    console.log("Top Matches for Each Goal");
     goalMatches.map(match => {
       if (match.length === 0) {
-        console.log("No match found.");
+        return null;
       } else {
         API.getUserByGoal(match[0].item.id).then(res => {
           let id = match[0].item.id;
@@ -165,10 +156,9 @@ const Buddies = props => {
             userId: userId,
             image: image
           };
-          matches.push(topMatch);
-          console.log(topMatch);
+          return matches.push(topMatch);
         });
-        setMatchesFound(matches);
+        return setMatchesFound(matches);
       }
     });
   };
@@ -293,7 +283,7 @@ const Buddies = props => {
               <div className="card">
                 <div className="card-content">
                   <span className="card-title">
-                    <span className="buddyInfo">Get Paired with a Buddy</span>
+                    <span className="brandedText">Get Paired with a Buddy</span>
                   </span>
                   <p>
                     Find someone with similar goals, so you can help each other!

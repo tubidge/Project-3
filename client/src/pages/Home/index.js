@@ -1,169 +1,190 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Footer from "../../components/Footer";
+import React, { useState, useEffect } from "react";
 import { useAuth0 } from "../../react-auth0-spa";
-import Dashboard from "../Dashboard";
+import Profile from "../Profile";
+import API from "../../utils/API";
 import josh from "./pics/Josh.jpg";
 import alex from "./pics/Alex.jpg";
 import hunter from "./pics/Hunter.jpg";
 import phil from "./pics/Phil.jpg";
-import logo from "./pics/logo.svg";
+import logo from "../../assets/logo.png";
 import "./style.css";
 
 const Home = () => {
-  const { isAuthenticated } = useAuth0();
+  const { user, isAuthenticated, loginWithRedirect } = useAuth0();
+  const [redirect, setRedirect] = useState(false);
+
+  const getUserProfile = () => {
+    API.getUserByEmail(user.email).then(res => {
+      if (res.data.created === undefined) {
+        setRedirect(true);
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (user) {
+      getUserProfile(user.email);
+    }
+  });
+
+  if (redirect) {
+    return <Profile />;
+  }
 
   return (
     <>
-      {!isAuthenticated && (
-        <>
-          <div id="homePage">
-            <div className="container">
-              <div className="row">
-                <div className="col s12 center-align">
-                  <span className="tagline">
-                    Share your Goals & Achieve More
-                    <br /> with
-                  </span>
-                  <h1 className="logo_HomePage">
-                    Goal<span className="logo_Den">Den</span>
-                  </h1>
-                </div>
-              </div>
-            </div>
-
-            <div className="btns_HomePage">
-              <Link to="/dashboard" className="loginBtn btn btn-large">
+      <div className="wrapper">
+        <div className="navBtnDiv">
+          {!isAuthenticated && (
+            <>
+              <span
+                className="btn btn-large btn-gold"
+                onClick={() =>
+                  loginWithRedirect({
+                    redirect_uri: window.location.origin
+                  })
+                }
+              >
                 Login
-              </Link>
-              <Link to="/profile" className="signUpBtn btn btn-large">
+              </span>
+              <span
+                className="btn btn-large btn-blue"
+                onClick={() =>
+                  loginWithRedirect({
+                    redirect_uri: window.location.origin
+                  })
+                }
+              >
                 Sign Up
-              </Link>
-            </div>
-          </div>
+              </span>
+            </>
+          )}
+        </div>
 
-          <div className="teamContainer container">
-            <div className="col">
-              <h3 className="center-align">
-                <img className="logo" src={logo} alt="Logo" />
-                <br />
-                <span className="buddyInfo">Our Team</span>
-              </h3>
-              <div className="row">
-                <div className="col s3 m3">
-                  <div className="card">
-                    <div className="card-image">
-                      <img src={alex} />
-                    </div>
-                    <div className="card-stacked">
-                      <div className="home-card-content">
-                        <p className="center">Alex</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col s3 m3">
-                  <div className="card">
-                    <div className="card-image">
-                      <img src={hunter} />
-                    </div>
-                    <div className="card-stacked">
-                      <div className="home-card-content">
-                        <p className="center">Hunter</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col s3 m3">
-                  <div className="card">
-                    <div className="card-image">
-                      <img src={phil} />
-                    </div>
-                    <div className="card-stacked">
-                      <div className="home-card-content">
-                        <p className="center">Phil</p>
-                      </div>
+        <div className="container">
+          <div className="row">
+            <div className="col s12 center-align">
+              <div className="title_homePage">
+                <h1>
+                  Goal<span className="den">Den</span>
+                </h1>
+                <h5>Share goals & achieve more.</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="teamContainer z-depth-3">
+        <div className="row">
+          <div className="col s12">
+            <h3 className="center-align">
+              <img className="logo" src={logo} alt="Logo" />
+              <br />
+              <span className="brandedText">Our Team</span>
+            </h3>
+            <div className="row">
+              <div className="col l3 s12">
+                <div className="card">
+                  <img
+                    className="circle responsive-img teamPic"
+                    src={alex}
+                    alt="Alex"
+                  />
+                  <div className="card-stacked">
+                    <div className="home-card-content">
+                      <p className="picName">Alex</p>
                     </div>
                   </div>
                 </div>
-                <div className="col s3 m3">
-                  <div className="card">
-                    <div className="card-image">
-                      <img src={josh} />
+              </div>
+              <div className="col l3 s12">
+                <div className="card">
+                  <img
+                    className="circle responsive-img teamPic"
+                    src={hunter}
+                    alt="Hunter"
+                  />
+                  <div className="card-stacked">
+                    <div className="home-card-content">
+                      <p className="picName">Hunter</p>
                     </div>
-                    <div className="card-stacked">
-                      <div className="home-card-content">
-                        <p className="center">Josh</p>
-                      </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col l3 s12">
+                <div className="card">
+                  <img
+                    className="circle responsive-img teamPic"
+                    src={phil}
+                    alt="Phil"
+                  />
+                  <div className="card-stacked">
+                    <div className="home-card-content">
+                      <p className="picName">Phil</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col l3 s12">
+                <div className="card">
+                  <img
+                    className="circle responsive-img teamPic"
+                    src={josh}
+                    alt="Josh"
+                  />
+                  <div className="card-stacked">
+                    <div className="home-card-content">
+                      <p className="picName">Josh</p>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <br />
-          <div className="container contactContainer">
-            <section id="contact">
-              <div className="row">
-                <div className="contactCard_HomePage col s12">
-                  <h3 className="center-align">
-                    <span className="buddyInfo">Contact</span>
-                  </h3>
-                  <div className="row">
-                    <form
-                      action="https://formspree.io/goal.denapp@gmail.com"
-                      method="POST"
-                      className="col m8 offset-m2 s12"
-                    >
-                      <div className="row">
-                        <div className="input-field col s12">
-                          <input
-                            id="name"
-                            type="text"
-                            name="name"
-                            placeholder="Name"
-                          />
-                        </div>
-                        <div className="input-field col s12">
-                          <input
-                            id="email"
-                            type="email"
-                            className="form-input"
-                            name="_email"
-                            placeholder="Email"
-                          />
-                        </div>
-                        <div className="input-field col s12">
-                          <textarea
-                            id="message"
-                            className="materialize-textarea"
-                            placeholder="Message"
-                            name="message"
-                          />
-                        </div>
-                      </div>
-                      <div className="row">
-                        <div className="col m12">
-                          <p className="right-align">
-                            <button
-                              type="submit"
-                              className="btn sendMessage_HomePage"
-                              name="action"
-                            >
-                              Send Message
-                            </button>
-                          </p>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
+        </div>
+      </div>
+      <div className="contactContainer z-depth-3">
+        <div className="row">
+          <div className="col s8 offset-s2">
+            <h3 className="center-align">
+              <span className="brandedText">Contact</span>
+            </h3>
+            <div className="row">
+              <form
+                action="https://formspree.io/goal.denapp@gmail.com"
+                method="POST"
+              >
+                <div className="input-field">
+                  <input id="name" type="text" name="name" placeholder="Name" />
                 </div>
-              </div>
-            </section>
+                <div className="input-field ">
+                  <input
+                    id="email"
+                    type="email"
+                    className="form-input"
+                    name="_email"
+                    placeholder="Email"
+                  />
+                </div>
+                <div className="input-field">
+                  <textarea
+                    id="message"
+                    className="materialize-textarea"
+                    placeholder="Message"
+                    name="message"
+                  />
+                </div>
+                <p className="right-align">
+                  <button type="submit" className="btn btn-blue" name="action">
+                    Send Message
+                  </button>
+                </p>
+              </form>
+            </div>
           </div>
-        </>
-      )}
-      {isAuthenticated && <Dashboard />}
+        </div>
+      </div>
     </>
   );
 };

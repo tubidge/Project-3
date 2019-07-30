@@ -14,13 +14,19 @@ const Navbar = () => {
       returnTo: window.location.origin
     });
 
+  async function getUserData() {
+    if (user) {
+      API.getUserByEmail(user.email)
+        .then(res => {
+          setUserInfo(res.data);
+        })
+        .catch(err => console.log(err));
+    }
+  }
+
   useEffect(() => {
     M.AutoInit();
-    if (userInfo.username) {
-      API.getUserByEmail(user.email).then(resp => {
-        setUserInfo(resp.data);
-      });
-    }
+    getUserData();
   }, []);
 
   return (
@@ -33,15 +39,9 @@ const Navbar = () => {
                 <NavLink to="/" className="brand-logo">
                   Goal<span>Den</span>
                 </NavLink>
-                {userInfo.username ? (
-                  <span id="welcomeMessage">
-                    <span style={{ color: "lightgrey" }}>
-                      {" "}
-                      Welcome the the Den,
-                    </span>{" "}
-                    {userInfo.username}
-                  </span>
-                ) : null}
+                <span className="welcomeMessage">
+                  Welcome, {userInfo.firstName}
+                </span>
                 <NavLink
                   to="#"
                   data-target="mobile-demo"
@@ -51,42 +51,21 @@ const Navbar = () => {
                 </NavLink>
                 <ul className="right hide-on-med-and-down">
                   <li>
-                    <NavLink to="/" activeClassName="active">
-                      Dashboard
-                    </NavLink>
+                    <NavLink to="/dashboard">Dashboard</NavLink>
                   </li>
                   {userInfo ? (
                     <>
                       <li>
-                        <NavLink
-                          to={{
-                            pathname: "/buddies",
-                            state: {
-                              user: user.email
-                            }
-                          }}
-                        >
-                          Find Buddies
-                        </NavLink>
+                        <NavLink to="/buddies">Find Buddies</NavLink>
                       </li>
                       <li>
                         <NavLink to="/goals">Goals</NavLink>
                       </li>
+                      <li>
+                        <NavLink to="/profile">Profile</NavLink>
+                      </li>
                     </>
                   ) : null}
-                  <li>
-                    {userInfo ? (
-                      <NavLink to="/profile">Profile</NavLink>
-                    ) : (
-                      <Link
-                        to="/profile"
-                        className="pulse"
-                        id="completeProfileAlert"
-                      >
-                        Complete Profile
-                      </Link>
-                    )}
-                  </li>
                   {!isAuthenticated && (
                     <li>
                       <span

@@ -1,174 +1,102 @@
 import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
-import { confirmAlert } from "react-confirm-alert";
-import FileUpload from "../FileUpload";
-import defaultLionPic from "./lionDefaultProfilePic.jpg";
-import "react-confirm-alert/src/react-confirm-alert.css";
-import "./style.css";
+import ConfirmSignupModal from "../ConfirmSignupModal";
+import defaultLionPic from "../../assets/images/lionDefaultProfilePic.jpg";
 
-const axios = require("axios");
 const Form = props => {
   const [username, setUsername] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const email = props.email;
-  const [, setDisabled] = useState(false);
+  const image = defaultLionPic;
 
-  const handleSumbit = e => {
-    e.preventDefault();
-    const image = defaultLionPic;
-    confirmAlert({
-      title: "Create your account",
-      message: "Is everything right?",
-      buttons: [
-        {
-          label: "Yes",
-          onClick: () => {
-            axios
-              .post("/add/user", {
-                firstName,
-                lastName,
-                username,
-                email,
-                image
-              })
-              .then(result => {
-                if (result) {
-                  setDisabled(true);
-                  props.history.push("/dashboard");
-                }
-              });
-          }
-        },
-        {
-          label: "No",
-          onClick: () => null
-        }
-      ]
-    });
+  const makeid = l => {
+    let text = "";
+    let char_list =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    for (let i = 0; i < l; i++) {
+      text += char_list.charAt(Math.floor(Math.random() * char_list.length));
+    }
+    return text;
   };
+
+  const capFirstLtr = str => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+
   return (
-    <form>
-      <div className="row">
-        <div className="col s5">
-          <div className="row">
-            <div className="form-group">
-              <b>Username</b>
-              <input
-                className="form-control"
-                value={username}
-                onChange={e => setUsername(e.target.value)}
-                placeholder="username"
-                type="text"
-                name="username"
-                required
-              />
+    <>
+      <form>
+        <div className="row">
+          <div className="col s5">
+            <div className="row">
+              <div className="form-group">
+                <b>Username</b>
+                <input
+                  className="form-control"
+                  value={username}
+                  onChange={e => setUsername(e.target.value)}
+                  placeholder="username"
+                  type="text"
+                  name="username"
+                  required
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div className="form-group">
+                <b>Email</b>
+                <input
+                  disabled
+                  readOnly
+                  className="form-control"
+                  value={props.email}
+                  placeholder="Email address"
+                  type="email"
+                  name="email"
+                />
+              </div>
             </div>
           </div>
-          <div className="row">
-            <div className="form-group">
-              <b>Email</b>
-              <input
-                disabled
-                readOnly
-                className="form-control"
-                value={props.email}
-                placeholder="Email address"
-                type="email"
-                name="email"
-              />
+          <div className="col s5 offset-s1">
+            <div className="row">
+              <div className="form-group">
+                <b>First Name</b>
+                <input
+                  className="form-control"
+                  value={firstName}
+                  onChange={e => setFirstName(capFirstLtr(e.target.value))}
+                  placeholder="First name"
+                  type="text"
+                  name="firstName"
+                  required
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div className="form-group">
+                <b>Last Name</b>
+                <input
+                  className="form-control"
+                  value={lastName}
+                  onChange={e => setLastName(capFirstLtr(e.target.value))}
+                  placeholder="Last name"
+                  type="text"
+                  name="lastName"
+                  required
+                />
+              </div>
             </div>
           </div>
         </div>
-        <div className="col s5 offset-s1">
-          <div className="row">
-            <div className="form-group">
-              <b>First Name</b>
-              <input
-                className="form-control"
-                value={firstName}
-                onChange={e => setFirstName(e.target.value)}
-                placeholder="First name"
-                type="text"
-                name="firstName"
-                required
-              />
-            </div>
-          </div>
-          <div className="row">
-            <div className="form-group">
-              <b>Last Name</b>
-              <input
-                className="form-control"
-                value={lastName}
-                onChange={e => setLastName(e.target.value)}
-                placeholder="Last name"
-                type="text"
-                name="lastName"
-                required
-              />
-            </div>
-          </div>
-          {/* <div className="row center-align">
-            <b>Notifications</b>
-            <hr />
-            <div className="form-group">
-              <div className="col s6">
-                <div className="row">
-                  <span>New Goal Match</span>
-                  <div className="switch">
-                    <label>
-                      Off
-                      <input type="checkbox" />
-                      <span className="lever" />
-                      On
-                    </label>
-                  </div>
-                </div>
-                <div className="row">
-                  <span>Buddy Requests</span>
-                  <div className="switch">
-                    <label>
-                      Off
-                      <input type="checkbox" />
-                      <span className="lever" />
-                      On
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div className="col s6">
-                <div className="row">
-                  <span>Goal Progress</span>
-                  <div className="switch">
-                    <label>
-                      Off
-                      <input type="checkbox" />
-                      <span className="lever" />
-                      On
-                    </label>
-                  </div>
-                </div>
-                <div className="row">
-                  <span>Buddy Goal Progress</span>
-                  <div className="switch">
-                    <label>
-                      Off
-                      <input type="checkbox" />
-                      <span className="lever" />
-                      On
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
-        </div>
-      </div>
-      <button id="completeProfile" className="btn left" onClick={handleSumbit}>
-        Complete Profile
-      </button>
-    </form>
+      </form>{" "}
+      <ConfirmSignupModal
+        btnName="Complete Profile"
+        className="btn modal-trigger btn-blueO"
+        dataTarget={`completeProfile_${makeid(5)}`}
+        information={{ firstName, lastName, username, email, image }}
+      />
+    </>
   );
 };
 export default withRouter(Form);

@@ -14,7 +14,6 @@ class Chat extends Component {
 
   // Fetch the list on first mount
   componentDidMount() {
-    console.log(this.props.buddies);
     this.chatSetup();
   }
 
@@ -32,12 +31,10 @@ class Chat extends Component {
 
   configChannels = async () => {
     await this.state.Messenger.createChannels(data => {
-      console.log(data);
       if (this.state.currentChannel) {
         this.openChannel(this.state.currentChannel.connection.url);
       }
     });
-    // console.log(this.state.Messenger.channels);
     let channels = this.state.Messenger.channels;
     this.setState({
       channelsConfigured: true,
@@ -55,7 +52,6 @@ class Chat extends Component {
         return false;
       }
     });
-    // console.log(this.state.currentChannel.connection);
     this.setState({
       messageBody: "",
       currentChannel: {
@@ -81,11 +77,9 @@ class Chat extends Component {
     this.setState({
       [name]: value
     });
-    // console.log(this.state.currentChannel);
   };
   submitNewMessage = event => {
     event.preventDefault();
-    // console.log("working");
     if (this.state.messageBody === "" || this.state.messageBody === " ") {
       return false;
     } else {
@@ -95,10 +89,6 @@ class Chat extends Component {
         this.state.currentChannel.connection,
         data => {
           document.getElementById("messageField").value = "";
-          // console.log("running");
-          // console.log(data);
-          let channel = this.state.currentChannel.messages;
-          // console.log(channel);
           this.openChannel(this.state.currentChannel.connection.url);
         }
       );
