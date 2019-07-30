@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Select from "react-select";
 import M from "materialize-css";
 import API from "../../utils/API";
-
 function MilestoneForm(props) {
   const [dataTarget, setDataTarget] = useState("");
   const [title, setTitle] = useState("");
@@ -12,7 +11,6 @@ function MilestoneForm(props) {
   const [notes, setNotes] = useState();
   const [start, setStart] = useState();
   const [end, setEnd] = useState();
-
   useEffect(() => {
     if (props.frequency === "Never") {
       setFrequency(props.frequency);
@@ -21,7 +19,6 @@ function MilestoneForm(props) {
       setFrequency(props.frequency);
       setStart(props.dueDate);
     }
-
     setDataTarget(props.dataTarget);
     M.AutoInit();
     let modals = document.querySelectorAll(".modal");
@@ -32,7 +29,6 @@ function MilestoneForm(props) {
     };
     M.Modal.init(modals, options);
   }, [props.dataTarget]);
-
   const handleInput = event => {
     event.preventDefault();
     let value = event.target.value;
@@ -57,30 +53,23 @@ function MilestoneForm(props) {
       case "notes":
         setNotes(value);
         break;
-      default:
-        break;
     }
   };
-
   const clearForm = () => {
     console.log("clearform running");
     setTitle("");
-
     setDue("");
     setStart(null);
     setEnd(null);
     setNotes("");
   };
-
   const handleCancel = event => {
     event.preventDefault();
     clearForm();
   };
-
   const handleSubmit = event => {
     event.preventDefault();
     console.log("working");
-
     if (frequency === "Never" && title) {
       let data = {
         name: title,
@@ -93,7 +82,6 @@ function MilestoneForm(props) {
         UserId: props.userId
       };
       console.log(data);
-
       API.addMilestone(data)
         .then(data => {
           console.log(data);
@@ -115,7 +103,6 @@ function MilestoneForm(props) {
         UserId: props.userId
       };
       console.log(data);
-
       API.addMilestone(data).then(data => {
         console.log(data);
         clearForm();
@@ -125,95 +112,6 @@ function MilestoneForm(props) {
       return false;
     }
   };
-
-  if (frequency === "Never") {
-    return (
-      <div href="milestoneForm" id="milestoneForm" className="modal">
-        <div className="modal-content">
-          <form className="col s10 offset-s1">
-            <div className="row">
-              <div className="input-field col s12">
-                <input
-                  type="text"
-                  name="title"
-                  className="validate"
-                  id="milestoneTitle"
-                  placeholder=""
-                  onChange={handleInput}
-                />
-                <label htmlFor="milestoneTitle">Title</label>
-              </div>
-            </div>
-            <div className="row">
-              <div className="input-field col s12">
-                <input
-                  name="dueDate"
-                  type="date"
-                  className="validate"
-                  id="milestoneDueDate"
-                  placeholder=""
-                  value={props.date ? props.date : ""}
-                  onChange={handleInput}
-                />
-                <label htmlFor="milestoneDueDate">Due Date</label>
-              </div>
-            </div>
-            <div className="row">
-              <div className="input-field col s12">
-                <textarea
-                  className="materialize-textarea"
-                  id="milestoneNotes"
-                  rows="3"
-                  name="notes"
-                  onChange={handleInput}
-                />
-                <label htmlFor="milestoneNotes">Notes</label>
-              </div>
-            </div>
-            <div style={{ marginBottom: "15px" }} className="modal-footer">
-              <button
-                className="btn modal-close grey milestone-cancel-btn"
-                onClick={() => {
-                  clearForm();
-                  props.close("Never");
-                }}
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                className="btn milestoneFormAddBtn"
-                onClick={handleSubmit}
-              >
-                Add
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    );
-  } else {
-    return (
-      <div href="milestoneForm" id="milestoneForm" className="modal">
-        <div className="modal-content center-align">
-          <h5>
-            <span className="brandedText">New {props.frequency} Milestone</span>
-          </h5>
-          <form className="col s10 offset-s1">
-            <div className="row">
-              <div className="input-field col s12 left-align">
-                <span className="labelForSelect">Name</span>
-                <input
-                  type="text"
-                  name="title"
-                  className="validate"
-                  id="milestoneTitle"
-                  placeholder=""
-                  onChange={handleInput}
-                />
-              </div>
-            </div>
-
   return (
     <>
       <Link
@@ -224,7 +122,6 @@ function MilestoneForm(props) {
       >
         {props.btnName}
       </Link>
-
       <div id="milestoneForm">
         <div href="milestoneForm" id={dataTarget} className="modal">
           <div className="modal-content">
@@ -315,7 +212,6 @@ function MilestoneForm(props) {
                       />
                     </div>
                   </div>
-
                   <div className="row">
                     <div className="input-field col s12 left-align">
                       <span className="labelForSelect">Start Date </span>
@@ -364,7 +260,6 @@ function MilestoneForm(props) {
                       Cancel
                       <i className="material-icons right">cancel</i>
                     </span>
-
                     <button
                       onClick={handleSubmit}
                       className="milestoneFormAddBtn btn modal-close"
@@ -383,5 +278,4 @@ function MilestoneForm(props) {
     </>
   );
 }
-
 export default MilestoneForm;

@@ -1,0 +1,22 @@
+.disabled {
+  background-color: #e9ecef;
+  opacity: 1;
+}
+
+.profile-pic {
+  border-radius: 50%;
+  height: 100%;
+  width: 100%;
+}
+
+.profile-container {
+  padding: 80px 0 0 0;
+}
+
+.top-row {
+  height: 80px;
+}
+
+#button {
+  float: right;
+}
