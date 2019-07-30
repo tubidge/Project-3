@@ -116,12 +116,11 @@ class Chat extends Component {
               isConfigured={this.state.channelsConfigured}
               channels={this.state.Messenger.channels}
               openChannel={this.openChannel}
-              myBuddies={this.props.myBuddies}
               userEmail={this.props.userInfo.email}
               userID={this.props.userInfo.id}
               makeid={this.props.makeid}
-              allBuddies={this.props.buddies}
-              buddies={this.props.buddiesUsername}
+              buddies={this.props.buddies}
+              buddiesUsername={this.props.buddiesUsername}
               buddiesEmail={this.props.buddiesEmail}
             />
           ) : null}

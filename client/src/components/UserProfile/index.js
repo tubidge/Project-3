@@ -202,10 +202,8 @@ const UserProfile = props => {
                     ? props.buddyCompleteGoals.length
                     : 0}
                   /
-                  {props.incompleteGoals
-                    ? props.buddyIncompleteGoals.length +
-                      props.buddyCompleteGoals.length
-                    : 0}
+                  {props.buddyIncompleteGoals.length +
+                    props.buddyCompleteGoals.length}
                 </>
               ))}{" "}
             goals

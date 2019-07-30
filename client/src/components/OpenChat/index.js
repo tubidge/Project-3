@@ -1,5 +1,4 @@
-import React from "react";
-// import ChatButton from "../ChatButton";
+import React, { useEffect } from "react";
 import BuddyList from "../BuddyList";
 
 function OpenChat(props) {
@@ -8,12 +7,11 @@ function OpenChat(props) {
     return (
       <div>
         <BuddyList
-          myBuddies={props.myBuddies}
           userEmail={props.userEmail}
           userID={props.userID}
           makeid={props.makeid}
-          allBuddies={props.allBuddies}
           buddies={props.buddies}
+          buddiesUsername={props.buddiesUsername}
           channels={channels}
           emails={props.buddiesEmail}
           openChannel={props.openChannel}

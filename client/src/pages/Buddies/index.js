@@ -325,10 +325,7 @@ const Buddies = props => {
                                 <br />
                                 Category: {match.category}
                               </p>
-                              <Link
-                                to={`/buddy-profile/${match.userId}`}
-                                target="_blank"
-                              >
+                              <Link to={`/buddy-profile/${match.userId}`}>
                                 View Profile
                               </Link>
                             </li>

@@ -79,6 +79,15 @@ const Dashboard = () => {
     });
   };
 
+  const generateBuddyUsernames = buddies => {
+    let temp = [];
+    buddies.map(index => {
+      temp.push(index.username);
+    });
+    let unique = [...new Set(temp)];
+    // setBuddyUsernames(unique);
+  };
+
   const renderGoalCards = () => {
     activeCategories = [];
     stopIndex = 3;
@@ -165,7 +174,6 @@ const Dashboard = () => {
             {userInfo.buddies && (
               <Chat
                 userInfo={userInfo}
-                myBuddies={myBuddies}
                 buddies={allBuddies}
                 buddiesUsername={
                   allBuddies ? getUnique(allBuddies, "username") : null
