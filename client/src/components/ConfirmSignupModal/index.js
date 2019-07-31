@@ -11,12 +11,20 @@ const ConfirmSignupModal = props => {
 
   const handleSumbit = e => {
     e.preventDefault();
-    window.location.reload();
-    axios.post("/add/user", props.information).then(res => {
-      if (res) {
-        props.history.push("/dashboard");
-      }
-    });
+    if (
+      props.information.firstName === "" ||
+      props.information.lastName === "" ||
+      props.information.username === ""
+    ) {
+      M.toast({ html: "Oops. You didn't complete all the required fields." });
+    } else {
+      window.location.reload();
+      axios.post("/add/user", props.information).then(res => {
+        if (res) {
+          props.history.push("/dashboard");
+        }
+      });
+    }
   };
 
   return (
@@ -44,7 +52,13 @@ const ConfirmSignupModal = props => {
             <button
               type="submit"
               onClick={handleSumbit}
-              className="modal-close btn completeProfileBtn"
+              className={
+                props.information.firstName === "" ||
+                props.information.lastName === "" ||
+                props.information.username === ""
+                  ? "btn btn-gold"
+                  : "modal-close btn btn-gold"
+              }
             >
               Join the Den
             </button>

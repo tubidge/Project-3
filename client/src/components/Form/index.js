@@ -92,7 +92,7 @@ const Form = props => {
       </form>{" "}
       <ConfirmSignupModal
         btnName="Complete Profile"
-        className="btn modal-trigger btn-blueO"
+        className="btn modal-trigger btn-blue"
         dataTarget={`completeProfile_${makeid(5)}`}
         information={{ firstName, lastName, username, email, image }}
       />
