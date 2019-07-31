@@ -11,7 +11,7 @@ import API from "../../utils/API";
 import Loading from "../../components/Loading";
 import defaultLionPic from "../../components/Form/lionDefaultProfilePic.jpg";
 
-const Goals = () => {
+const Goals = props => {
   const { user } = useAuth0();
 
   const [isLoading, setIsLoading] = useState(true);
@@ -30,6 +30,7 @@ const Goals = () => {
   const [completeGoals, setCompleteGoals] = useState();
 
   useEffect(() => {
+    console.log(props.location.goalProps);
     M.AutoInit();
     getAllData();
   }, [currentGoal, reRender]);
@@ -224,27 +225,72 @@ const Goals = () => {
         <div className="col s9 tabsDiv_GoalPage">
           <ul className="tabs">
             <li className="tab col">
-              <a href="#Fitness" onClick={handleClick}>
+              <a
+                href="#Fitness"
+                className={
+                  props.location.goalProps &&
+                  props.location.goalProps.category === "Fitness"
+                    ? "active"
+                    : null
+                }
+                onClick={handleClick}
+              >
                 Fitness
               </a>
             </li>
             <li className="tab col">
-              <a href="#Wellness" onClick={handleClick}>
+              <a
+                href="#Wellness"
+                className={
+                  props.location.goalProps &&
+                  props.location.goalProps.category === "Wellness"
+                    ? "active"
+                    : null
+                }
+                onClick={handleClick}
+              >
                 Wellness
               </a>
             </li>
             <li className="tab col">
-              <a href="#Financial" onClick={handleClick}>
+              <a
+                href="#Financial"
+                className={
+                  props.location.goalProps &&
+                  props.location.goalProps.category === "Financial"
+                    ? "active"
+                    : null
+                }
+                onClick={handleClick}
+              >
                 Financial
               </a>
             </li>
             <li className="tab col">
-              <a href="#Education" onClick={handleClick}>
+              <a
+                href="#Education"
+                className={
+                  props.location.goalProps &&
+                  props.location.goalProps.category === "Education"
+                    ? "active"
+                    : null
+                }
+                onClick={handleClick}
+              >
                 Education
               </a>
             </li>
             <li className="tab col">
-              <a href="#Travel" onClick={handleClick}>
+              <a
+                href="#Travel"
+                className={
+                  props.location.goalProps &&
+                  props.location.goalProps.category === "Travel"
+                    ? "active"
+                    : null
+                }
+                onClick={handleClick}
+              >
                 Travel
               </a>
             </li>

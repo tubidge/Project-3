@@ -89,6 +89,12 @@
   position: relative;
   color: var(--accentGold);
   font-size: 40px;
+  margin: 10px 0 0 10px;
+}
+
+.completeGoal_GoalOverview {
+  color: var(--accentGold);
+  font-size: 40px;
 }
 
 .date_GoalPage {
