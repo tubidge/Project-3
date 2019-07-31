@@ -8,8 +8,8 @@ import defaultLionPic from "../../components/Form/lionDefaultProfilePic.jpg";
 import "./style.css";
 
 const Profile = () => {
-  const { loading, user } = useAuth0();
-  const [, setIsLoading] = useState(true);
+  const { user } = useAuth0();
+  const [isLoading, setIsLoading] = useState(true);
   const [newUser, setNew] = useState(true);
   const [userData, setUserData] = useState({});
 
@@ -19,7 +19,7 @@ const Profile = () => {
 
   const getUserProfile = () => {
     if (user) {
-      API.getUserByEmail(user.email).then(res => {
+      API.getBasicUserByEmail(user.email).then(res => {
         setUserData(res.data);
         if (res.data.created !== undefined) {
           setNew(false);
@@ -29,7 +29,7 @@ const Profile = () => {
     }
   };
 
-  if (loading || !user) {
+  if (isLoading || !user) {
     return <Loading />;
   }
 

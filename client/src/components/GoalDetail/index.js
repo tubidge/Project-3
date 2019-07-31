@@ -29,7 +29,7 @@ function GoalDetail(props) {
     document.addEventListener("click", function() {
       let options = { fullWidth: true };
       var elems = document.querySelectorAll(".collapsible");
-      var instances = M.Collapsible.init(elems, options);
+      M.Collapsible.init(elems, options);
     });
 
     let modals = document.querySelectorAll(".modal");
@@ -249,7 +249,7 @@ function GoalDetail(props) {
   };
 
   const handleInput = event => {
-    let value = event.target.value;
+    // let value = event.target.value;
     let name = event.target.name;
 
     switch (name) {
@@ -263,6 +263,8 @@ function GoalDetail(props) {
           console.log(resp);
           setreRender(!reRender);
         });
+        break;
+      default:
         break;
     }
   };
@@ -393,6 +395,7 @@ function GoalDetail(props) {
                                       ? index.image
                                       : "https://image.flaticon.com/icons/png/128/57/57117.png"
                                   }
+                                  alt="buddy"
                                 />
 
                                 <Link

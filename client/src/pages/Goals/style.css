@@ -86,7 +86,7 @@
 }
 
 .addGoal_GoalPage {
-  margin: 10px 0 0 10px;
+  position: relative;
   color: var(--accentGold);
   font-size: 40px;
 }
@@ -118,6 +118,8 @@
 }
 
 .delete_GoalPage {
+  position: relative;
+  left: 50px;
   color: white;
   cursor: pointer;
   margin: 10px 10px 0 0;

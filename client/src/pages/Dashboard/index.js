@@ -22,7 +22,7 @@ const Dashboard = () => {
   const [categories, setCategories] = useState([]);
   const [, setActive] = useState([]);
   const [allBuddies, setAllBuddies] = useState();
-  const [myBuddies, setMyBuddies] = useState();
+  const [, setMyBuddies] = useState();
   const [reRender] = useState(false);
   const [calRender, setCalRender] = useState(false);
 
@@ -77,15 +77,6 @@ const Dashboard = () => {
         setIsLoading(false);
       });
     });
-  };
-
-  const generateBuddyUsernames = buddies => {
-    let temp = [];
-    buddies.map(index => {
-      temp.push(index.username);
-    });
-    let unique = [...new Set(temp)];
-    // setBuddyUsernames(unique);
   };
 
   const renderGoalCards = () => {
@@ -171,7 +162,7 @@ const Dashboard = () => {
                 </h5>
               </Link>
             </div>
-            {userInfo.buddies && (
+            {allBuddies ? (
               <Chat
                 userInfo={userInfo}
                 buddies={allBuddies}
@@ -183,8 +174,7 @@ const Dashboard = () => {
                 }
                 makeid={makeid}
               />
-            )}
-            {!userInfo.buddies && (
+            ) : (
               <div className="noBuddies">
                 <p>You don't have any Buddies... yet!</p>
                 <p>
@@ -193,7 +183,7 @@ const Dashboard = () => {
                     to="/buddies"
                     style={{ borderBottom: "1px dashed #2867aa" }}
                   >
-                    click here
+                    click here{" "}
                   </Link>
                   to generate some matches based on your goals.
                 </p>

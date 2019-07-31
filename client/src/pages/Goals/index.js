@@ -11,14 +11,14 @@ import API from "../../utils/API";
 import Loading from "../../components/Loading";
 import defaultLionPic from "../../components/Form/lionDefaultProfilePic.jpg";
 
-const Goals = props => {
-  const { loading, user } = useAuth0();
+const Goals = () => {
+  const { user } = useAuth0();
 
   const [isLoading, setIsLoading] = useState(true);
   const [incompleteGoals, setIncompleteGoals] = useState([]);
   const [userInfo, setUserInfo] = useState();
-  const [goalInfo, setGoalInfo] = useState({});
-  const [categories, setCategories] = useState([]);
+  const [, setGoalInfo] = useState({});
+  const [, setCategories] = useState([]);
   const [allBuddies, setAllBuddies] = useState();
   const [myBuddies, setMyBuddies] = useState();
   const [currentGoal, setCurrentGoal] = useState(false);
@@ -36,7 +36,6 @@ const Goals = props => {
 
   const getAllData = () => {
     API.getGoalPageInfo(user.email).then(resp => {
-      console.log(resp.data);
       let userData = resp.data;
       setGoalInfo(userData.activeGoals);
       if (userData.buddies) {
@@ -66,8 +65,6 @@ const Goals = props => {
           past.push(index);
         }
       });
-      console.log("//////////////");
-      console.log(current);
       setCurrentGoals(current);
       setPastGoals(past);
       setIncompleteGoals(userData.activeGoals.incomplete);
@@ -82,7 +79,6 @@ const Goals = props => {
           )
       );
       setUserInfo(userData);
-      console.log(userData);
       stopLoading();
     });
   };
@@ -114,12 +110,10 @@ const Goals = props => {
 
   const renderGoalsForCategory = (category, arr) => {
     const results = arr.filter(goal => goal.category === category);
-    console.log(results);
     let res = [];
     results.map(goal => {
-      res.push(goal.id);
+      return res.push(goal.id);
     });
-    console.log(res);
     setGoalArr(res);
   };
 
@@ -141,14 +135,12 @@ const Goals = props => {
     }
     setStartIndex(id);
     const result = incompleteGoals.filter(goal => goal.id === id);
-    console.log(result);
 
     setCurrentGoal(result[0]);
   };
 
   const prevGoal = () => {
     let num = goalArr.indexOf(startIndex);
-    console.log(num);
 
     let id = goalArr[num - 1];
     if (!id) {
@@ -156,7 +148,6 @@ const Goals = props => {
     }
     setStartIndex(id);
     const result = incompleteGoals.filter(goal => goal.id === id);
-    console.log(result);
 
     setCurrentGoal(result[0]);
   };
@@ -170,7 +161,6 @@ const Goals = props => {
   };
 
   const orderRender = () => {
-    console.log("goal page render");
     setreRender(!reRender);
   };
 

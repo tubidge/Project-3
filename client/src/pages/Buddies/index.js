@@ -15,7 +15,7 @@ const Buddies = props => {
   const [isLoading, setIsLoading] = useState(true);
   const [findingBuddy, setFindingBuddy] = useState(false);
   const [users, setUsers] = useState([]);
-  const [goals, setGoals] = useState([]);
+  const [, setGoals] = useState([]);
   const [buddyGoals, setBuddyGoals] = useState([]);
   const [matchesFound, setMatchesFound] = useState([]);
   const [search, setSearch] = useState("");
@@ -24,6 +24,17 @@ const Buddies = props => {
 
   // for fuse.js
   const options = {
+    shouldSort: true,
+    threshold: 0.5, // lower value will result in a more exact match
+    includeScore: true,
+    location: 0,
+    distance: 100,
+    maxPatternLength: 20,
+    minMatchCharLength: 1,
+    keys: ["name", "category"]
+  };
+
+  const searchOptions = {
     shouldSort: true,
     threshold: 0.5, // lower value will result in a more exact match
     includeScore: true,
@@ -79,22 +90,22 @@ const Buddies = props => {
       });
       setUsers(res.data);
       setBuddyGoals(results);
-      getUserGoals(user.email);
+      setIsLoading(false);
     });
   }, []);
 
-  const getUserGoals = email => {
-    API.getUserByEmail(email).then(resp => {
+  const getUserGoals = () => {
+    API.getBasicUserByEmail(user.email).then(resp => {
       API.getAllGoals(resp.data.id).then(res => {
         setGoals(res.data.currentGoals.incomplete);
-        setIsLoading(false);
+        findBuddy(res.data.currentGoals.incomplete);
       });
     });
   };
 
   const searchUsers = (e, search) => {
     e.preventDefault();
-    let fuse = new Fuse(buddyGoals, options);
+    let fuse = new Fuse(buddyGoals, searchOptions);
     const searchMatches = fuse.search(search);
     searchMatches
       .map(match => match.score)
@@ -120,11 +131,11 @@ const Buddies = props => {
     searchUsers(e);
   };
 
-  const findBuddy = () => {
+  const findBuddy = goals => {
     setFindingBuddy(true);
     setTimeout(() => {
       setFindingBuddy(false);
-    }, 5000);
+    }, 4000);
 
     let fuse = new Fuse(buddyGoals, options); // buddyGoals is an array
     const goalMatches = goals.map(goal => {
@@ -135,6 +146,7 @@ const Buddies = props => {
       .sort(function(a, b) {
         return a - b;
       });
+
     goalMatches.map(match => {
       if (match.length === 0) {
         return null;
@@ -289,7 +301,7 @@ const Buddies = props => {
                     Find someone with similar goals, so you can help each other!
                   </p>
                   <div className="card-action">
-                    <button className="btn findBuddy" onClick={findBuddy}>
+                    <button className="btn findBuddy" onClick={getUserGoals}>
                       Begin Search
                       <i className="material-icons right">group_add</i>
                     </button>

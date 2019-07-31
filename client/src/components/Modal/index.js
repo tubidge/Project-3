@@ -12,7 +12,7 @@ const Modal = props => {
   const [category, setCategory] = useState("");
   const [name, setName] = useState("");
   const [dueDate, setDueDate] = useState("");
-  const [selectedOption, setSelectedOption] = useState("");
+  const [, setSelectedOption] = useState("");
   const categories = [
     { label: "Fitness", value: 1 },
     { label: "Wellness", value: 2 },

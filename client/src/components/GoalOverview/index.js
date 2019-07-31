@@ -2,19 +2,17 @@ import React, { useEffect, useState } from "react";
 import "./style.css";
 import ProgressBar from "../ProgressBar";
 import moment from "moment";
-import Loading from "../../components/Loading";
 import API from "../../utils/API";
 import ConfirmModal from "../ConfirmModal";
 import Modal from "../Modal";
 import M from "materialize-css";
 
 function GoalOverview(props) {
-  console.log(props);
   const [currentGoals, setCurrentGoals] = useState();
   //   const [pastGoals, setPastGoals] = useState(props.pastGoals);
   const [pastView, setPastView] = useState([]);
   const [pastIndex, setPastIndex] = useState(0);
-  const [selectedGoal, setSelectedGoal] = useState();
+  const [, setSelectedGoal] = useState();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentView, setCurrentView] = useState();
 
@@ -40,8 +38,6 @@ function GoalOverview(props) {
   const getData = () => {
     API.getGoalCategory(props.userId, props.category).then(resp => {
       setCurrentGoals(resp.data.currentGoals);
-      console.log("()()()()()()()()()()()()");
-      console.log(resp.data);
 
       if (resp.data.currentGoals) {
         if (resp.data.currentGoals.length > 3) {
@@ -69,14 +65,14 @@ function GoalOverview(props) {
 
       if (props.pastGoals.length > 3) {
         let arr = [];
-        for (var i = pastIndex; i < [pastIndex + 3]; i++) {
-          if (i < 0) {
+        for (var j = pastIndex; j < [pastIndex + 3]; j++) {
+          if (j < 0) {
             let num = props.pastGoals.length - 1;
             arr.push(props.pastGoals[num]);
-          } else if (i > props.pastGoals.length - 1) {
-            arr.push(props.pastGoals[i - props.pastGoals.length]);
+          } else if (j > props.pastGoals.length - 1) {
+            arr.push(props.pastGoals[j - props.pastGoals.length]);
           } else {
-            arr.push(props.pastGoals[i]);
+            arr.push(props.pastGoals[j]);
           }
         }
 
@@ -99,7 +95,7 @@ function GoalOverview(props) {
     let add;
 
     let max = currentGoals.length - 1;
-    let num = currentGoals.length - 1;
+    // let num = currentGoals.length - 1;
 
     if (currentIndex < 0) {
       add = currentGoals.length - 2;
@@ -205,12 +201,10 @@ function GoalOverview(props) {
     event.preventDefault();
     if (search && search !== "") {
       API.getGoalSearch(props.userId, search).then(resp => {
-        console.log(resp.data);
         setPastView(resp.data);
         document.getElementsByClassName("searchGoalBtn").value = "";
       });
     } else {
-      console.log("show toast for validation");
     }
   };
 
@@ -237,6 +231,8 @@ function GoalOverview(props) {
         break;
       case "endDate":
         setEnd(value);
+        break;
+      default:
         break;
     }
   };
@@ -347,7 +343,7 @@ function GoalOverview(props) {
                                 </i> */}
 
                                 <ConfirmModal
-                                  className="delete_GoalPage material-icons modal-trigger right tooltipped"
+                                  className="delete_GoalPage material-icons modal-trigger"
                                   btnName={"delete_forever"}
                                   dataTarget={`newGoalFromCard_${makeid(5)}`}
                                   goalId={goal.id}
@@ -393,7 +389,7 @@ function GoalOverview(props) {
                               </i>
                               <div>
                                 <ConfirmModal
-                                  className="addGoal_GoalPage material-icons modal-trigger right tooltipped"
+                                  className="addGoal_GoalPage material-icons modal-trigger"
                                   btnName={"check_box"}
                                   dataTarget={`newGoalFromCard_${makeid(5)}`}
                                   goalId={goal.id}

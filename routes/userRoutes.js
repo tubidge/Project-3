@@ -58,7 +58,7 @@ module.exports = app => {
 
   app.get("/user/basic/:email", (req, res) => {
     user
-      .getBasicUserByEmail(req.params.username)
+      .getBasicUserByEmail(req.params.email)
       .then(data => {
         res.send(data);
       })
@@ -105,6 +105,17 @@ module.exports = app => {
   app.get("/basic/user/:id", (req, res) => {
     user
       .getBasicUser(req.params.id)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
+
+  app.get("/user/email/basic/:email", (req, res) => {
+    user
+      .getBasicUserByEmail(req.params.email)
       .then(data => {
         res.send(data);
       })

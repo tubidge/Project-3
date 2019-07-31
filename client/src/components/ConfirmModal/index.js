@@ -5,7 +5,6 @@ import API from "../../utils/API";
 import "./style.css";
 
 function ConfirmModal(props) {
-  console.log("Confirm modal opening");
   const [dataTarget, setDataTarget] = useState();
 
   useEffect(() => {
@@ -25,33 +24,27 @@ function ConfirmModal(props) {
   };
 
   const del = () => {
-    console.log(props);
     API.deleteMilestoneFreq(
       props.goalId,
       props.milestone.name,
       props.milestone.frequency
     ).then(resp => {
-      console.log(resp);
       props.render(props.action);
     });
   };
 
   const completeGoal = () => {
-    console.log("complete goal firing");
-    console.log(props.goalId);
     let data = {
       colName: "complete",
       info: true
     };
     API.editGoal(props.goalId, data).then(resp => {
-      console.log(resp);
       props.render(props.action);
     });
   };
 
   const delGoal = () => {
     API.deleteGoal(props.goalId).then(resp => {
-      console.log(resp);
       props.render(props.action);
     });
   };
@@ -75,12 +68,7 @@ function ConfirmModal(props) {
 
   return (
     <>
-      <Link
-        to="#"
-        className={props.className}
-        data-target={dataTarget}
-        // style={props.style}
-      >
+      <Link to="#" className={props.className} data-target={dataTarget}>
         {props.btnName}
       </Link>
 
