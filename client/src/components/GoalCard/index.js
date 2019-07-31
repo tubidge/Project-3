@@ -86,7 +86,16 @@ const GoalCard = props => {
           <li key={goal.id}>
             <div className="card-panel grey lighten-4 dark-text">
               <div className="goal-card-header">
-                <Link to="/goals" className="truncate goal-card-name">
+                <Link
+                  to={{
+                    pathname: "/goals",
+                    goalProps: {
+                      category: goal.category,
+                      name: goal.name
+                    }
+                  }}
+                  className="truncate goal-card-name"
+                >
                   {goal.name}
                 </Link>
                 {percentage === 1 ? (
@@ -115,7 +124,16 @@ const GoalCard = props => {
           <li key={goal.id}>
             <div className="card-panel grey lighten-4 dark-text">
               <div className="goal-card-header">
-                <Link to="/goals" className="truncate goal-card-name">
+                <Link
+                  to={{
+                    pathname: "/goals",
+                    goalProps: {
+                      category: goal.category,
+                      name: goal.name
+                    }
+                  }}
+                  className="truncate goal-card-name"
+                >
                   {goal.name}
                 </Link>
                 {percentage === 1 ? (
@@ -174,7 +192,16 @@ const GoalCard = props => {
                   ))
                 : null}
               <div className="goal-card-header">
-                <Link to="/goals" className="truncate goal-card-name">
+                <Link
+                  to={{
+                    pathname: "/goals",
+                    goalProps: {
+                      category: goal.category,
+                      name: goal.name
+                    }
+                  }}
+                  className="truncate goal-card-name"
+                >
                   {goal.name}
                 </Link>
 

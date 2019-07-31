@@ -12,6 +12,7 @@ import Loading from "../../components/Loading";
 import defaultLionPic from "../../components/Form/lionDefaultProfilePic.jpg";
 
 const Goals = props => {
+  console.log(props.location);
   const { loading, user } = useAuth0();
 
   const [isLoading, setIsLoading] = useState(true);
@@ -234,27 +235,72 @@ const Goals = props => {
         <div className="col s9 tabsDiv_GoalPage">
           <ul className="tabs">
             <li className="tab col">
-              <a href="#Fitness" onClick={handleClick}>
+              <a
+                href="#Fitness"
+                className={
+                  props.location.goalProps &&
+                  props.location.category === "Fitness"
+                    ? "active"
+                    : ""
+                }
+                onClick={handleClick}
+              >
                 Fitness
               </a>
             </li>
             <li className="tab col">
-              <a href="#Wellness" onClick={handleClick}>
+              <a
+                href="#Wellness"
+                className={
+                  props.location.goalProps &&
+                  props.location.goalProps.category === "Wellness"
+                    ? "active"
+                    : ""
+                }
+                onClick={handleClick}
+              >
                 Wellness
               </a>
             </li>
             <li className="tab col">
-              <a href="#Financial" onClick={handleClick}>
+              <a
+                href="#Financial"
+                className={
+                  props.location.goalProps &&
+                  props.location.goalProps.category === "Financial"
+                    ? "active"
+                    : ""
+                }
+                onClick={handleClick}
+              >
                 Financial
               </a>
             </li>
             <li className="tab col">
-              <a href="#Education" onClick={handleClick}>
+              <a
+                href="#Education"
+                className={
+                  props.location.goalProps &&
+                  props.location.goalProps.category === "Education"
+                    ? "active"
+                    : ""
+                }
+                onClick={handleClick}
+              >
                 Education
               </a>
             </li>
             <li className="tab col">
-              <a href="#Travel" onClick={handleClick}>
+              <a
+                href="#Travel"
+                className={
+                  props.location.goalProps &&
+                  props.location.goalProps.category === "Travel"
+                    ? "active"
+                    : ""
+                }
+                onClick={handleClick}
+              >
                 Travel
               </a>
             </li>
