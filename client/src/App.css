@@ -160,6 +160,10 @@ focus {
   border-bottom: 1px dashed var(--accentGold);
 }
 
+.card .card-content {
+  border-radius: 0 0 0 0 !important;
+}
+
 @media (max-width: 768px) {
   .navBtnDiv {
     padding: 15px;
