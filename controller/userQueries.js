@@ -183,14 +183,13 @@ module.exports = {
         }
       })
         .then(resp => {
-          console.log(resp);
           const results = {
             id: resp[0].dataValues.id,
+            username: resp[0].dataValues.username,
             firstName: resp[0].dataValues.firstName,
             lastName: resp[0].dataValues.lastName,
-            username: resp[0].dataValues.username,
-            email: resp[0].dataValues.email,
-            image: resp[0].dataValues.image
+            image: resp[0].dataValues.image,
+            created: resp[0].dataValues.createdAt
           };
           resolve(results);
         })
@@ -209,7 +208,6 @@ module.exports = {
         include: [db.Goals, db.Buddy]
       })
         .then(resp => {
-          console.log(resp);
           const data = resp[0].dataValues;
           const goalIds = [];
           const id = data.id;
@@ -364,8 +362,6 @@ module.exports = {
               });
           };
 
-          
-
           if (data.Goals.length > 0) {
             data.Goals.forEach(index => {
               goalIds.push(index.dataValues.id);
@@ -484,6 +480,7 @@ module.exports = {
                           myBuddy.active = index.active;
                           myBuddy.buddyId = index.buddyId;
                           myBuddy.buddyGoal = index.buddyGoal;
+                          z;
                           myBuddy.channel = index.chatChannel;
                           myBuddy.goalId = index.goalId;
                           myBuddy.ownerId = index.ownerId;
@@ -1237,12 +1234,10 @@ module.exports = {
                 goal.private = index.dataValues.private;
                 goal.complete = index.dataValues.complete;
                 goal.userId = index.dataValues.UserId;
-               
+
                 if (goal.complete) {
-                 
                   user.activeGoals.completed.push(goal);
                 } else {
-              
                   user.activeGoals.incomplete.push(goal);
                 }
               } else {

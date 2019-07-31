@@ -10,9 +10,9 @@ function MilestonesCard(props) {
   const [milestones, setMilestones] = useState(false);
   const [reRender, setreRender] = useState(false);
   const [milestoneSelected, setmilestoneSelected] = useState(false);
-  const [currentMilestone, setCurrentMilestone] = useState();
+  // const [currentMilestone, setCurrentMilestone] = useState();
   // const [modalOpen, setmodalOpen] = useState(false);
-  const [frequency, setFrequency] = useState();
+  // const [frequency, setFrequency] = useState();
 
   const now = moment().format("YYYY-MM-DD");
 

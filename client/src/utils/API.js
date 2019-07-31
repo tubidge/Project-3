@@ -18,7 +18,7 @@ export default {
   },
 
   getBasicUserByEmail: email => {
-    return axios.get("/user/basic/" + email);
+    return axios.get("/user/email/basic/" + email);
   },
 
   getUserByEmail: email => {

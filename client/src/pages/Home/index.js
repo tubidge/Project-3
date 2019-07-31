@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router";
 import { useAuth0 } from "../../react-auth0-spa";
-import Profile from "../Profile";
 import API from "../../utils/API";
+import Dashboard from "../Dashboard";
+import Profile from "../Profile";
 import josh from "./pics/Josh.jpg";
 import alex from "./pics/Alex.jpg";
 import hunter from "./pics/Hunter.jpg";
@@ -12,31 +12,29 @@ import "./style.css";
 
 const Home = () => {
   const { user, isAuthenticated, loginWithRedirect } = useAuth0();
-  const [redirect, setRedirect] = useState(false);
-
-  const getUserProfile = () => {
-    API.getUserByEmail(user.email).then(res => {
-      if (res.data.created === undefined) {
-        setRedirect(true);
-      }
-    });
-  };
+  const [data, setData] = useState(true);
 
   useEffect(() => {
-    if (user) {
-      getUserProfile(user.email);
-    }
-  });
+    getData();
+  }, []);
 
-  if (redirect) {
-    return <Profile />;
-  }
+  const getData = () => {
+    if (isAuthenticated) {
+      API.getBasicUserByEmail(user.email).then(res => {
+        if (!res.data.created) {
+          return setData(false);
+        }
+      });
+    }
+  };
+
+  if (isAuthenticated && data) return <Dashboard />;
+  if (isAuthenticated && !data) return <Profile />;
 
   return (
     <>
       <div className="wrapper">
         <div className="navBtnDiv">
-          {isAuthenticated && <Redirect to="/dashboard" />}
           {!isAuthenticated && (
             <>
               <span

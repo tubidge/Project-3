@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Select from "react-select";
 import M from "materialize-css";
 import API from "../../utils/API";
 
@@ -56,6 +55,8 @@ function MilestoneForm(props) {
         break;
       case "notes":
         setNotes(value);
+        break;
+      default:
         break;
     }
   };

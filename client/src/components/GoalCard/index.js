@@ -14,7 +14,6 @@ const GoalCard = props => {
   useEffect(() => {
     M.AutoInit();
     API.getAllGoals(props.userID).then(resp => {
-      console.log(resp.data);
       setGoals(resp.data.currentGoals);
     });
   }, [reRender]);
@@ -160,12 +159,12 @@ const GoalCard = props => {
       let percentage = progress / total;
       if (moment(goal.dueDate).isAfter(due)) {
         return (
-          <li key={goal.id}>
+          <li key={`${goal.id}_${makeid(5)}`}>
             <div className="card-panel grey lighten-4 dark-text">
               {goal.buddy.current.length > 0
                 ? goal.buddy.current.map(buddy => (
                     <i
-                      key={buddy}
+                      key={`${buddy}_${makeid(5)}`}
                       style={{ color: "var(--blue)", marginTop: "5px" }}
                       className="material-icons right"
                     >

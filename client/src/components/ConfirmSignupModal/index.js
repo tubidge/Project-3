@@ -11,6 +11,7 @@ const ConfirmSignupModal = props => {
 
   const handleSumbit = e => {
     e.preventDefault();
+    window.location.reload();
     axios.post("/add/user", props.information).then(res => {
       if (res) {
         props.history.push("/dashboard");

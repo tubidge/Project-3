@@ -22,7 +22,7 @@
 }
 
 .buddyList .buddyProfileImg {
-  max-width: 90% !important;
+  max-width: 100% !important;
 }
 
 .buddyList .username {
@@ -33,6 +33,10 @@
 .buddyList .chatBtn {
   position: relative;
   top: 5px;
+}
+
+.buddyList .collapsible-header {
+  padding: 10px !important;
 }
 
 .buddyList .collapsible-body {

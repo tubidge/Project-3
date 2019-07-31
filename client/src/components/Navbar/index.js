@@ -7,7 +7,7 @@ import "./style.css";
 
 const Navbar = () => {
   const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
-  const [userInfo, setUserInfo] = useState({});
+  const [, setUserInfo] = useState({});
   const [isNew, setNew] = useState(false);
 
   const logoutWithRedirect = () =>
@@ -16,12 +16,10 @@ const Navbar = () => {
     });
 
   const getUserProfile = () => {
-    API.getUserByEmail(user.email).then(res => {
+    API.getBasicUserByEmail(user.email).then(res => {
       setUserInfo(res.data);
-      if (res.data.created === undefined) {
+      if (res.data.username === undefined) {
         setNew(true);
-      } else {
-        setNew(false);
       }
     });
   };
