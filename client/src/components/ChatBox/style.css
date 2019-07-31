@@ -30,6 +30,7 @@
   max-height: 350px;
   overflow: scroll;
   min-width: 400px;
+  max-width: 400px;
   margin: 0px 20px -20px 0;
   padding: 0 10px 0 10px;
 }

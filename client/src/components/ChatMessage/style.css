@@ -34,15 +34,15 @@
 
 .userMessage p {
   background-color: #dfbe3b;
-  border-radius: 17px;
-  padding: 5px 8px;
-  height: 34px;
+  border-radius: 15px;
+  padding: 10px;
+  height: 100%;
 }
 
 .buddyMessage p {
   background-color: var(--darkBlue);
   color: white;
-  border-radius: 17px;
-  padding: 5px 8px;
-  height: 34px;
+  border-radius: 15px;
+  padding: 10px;
+  height: 100%;
 }
