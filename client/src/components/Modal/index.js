@@ -210,7 +210,7 @@ const Modal = props => {
               {props.header === "Add a New Goal" && (
                 <>
                   <div
-                    className="input-field col s8 offset-s2 left-align"
+                    className="input-field col s12 l8 offset-l2 left-align"
                     style={{ marginTop: "20px" }}
                   >
                     <span className="labelForSelect">Choose a Category</span>
@@ -230,7 +230,7 @@ const Modal = props => {
                       onChange={handleChange}
                     />
                   </div>
-                  <div className="input-field col s8 offset-s2 left-align">
+                  <div className="input-field col s12 l8 offset-l2 left-align">
                     {props.header !== "Edit" && (
                       <span className="labelForSelect">Goal Name</span>
                     )}
@@ -240,7 +240,7 @@ const Modal = props => {
                       onChange={e => setName(e.target.value)}
                     />
                   </div>
-                  <div className="input-field col s8 offset-s2 left-align">
+                  <div className="input-field col s12 l8 offset-l2 left-align">
                     {props.header !== "Edit" && (
                       <span className="labelForSelect">Due Date</span>
                     )}

@@ -173,7 +173,7 @@ const Goals = props => {
     <>
       <div className="hero-image" />
       <div className="row">
-        <div style={{ marginTop: "-130px" }} className="col s3">
+        <div style={{ marginTop: "-130px" }} className="col l3 s12">
           {userInfo ? (
             <>
               <UserProfile
@@ -222,7 +222,7 @@ const Goals = props => {
             ""
           )}
         </div>
-        <div className="col s9 tabsDiv_GoalPage">
+        <div className="col l9 s12 tabsDiv_GoalPage">
           <ul className="tabs">
             <li className="tab col">
               <a
@@ -298,7 +298,7 @@ const Goals = props => {
         </div>
 
         <div id="Fitness">
-          <div className="col s9">
+          <div className="col l9 s12">
             {currentGoal ? (
               <>
                 <div id="backdrop">
@@ -360,7 +360,7 @@ const Goals = props => {
         </div>
 
         <div id="Wellness">
-          <div className="col s9">
+          <div className="col l9 s12">
             {currentGoal ? (
               <>
                 <div id="backdrop">
@@ -422,7 +422,7 @@ const Goals = props => {
         </div>
 
         <div id="Financial">
-          <div className="col s9">
+          <div className="col l9 s12">
             {currentGoal ? (
               <>
                 <div id="backdrop">
@@ -484,7 +484,7 @@ const Goals = props => {
         </div>
 
         <div id="Education">
-          <div className="col s9">
+          <div className="col l9 s12">
             {currentGoal ? (
               <>
                 <div id="backdrop">
@@ -546,7 +546,7 @@ const Goals = props => {
         </div>
 
         <div id="Travel">
-          <div className="col s9">
+          <div className="col l9 s12">
             {currentGoal ? (
               <>
                 <div id="backdrop">

@@ -214,4 +214,60 @@ focus {
     font-size: 80px;
     color: var(--accentGold) !important;
   }
+
+  .calendar {
+    margin-top: 75px;
+  }
+
+  .fc-right .fc-today-button {
+    position: relative;
+    left: 38px;
+  }
+
+  .nextArrow {
+    position: relative;
+    right: 115px;
+  }
+
+  #goalCardModal .modal {
+    width: 95%;
+  }
+
+  #chatBox {
+    position: fixed;
+    right: -10px;
+    bottom: 0;
+    z-index: 2;
+  }
+
+  #chatBox .card {
+    position: relative;
+    right: 10px;
+    overflow: scroll;
+    min-width: 100%;
+    max-width: 100%;
+    margin: 0 !important;
+    padding: 0 10px !important;
+  }
+
+  #chatBox .card .card-title {
+    position: relative;
+    position: fixed;
+    padding: 5px 10px;
+    width: 100%;
+    right: 0px;
+    z-index: 1;
+  }
+
+  #chatBox .card-footer .input-field {
+    padding: 10px !important;
+  }
+
+  .fileDropDiv {
+    width: 100%;
+  }
+
+  #buddiesPage .input-field .searchBtn {
+    width: 100% !important;
+  }
 }

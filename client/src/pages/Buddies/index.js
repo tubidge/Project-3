@@ -236,7 +236,64 @@ const Buddies = props => {
             </div>
           </div>
           <div className="row">
-            <div className="col s6">
+            <div className="col l6 s12">
+              <div className="card">
+                <div className="card-content">
+                  <span className="card-title">
+                    <span className="brandedText">Get Paired with a Buddy</span>
+                  </span>
+                  <p>
+                    Find someone with similar goals, so you can help each other!
+                  </p>
+                  <div className="card-action">
+                    <button className="btn findBuddy" onClick={getUserGoals}>
+                      Begin Search
+                      <i className="material-icons right">group_add</i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {matchesFound.length > 0 ? (
+              <div id="buddyMatches">
+                <div className="col l6 s12">
+                  <div className="card">
+                    <div className="card-content">
+                      <span className="card-title">Your Matches!</span>
+                      <p>
+                        Here are some potentials Buddies for you. Check out
+                        their profiles and see if it's a good fit.
+                      </p>
+                      <ul className="collection">
+                        {matchesFound &&
+                          getUnique(matchesFound, "userId").map(match => (
+                            <li
+                              className="collection-item avatar"
+                              key={match.userId}
+                            >
+                              <img
+                                src={match.image}
+                                alt={match.username}
+                                className="circle responsive-img"
+                              />
+                              <span className="title">{match.username}</span>
+                              <p>
+                                Goal: {match.goalName}
+                                <br />
+                                Category: {match.category}
+                              </p>
+                              <Link to={`/buddy-profile/${match.userId}`}>
+                                View Profile
+                              </Link>
+                            </li>
+                          ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : null}
+            <div className="col l6 s12">
               {/* Check to see if any items are found*/}
               {searchMatchFound.length ? (
                 <>
@@ -291,63 +348,6 @@ const Buddies = props => {
                 </>
               ) : null}
             </div>
-            <div className="col s6">
-              <div className="card">
-                <div className="card-content">
-                  <span className="card-title">
-                    <span className="brandedText">Get Paired with a Buddy</span>
-                  </span>
-                  <p>
-                    Find someone with similar goals, so you can help each other!
-                  </p>
-                  <div className="card-action">
-                    <button className="btn findBuddy" onClick={getUserGoals}>
-                      Begin Search
-                      <i className="material-icons right">group_add</i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {matchesFound.length > 0 ? (
-              <div id="buddyMatches">
-                <div className="col s6">
-                  <div className="card">
-                    <div className="card-content">
-                      <span className="card-title">Your Matches!</span>
-                      <p>
-                        Here are some potentials Buddies for you. Check out
-                        their profiles and see if it's a good fit.
-                      </p>
-                      <ul className="collection">
-                        {matchesFound &&
-                          getUnique(matchesFound, "userId").map(match => (
-                            <li
-                              className="collection-item avatar"
-                              key={match.userId}
-                            >
-                              <img
-                                src={match.image}
-                                alt={match.username}
-                                className="circle responsive-img"
-                              />
-                              <span className="title">{match.username}</span>
-                              <p>
-                                Goal: {match.goalName}
-                                <br />
-                                Category: {match.category}
-                              </p>
-                              <Link to={`/buddy-profile/${match.userId}`}>
-                                View Profile
-                              </Link>
-                            </li>
-                          ))}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ) : null}
             <div className="col s6" />
           </div>
         </div>
