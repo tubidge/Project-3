@@ -5,6 +5,7 @@ import API from "../../utils/API";
 import Loading from "../../components/Loading";
 import UserProfile from "../../components/UserProfile";
 import BuddyGoalCard from "../../components/BuddyGoalCard";
+import defaultLionPic from "../Buddies/lionDefaultProfilePic.jpg";
 
 const BuddyProfile = props => {
   const { loading, user } = useAuth0();
@@ -135,7 +136,7 @@ const BuddyProfile = props => {
       <div className="row">
         <div className="col l3 s12" style={{ marginTop: "-130px" }}>
           <UserProfile
-            userPicture={buddyData.image ? buddyData.image : user.picture}
+            userPicture={buddyData.image ? buddyData.image : defaultLionPic}
             username={buddyData.username}
             email={buddyData.email}
             buddyIncompleteGoals={buddyIncompleteGoals}

@@ -85,9 +85,6 @@ const GoalCard = props => {
           <li key={goal.id}>
             <div className="card-panel grey lighten-4 dark-text">
               <div className="goal-card-header">
-                {/* <Link to="/goals" className="truncate goal-card-name">
-                  {goal.name}
-                </Link> */}
                 <Link
                   to={{
                     pathname: "/goals",
