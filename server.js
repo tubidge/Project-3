@@ -15,16 +15,16 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname + "/client/build/index.html"));
-});
-
 require("./routes/userRoutes")(app);
 require("./routes/goalRoutes")(app);
 require("./routes/milestoneRoutes")(app);
 require("./routes/buddyRoutes")(app);
 require("./routes/messageRoutes")(app);
 require("./routes/followerRoutes")(app);
+
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "/client/build/index.html"));
+});
 
 const syncOptions = {
   force: false
