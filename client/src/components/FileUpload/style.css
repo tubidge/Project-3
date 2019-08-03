@@ -15,4 +15,5 @@
 
 .fileDropDiv > i {
   font-size: 50px;
+  color: var(--accentGold);
 }

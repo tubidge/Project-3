@@ -33,6 +33,7 @@
     "chroma-js": "^2.0.4",
     "express": "^4.16.3",
     "express-fileupload": "^1.1.5",
+    "express-path": "^0.3.8",
     "fuse.js": "^3.4.5",
     "if-env": "^1.0.4",
     "materialize-css": "^1.0.0-rc.2",

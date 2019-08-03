@@ -39,11 +39,12 @@ const Navbar = () => {
             <nav>
               <div className="nav-wrapper">
                 <NavLink to="/" className="brand-logo">
-                  Goal<span>Den</span>
+                  <span className="goal">Goal</span>
+                  <span className="den">Den</span>
                 </NavLink>
                 <NavLink
                   to="#"
-                  data-target="mobile-demo"
+                  data-target="mobile"
                   className="sidenav-trigger"
                 >
                   <i className="material-icons">menu</i>
@@ -95,15 +96,18 @@ const Navbar = () => {
           </div>
 
           {/* mobile menu */}
-          <ul className="sidenav" id="mobile-demo">
-            <li>
-              <Link to="/profile">Profile</Link>
-            </li>
+          <ul className="sidenav" id="mobile">
             <li>
               <Link to="/">Dashboard</Link>
             </li>
             <li>
+              <Link to="/buddies">Buddies</Link>
+            </li>
+            <li>
               <Link to="/goals">Goals</Link>
+            </li>
+            <li>
+              <Link to="/profile">Profile</Link>
             </li>
             <li className="divider" />
             {!isAuthenticated && (
@@ -122,12 +126,13 @@ const Navbar = () => {
             )}
             {isAuthenticated && (
               <li>
-                <span
+                <Link
+                  to="#"
                   className="logoutMobile"
                   onClick={() => logoutWithRedirect()}
                 >
                   Logout
-                </span>
+                </Link>
               </li>
             )}
           </ul>

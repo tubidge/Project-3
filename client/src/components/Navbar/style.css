@@ -51,22 +51,18 @@ nav .btn {
 
 nav .brand-logo {
   margin-left: 10px;
-  -moz-transition: all 0.1s ease-in-out 0s;
-  -webkit-transition: all 0.1s ease-in-out 0s;
-  -ms-transition: all 0.1s ease-in-out 0s;
-  transition: all 0.1s ease-in-out 0s;
-}
-
-nav .brand-logo span {
-  color: var(--accentGold);
 }
 
 nav .brand-logo:hover {
-  transform: scale(1.1);
-  -moz-transition: all 0.1s ease-in-out 0s;
-  -webkit-transition: all 0.1s ease-in-out 0s;
-  -ms-transition: all 0.1s ease-in-out 0s;
-  transition: all 0.1s ease-in-out 0s;
+  font-weight: 600;
+}
+
+nav .brand-logo .goal {
+  color: white;
+}
+
+nav .brand-logo .den {
+  color: var(--accentGold);
 }
 
 nav .logout,
@@ -117,4 +113,24 @@ nav .loginMobile:hover {
 nav ul a:hover {
   background: black;
   color: var(--accentGold);
+}
+
+.sidenav {
+  box-shadow: none !important;
+  background-color: transparent !important;
+  background: -webkit-linear-gradient(
+    -45deg,
+    rgba(238, 191, 61, 0.95) 30%,
+    rgba(236, 190, 61, 0.25) 75%,
+    rgba(218, 174, 55, 0) 100%
+  );
+}
+
+.sidenav li:hover {
+  background-color: var(--darkBlue) !important;
+  color: white;
+}
+
+.sidenav li a:hover {
+  color: white;
 }
