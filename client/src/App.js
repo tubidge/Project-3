@@ -9,6 +9,7 @@ import Profile from "./pages/Profile";
 import Buddies from "./pages/Buddies";
 import BuddyProfile from "./pages/BuddyProfile";
 import Goals from "./pages/Goals";
+import NoMatch from "./pages/NoMatch";
 import { useAuth0 } from "./react-auth0-spa";
 import "materialize-css/dist/css/materialize.min.css";
 import "./App.css";
@@ -31,6 +32,7 @@ const App = () => {
           <PrivateRoute path="/dashboard" exact component={Dashboard} />
           <PrivateRoute path="/profile" component={Profile} />
           <PrivateRoute path="/goals" component={Goals} />
+          <Route component={NoMatch} />
         </Switch>
       </>
     </Router>
