@@ -65,8 +65,11 @@ const Dashboard = () => {
           setAllBuddies(userData.buddies.allBuddies);
           setMyBuddies(userData.buddies.myBuddies);
         }
-        setIncompleteGoals(goalData.currentGoals.incomplete);
-        setCompleteGoals(goalData.currentGoals.complete);
+        if (goalData.currentGoals) {
+          setIncompleteGoals(goalData.currentGoals.incomplete);
+          setCompleteGoals(goalData.currentGoals.complete);
+        }
+
         setCategories([
           "Fitness",
           "Education",
