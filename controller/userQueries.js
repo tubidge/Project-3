@@ -35,6 +35,88 @@ module.exports = {
     });
   },
 
+  getBuddyComponent: id => {
+    return new Promise((resolve, reject) => {
+      db.User.findAll({
+        where: {
+          id: id
+        },
+        include: [db.Buddy]
+      })
+        .then(resp => {
+          console.log("FIRST RESP");
+          console.log(resp[0].dataValues.Buddies);
+          const user = {
+            id: resp[0].dataValues.id,
+            username: resp[0].dataValues.username,
+            email: resp[0].dataValues.email,
+            image: resp[0].dataValues.image,
+            buddies: []
+          };
+          helper
+            .asyncForEach(resp[0].dataValues.Buddies, async index => {
+              console.log(index);
+              if (index.id === user.id) {
+                console.log("TRUTHY");
+
+                await db.User.findAll({
+                  where: {
+                    id: index.buddyId
+                  }
+                }).then(resp => {
+                  let userBuddy = {
+                    id: resp[0].dataValues.id,
+                    username: resp[0].dataValues.username,
+                    email: resp[0].dataValues.email,
+                    image: resp[0].dataValues.image,
+                    joinedGoals: []
+                  };
+                  user.buddies.push(userBuddy);
+                });
+              } else {
+                await db.User.findAll({
+                  where: {
+                    id: index.id
+                  }
+                }).then(resp => {
+                  let userBuddy = {
+                    id: resp[0].dataValues.id,
+                    username: resp[0].dataValues.username,
+                    email: resp[0].dataValues.email,
+                    image: resp[0].dataValues.image,
+                    joinedGoals: []
+                  };
+
+                  user.buddies.push(userBuddy);
+                });
+              }
+            })
+            .then(() => {
+              helper
+                .asyncForEach(user.buddies, async index => {
+                  await buddy.getAllBuddiesId(index.id).then(data => {
+                    data.forEach(arg => {
+                      if (arg.ownerId == id) {
+                        index.joinedGoals = arg;
+                      } else if (arg.buddyId == id) {
+                        index.joinedGoals = arg;
+                      } else {
+                        return false;
+                      }
+                    });
+                  });
+                })
+                .then(() => {
+                  resolve(user);
+                });
+            });
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  },
+
   getBasicUser: id => {
     return new Promise((resolve, reject) => {
       db.User.findAll({
