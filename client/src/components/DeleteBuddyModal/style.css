@@ -1,0 +1,7 @@
+.buddyList .deleteBuddy {
+  cursor: pointer;
+  color: gray !important;
+  font-size: 12px;
+  display: block;
+  margin-top: 30px;
+}

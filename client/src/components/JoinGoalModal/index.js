@@ -133,7 +133,6 @@ const JoinGoalModal = props => {
                     style={{ marginRight: "10px" }}
                   >
                     Cancel
-                    <i className="material-icons right">cancel</i>
                   </span>
 
                   <button
@@ -145,7 +144,6 @@ const JoinGoalModal = props => {
                     type="submit"
                   >
                     Add Buddy
-                    <i className="material-icons right">send</i>
                   </button>
                 </div>
               </form>

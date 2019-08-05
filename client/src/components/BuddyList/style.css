@@ -42,3 +42,11 @@
 .buddyList .collapsible-body {
   background-color: #f5f5f5 !important;
 }
+
+.buddyList .deleteBuddy {
+  cursor: pointer;
+  color: gray;
+  font-size: 12px;
+  display: block;
+  margin-top: 30px;
+}

@@ -113,6 +113,7 @@ class Chat extends Component {
         <div>
           {this.state.channelsConfigured ? (
             <OpenChat
+              getAllData={this.props.getAllData}
               isConfigured={this.state.channelsConfigured}
               channels={this.state.Messenger.channels}
               openChannel={this.openChannel}

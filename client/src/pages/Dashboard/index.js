@@ -167,6 +167,7 @@ const Dashboard = () => {
             </div>
             {allBuddies ? (
               <Chat
+                getAllData={getAllData}
                 userInfo={userInfo}
                 buddies={allBuddies}
                 buddiesUsername={

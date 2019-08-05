@@ -270,4 +270,31 @@ focus {
   #buddiesPage .input-field .searchBtn {
     width: 100% !important;
   }
+
+  #joinGoalModal .modal {
+    width: 95%;
+  }
+
+  #joinGoalModal p {
+    font-size: 0.75em;
+  }
+
+  #joinGoalModal .labelForSelect {
+    font-size: 0.8em;
+  }
+
+  #joinGoalModal .modal-footer .btn {
+    float: left;
+    width: 48%;
+  }
+
+  .modal-content h4 {
+    font-size: 1.8em;
+    text-align: left;
+  }
+
+  .modal-content h5 {
+    font-size: 1em;
+    text-align: left;
+  }
 }

@@ -7,6 +7,7 @@ function OpenChat(props) {
     return (
       <div>
         <BuddyList
+          getAllData={props.getAllData}
           userEmail={props.userEmail}
           userID={props.userID}
           makeid={props.makeid}

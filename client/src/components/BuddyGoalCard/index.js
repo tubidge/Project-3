@@ -3,6 +3,7 @@ import { useSpring, animated } from "react-spring";
 import JoinGoalModal from "../JoinGoalModal";
 import M from "materialize-css";
 import API from "../../utils/API";
+import moment from "moment";
 import "./style.css";
 
 const BuddyGoalCard = props => {
@@ -84,7 +85,7 @@ const BuddyGoalCard = props => {
             <div className="card-content">
               <div className="card-title">{goal.name}</div>
               <p>Category: {goal.category}</p>
-              <p>Due Date: {goal.dueDate}</p>
+              <p>Due Date: {moment(goal.dueDate).format("MM/DD/YYYY")}</p>
               <div className="card-action buddyCardBtnDiv">
                 <JoinGoalModal
                   className="modal-trigger joinGoalBtn btn"
