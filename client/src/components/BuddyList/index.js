@@ -4,14 +4,12 @@ import ChatButton from "../ChatButton";
 import Loading from "../Loading";
 import M from "materialize-css";
 import "./style.css";
+import API from "../../utils/API";
+import { DeleteBuddyModal } from "../DeleteBuddyModal";
 
 const BuddyList = props => {
   const [buddies] = useState(props.buddies);
   const [isLoading, setLoading] = useState(true);
-  // const [, setJoinedGoals] = useState([]);
-  // const [showJoinedGoals, setShowJoinedGoals] = useState(false);
-
-  // const temp = [];
 
   useEffect(() => {
     configChannels();
@@ -24,6 +22,13 @@ const BuddyList = props => {
     M.Collapsible.init(collapsible);
   });
 
+  const deleteBuddy = id => {
+    API.deleteBuddy(id).then(res => {
+      props.getAllData(props.userEmail);
+      console.log(res);
+    });
+  };
+
   const configChannels = () => {
     props.channels.forEach(index => {
       let channel = index;
@@ -35,22 +40,6 @@ const BuddyList = props => {
     });
   };
 
-  // const getJoinedGoals = username => {
-  //   buddies.map(index => {
-  //     if (index.username === username) {
-  //       temp.push({
-  //         username: index.username,
-  //         id: index.buddyId,
-  //         buddyGoal: index.buddyGoal,
-  //         userGoal: index.userGoal
-  //       });
-  //     }
-  //   });
-  //   console.log(temp);
-  //   setShowJoinedGoals(!showJoinedGoals);
-  //   return setJoinedGoals(temp);
-  // };
-
   if (isLoading) return <Loading />;
 
   return (
@@ -59,7 +48,7 @@ const BuddyList = props => {
         <ul className="collapsible expandable">
           {props.buddies &&
             props.buddiesUsername.map(buddy => (
-              <li key={buddy.buddyId}>
+              <li key={buddy.id}>
                 <div
                   style={{ cursor: "default" }}
                   className="collapsible-header"
@@ -72,14 +61,18 @@ const BuddyList = props => {
                     />
                   </div>
                   <div className="col s7 left-align">
-                    <span>
-                      <Link
-                        to={`/buddy-profile/${buddy.buddyId}`}
-                        className="username"
-                      >
-                        {buddy.username}
-                      </Link>
-                    </span>
+                    <Link
+                      to={`/buddy-profile/${buddy.buddyId}`}
+                      className="username"
+                    >
+                      {buddy.username}
+                    </Link>
+                    <DeleteBuddyModal
+                      className="deleteBuddyModal deleteBuddy modal-trigger"
+                      dataTarget={`deleteBuddy_${buddy.id}`}
+                      deleteBuddy={deleteBuddy}
+                      id={buddy.id}
+                    />
                   </div>
                   <div className="col s2">
                     <span>
