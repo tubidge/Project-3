@@ -10,8 +10,6 @@ module.exports = {
     return new Promise((resolve, reject) => {
       db.Goals.create(goal)
         .then(resp => {
-          console.log(resp);
-
           resolve(resp);
         })
         .catch(err => {
@@ -30,8 +28,6 @@ module.exports = {
         include: [db.Milestones, db.Buddy]
       })
         .then(resp => {
-          console.log("database response");
-          console.log(resp[0]);
           const goal = {
             id: resp[0].dataValues.id,
             name: resp[0].dataValues.name,
@@ -52,12 +48,7 @@ module.exports = {
               past: []
             }
           };
-
-          console.log(goal);
-
           resp[0].dataValues.Milestones.forEach(index => {
-            console.log("for each running");
-            console.log(index);
             const milestone = {};
             milestone.id = index.dataValues.id;
             milestone.name = index.dataValues.name;
@@ -71,17 +62,11 @@ module.exports = {
             milestone.userId = index.dataValues.UserId;
 
             if (milestone.completed) {
-              console.log("completed");
-
               goal.milestones.complete.push(milestone);
-              console.log(goal.milestones);
             } else {
-              console.log("incomplete");
               goal.milestones.incomplete.push(milestone);
-              console.log(goal.milestones);
             }
           });
-          console.log("after for each");
           // resp[0].dataValues.Buddies.forEach(index => {
           //   const buddy = {};
           //   buddy.id = index.dataValues.id;
@@ -97,8 +82,6 @@ module.exports = {
           //     goal.buddies.past.push(buddy);
           //   }
           // });
-          console.log("right before resolve");
-          console.log(goal);
           resolve(goal);
         })
         .catch(err => {
@@ -115,7 +98,6 @@ module.exports = {
         }
       })
         .then(resp => {
-          console.log(resp);
           const goal = {
             id: resp[0].dataValues.id,
             name: resp[0].dataValues.name,
@@ -150,8 +132,6 @@ module.exports = {
         include: [db.Milestones]
       })
         .then(resp => {
-          console.log(resp);
-
           resolve(resp);
         })
         .catch(err => {
@@ -170,23 +150,17 @@ module.exports = {
         include: [db.Milestones, db.Buddy]
       })
         .then(resp => {
-          console.log(resp);
-
           const goals = {
             currentGoals: [],
             pastGoals: []
           };
 
           resp.forEach(index => {
-            // goalIds.push(index.dataValues.id)
-            console.log("index");
-            console.log(index.dataValues);
             let date = moment().format("YYYY-MM-DD");
             let goalDate = moment(index.dataValues.dueDate)
               .add("1", "day")
               .format("YYYY-MM-DD");
             if (moment(goalDate).isAfter(date)) {
-              console.log("working");
               const goal = {};
               goal.id = index.dataValues.id;
               goal.name = index.dataValues.name;
@@ -204,10 +178,7 @@ module.exports = {
               goal.buddy = {
                 current: []
               };
-              console.log("======================");
-              console.log(goal);
               index.dataValues.Milestones.forEach(index => {
-                console.log("Milestones running");
                 const milestone = {};
                 milestone.id = index.dataValues.id;
                 milestone.name = index.dataValues.name;
@@ -227,8 +198,6 @@ module.exports = {
                 }
               });
               index.dataValues.Buddies.forEach(index => {
-                console.log("Buddies running");
-                console.log(index);
                 const myBuddy = {};
                 myBuddy.id = index.dataValues.id;
                 myBuddy.duration = index.dataValues.duration;
@@ -243,11 +212,9 @@ module.exports = {
                   goal.buddy.current.push(myBuddy);
                 }
               });
-              console.log(goal);
 
               goals.currentGoals.push(goal);
             } else {
-              console.log("else statement");
               const goal = {};
               goal.id = index.dataValues.id;
               goal.name = index.dataValues.name;
@@ -266,7 +233,6 @@ module.exports = {
                 current: []
               };
               index.dataValues.Milestones.forEach(index => {
-                console.log("Milestones running");
                 const milestone = {};
                 milestone.id = index.dataValues.id;
                 milestone.name = index.dataValues.id;
@@ -286,7 +252,6 @@ module.exports = {
                 }
               });
               index.dataValues.Buddies.forEach(index => {
-                console.log("Buddies running");
                 const myBuddy = {};
                 myBuddy.id = index.dataValues.id;
                 myBuddy.duration = index.dataValues.duration;
@@ -333,7 +298,6 @@ module.exports = {
         include: [db.Milestones, db.Buddy]
       })
         .then(resp => {
-          console.log(resp);
           const goals = {
             currentGoals: {
               complete: [],
@@ -346,15 +310,11 @@ module.exports = {
           };
 
           resp.forEach(index => {
-            // goalIds.push(index.dataValues.id)
-            console.log("index");
-            console.log(index.dataValues);
             let date = moment().format("YYYY-MM-DD");
             let goalDate = moment(index.dataValues.dueDate)
               .add("1", "day")
               .format("YYYY-MM-DD");
             if (moment(goalDate).isAfter(date)) {
-              console.log("working");
               const goal = {};
               goal.id = index.dataValues.id;
               goal.name = index.dataValues.name;
@@ -378,7 +338,7 @@ module.exports = {
                 milestone.id = index.dataValues.id;
                 milestone.name = index.dataValues.name;
                 milestone.frequency = index.dataValues.frequency;
-                milestone.dueDate = index.dataValues.dueDate
+                milestone.dueDate = index.dataValues.dueDate;
                 milestone.completed = index.dataValues.completed;
                 milestone.notes = index.dataValues.notes;
                 milestone.goalId = index.dataValues.GoalId;
@@ -464,7 +424,6 @@ module.exports = {
                   goal.buddy.past.push(buddy);
                 }
               });
-              console.log(goal);
               if (goal.complete) {
                 goals.pastGoals.complete.push(goal);
               } else {
@@ -530,7 +489,6 @@ module.exports = {
         include: [db.Milestones]
       })
         .then(resp => {
-          console.log(resp);
           resolve(resp);
         })
         .catch(err => {
@@ -553,7 +511,6 @@ module.exports = {
         }
       )
         .then(resp => {
-          console.log(resp);
           let results;
           if (resp[0] == 1) {
             results = "Info updated";

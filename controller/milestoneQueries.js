@@ -16,7 +16,6 @@ const Milestone = {
       helper
         .asyncForEach(days, async event => {
           milestone.dueDate = event;
-          console.log(milestone);
           await Milestone.addMilestone(milestone);
         })
         .then(() => {
@@ -34,7 +33,6 @@ const Milestone = {
         range(milestone.startDate),
         range(milestone.endDate)
       );
-      console.log(milestone);
       if (milestone.frequency === "Never") {
         Milestone.addMilestone(milestone).then(data => {
           resolve(data);
@@ -48,7 +46,6 @@ const Milestone = {
               arr.push(moment(index._d).format("YYYY-MM-DD"));
             });
 
-            console.log(arr);
             Milestone.populateMilestones(milestone, arr)
               .then(data => {
                 resolve(data);
@@ -64,7 +61,6 @@ const Milestone = {
               weekArr.push(moment(index._d).format("YYYY-MM-DD"));
             });
 
-            console.log(weekArr);
             Milestone.populateMilestones(milestone, weekArr)
               .then(data => {
                 resolve(data);
@@ -80,7 +76,6 @@ const Milestone = {
               monthArr.push(moment(index._d).format("YYYY-MM-DD"));
             });
 
-            console.log(monthArr);
             Milestone.populateMilestones(milestone, monthArr)
               .then(data => {
                 resolve(data);
@@ -98,8 +93,6 @@ const Milestone = {
     return new Promise((resolve, reject) => {
       db.Milestones.create(milestone)
         .then(resp => {
-          console.log(resp);
-
           resolve(resp);
         })
         .catch(err => {
@@ -117,7 +110,6 @@ const Milestone = {
         }
       })
         .then(resp => {
-          console.log(resp);
           const results = {
             completed: [],
             incomplete: []
@@ -148,7 +140,6 @@ const Milestone = {
               await goal
                 .getBasicGoal(index.goalId)
                 .then(resp => {
-                  console.log(resp);
                   let category = resp.category;
                   index.category = category;
                 })
@@ -162,7 +153,6 @@ const Milestone = {
                   await goal
                     .getBasicGoal(index.goalId)
                     .then(resp => {
-                      console.log(resp);
                       let category = resp.category;
                       index.category = category;
                     })
@@ -260,7 +250,6 @@ const Milestone = {
         }
       })
         .then(resp => {
-          console.log(resp);
           const milestones = [];
           const names = [];
           resp.forEach(index => {
@@ -294,7 +283,6 @@ const Milestone = {
         }
       })
         .then(resp => {
-          console.log(resp);
           const milestone = {
             id: resp[0].dataValues.id,
             name: resp[0].dataValues.name,
@@ -317,10 +305,6 @@ const Milestone = {
   },
 
   getDateRange: (startDate, endDate, user) => {
-    // let start = startDate.concat(" 00:00:00");
-    // let end = endDate.concat(" 00:00:00");
-    // console.log(start);
-    // console.log(end);
     return new Promise((resolve, reject) => {
       db.Milestones.findAll({
         where: {
@@ -382,10 +366,7 @@ const Milestone = {
         }
       })
         .then(resp => {
-          console.log(resp);
-
           const results = [];
-
           resp.forEach(index => {
             const milestone = {
               id: index.dataValues.id,
@@ -423,7 +404,6 @@ const Milestone = {
         }
       )
         .then(resp => {
-          console.log(resp);
           let results;
           if (resp[0] == 1) {
             results = "Info updated";
@@ -472,8 +452,6 @@ const Milestone = {
         }
       })
         .then(resp => {
-          console.log(resp);
-
           resolve(resp);
         })
         .catch(err => {

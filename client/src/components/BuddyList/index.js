@@ -3,17 +3,18 @@ import { Link } from "react-router-dom";
 import ChatButton from "../ChatButton";
 import Loading from "../Loading";
 import M from "materialize-css";
-import "./style.css";
 import API from "../../utils/API";
 import { DeleteBuddyModal } from "../DeleteBuddyModal";
+import "./style.css";
 
 const BuddyList = props => {
   const [buddies] = useState(props.buddies);
   const [isLoading, setLoading] = useState(true);
+  const [buddyGoals, setBuddyGoals] = useState([]);
 
   useEffect(() => {
     configChannels();
-    setLoading(false);
+    getBuddyGoals();
   }, []);
 
   useEffect(() => {
@@ -22,9 +23,18 @@ const BuddyList = props => {
     M.Collapsible.init(collapsible);
   });
 
+  const getBuddyGoals = () => {
+    API.getBuddyComponent(props.userID).then(res => {
+      console.log(res.data.buddies);
+      setBuddyGoals(res.data.buddies);
+      setLoading(false);
+    });
+  };
+
   const deleteBuddy = id => {
     API.deleteBuddy(id).then(res => {
       props.getAllData(props.userEmail);
+      getBuddyGoals(props.userID);
       console.log(res);
     });
   };
@@ -46,13 +56,10 @@ const BuddyList = props => {
     <>
       <section className="buddyList">
         <ul className="collapsible expandable">
-          {props.buddies &&
-            props.buddiesUsername.map(buddy => (
+          {buddyGoals &&
+            buddyGoals.map(buddy => (
               <li key={buddy.id}>
-                <div
-                  style={{ cursor: "default" }}
-                  className="collapsible-header"
-                >
+                <div className="collapsible-header">
                   <div className="col s3">
                     <img
                       src={buddy.image}
@@ -62,17 +69,11 @@ const BuddyList = props => {
                   </div>
                   <div className="col s7 left-align">
                     <Link
-                      to={`/buddy-profile/${buddy.buddyId}`}
+                      to={`/buddy-profile/${buddy.id}`}
                       className="username"
                     >
                       {buddy.username}
                     </Link>
-                    <DeleteBuddyModal
-                      className="deleteBuddyModal deleteBuddy modal-trigger"
-                      dataTarget={`deleteBuddy_${buddy.id}`}
-                      deleteBuddy={deleteBuddy}
-                      id={buddy.id}
-                    />
                   </div>
                   <div className="col s2">
                     <span>
@@ -88,16 +89,22 @@ const BuddyList = props => {
                     </span>
                   </div>
                 </div>
-                {/* <div className="collapsible-body">
-                  <Link to="#" onClick={() => getJoinedGoals(buddy.username)}>
-                    {!showJoinedGoals ? "See Goals" : "Hide Goals"}
-                  </Link>
-                  {showJoinedGoals
-                    ? joinedGoals.map(index => (
-                        <div key={index.userGoal}>{index.buddyGoal}</div>
-                      ))
-                    : null}
-                </div> */}
+                <div className="collapsible-body">
+                  <div key={buddy.id}>
+                    {buddy.joinedGoals.map(goal => (
+                      <div key={goal.id}>
+                        <span>{goal.buddyGoal}</span>{" "}
+                        <DeleteBuddyModal
+                          className="deleteBuddyModal deleteBuddy modal-trigger material-icons btn-blue btn btn-small"
+                          dataTarget={`deleteBuddy_${goal.id}`}
+                          deleteBuddy={deleteBuddy}
+                          id={goal.id}
+                          endDate={goal.endDate}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </li>
             ))}
           {!props.buddies && null}

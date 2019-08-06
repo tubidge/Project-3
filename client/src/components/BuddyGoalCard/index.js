@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSpring, animated } from "react-spring";
 import JoinGoalModal from "../JoinGoalModal";
 import M from "materialize-css";
@@ -7,6 +7,8 @@ import moment from "moment";
 import "./style.css";
 
 const BuddyGoalCard = props => {
+  const [joinedGoals, setJoinedGoals] = useState([]);
+
   const slideDown = useSpring({
     from: {
       marginTop: -1000
@@ -15,6 +17,22 @@ const BuddyGoalCard = props => {
       marginTop: 0
     }
   });
+
+  useEffect(() => {
+    getJoinedGoals();
+  }, []);
+
+  const getJoinedGoals = () => {
+    let temp = [];
+    if (props.buddyGoals.length > 0) {
+      props.buddyGoals.map(buddy => {
+        buddy.joinedGoals.map(goal => {
+          temp.push(goal.id);
+        });
+      });
+    }
+    setJoinedGoals(temp);
+  };
 
   const renderFollowBtn = (id, name) => {
     let ids = [];

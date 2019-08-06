@@ -18,7 +18,6 @@ module.exports = {
         profilePic: profilePic
       })
         .then(resp => {
-          console.log(resp);
           const results = {
             id: resp.dataValues.id,
             firstName: resp.dataValues.firstName,
@@ -43,7 +42,6 @@ module.exports = {
         }
       })
         .then(resp => {
-          console.log(resp);
           const results = {
             id: resp[0].dataValues.id,
             firstName: resp[0].dataValues.firstName,
@@ -65,7 +63,6 @@ module.exports = {
     return new Promise((resolve, reject) => {
       db.User.findAll({})
         .then(resp => {
-          console.log(resp.length);
           const users = [];
           resp.forEach(index => {
             const user = {
@@ -90,7 +87,6 @@ module.exports = {
     return new Promise((resolve, reject) => {
       db.User.findAll({})
         .then(resp => {
-          console.log(resp.length);
           const data = [{}];
           resp.forEach(index => {
             const user = {
@@ -117,8 +113,6 @@ module.exports = {
         }
       })
         .then(resp => {
-          console.log(resp);
-
           let userId = resp[0].dataValues.UserId;
 
           db.User.findAll({
@@ -127,8 +121,6 @@ module.exports = {
             }
           })
             .then(resp => {
-              console.log(resp);
-
               const results = {
                 id: resp[0].dataValues.id,
                 firstName: resp[0].dataValues.firstName,
@@ -158,7 +150,6 @@ module.exports = {
         }
       })
         .then(resp => {
-          console.log(resp);
           const results = {
             id: resp[0].dataValues.id,
             firstName: resp[0].dataValues.firstName,
@@ -234,19 +225,11 @@ module.exports = {
             }
           };
           const getBuddies = async id => {
-            console.log(`getbuddies id ${id}`);
-            console.log("test");
-
             await buddy
               .getAllBuddiesId(id)
               .then(resp => {
-                console.log("where the fuck is this");
-                console.log(resp);
-                console.log("resp");
                 if (resp.length > 0) {
                   resp.forEach(index => {
-                    console.log("index");
-                    console.log(index);
                     if (index.active) {
                       const myBuddy = {};
                       myBuddy.id = index.id;
@@ -259,7 +242,6 @@ module.exports = {
                       myBuddy.goalId = index.goalId;
                       myBuddy.ownerId = index.ownerId;
                       myBuddy.image = index.image;
-                      console.log(myBuddy);
                       user.buddies.myBuddies.push(myBuddy);
                     } else {
                       return false;
@@ -271,40 +253,26 @@ module.exports = {
                 const buddyArr = [];
                 helper
                   .asyncForEach(user.buddies.myBuddies, async event => {
-                    console.log(event);
-                    console.log(typeof event.buddyId);
                     const getGoal = id => {
                       goalQuery.getBasicGoal(id).then(resp => {
-                        console.log("=========-------=======");
-                        console.log("BUDDY");
-                        console.log(resp);
                         goalName = resp.name;
                       });
                     };
                     const getUserGoal = id => {
                       goalQuery.getBasicGoal(id).then(resp => {
-                        console.log("=========-------=======");
-                        console.log("USER");
-                        console.log(resp);
                         userGoal = resp.name;
                       });
                     };
-
-                    console.log("this is the event");
-                    console.log(typeof id);
                     let goalName;
                     let userGoal;
                     getUserGoal(event.goalId);
                     getGoal(event.buddyGoal);
                     if (parseInt(id) === event.buddyId) {
-                      console.log("true");
                       await db.User.findAll({
                         where: {
                           id: event.ownerId
                         }
                       }).then(resp => {
-                        console.log("async await");
-                        console.log(resp);
                         const buddyData = {
                           id: event.id,
                           email: resp[0].dataValues.email,
@@ -320,18 +288,14 @@ module.exports = {
                         };
 
                         buddyArr.push(buddyData);
-                        console.log(buddyArr);
                         user.buddies.allBuddies = buddyArr;
                       });
                     } else {
-                      console.log("false");
                       await db.User.findAll({
                         where: {
                           id: event.buddyId
                         }
                       }).then(resp => {
-                        console.log("async await");
-                        console.log(resp);
                         const buddyData = {
                           id: event.id,
                           email: resp[0].dataValues.email,
@@ -345,7 +309,6 @@ module.exports = {
                         };
 
                         buddyArr.push(buddyData);
-                        console.log(buddyArr);
                         user.buddies.allBuddies = buddyArr;
                       });
                     }
@@ -431,8 +394,6 @@ module.exports = {
         include: [db.Goals, db.Milestones, db.Buddy]
       })
         .then(resp => {
-          console.log("query");
-          console.log(resp[0].dataValues.Milestones);
           const data = resp[0].dataValues;
           const goalIds = [];
           const user = {
@@ -465,20 +426,13 @@ module.exports = {
           };
 
           const getBuddies = id => {
-            console.log(`getbuddies id ${id}`);
             helper
               .asyncForEach(id, async event => {
-                console.log("test");
-
                 await buddy
                   .getAllBuddiesId(id)
                   .then(resp => {
-                    console.log(resp);
-                    console.log("resp");
                     if (resp.length > 0) {
                       resp.forEach(index => {
-                        console.log("index");
-                        console.log(index);
                         if (index.active) {
                           const myBuddy = {};
                           myBuddy.id = index.id;
@@ -490,7 +444,6 @@ module.exports = {
                           myBuddy.channel = index.chatChannel;
                           myBuddy.goalId = index.goalId;
                           myBuddy.ownerId = index.ownerId;
-                          console.log(myBuddy);
                           user.buddies.myBuddies.push(myBuddy);
                         } else {
                           return false;
@@ -506,19 +459,12 @@ module.exports = {
                 const buddyArr = [];
                 helper
                   .asyncForEach(user.buddies.myBuddies, async event => {
-                    console.log(event);
-                    console.log(typeof event.buddyId);
-                    console.log("this is the event");
-                    console.log(typeof id);
                     if (parseInt(id) === event.buddyId) {
-                      console.log("true");
                       await db.User.findAll({
                         where: {
                           id: event.ownerId
                         }
                       }).then(resp => {
-                        console.log("async await");
-                        console.log(resp);
                         const buddyData = {
                           id: event.id,
                           email: resp[0].dataValues.email,
@@ -527,18 +473,14 @@ module.exports = {
                         };
 
                         buddyArr.push(buddyData);
-                        console.log(buddyArr);
                         user.buddies.allBuddies = buddyArr;
                       });
                     } else {
-                      console.log("false");
                       await db.User.findAll({
                         where: {
                           id: event.buddyId
                         }
                       }).then(resp => {
-                        console.log("async await");
-                        console.log(resp);
                         const buddyData = {
                           id: event.id,
                           email: resp[0].dataValues.email,
@@ -547,7 +489,6 @@ module.exports = {
                         };
 
                         buddyArr.push(buddyData);
-                        console.log(buddyArr);
                         user.buddies.allBuddies = buddyArr;
                       });
                     }
@@ -1083,8 +1024,6 @@ module.exports = {
         include: [db.Goals, db.Milestones, db.Buddy]
       })
         .then(resp => {
-          console.log("query");
-
           const data = resp[0].dataValues;
           const userId = data.id;
           const goalIds = [];
@@ -1135,7 +1074,6 @@ module.exports = {
                       myBuddy.goalId = index.goalId;
                       myBuddy.ownerId = index.ownerId;
                       myBuddy.image = index.image;
-                      console.log(myBuddy);
                       user.buddies.myBuddies.push(myBuddy);
                     } else {
                       return false;
@@ -1163,7 +1101,6 @@ module.exports = {
                     getUserGoal(event.goalId);
                     getGoal(event.buddyGoal);
                     if (parseInt(id) === event.buddyId) {
-                      console.log("true");
                       await db.User.findAll({
                         where: {
                           id: event.ownerId
@@ -1219,8 +1156,6 @@ module.exports = {
                 console.log(err);
               });
           };
-
-          console.log("[][][][][][][][][][][][][][]");
           if (data.Goals.length > 0) {
             data.Goals.forEach(index => {
               goalIds.push(index.dataValues.id);
@@ -1335,7 +1270,6 @@ module.exports = {
         }
       )
         .then(resp => {
-          console.log(resp);
           let results;
           if (resp[0] == 1) {
             results = "Info updated";
@@ -1343,6 +1277,111 @@ module.exports = {
             results = "Error updating info";
           }
           resolve(results);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  },
+  getBuddyComponent: id => {
+    return new Promise((resolve, reject) => {
+      db.User.findAll({
+        where: {
+          id: id
+        },
+        include: [db.Buddy]
+      })
+        .then(resp => {
+          console.log("FIRST RESP");
+          console.log(resp[0].dataValues.Buddies);
+          const user = {
+            id: resp[0].dataValues.id,
+            username: resp[0].dataValues.username,
+            email: resp[0].dataValues.email,
+            image: resp[0].dataValues.image,
+            buddies: []
+          };
+          helper
+            .asyncForEach(resp[0].dataValues.Buddies, async index => {
+              console.log(index);
+              if (index.UserId === user.id) {
+                console.log("TRUTHY");
+
+                await db.User.findAll({
+                  where: {
+                    id: index.buddyId
+                  }
+                }).then(resp => {
+                  let userBuddy = {
+                    id: resp[0].dataValues.id,
+                    username: resp[0].dataValues.username,
+                    email: resp[0].dataValues.email,
+                    image: resp[0].dataValues.image,
+                    joinedGoals: []
+                  };
+
+                  if (user.buddies.length) {
+                    user.buddies.forEach(index => {
+                      console.log(index);
+                      if (index.id === userBuddy.id) {
+                        return false;
+                      } else {
+                        console.log("ADDING BUDDY");
+                        user.buddies.push(userBuddy);
+                      }
+                    });
+                  } else {
+                    user.buddies.push(userBuddy);
+                  }
+                });
+              } else {
+                await db.User.findAll({
+                  where: {
+                    id: index.UserId
+                  }
+                }).then(resp => {
+                  let userBuddy = {
+                    id: resp[0].dataValues.id,
+                    username: resp[0].dataValues.username,
+                    email: resp[0].dataValues.email,
+                    image: resp[0].dataValues.image,
+                    joinedGoals: []
+                  };
+                  if (user.buddies.length) {
+                    user.buddies.forEach(index => {
+                      console.log(index);
+                      if (index.id === userBuddy.id) {
+                        return false;
+                      } else {
+                        console.log("ADDING BUDDY");
+                        user.buddies.push(userBuddy);
+                      }
+                    });
+                  } else {
+                    user.buddies.push(userBuddy);
+                  }
+                });
+              }
+            })
+            .then(() => {
+              helper
+                .asyncForEach(user.buddies, async index => {
+                  await buddy.getAllBuddiesId(index.id).then(data => {
+                    data.forEach(arg => {
+                      if (arg.ownerId == id) {
+                        index.joinedGoals.push(arg);
+                      } else if (arg.buddyId == id) {
+                        index.joinedGoals.push(arg);
+                      } else {
+                        return false;
+                      }
+                    });
+                  });
+                })
+                .then(() => {
+                  resolve(user);
+                });
+            });
         })
         .catch(err => {
           reject(err);

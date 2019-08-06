@@ -20,13 +20,6 @@
   transition: all 0.3s ease-in-out 0s;
 }
 
-.findBuddies_dashboard .material-icons {
-  position: relative;
-  top: 4px;
-  font-size: 1.2em;
-  font-weight: bold;
-}
-
 .findBuddies_Dashboard:hover {
   color: var(--accentGold);
   -moz-transition: all 0.3s ease-in-out 0s;
