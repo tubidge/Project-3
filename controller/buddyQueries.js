@@ -257,6 +257,8 @@
 // };
 
 var db = require("../models");
+const helper = require("../utils/helperFunctions");
+const goalQuery = require("./goalQueries");
 const moment = require("moment");
 
 module.exports = {
@@ -308,7 +310,25 @@ module.exports = {
 
               results.push(buddy);
             });
-            resolve(results);
+            helper
+              .asyncForEach(results, async index => {
+                await goalQuery.getBasicGoal(index.buddyGoal).then(data => {
+                  console.log(data);
+                  index.buddyGoalName = data.name;
+                });
+              })
+              .then(() => {
+                helper
+                  .asyncForEach(results, async index => {
+                    await goalQuery.getBasicGoal(index.goalId).then(data => {
+                      console.log(data);
+                      index.userGoalName = data.name;
+                    });
+                  })
+                  .then(() => {
+                    resolve(results);
+                  });
+              });
           });
         })
         .catch(err => {

@@ -56,7 +56,7 @@ module.exports = {
           helper
             .asyncForEach(resp[0].dataValues.Buddies, async index => {
               console.log(index);
-              if (index.id === user.id) {
+              if (index.UserId === user.id) {
                 console.log("TRUTHY");
 
                 await db.User.findAll({
@@ -71,12 +71,25 @@ module.exports = {
                     image: resp[0].dataValues.image,
                     joinedGoals: []
                   };
-                  user.buddies.push(userBuddy);
+
+                  if (user.buddies.length) {
+                    user.buddies.forEach(index => {
+                      console.log(index);
+                      if (index.id === userBuddy.id) {
+                        return false;
+                      } else {
+                        console.log("ADDING BUDDY");
+                        user.buddies.push(userBuddy);
+                      }
+                    });
+                  } else {
+                    user.buddies.push(userBuddy);
+                  }
                 });
               } else {
                 await db.User.findAll({
                   where: {
-                    id: index.id
+                    id: index.UserId
                   }
                 }).then(resp => {
                   let userBuddy = {
@@ -86,8 +99,19 @@ module.exports = {
                     image: resp[0].dataValues.image,
                     joinedGoals: []
                   };
-
-                  user.buddies.push(userBuddy);
+                  if (user.buddies.length) {
+                    user.buddies.forEach(index => {
+                      console.log(index);
+                      if (index.id === userBuddy.id) {
+                        return false;
+                      } else {
+                        console.log("ADDING BUDDY");
+                        user.buddies.push(userBuddy);
+                      }
+                    });
+                  } else {
+                    user.buddies.push(userBuddy);
+                  }
                 });
               }
             })
@@ -97,9 +121,9 @@ module.exports = {
                   await buddy.getAllBuddiesId(index.id).then(data => {
                     data.forEach(arg => {
                       if (arg.ownerId == id) {
-                        index.joinedGoals = arg;
+                        index.joinedGoals.push(arg);
                       } else if (arg.buddyId == id) {
-                        index.joinedGoals = arg;
+                        index.joinedGoals.push(arg);
                       } else {
                         return false;
                       }
@@ -568,7 +592,7 @@ module.exports = {
                           myBuddy.active = index.active;
                           myBuddy.buddyId = index.buddyId;
                           myBuddy.buddyGoal = index.buddyGoal;
-                          z;
+
                           myBuddy.channel = index.chatChannel;
                           myBuddy.goalId = index.goalId;
                           myBuddy.ownerId = index.ownerId;
