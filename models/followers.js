@@ -20,6 +20,9 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false
       }
     });
+    Followers.hasMany(model.Notifications, {
+      onDelete: "cascade"
+    });
   };
 
   return Followers;

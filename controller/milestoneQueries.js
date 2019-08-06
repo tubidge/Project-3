@@ -6,8 +6,11 @@ const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 const helper = require("../utils/helperFunctions");
 const goal = require("../controller/goalQueries");
+const userQuery = require("./userQueries");
+const buddyQuery = require("./buddyQueries");
+const notificationQuery = require("./notificationQueries");
 
-const Milestone = {
+module.exports = {
   // This method will create a new milestone in the database. The milestone parameter is an object that will be
   // constructed based off data from the req.body object and req.params.id
 
@@ -424,6 +427,69 @@ const Milestone = {
       )
         .then(resp => {
           console.log(resp);
+          const getMilestone = async id => {
+            await db.Milestones.findOne({
+              where: {
+                id: id
+              }
+            }).then(data => {
+              console.log(data.dataValues);
+              let userId = data.dataValues.UserId;
+              let milestone = data.dataValues.name;
+              let goalId = data.dataValues.GoalId;
+              getUser(userId, milestone, goalId);
+            });
+          };
+
+          const getUser = async (userId, milestone, goalId) => {
+            await userQuery
+              .getBasicUser(userId)
+              .then(data => {
+                let user = data.username;
+                getGoal(user, milestone, goalId, userId);
+              })
+              .catch(err => {
+                console.log(err);
+              });
+          };
+
+          const getGoal = async (user, milestone, goalId, userId) => {
+            await goal.getBasicGoal(goalId).then(data => {
+              let goalName = data.name;
+
+              let message = `${user} completed ${milestone} for their goal ${goalName}`;
+              getBuddy(goalId, message, userId);
+            });
+          };
+
+          const getBuddy = async (goalId, message, userId) => {
+            await buddyQuery.getByGoal(goalId).then(data => {
+              console.log(data);
+              const notif = {
+                message: message
+              };
+              data.forEach(index => {
+                if (index.buddyId === userId) {
+                  notif.UserId = index.ownerId;
+                  alertBuddy(notif);
+                } else {
+                  notif.UserId = index.buddyId;
+                  alertBuddy(notif);
+                }
+              });
+            });
+          };
+
+          const alertBuddy = async notification => {
+            await notificationQuery.newNotification(notification).then(resp => {
+              console.log(resp);
+            });
+          };
+
+          if (colName === "completed") {
+            getMilestone(id);
+          }
+
           let results;
           if (resp[0] == 1) {
             results = "Info updated";
@@ -482,5 +548,3 @@ const Milestone = {
     });
   }
 };
-
-module.exports = Milestone;

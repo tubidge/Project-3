@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const Notification = sequelize.define("Notifications", {
+  const Notifications = sequelize.define("Notifications", {
     message: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -18,16 +18,43 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false
+    },
+    sendTo: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      validate: {
+        isNumeric: true
+      }
     }
   });
 
-  Notification.associate = model => {
-    Notification.belongsTo(model.User, {
+  Notifications.associate = model => {
+    Notifications.belongsTo(model.User, {
       foreignKey: {
-        allowNull: false
+        allowNull: true
+      }
+    });
+    Notifications.belongsTo(model.Goals, {
+      foreignKey: {
+        allowNull: true
+      }
+    });
+    Notifications.belongsTo(model.Milestones, {
+      foreignKey: {
+        allowNull: true
+      }
+    });
+    Notifications.belongsTo(model.Buddy, {
+      foreignKey: {
+        allowNull: true
+      }
+    });
+    Notifications.belongsTo(model.Followers, {
+      foreignKey: {
+        allowNull: true
       }
     });
   };
 
-  return Notification;
+  return Notifications;
 };

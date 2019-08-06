@@ -88,14 +88,11 @@ module.exports = app => {
   // This route will update a milestone selected off of id.
   // It will update the info for the column name that is passed in
   app.put("/milestone/:id", (req, res) => {
-    let colName = req.body.data.colName;
-    let info = req.body.data.info;
-    console.log(req.body.data);
-    console.log(colName);
-    console.log(info);
-    console.log(req.params.id);
-    // let colName = "completed";
-    // let info = true;
+    // let colName = req.body.data.colName;
+    // let info = req.body.data.info;
+
+    let colName = "completed";
+    let info = true;
     milestone
       .updateMilestone(req.params.id, colName, info)
       .then(data => {

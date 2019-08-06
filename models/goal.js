@@ -58,6 +58,9 @@ module.exports = function(sequelize, DataTypes) {
     Goal.hasMany(model.Followers, {
       onDelete: "cascade"
     });
+    Goal.hasMany(model.Notifications, {
+      onDelete: "cascade"
+    });
   };
   return Goal;
 };
