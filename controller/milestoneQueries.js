@@ -4,9 +4,10 @@ const momentRange = require("moment-range");
 const range = momentRange.extendMoment(moment);
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
-const helper = require("../utils/helperFunctions");
-const goal = require("../controller/goalQueries");
 const userQuery = require("./userQueries");
+const helper = require("../utils/helperFunctions");
+const goal = require("./goalQueries");
+console.log("HELLO: ", userQuery);
 const buddyQuery = require("./buddyQueries");
 const notificationQuery = require("./notificationQueries");
 
@@ -427,21 +428,27 @@ module.exports = {
       )
         .then(resp => {
           console.log(resp);
+
           const getMilestone = async id => {
             await db.Milestones.findOne({
               where: {
                 id: id
               }
-            }).then(data => {
-              console.log(data.dataValues);
-              let userId = data.dataValues.UserId;
-              let milestone = data.dataValues.name;
-              let goalId = data.dataValues.GoalId;
-              getUser(userId, milestone, goalId);
-            });
+            })
+              .then(data => {
+                console.log(data.dataValues);
+                let userId = data.dataValues.UserId;
+                let milestone = data.dataValues.name;
+                let goalId = data.dataValues.GoalId;
+                getUser(userId, milestone, goalId);
+              })
+              .catch(err => {
+                console.log(err);
+              });
           };
 
           const getUser = async (userId, milestone, goalId) => {
+            console.log({ userQuery });
             await userQuery
               .getBasicUser(userId)
               .then(data => {

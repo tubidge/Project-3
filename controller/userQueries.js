@@ -1,7 +1,6 @@
 const db = require("../models");
 const helper = require("../utils/helperFunctions");
 const buddy = require("../controller/buddyQueries");
-const milestoneQuery = require("./milestoneQueries");
 const moment = require("moment");
 const goalQuery = require("./goalQueries");
 

@@ -3,7 +3,7 @@ const helper = require("../utils/helperFunctions");
 const User = require("./userQueries");
 const Goal = require("./goalQueries");
 const notificationQuery = require("./notificationQueries");
-
+console.log("FOLLOWER: ", User);
 module.exports = {
   addFollower: data => {
     return new Promise((resolve, reject) => {
