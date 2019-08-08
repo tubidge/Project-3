@@ -43,6 +43,13 @@
   background-color: #f5f5f5 !important;
 }
 
+.buddyList .deleteBuddy {
+  position: relative;
+  bottom: 12px;
+  left: 7px;
+  font-size: 12px !important;
+}
+
 .buddyList .deleteBuddy:hover {
   color: var(--accentGold) !important;
 }
@@ -50,7 +57,13 @@
 .buddyList .deleteBuddyDiv {
   margin-top: 30px;
   color: gray;
-  font-size: 12px;
+}
+
+.buddyList .userGoalName {
+  position: relative;
+  bottom: 20px;
+  left: 12px;
+  opacity: 0.8;
 }
 
 .buddyList .deleteBuddyDiv h5 {

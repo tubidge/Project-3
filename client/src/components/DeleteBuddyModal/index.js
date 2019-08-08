@@ -1,18 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import moment from "moment";
+import M from "materialize-css";
 import "./style.css";
 
-export const DeleteBuddyModal = props => {
+const DeleteBuddyModal = props => {
+  useEffect(() => {
+    M.AutoInit();
+  }, []);
+
   return (
     <>
-      <i className={props.className} data-target={props.dataTarget}>
-        X
-      </i>
+      <span className={props.className} data-target={props.dataTarget}>
+        {props.btnName}
+      </span>
       <div id={props.dataTarget} className="modal">
         <div className="modal-content">
-          <h4 style={{ textAlign: "left" }} className="modalTitle">
-            Leave Goal
-          </h4>
+          <h5>
+            Leave Goal:{" "}
+            <span className="brandedText">{props.buddyGoalName}</span>
+          </h5>
           <h5>Are you sure you?</h5>
           <p>
             This connection is scheduled to end on{" "}
@@ -36,3 +42,5 @@ export const DeleteBuddyModal = props => {
     </>
   );
 };
+
+export default DeleteBuddyModal;

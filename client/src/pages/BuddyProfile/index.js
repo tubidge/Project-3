@@ -87,7 +87,7 @@ const BuddyProfile = props => {
     API.getUserByEmail(user.email).then(resp => {
       let userData = resp.data;
       API.getBuddyComponent(userData.id).then(res => {
-        setBuddyGoals(res.data);
+        setBuddyGoals(res.data.buddies);
         API.getAllGoals(userData.id).then(res => {
           let goalData = res.data;
           setGoalInfo(goalData);
@@ -152,12 +152,14 @@ const BuddyProfile = props => {
         <div className="row">
           <div className="col l8 s12 center-align">
             <BuddyGoalCard
+              getUserData={getUserData}
               buddyGoals={buddyGoals}
               following={following}
               incompleteGoals={buddyIncompleteGoals}
               currentUserGoals={incompleteGoals}
               addBuddy={addBuddy}
               userId={userInfo.id}
+              userEmail={userInfo.email}
               buddyId={buddyData.id}
               buddyName={buddyData.username}
               orderRender={orderRender}

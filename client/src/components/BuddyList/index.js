@@ -4,7 +4,7 @@ import ChatButton from "../ChatButton";
 import Loading from "../Loading";
 import M from "materialize-css";
 import API from "../../utils/API";
-import { DeleteBuddyModal } from "../DeleteBuddyModal";
+import DeleteBuddyModal from "../DeleteBuddyModal";
 import "./style.css";
 
 const BuddyList = props => {
@@ -50,6 +50,15 @@ const BuddyList = props => {
     });
   };
 
+  const getUnique = (arr, comp) => {
+    const unique = arr
+      .map(e => e[comp])
+      .map((e, i, final) => final.indexOf(e) === i && i)
+      .filter(e => arr[e])
+      .map(e => arr[e]);
+    return unique;
+  };
+
   if (isLoading) return <Loading />;
 
   return (
@@ -57,7 +66,7 @@ const BuddyList = props => {
       <section className="buddyList">
         <ul className="collapsible expandable">
           {buddyGoals &&
-            buddyGoals.map(buddy => (
+            getUnique(buddyGoals, "username").map(buddy => (
               <li key={buddy.id}>
                 <div className="collapsible-header">
                   <div className="col s3">
@@ -93,14 +102,21 @@ const BuddyList = props => {
                   <div key={buddy.id}>
                     {buddy.joinedGoals.map(goal => (
                       <div key={goal.id}>
-                        <span>{goal.buddyGoal}</span>{" "}
                         <DeleteBuddyModal
-                          className="deleteBuddyModal deleteBuddy modal-trigger material-icons btn-blue btn btn-small"
+                          btnName="x"
+                          className="right deleteBuddyModal deleteBuddy modal-trigger btn-blue btn btn-small"
                           dataTarget={`deleteBuddy_${goal.id}`}
                           deleteBuddy={deleteBuddy}
                           id={goal.id}
                           endDate={goal.endDate}
                         />
+                        <span className="buddyGoalName brandedText truncate">
+                          {goal.buddyGoalName}
+                        </span>
+                        <br />
+                        <span className="userGoalName">
+                          {goal.userGoalName}
+                        </span>
                       </div>
                     ))}
                   </div>

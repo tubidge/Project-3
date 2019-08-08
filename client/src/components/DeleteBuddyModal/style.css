@@ -5,3 +5,7 @@
   margin: 5px;
   padding: 0px 10px !important;
 }
+
+.leaveGoalBtn:hover {
+  background-color: var(--blue) !important;
+}

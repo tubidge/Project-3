@@ -59,6 +59,7 @@ const JoinGoalModal = props => {
         props.userId
       );
       M.toast({ html: "Buddy added!" });
+      props.getUserData(props.userEmail);
       clearFields();
     }
   };
