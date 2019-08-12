@@ -7,16 +7,16 @@ const Op = Sequelize.Op;
 const userQuery = require("./userQueries");
 const helper = require("../utils/helperFunctions");
 const goal = require("./goalQueries");
-console.log("HELLO: ", userQuery);
 const buddyQuery = require("./buddyQueries");
 const notificationQuery = require("./notificationQueries");
 
-module.exports = {
+const Milestone = {
   // This method will create a new milestone in the database. The milestone parameter is an object that will be
   // constructed based off data from the req.body object and req.params.id
 
   populateMilestones: (milestone, days) => {
     return new Promise((resolve, reject) => {
+      console.log("POPULATE RUNNING");
       helper
         .asyncForEach(days, async event => {
           milestone.dueDate = event;
@@ -38,9 +38,66 @@ module.exports = {
         range(milestone.startDate),
         range(milestone.endDate)
       );
+
+      const getUser = async () => {
+        console.log("get user running");
+        console.log(milestone);
+        await userQuery
+          .getBasicUser(milestone.UserId)
+          .then(data => {
+            let user = data.username;
+            getGoal(user);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      };
+
+      const getGoal = async user => {
+        await goal.getBasicGoal(milestone.GoalId).then(data => {
+          let goalName = data.name;
+          let message;
+          if (milestone.frequency === "Never") {
+            message = `${user} added ${
+              milestone.name
+            } as a milestone to their goal ${goalName}`;
+          } else {
+            message = `${user} added a ${milestone.frequency} ${
+              milestone.name
+            } milestone to their goal ${goalName}`;
+          }
+          getBuddy(message);
+        });
+      };
+
+      const getBuddy = async message => {
+        await buddyQuery.getByGoal(milestone.GoalId).then(data => {
+          console.log(data);
+          const notif = {
+            message: message
+          };
+          data.forEach(index => {
+            if (index.buddyId === milestone.UserId) {
+              notif.UserId = index.ownerId;
+              alertBuddy(notif);
+            } else {
+              notif.UserId = index.buddyId;
+              alertBuddy(notif);
+            }
+          });
+        });
+      };
+
+      const alertBuddy = async notification => {
+        await notificationQuery.newNotification(notification).then(resp => {
+          console.log(resp);
+        });
+      };
+
       console.log(milestone);
       if (milestone.frequency === "Never") {
         Milestone.addMilestone(milestone).then(data => {
+          getUser();
           resolve(data);
         });
       } else {
@@ -51,10 +108,12 @@ module.exports = {
             results.forEach(index => {
               arr.push(moment(index._d).format("YYYY-MM-DD"));
             });
-
+            console.log("ARRAY");
             console.log(arr);
             Milestone.populateMilestones(milestone, arr)
               .then(data => {
+                console.log(".THEN STATEMENT");
+                getUser();
                 resolve(data);
               })
               .catch(err => {
@@ -71,6 +130,7 @@ module.exports = {
             console.log(weekArr);
             Milestone.populateMilestones(milestone, weekArr)
               .then(data => {
+                getUser();
                 resolve(data);
               })
               .catch(err => {
@@ -87,6 +147,7 @@ module.exports = {
             console.log(monthArr);
             Milestone.populateMilestones(milestone, monthArr)
               .then(data => {
+                getUser();
                 resolve(data);
               })
               .catch(err => {
@@ -555,3 +616,5 @@ module.exports = {
     });
   }
 };
+
+module.exports = Milestone;

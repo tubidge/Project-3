@@ -1,5 +1,5 @@
 const milestone = require("../controller/milestoneQueries");
-
+const notifications = require("../controller/notificationQueries");
 module.exports = app => {
   // This route will add a new milestone to the database.
   // The req.body object needs to contain name, frequency, dueDate, GoalId, and UserId
@@ -9,17 +9,30 @@ module.exports = app => {
     const userMilestone = req.body.data;
     // let userMilestone = {
     //   name: "2 hour workout",
-    //   frequency: "Daily",
-    //   startDate: "2019-07-12",
-    //   endDate: "2019-07-30",
+    //   frequency: "Weekly",
+    //   startDate: "2019-08-12",
+    //   endDate: "2019-08-30",
     //   UserId: 1,
-    //   GoalId: 1
+    //   GoalId: 3
     // };
     milestone
       .configureMilestones(userMilestone)
       .then(data => {
         console.log("response data");
         console.log(data);
+        res.send(data);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
+
+  // This route will create a reminder notification for a specific milestone. The object needs to include the MilestoneId and the UserId
+  app.post("/milestone/reminder", (req, res) => {
+    let reminder = req.body.data;
+    notifications
+      .addMilestoneReminder(reminder)
+      .then(data => {
         res.send(data);
       })
       .catch(err => {

@@ -1,7 +1,4 @@
 const db = require("../models");
-const follower = require("./followerQueries");
-const goalQuery = require("./goalQueries");
-const userQuery = require("./userQueries");
 
 module.exports = {
   newNotification: notification => {
@@ -102,6 +99,20 @@ module.exports = {
           read: 0
         }
       })
+        .then(resp => {
+          console.log(resp);
+
+          resolve(resp);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  },
+
+  addMilestoneReminder: notification => {
+    return new Promise((resolve, reject) => {
+      db.Notifications.create(notification)
         .then(resp => {
           console.log(resp);
 
