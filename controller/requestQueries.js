@@ -2,6 +2,7 @@ const db = require("../models");
 const notificationQueries = require("./notificationQueries");
 const userQueries = require("./userQueries");
 const goalQueries = require("./goalQueries");
+const buddyQueries = require("./buddyQueries");
 
 module.exports = {
   addRequest: request => {
@@ -53,6 +54,53 @@ module.exports = {
             });
           };
           getUsers();
+          resolve(resp);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  },
+
+  acceptRequest: id => {
+    return new Promise((resolve, reject) => {
+      db.Requests.findOne({
+        where: {
+          id: id
+        }
+      })
+        .then(resp => {
+          console.log(resp);
+          let newBuddy = {
+            duration: resp.dataValues.duration,
+            buddyId: resp.dataValues.buddyId,
+            buddyGoal: resp.dataValues.buddyGoal,
+            GoalId: resp.dataValues.GoalId,
+            UserId: resp.dataValues.UserId
+          };
+
+          buddyQueries.addBuddyRelation(newBuddy).then(resp => {
+            console.log(resp);
+
+            resolve(resp);
+          });
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  },
+
+  getRequest: id => {
+    return new Promise((resolve, reject) => {
+      db.Requests.findOne({
+        where: {
+          id: id
+        }
+      })
+        .then(resp => {
+          console.log(resp);
+
           resolve(resp);
         })
         .catch(err => {

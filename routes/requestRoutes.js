@@ -21,6 +21,17 @@ module.exports = app => {
       });
   });
 
+  app.post("/accept/request/:id", (req, res) => {
+    requestQueries
+      .acceptRequest(req.params.id)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
+
   app.delete("/request/:id", (req, res) => {
     requestQueries
       .deleteRequest(req.params.id)
