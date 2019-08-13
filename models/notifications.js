@@ -7,6 +7,13 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true
       }
     },
+    body: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        len: [2, 1000]
+      }
+    },
     time: {
       type: DataTypes.DATE,
       allowNull: true,
@@ -44,12 +51,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true
       }
     });
-    Notifications.belongsTo(model.Buddy, {
-      foreignKey: {
-        allowNull: true
-      }
-    });
-    Notifications.belongsTo(model.Followers, {
+    Notifications.belongsTo(model.Requests, {
       foreignKey: {
         allowNull: true
       }

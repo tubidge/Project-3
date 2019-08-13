@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const Buddy = sequelize.define("Buddy", {
+  const Requests = sequelize.define("Requests", {
     duration: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -7,24 +7,12 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true
       }
     },
-    endDate: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      validation: {
-        notEmpty: true
-      }
-    },
-    active: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: true
-    },
-    chatChannel: {
+
+    message: {
       type: DataTypes.STRING,
       allowNull: true,
-      defaultValue: undefined,
       validation: {
-        notEmpty: true
+        len: [1, 255]
       }
     },
 
@@ -47,18 +35,20 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
-  Buddy.associate = model => {
-    Buddy.belongsTo(model.User, {
+  Requests.associate = model => {
+    Requests.belongsTo(model.Goals, {
       foreignKey: {
         allowNull: false
       }
     });
-    Buddy.belongsTo(model.Goals, {
+    Requests.belongsTo(model.User, {
       foreignKey: {
         allowNull: false
       }
+    });
+    Requests.hasMany(model.Notifications, {
+      onDelete: "cascade"
     });
   };
-
-  return Buddy;
+  return Requests;
 };
