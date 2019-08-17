@@ -1,5 +1,7 @@
 const milestone = require("../controller/milestoneQueries");
 const notifications = require("../controller/notificationQueries");
+const moment = require("moment");
+const helper = require("../utils/helperFunctions");
 module.exports = app => {
   // This route will add a new milestone to the database.
   // The req.body object needs to contain name, frequency, dueDate, GoalId, and UserId
@@ -20,6 +22,28 @@ module.exports = app => {
       .then(data => {
         console.log("response data");
         console.log(data);
+        res.send(data);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
+
+  app.post("/reminder", (req, res) => {
+    let now = moment()
+      .add("1", "minutes")
+      .format();
+
+    let data = {
+      message: "milestone name due",
+      time: now,
+      MilestoneId: 2,
+      UserId: 1
+    };
+    helper.createChronJob(data.time, data.MilestoneId);
+    notifications
+      .newNotification(data)
+      .then(data => {
         res.send(data);
       })
       .catch(err => {

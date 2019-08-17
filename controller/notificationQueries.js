@@ -72,11 +72,11 @@ module.exports = {
     });
   },
 
-  getBuddyNotifications: buddyId => {
+  getRequestNotifications: buddyId => {
     return new Promise((resolve, reject) => {
       db.Notifications.findAll({
         where: {
-          BuddyId: buddyId,
+          RequestId: buddyId,
           read: 0
         }
       })
@@ -108,19 +108,19 @@ module.exports = {
           reject(err);
         });
     });
-  },
-
-  addMilestoneReminder: notification => {
-    return new Promise((resolve, reject) => {
-      db.Notifications.create(notification)
-        .then(resp => {
-          console.log(resp);
-
-          resolve(resp);
-        })
-        .catch(err => {
-          reject(err);
-        });
-    });
   }
+
+  // addMilestoneReminder: notification => {
+  //   return new Promise((resolve, reject) => {
+  //     db.Notifications.create(notification)
+  //       .then(resp => {
+  //         console.log(resp);
+
+  //         resolve(resp);
+  //       })
+  //       .catch(err => {
+  //         reject(err);
+  //       });
+  //   });
+  // }
 };
