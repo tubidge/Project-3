@@ -9,19 +9,15 @@ import M from "materialize-css";
 
 function GoalOverview(props) {
   const [currentGoals, setCurrentGoals] = useState();
-  //   const [pastGoals, setPastGoals] = useState(props.pastGoals);
   const [pastView, setPastView] = useState([]);
   const [pastIndex, setPastIndex] = useState(0);
   const [, setSelectedGoal] = useState();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentView, setCurrentView] = useState();
-
   const [reRender, setreRender] = useState(false);
   const [search, setSearch] = useState();
   const [start, setStart] = useState();
   const [end, setEnd] = useState();
-  // const [confirmMessage, setConfirmMessage] = useState();
-  // const [confirmType, setConfirmType] = useState();
 
   useEffect(() => {
     M.AutoInit();
@@ -82,21 +78,12 @@ function GoalOverview(props) {
       } else {
         setPastView(false);
       }
-
-      //   console.log(">>>>>>>>>>>>>>>");
-      //   console.log(props.category);
-      //   console.log(resp.data.currentGoals);
-
-      //   props.renderGoalsForCategory(props.category, resp.data.currentGoals);
     });
   };
 
   const next = () => {
     let add;
-
     let max = currentGoals.length - 1;
-    // let num = currentGoals.length - 1;
-
     if (currentIndex < 0) {
       add = currentGoals.length - 2;
     } else {
@@ -169,8 +156,6 @@ function GoalOverview(props) {
       setreRender(!reRender);
       props.orderRender();
     } else {
-      // setreRender(!reRender);
-
       setSelectedGoal(false);
     }
   };
@@ -236,13 +221,6 @@ function GoalOverview(props) {
         break;
     }
   };
-
-  // const completeGoal = (id, name) => {
-  //   setSelectedGoal(id);
-  //   setConfirmMessage(`This will complete your goal journey for '${name}'`);
-  //   setConfirmType("Complete");
-  //   openConfirmModal();
-  // };
 
   const generateIcon = category => {
     switch (category) {
@@ -312,13 +290,13 @@ function GoalOverview(props) {
                         <>
                           <div className="white-text card overview-goal">
                             <div className="row">
-                              <div className="col s6">
+                              <div className="col l6 s12">
                                 <i className="material-icons categoryIcon_GoalPage">
                                   {generateIcon(goal.category)}
                                 </i>
                               </div>
                               <div
-                                className="col s6"
+                                className="col l6 s12"
                                 style={{
                                   display: "flex",
                                   justifyContent: "flex-end"
