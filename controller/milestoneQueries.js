@@ -4,8 +4,11 @@ const momentRange = require("moment-range");
 const range = momentRange.extendMoment(moment);
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
+const userQuery = require("./userQueries");
 const helper = require("../utils/helperFunctions");
-const goal = require("../controller/goalQueries");
+const goal = require("./goalQueries");
+const buddyQuery = require("./buddyQueries");
+const notificationQuery = require("./notificationQueries");
 
 const Milestone = {
   // This method will create a new milestone in the database. The milestone parameter is an object that will be
@@ -13,6 +16,7 @@ const Milestone = {
 
   populateMilestones: (milestone, days) => {
     return new Promise((resolve, reject) => {
+      console.log("POPULATE RUNNING");
       helper
         .asyncForEach(days, async event => {
           milestone.dueDate = event;
@@ -34,9 +38,66 @@ const Milestone = {
         range(milestone.startDate),
         range(milestone.endDate)
       );
+
+      const getUser = async () => {
+        console.log("get user running");
+        console.log(milestone);
+        await userQuery
+          .getBasicUser(milestone.UserId)
+          .then(data => {
+            let user = data.username;
+            getGoal(user);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      };
+
+      const getGoal = async user => {
+        await goal.getBasicGoal(milestone.GoalId).then(data => {
+          let goalName = data.name;
+          let message;
+          if (milestone.frequency === "Never") {
+            message = `${user} added ${
+              milestone.name
+            } as a milestone to their goal ${goalName}`;
+          } else {
+            message = `${user} added a ${milestone.frequency} ${
+              milestone.name
+            } milestone to their goal ${goalName}`;
+          }
+          getBuddy(message);
+        });
+      };
+
+      const getBuddy = async message => {
+        await buddyQuery.getByGoal(milestone.GoalId).then(data => {
+          console.log(data);
+          const notif = {
+            message: message
+          };
+          data.forEach(index => {
+            if (index.buddyId === milestone.UserId) {
+              notif.UserId = index.ownerId;
+              alertBuddy(notif);
+            } else {
+              notif.UserId = index.buddyId;
+              alertBuddy(notif);
+            }
+          });
+        });
+      };
+
+      const alertBuddy = async notification => {
+        await notificationQuery.newNotification(notification).then(resp => {
+          console.log(resp);
+        });
+      };
+
       console.log(milestone);
       if (milestone.frequency === "Never") {
         Milestone.addMilestone(milestone).then(data => {
+          getUser();
           resolve(data);
         });
       } else {
@@ -47,10 +108,12 @@ const Milestone = {
             results.forEach(index => {
               arr.push(moment(index._d).format("YYYY-MM-DD"));
             });
-
+            console.log("ARRAY");
             console.log(arr);
             Milestone.populateMilestones(milestone, arr)
               .then(data => {
+                console.log(".THEN STATEMENT");
+                getUser();
                 resolve(data);
               })
               .catch(err => {
@@ -67,6 +130,7 @@ const Milestone = {
             console.log(weekArr);
             Milestone.populateMilestones(milestone, weekArr)
               .then(data => {
+                getUser();
                 resolve(data);
               })
               .catch(err => {
@@ -83,6 +147,7 @@ const Milestone = {
             console.log(monthArr);
             Milestone.populateMilestones(milestone, monthArr)
               .then(data => {
+                getUser();
                 resolve(data);
               })
               .catch(err => {
@@ -424,6 +489,75 @@ const Milestone = {
       )
         .then(resp => {
           console.log(resp);
+
+          const getMilestone = async id => {
+            await db.Milestones.findOne({
+              where: {
+                id: id
+              }
+            })
+              .then(data => {
+                console.log(data.dataValues);
+                let userId = data.dataValues.UserId;
+                let milestone = data.dataValues.name;
+                let goalId = data.dataValues.GoalId;
+                getUser(userId, milestone, goalId);
+              })
+              .catch(err => {
+                console.log(err);
+              });
+          };
+
+          const getUser = async (userId, milestone, goalId) => {
+            console.log({ userQuery });
+            await userQuery
+              .getBasicUser(userId)
+              .then(data => {
+                let user = data.username;
+                getGoal(user, milestone, goalId, userId);
+              })
+              .catch(err => {
+                console.log(err);
+              });
+          };
+
+          const getGoal = async (user, milestone, goalId, userId) => {
+            await goal.getBasicGoal(goalId).then(data => {
+              let goalName = data.name;
+
+              let message = `${user} completed ${milestone} for their goal ${goalName}`;
+              getBuddy(goalId, message, userId);
+            });
+          };
+
+          const getBuddy = async (goalId, message, userId) => {
+            await buddyQuery.getByGoal(goalId).then(data => {
+              console.log(data);
+              const notif = {
+                message: message
+              };
+              data.forEach(index => {
+                if (index.buddyId === userId) {
+                  notif.UserId = index.ownerId;
+                  alertBuddy(notif);
+                } else {
+                  notif.UserId = index.buddyId;
+                  alertBuddy(notif);
+                }
+              });
+            });
+          };
+
+          const alertBuddy = async notification => {
+            await notificationQuery.newNotification(notification).then(resp => {
+              console.log(resp);
+            });
+          };
+
+          if (colName === "completed") {
+            getMilestone(id);
+          }
+
           let results;
           if (resp[0] == 1) {
             results = "Info updated";

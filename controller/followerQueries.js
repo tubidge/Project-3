@@ -2,14 +2,45 @@ const db = require("../models");
 const helper = require("../utils/helperFunctions");
 const User = require("./userQueries");
 const Goal = require("./goalQueries");
+const notificationQuery = require("./notificationQueries");
 
 module.exports = {
   addFollower: data => {
     return new Promise((resolve, reject) => {
       db.Followers.create(data)
         .then(resp => {
+          console.log("=======================");
           console.log(resp);
+          let goalId = resp.dataValues.GoalId;
 
+          const getGoal = async () => {
+            await Goal.getBasicGoal(goalId).then(data => {
+              let goal = data.name;
+              let userId = data.userId;
+              getFollower(goal, goalId, userId);
+            });
+          };
+
+          const getFollower = async (goal, id, userId) => {
+            await User.getBasicUser(resp.dataValues.follower).then(data => {
+              console.log(data);
+              let user = data.username;
+              let message = `${user} followed your goal ${goal}`;
+              let notif = {
+                message: message,
+                GoalId: id,
+                UserId: userId
+              };
+              createNotification(notif);
+            });
+          };
+
+          const createNotification = async notification => {
+            await notificationQuery.newNotification(notification).then(resp => {
+              console.log(resp);
+            });
+          };
+          getGoal();
           resolve(resp);
         })
         .catch(err => {

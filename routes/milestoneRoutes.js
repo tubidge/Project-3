@@ -1,5 +1,7 @@
 const milestone = require("../controller/milestoneQueries");
-
+const notifications = require("../controller/notificationQueries");
+const moment = require("moment");
+const helper = require("../utils/helperFunctions");
 module.exports = app => {
   // This route will add a new milestone to the database.
   // The req.body object needs to contain name, frequency, dueDate, GoalId, and UserId
@@ -9,17 +11,52 @@ module.exports = app => {
     const userMilestone = req.body.data;
     // let userMilestone = {
     //   name: "2 hour workout",
-    //   frequency: "Daily",
-    //   startDate: "2019-07-12",
-    //   endDate: "2019-07-30",
+    //   frequency: "Weekly",
+    //   startDate: "2019-08-12",
+    //   endDate: "2019-08-30",
     //   UserId: 1,
-    //   GoalId: 1
+    //   GoalId: 3
     // };
     milestone
       .configureMilestones(userMilestone)
       .then(data => {
         console.log("response data");
         console.log(data);
+        res.send(data);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
+
+  app.post("/reminder", (req, res) => {
+    let now = moment()
+      .add("1", "minutes")
+      .format();
+
+    let data = {
+      message: "milestone name due",
+      time: now,
+      MilestoneId: 2,
+      UserId: 1
+    };
+    helper.createChronJob(data.time, data.MilestoneId);
+    notifications
+      .newNotification(data)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
+
+  // This route will create a reminder notification for a specific milestone. The object needs to include the MilestoneId and the UserId
+  app.post("/milestone/reminder", (req, res) => {
+    let reminder = req.body.data;
+    notifications
+      .addMilestoneReminder(reminder)
+      .then(data => {
         res.send(data);
       })
       .catch(err => {
@@ -88,14 +125,11 @@ module.exports = app => {
   // This route will update a milestone selected off of id.
   // It will update the info for the column name that is passed in
   app.put("/milestone/:id", (req, res) => {
-    let colName = req.body.data.colName;
-    let info = req.body.data.info;
-    console.log(req.body.data);
-    console.log(colName);
-    console.log(info);
-    console.log(req.params.id);
-    // let colName = "completed";
-    // let info = true;
+    // let colName = req.body.data.colName;
+    // let info = req.body.data.info;
+
+    let colName = "completed";
+    let info = true;
     milestone
       .updateMilestone(req.params.id, colName, info)
       .then(data => {
