@@ -79,7 +79,7 @@
   width: 100%;
 } */
 #curtain {
-  position: absolute;
+  position: relative;
   z-index: 100;
   width: 75%;
   top: 15%;

@@ -21,8 +21,11 @@ import goldWellnessBadge from "../../assets/badges/gold_wellness.svg";
 import goldEducationBadge from "../../assets/badges/gold_education.svg";
 
 import "./style.css";
+import API from "../../utils/API";
 
 const UserProfile = props => {
+  const [followers, setFollowers] = useState([]);
+
   const fade = useSpring({
     from: {
       opacity: 0
@@ -64,6 +67,14 @@ const UserProfile = props => {
       setEducationGoals(tempEducationGoals);
     }
   }, []);
+
+  useEffect(() => {
+    getFollowers();
+  }, []);
+
+  const getFollowers = () => {
+    API.getFollowers(props.userId).then(res => setFollowers(res.data));
+  };
 
   const renderBadge = (array, category) => {
     if (array.length > 7) {
@@ -161,7 +172,7 @@ const UserProfile = props => {
               </>
             )}
           </div>
-          <div className="col s6">
+          <div className="col s4">
             <span style={{ fontSize: "1.2em" }} className="brandedText">
               Goals
             </span>
@@ -172,13 +183,22 @@ const UserProfile = props => {
                 : props.incompleteGoals.length}
             </span>
           </div>
-          <div className="col s6">
+          <div className="col s4">
             <span style={{ fontSize: "1.2em" }} className="brandedText">
               Buddies
             </span>
             <br />
             <span style={{ fontSize: "1.1em" }}>
               {props.buddies ? props.buddies.length : "0"}
+            </span>
+          </div>
+          <div className="col s4">
+            <span style={{ fontSize: "1.2em" }} className="brandedText">
+              Followers
+            </span>
+            <br />
+            <span style={{ fontSize: "1.1em" }}>
+              {followers ? followers.length : "0"}
             </span>
           </div>
         </div>
