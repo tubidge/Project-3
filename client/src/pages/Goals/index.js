@@ -37,6 +37,7 @@ const Goals = props => {
 
   const getAllData = () => {
     API.getGoalPageInfo(user.email).then(resp => {
+      console.log(resp.data);
       let userData = resp.data;
       setGoalInfo(userData.activeGoals);
       if (userData.buddies) {
