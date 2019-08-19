@@ -68,6 +68,9 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false
       }
     });
+    Milestone.hasMany(model.Notifications, {
+      onDelete: "cascade"
+    });
   };
 
   return Milestone;

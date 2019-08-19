@@ -113,8 +113,8 @@ module.exports = app => {
   // This route will select a goal by id from the database and then update
   // a particular column's info
   app.put("/goal/update/:id", (req, res) => {
-    let colName = req.body.data.colName;
-    let info = req.body.data.info;
+    let colName = "complete";
+    let info = true;
     goal
       .updateGoal(req.params.id, colName, info)
       .then(data => {
