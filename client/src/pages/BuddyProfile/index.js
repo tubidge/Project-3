@@ -26,6 +26,7 @@ const BuddyProfile = props => {
   const [buddyData, setBuddyData] = useState([]);
   const [allBuddies, setAllBuddies] = useState([]);
   const [following, setFollowing] = useState([]);
+  const [buddyGoals, setBuddyGoals] = useState([]);
 
   useEffect(() => {
     getBuddyData();
@@ -85,26 +86,29 @@ const BuddyProfile = props => {
   const getUserData = () => {
     API.getUserByEmail(user.email).then(resp => {
       let userData = resp.data;
-      API.getAllGoals(userData.id).then(res => {
-        let goalData = res.data;
-        setGoalInfo(goalData);
-        setUserInfo(userData);
-        setIncompleteGoals(goalData.currentGoals.incomplete);
-        setCategories(
-          goalData.currentGoals.incomplete
-            .map(goal => goal.category)
-            .reduce(
-              (unique, item) =>
-                unique.includes(item) ? unique : [...unique, item],
-              []
-            )
-        );
-        API.getFollowing(userData.id).then(response => {
-          let following = response.data;
-          setFollowing(following);
+      API.getBuddyComponent(userData.id).then(res => {
+        setBuddyGoals(res.data.buddies);
+        API.getAllGoals(userData.id).then(res => {
+          let goalData = res.data;
+          setGoalInfo(goalData);
+          setUserInfo(userData);
+          setIncompleteGoals(goalData.currentGoals.incomplete);
+          setCategories(
+            goalData.currentGoals.incomplete
+              .map(goal => goal.category)
+              .reduce(
+                (unique, item) =>
+                  unique.includes(item) ? unique : [...unique, item],
+                []
+              )
+          );
+          API.getFollowing(userData.id).then(response => {
+            let following = response.data;
+            setFollowing(following);
+          });
         });
+        setIsLoading(false);
       });
-      setIsLoading(false);
     });
   };
 
@@ -148,11 +152,14 @@ const BuddyProfile = props => {
         <div className="row">
           <div className="col l8 s12 center-align">
             <BuddyGoalCard
+              getUserData={getUserData}
+              buddyGoals={buddyGoals}
               following={following}
               incompleteGoals={buddyIncompleteGoals}
               currentUserGoals={incompleteGoals}
               addBuddy={addBuddy}
               userId={userInfo.id}
+              userEmail={userInfo.email}
               buddyId={buddyData.id}
               buddyName={buddyData.username}
               orderRender={orderRender}

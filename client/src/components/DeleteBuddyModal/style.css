@@ -1,7 +1,11 @@
 .buddyList .deleteBuddy {
+  color: white !important;
   cursor: pointer;
-  color: gray !important;
-  font-size: 12px;
-  display: block;
-  margin-top: 30px;
+  font-size: 10px !important;
+  margin: 5px;
+  padding: 0px 10px !important;
+}
+
+.leaveGoalBtn:hover {
+  background-color: var(--blue) !important;
 }

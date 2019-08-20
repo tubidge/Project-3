@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSpring, animated } from "react-spring";
 import JoinGoalModal from "../JoinGoalModal";
+import DeleteBuddyModal from "../DeleteBuddyModal";
 import M from "materialize-css";
 import API from "../../utils/API";
 import moment from "moment";
 import "./style.css";
 
 const BuddyGoalCard = props => {
+  const [filteredBuddyGoals, setBuddyGoals] = useState([]);
+
   const slideDown = useSpring({
     from: {
       marginTop: -1000
@@ -15,6 +18,25 @@ const BuddyGoalCard = props => {
       marginTop: 0
     }
   });
+
+  useEffect(() => {
+    setBuddyGoals(getJoinedGoals);
+  }, []);
+
+  const getJoinedGoals = () => {
+    let temp = [];
+    props.buddyGoals
+      .filter(item => item.username === props.buddyName)
+      .map(item => item.joinedGoals.map(goal => temp.push(goal.buddyGoal)));
+    return temp;
+  };
+
+  const deleteBuddy = id => {
+    API.deleteBuddy(id).then(res => {
+      setBuddyGoals(getJoinedGoals);
+      console.log(res);
+    });
+  };
 
   const renderFollowBtn = (id, name) => {
     let ids = [];
@@ -87,24 +109,48 @@ const BuddyGoalCard = props => {
               <p>Category: {goal.category}</p>
               <p>Due Date: {moment(goal.dueDate).format("MM/DD/YYYY")}</p>
               <div className="card-action buddyCardBtnDiv">
-                <JoinGoalModal
-                  className="modal-trigger joinGoalBtn btn"
-                  btnName={"Join goal"}
-                  dataTarget={`joinGoal_${goal.id}`}
-                  currentUserGoals={props.currentUserGoals}
-                  addBuddy={props.addBuddy}
-                  buddyName={props.buddyName}
-                  userId={props.userId}
-                  buddyGoalName={goal.name}
-                  buddyId={props.buddyId}
-                  buddyGoalId={goal.id}
-                />
-                {renderFollowBtn(goal.id, goal.name)}
+                {getJoinedGoals().includes(goal.id) ? (
+                  <DeleteBuddyModal
+                    btnName="Leave Goal"
+                    className="right leaveGoalBtn modal-trigger btn-darkBlue btn btn-small"
+                    dataTarget={`deleteBuddy_${goal.id}`}
+                    deleteBuddy={deleteBuddy}
+                    id={goal.id}
+                    endDate={goal.endDate}
+                    buddyGoalName={goal.name}
+                  />
+                ) : (
+                  <>
+                    <JoinGoalModal
+                      getUserData={props.getUserData}
+                      className="modal-trigger joinGoalBtn btn"
+                      btnName="Join Goal"
+                      dataTarget={`joinGoal_${goal.id}`}
+                      currentUserGoals={props.currentUserGoals}
+                      addBuddy={props.addBuddy}
+                      buddyName={props.buddyName}
+                      userEmail={props.userEmail}
+                      userId={props.userId}
+                      buddyGoalName={goal.name}
+                      buddyId={props.buddyId}
+                      buddyGoalId={goal.id}
+                    />
+                    {renderFollowBtn(goal.id, goal.name)}
+                  </>
+                )}
               </div>
             </div>
           </div>
         </div>
       ))}
+      {filteredBuddyGoals.map(item =>
+        item.joinedGoals.map(goal => (
+          <ul key={goal.buddyGoal}>
+            <li>{goal.buddyGoalName}</li>
+            <span>{goal.buddyGoal}</span>
+          </ul>
+        ))
+      )}
     </animated.div>
   );
 };

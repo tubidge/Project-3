@@ -1,7 +1,7 @@
 var db = require("../models");
 const helper = require("../utils/helperFunctions");
-const goalQuery = require("./goalQueries");
 const moment = require("moment");
+const goalQuery = require("./goalQueries");
 
 module.exports = {
   // This id is the buddyId. This method will return all active buddy goal relationships that this id is associated with
@@ -72,36 +72,6 @@ module.exports = {
                   });
               });
           });
-        })
-        .catch(err => {
-          reject(err);
-        });
-    });
-  },
-
-  // This id is the row id. This method will return a single buddy relationship
-  getById: id => {
-    return new Promise((resolve, reject) => {
-      db.Buddy.findAll({
-        where: {
-          id: id,
-          active: 1
-        }
-      })
-        .then(resp => {
-          const buddy = {
-            id: resp[0].dataValues.id,
-            duration: resp[0].dataValues.duration,
-            buddyId: resp[0].dataValues.buddyId,
-            endDate: resp[0].dataValues.endDate,
-            buddyGoal: resp[0].dataValues.buddyGoal,
-            goalId: resp[0].dataValues.GoalId,
-            chatChannel: resp[0].chatChannel,
-            active: resp[0].dataValues.active,
-            ownerId: resp[0].dataValues.UserId
-          };
-
-          resolve(buddy);
         })
         .catch(err => {
           reject(err);

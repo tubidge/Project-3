@@ -214,5 +214,9 @@ export default {
 
   deleteFollower: id => {
     return axios.delete("/follower/" + id);
+  },
+
+  getBuddyComponent: id => {
+    return axios.get("/user/buddies/" + id);
   }
 };

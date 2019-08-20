@@ -8,6 +8,7 @@ const JoinGoalModal = props => {
   const [, setGoal] = useState("");
   const [selectedDuration, setSelectedDuration] = useState("");
   const [, setDuration] = useState("");
+  const [joinedGoals, setJoinedGoals] = useState([]);
 
   useEffect(() => {
     M.AutoInit();
@@ -44,6 +45,11 @@ const JoinGoalModal = props => {
         html: `<i class="material-icons left">error</i>You didn't complete all the requried fields.`,
         displayLength: 2000
       });
+    } else if (joinedGoals.includes(props.buddyGoalId)) {
+      M.toast({
+        html: `<i class="material-icons left">error</i>You already joined this goal.`,
+        displayLength: 2000
+      });
     } else {
       props.addBuddy(
         selectedDuration.label,
@@ -53,6 +59,7 @@ const JoinGoalModal = props => {
         props.userId
       );
       M.toast({ html: "Buddy added!" });
+      props.getUserData(props.userEmail);
       clearFields();
     }
   };
