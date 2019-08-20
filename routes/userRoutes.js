@@ -135,6 +135,17 @@ module.exports = app => {
       });
   });
 
+  app.get("/user/buddies/:id", (req, res) => {
+    user
+      .getBuddyComponent(req.params.id)
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
+
   app.get("/goal/page/:email", (req, res) => {
     user
       .getGoalPageInfo(req.params.email)

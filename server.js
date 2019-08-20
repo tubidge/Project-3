@@ -21,6 +21,7 @@ require("./routes/milestoneRoutes")(app);
 require("./routes/buddyRoutes")(app);
 require("./routes/messageRoutes")(app);
 require("./routes/followerRoutes")(app);
+require("./routes/requestRoutes")(app);
 
 app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "/client/build/index.html"));

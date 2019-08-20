@@ -146,6 +146,7 @@ const Dashboard = () => {
               userPicture={userInfo.image ? userInfo.image : defaultLionPic}
               username={userInfo.username}
               email={userInfo.email}
+              userId={userInfo.id}
               incompleteGoals={incompleteGoals}
               completeGoals={completeGoals}
               buddies={allBuddies ? getUnique(allBuddies, "username") : null}

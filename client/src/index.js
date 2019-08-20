@@ -5,6 +5,7 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { Auth0Provider } from "./react-auth0-spa";
 import config from "./auth_config.json";
+import configDev from "./auth_configDev.json";
 
 const onRedirectCallback = appState => {
   window.history.replaceState(

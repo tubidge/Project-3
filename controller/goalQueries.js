@@ -2,6 +2,8 @@ const db = require("../models");
 const moment = require("moment");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
+const notificationQuery = require("./notificationQueries");
+const goalHelper = require("./goalHelper");
 
 module.exports = {
   // This method will add a goal to the database. The goal parameter is an object that will be constructed
@@ -512,6 +514,60 @@ module.exports = {
       )
         .then(resp => {
           let results;
+
+          const getGoal = async () => {
+            await goalHelper.getBasicGoal(id).then(data => {
+              console.log(data);
+              let goalName = data.name;
+              let userId = data.userId;
+              getUser(goalName, userId);
+            });
+          };
+
+          const getUser = async (goalName, userId) => {
+            await goalHelper.getBasicUser(userId).then(data => {
+              console.log("============");
+              console.log(data);
+              let user = data.username;
+              let userId = data.id;
+
+              let message = `${user} has completed their goal ${goalName}!`;
+              getBuddy(message, userId);
+            });
+          };
+          const getBuddy = async (message, userId) => {
+            console.log("GET BUDDY FUNCTION");
+            await goalHelper.getByGoal(id).then(data => {
+              let notif = {
+                message: message
+              };
+
+              if (data) {
+                data.forEach(index => {
+                  if (index.buddyId === userId) {
+                    notif.UserId = index.ownerId;
+                    alertBuddy(notif);
+                  } else {
+                    notif.UserId = index.buddyId;
+                    alertBuddy(notif);
+                  }
+                });
+              } else {
+                return false;
+              }
+            });
+          };
+
+          const alertBuddy = async notification => {
+            await notificationQuery.newNotification(notification).then(resp => {
+              console.log(resp);
+            });
+          };
+
+          if (colName === "complete") {
+            getGoal();
+          }
+
           if (resp[0] == 1) {
             results = "Info updated";
           } else {
